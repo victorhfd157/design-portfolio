@@ -42,7 +42,7 @@ const Hero: React.FC = () => {
   };
 
   // Get latest project title
-  const latestProject = PROJECTS[0];
+  const latestProject = PROJECTS && PROJECTS.length > 0 ? PROJECTS[0] : null;
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-brand-dark pt-20">
@@ -227,21 +227,23 @@ const Hero: React.FC = () => {
                 className="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-700"
               />
 
-              {/* Floating UI Elements on top of image */}
-              <div
-                className="absolute bottom-6 left-6 z-30 transition-transform duration-500 ease-out"
-                style={{ transform: `translate(${mousePosition.x * -8}px, ${mousePosition.y * -8}px)` }}
-              >
-                <div className="glass-panel px-4 py-3 rounded-xl border border-white/10 flex items-center gap-3 animate-float delay-100">
-                  <div className="bg-white/10 p-2 rounded-lg">
-                    <Sparkles size={16} className="text-yellow-400" />
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-400 font-mono">{t.hero.latest_work}</p>
-                    <p className="text-sm text-white font-bold">{latestProject.title}</p>
+              {/* Floating UI Elements on top of image - Only show if latestProject exists */}
+              {latestProject && (
+                <div
+                  className="absolute bottom-6 left-6 z-30 transition-transform duration-500 ease-out"
+                  style={{ transform: `translate(${mousePosition.x * -8}px, ${mousePosition.y * -8}px)` }}
+                >
+                  <div className="glass-panel px-4 py-3 rounded-xl border border-white/10 flex items-center gap-3 animate-float delay-100">
+                    <div className="bg-white/10 p-2 rounded-lg">
+                      <Sparkles size={16} className="text-yellow-400" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-gray-400 font-mono">{t.hero.latest_work}</p>
+                      <p className="text-sm text-white font-bold">{latestProject.title}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
 

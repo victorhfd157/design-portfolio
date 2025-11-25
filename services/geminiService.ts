@@ -3,7 +3,8 @@ import { AI_SYSTEM_INSTRUCTION } from '../constants';
 
 // Initialize the API client
 // Note: In a real production app, ensure API_KEY is set in your environment
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY || '' });
+
 
 let chatSession: Chat | null = null;
 
@@ -24,9 +25,10 @@ export const initializeChat = () => {
 };
 
 export const sendMessageToGemini = async (message: string): Promise<string> => {
-  if (!process.env.API_KEY) {
+  if (!import.meta.env.VITE_GEMINI_API_KEY) {
     return "⚠️ API Key not configured. Please add your API KEY to the environment to test the chat.";
   }
+
 
   if (!chatSession) {
     initializeChat();

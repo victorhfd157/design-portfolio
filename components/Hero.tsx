@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { MoveRight, Sparkles, Circle, Zap, Hexagon, MousePointer2, Layers } from 'lucide-react';
+import { MoveRight, Sparkles, Circle, Zap, Hexagon, MousePointer2, Layers, Atom, Orbit, Star } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { PROJECTS } from '../constants';
 
@@ -161,18 +161,32 @@ const Hero: React.FC = () => {
         {/* RIGHT COLUMN: Visual Centerpiece */}
         <div className="lg:col-span-5 relative h-[40vh] sm:h-[50vh] lg:h-[80vh] flex items-center justify-center order-1 lg:order-2 [perspective:1000px]">
 
-          {/* Floating Elements Behind */}
+          {/* Sacred Geometry Background */}
           <div
-            className="absolute top-10 right-10 animate-float delay-100 opacity-60"
+            className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-30"
+            style={{ transform: `translateZ(-50px) rotate(${mousePosition.x * 10}deg)` }}
+          >
+            <svg viewBox="0 0 500 500" className="w-[150%] h-[150%] animate-spin-slow">
+              <circle cx="250" cy="250" r="240" fill="none" stroke="rgba(99,102,241,0.2)" strokeWidth="1" />
+              <circle cx="250" cy="250" r="180" fill="none" stroke="rgba(168,85,247,0.2)" strokeWidth="1" strokeDasharray="10 10" />
+              <path d="M250 10 L490 490 L10 490 Z" fill="none" stroke="rgba(99,102,241,0.1)" strokeWidth="1" />
+              <path d="M250 490 L490 10 L10 10 Z" fill="none" stroke="rgba(99,102,241,0.1)" strokeWidth="1" />
+              <rect x="150" y="150" width="200" height="200" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="1" transform="rotate(45 250 250)" />
+            </svg>
+          </div>
+
+          {/* Floating Alchemical Elements */}
+          <div
+            className="absolute top-0 right-0 animate-float delay-100 opacity-60"
             style={{ transform: `translate(${mousePosition.x * -20}px, ${mousePosition.y * 20}px)` }}
           >
-            <Hexagon size={40} className="text-brand-accent" strokeWidth={1} />
+            <Atom size={40} className="text-brand-accent drop-shadow-[0_0_10px_rgba(99,102,241,0.5)]" strokeWidth={1} />
           </div>
           <div
-            className="absolute bottom-20 left-0 animate-float delay-300 opacity-40"
+            className="absolute bottom-10 left-0 animate-float delay-300 opacity-40"
             style={{ transform: `translate(${mousePosition.x * 30}px, ${mousePosition.y * -30}px)` }}
           >
-            <Zap size={50} className="text-purple-500" strokeWidth={1} />
+            <Orbit size={50} className="text-purple-500 drop-shadow-[0_0_10px_rgba(168,85,247,0.5)]" strokeWidth={1} />
           </div>
 
           {/* Main Card Container */}
@@ -186,12 +200,18 @@ const Hero: React.FC = () => {
               `
             }}
           >
-            {/* Glowing Ring */}
-            <div className="absolute -inset-4 bg-gradient-to-tr from-brand-accent via-purple-500 to-cyan-500 rounded-[2.5rem] opacity-30 blur-2xl animate-pulse-slow" />
+            {/* Magical Glowing Ring */}
+            <div className="absolute -inset-4 bg-gradient-to-tr from-brand-accent via-purple-500 to-cyan-500 rounded-[2.5rem] opacity-40 blur-2xl animate-pulse-slow" />
+
+            {/* Magical Border Frame */}
+            <div className="absolute -inset-[1px] bg-gradient-to-b from-white/30 via-brand-accent/50 to-purple-600/30 rounded-[2rem] z-20 pointer-events-none" />
 
             {/* Main Image Card */}
-            <div className="absolute inset-0 bg-[#1a1a1a] rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl">
+            <div className="absolute inset-0 bg-[#1a1a1a] rounded-[2rem] overflow-hidden shadow-2xl">
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80 z-10" />
+
+              {/* Mystical Overlay Texture */}
+              <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay z-10 pointer-events-none" />
 
               <img
                 src="/hero-vr.png"
@@ -201,8 +221,8 @@ const Hero: React.FC = () => {
 
               {/* Overlay Content */}
               <div className="absolute bottom-0 left-0 right-0 p-8 z-20 transform translate-z-20">
-                <div className="glass-panel p-4 rounded-xl border border-white/10 backdrop-blur-md flex items-center gap-4 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-brand-accent/20 flex items-center justify-center text-brand-accent">
+                <div className="glass-panel p-4 rounded-xl border border-white/10 backdrop-blur-md flex items-center gap-4 mb-4 shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+                  <div className="w-10 h-10 rounded-full bg-brand-accent/20 flex items-center justify-center text-brand-accent border border-brand-accent/30">
                     <Sparkles size={20} />
                   </div>
                   <div>
@@ -213,12 +233,12 @@ const Hero: React.FC = () => {
               </div>
             </div>
 
-            {/* Floating Glass Cards */}
+            {/* Floating Glass Cards with Runes */}
             <div
               className="absolute -right-8 top-20 glass-panel p-4 rounded-2xl border border-white/20 shadow-xl backdrop-blur-xl animate-float delay-700 hidden sm:block"
               style={{ transform: 'translateZ(40px)' }}
             >
-              <MousePointer2 size={24} className="text-white mb-2" />
+              <Star size={24} className="text-white mb-2 drop-shadow-[0_0_5px_rgba(255,255,255,0.8)]" />
               <div className="w-12 h-1 bg-white/20 rounded-full" />
             </div>
 
@@ -226,7 +246,7 @@ const Hero: React.FC = () => {
               className="absolute -left-8 bottom-40 glass-panel p-4 rounded-2xl border border-white/20 shadow-xl backdrop-blur-xl animate-float delay-500 hidden sm:block"
               style={{ transform: 'translateZ(60px)' }}
             >
-              <Layers size={24} className="text-brand-accent mb-2" />
+              <Hexagon size={24} className="text-brand-accent mb-2 drop-shadow-[0_0_5px_rgba(99,102,241,0.8)]" />
               <div className="w-8 h-1 bg-brand-accent/30 rounded-full" />
             </div>
           </div>

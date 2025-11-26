@@ -8,9 +8,12 @@ const Hero: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { t } = useLanguage();
 
-  // Handle mouse move for parallax
+  // Handle mouse move for parallax & Auto-animation for mobile
   useEffect(() => {
+    let animationFrameId: number;
+
     const handleMouseMove = (e: MouseEvent) => {
+      if (window.innerWidth < 768) return; // Disable mouse tracking on mobile
       if (!containerRef.current) return;
       const { left, top, width, height } = containerRef.current.getBoundingClientRect();
       const x = (e.clientX - left) / width - 0.5;
@@ -18,9 +21,23 @@ const Hero: React.FC = () => {
       setMousePosition({ x, y });
     };
 
+    const autoAnimate = () => {
+      if (window.innerWidth < 768) {
+        const time = Date.now() * 0.001;
+        setMousePosition({
+          x: Math.sin(time * 0.5) * 0.15, // Gentle sway on X
+          y: Math.cos(time * 0.4) * 0.15  // Gentle sway on Y
+        });
+      }
+      animationFrameId = requestAnimationFrame(autoAnimate);
+    };
+
     window.addEventListener('mousemove', handleMouseMove);
+    autoAnimate();
+
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
@@ -61,7 +78,7 @@ const Hero: React.FC = () => {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:100px_100px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_70%)]" />
       </div>
 
-      <div className="container mx-auto px-4 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center h-full w-full">
+      <div className="container mx-auto px-4 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center h-full w-full">
 
         {/* LEFT COLUMN: Content */}
         <div className="lg:col-span-7 flex flex-col justify-center text-center lg:text-left order-2 lg:order-1 relative [perspective:1000px]">
@@ -84,12 +101,12 @@ const Hero: React.FC = () => {
 
           {/* Main Headline */}
           <div className="relative mb-8 sm:mb-12">
-            <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[7.5rem] xl:text-[9rem] leading-[0.85] font-black tracking-tighter text-white mix-blend-difference">
+            <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-[7.5rem] xl:text-[9rem] leading-[0.9] sm:leading-[0.85] font-black tracking-tighter text-white mix-blend-difference">
               <span className="block hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-white hover:to-gray-400 transition-all duration-500 cursor-default drop-shadow-2xl">
                 {t.hero.headline_1}
               </span>
               <span
-                className="block text-transparent bg-clip-text bg-gradient-to-r from-brand-accent via-purple-500 to-brand-accent bg-[length:200%_auto] animate-gradient font-gothic tracking-wide lg:-mt-2 drop-shadow-[0_0_25px_rgba(99,102,241,0.4)]"
+                className="block text-transparent bg-clip-text bg-gradient-to-r from-brand-accent via-purple-500 to-brand-accent bg-[length:200%_auto] animate-gradient font-gothic tracking-wide lg:-mt-2 drop-shadow-[0_0_25px_rgba(99,102,241,0.4)] text-5xl sm:text-7xl md:text-8xl lg:text-[7.5rem] xl:text-[9rem]"
                 style={{ transform: `translateX(${mousePosition.x * -10}px)` }}
               >
                 {t.hero.headline_2}
@@ -142,7 +159,7 @@ const Hero: React.FC = () => {
         </div>
 
         {/* RIGHT COLUMN: Visual Centerpiece */}
-        <div className="lg:col-span-5 relative h-[50vh] lg:h-[80vh] flex items-center justify-center order-1 lg:order-2 [perspective:1000px]">
+        <div className="lg:col-span-5 relative h-[40vh] sm:h-[50vh] lg:h-[80vh] flex items-center justify-center order-1 lg:order-2 [perspective:1000px]">
 
           {/* Floating Elements Behind */}
           <div

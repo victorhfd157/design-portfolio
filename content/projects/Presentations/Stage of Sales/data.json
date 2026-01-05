@@ -1,0 +1,20 @@
+{
+    "id": 101,
+    "title": "Stage of Sales",
+    "category": "Presentations",
+    "contentType": "presentation",
+    "embedUrl": "https://docs.google.com/presentation/d/e/2PACX-1vTp5CZz_h1fBNIBDHPc8f6FPJYgiqd3Lw9PSq_xTGH7ym7iREhAArhrjFt0yBCVeQ/embed?start=false&loop=false&delayms=3000",
+    "description": {
+        "en": "Comprehensive sales methodology presentation covering the complete sales cycle from prospecting to closing. This professional deck outlines proven strategies, best practices, and actionable frameworks for sales teams to optimize their performance at each stage of the customer journey.",
+        "pt": "Apresentação abrangente de metodologia de vendas cobrindo o ciclo completo de vendas desde a prospecção até o fechamento. Este deck profissional apresenta estratégias comprovadas, melhores práticas e frameworks acionáveis para equipes de vendas otimizarem seu desempenho em cada etapa da jornada do cliente."
+    },
+    "imageUrl": "capa.webp",
+    "year": "2024",
+    "tags": [
+        "Sales",
+        "Business",
+        "Strategy",
+        "Training",
+        "Methodology"
+    ]
+}

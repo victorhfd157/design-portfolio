@@ -1,9 +1,11 @@
 import React, { useState, useMemo, useEffect, useCallback, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { loadProjects } from '../utils/projectLoader';
 import ProjectCard from './ProjectCard';
 import { Project } from '../types';
 import { X, Calendar, Layers, Sparkles, ChevronLeft, ChevronRight, Image as ImageIcon } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import EmbedViewer from './EmbedViewer';
 
 const Gallery: React.FC = () => {
   const { t, language } = useLanguage();
@@ -21,13 +23,13 @@ const Gallery: React.FC = () => {
 
   // Generate unique categories list automatically
   const categories = useMemo(() => {
-    const allCategories = projects.map(p => p.category);
+    const allCategories = projects.flatMap(p => p.categories);
     return ['All', ...Array.from(new Set(allCategories))];
   }, [projects]);
 
   const filteredProjects = activeCategory === 'All'
     ? projects
-    : projects.filter(project => project.category === activeCategory);
+    : projects.filter(project => project.categories.includes(activeCategory));
 
   const handleOpenProject = (project: Project) => {
     setSelectedProject(project);
@@ -148,18 +150,31 @@ const Gallery: React.FC = () => {
         </div>
 
         {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-          {filteredProjects.map((project, index) => (
-            <div
-              key={project.id}
-              className={`animate-fade-in`}
-              style={{ animationDelay: `${index * 100}ms` }}
-              onClick={() => handleOpenProject(project)}
-            >
-              <ProjectCard project={project} />
-            </div>
-          ))}
-        </div>
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16"
+          layout
+        >
+          <AnimatePresence mode="wait">
+            {filteredProjects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                layout
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: -20 }}
+                transition={{
+                  type: 'spring',
+                  stiffness: 100,
+                  damping: 15,
+                  delay: index * 0.05,
+                }}
+                onClick={() => handleOpenProject(project)}
+              >
+                <ProjectCard project={project} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
 
         {filteredProjects.length === 0 && (
           <div className="text-center py-32 border border-dashed border-white/10 rounded-3xl mt-8">
@@ -170,17 +185,17 @@ const Gallery: React.FC = () => {
 
       {/* Project Modal */}
       {selectedProject && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-0 sm:p-4 md:p-6">
           {/* Backdrop */}
           <div
-            className={`absolute inset-0 bg-brand-dark/95 backdrop-blur-md transition-opacity duration-500 ease-in-out ${isVisible ? 'opacity-100' : 'opacity-0'
+            className={`absolute inset-0 bg-[#050505]/95 backdrop-blur-xl transition-opacity duration-500 ease-in-out ${isVisible ? 'opacity-100' : 'opacity-0'
               }`}
             onClick={handleCloseModal}
           ></div>
 
           {/* Modal Container */}
           <div
-            className={`relative w-full max-w-7xl h-[85vh] bg-[#0a0a0a] rounded-[2rem] overflow-hidden shadow-2xl flex flex-col md:flex-row border border-white/10 group transition-all duration-500 cubic-bezier(0.34, 1.56, 0.64, 1) ${isVisible
+            className={`relative w-full h-full sm:h-[90vh] md:max-w-7xl bg-[#0a0a0a] sm:rounded-[2rem] overflow-hidden shadow-2xl flex flex-col md:flex-row border-0 sm:border border-white/10 group transition-all duration-500 cubic-bezier(0.34, 1.56, 0.64, 1) ${isVisible
               ? 'opacity-100 translate-y-0 scale-100'
               : 'opacity-0 translate-y-12 scale-95'
               }`}
@@ -190,102 +205,126 @@ const Gallery: React.FC = () => {
 
             <button
               onClick={handleCloseModal}
-              className="absolute top-6 right-6 z-40 w-12 h-12 flex items-center justify-center bg-black/50 hover:bg-white text-white hover:text-black rounded-full transition-all duration-300 backdrop-blur-md border border-white/10"
+              className="absolute top-6 right-6 z-50 w-12 h-12 flex items-center justify-center bg-black/50 hover:bg-white text-white hover:text-black rounded-full transition-all duration-300 backdrop-blur-md border border-white/10 shadow-lg hover:rotate-90"
               aria-label="Close modal"
             >
               <X size={20} />
             </button>
 
-            {/* Left Image Section (Carousel) */}
-            <div className="w-full md:w-7/12 h-64 md:h-full relative bg-black overflow-hidden group/gallery">
+            {/* Left Image Section (Carousel) or Embed Viewer */}
+            <div className="w-full md:w-7/12 h-[40vh] md:h-full relative bg-black overflow-hidden group/gallery">
 
-              {/* Main Image */}
-              <div className="w-full h-full relative overflow-hidden">
-                <img
-                  ref={imageRef}
-                  key={currentImageUrl}
-                  src={currentImageUrl}
-                  alt={selectedProject.title}
-                  className="w-full h-full object-cover opacity-90 transition-transform duration-700 ease-out will-change-transform animate-fade-in"
-                  style={{ transform: 'scale(1.1)' }}
+              {/* Conditional Rendering: Embed Viewer or Image Gallery */}
+              {selectedProject.embedUrl && (selectedProject.contentType === 'presentation' || selectedProject.contentType === 'video') ? (
+                // Render Embed Viewer for presentations and videos
+                <EmbedViewer
+                  embedUrl={selectedProject.embedUrl}
+                  contentType={selectedProject.contentType}
+                  title={selectedProject.title}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#0a0a0a] pointer-events-none"></div>
-              </div>
-
-              {/* Navigation Arrows */}
-              {galleryImages.length > 1 && (
+              ) : (
+                // Render Image Gallery (existing functionality)
                 <>
-                  <button
-                    onClick={(e) => { e.stopPropagation(); prevImage(); }}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-black/30 hover:bg-brand-accent/80 text-white rounded-full backdrop-blur-sm border border-white/10 transition-all opacity-0 group-hover/gallery:opacity-100 transform -translate-x-4 group-hover/gallery:translate-x-0"
-                  >
-                    <ChevronLeft size={24} />
-                  </button>
-                  <button
-                    onClick={(e) => { e.stopPropagation(); nextImage(); }}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-black/30 hover:bg-brand-accent/80 text-white rounded-full backdrop-blur-sm border border-white/10 transition-all opacity-0 group-hover/gallery:opacity-100 transform translate-x-4 group-hover/gallery:translate-x-0"
-                  >
-                    <ChevronRight size={24} />
-                  </button>
+                  {/* Main Image */}
+                  <div className="w-full h-full relative overflow-hidden">
+                    <img
+                      ref={imageRef}
+                      key={currentImageUrl}
+                      src={currentImageUrl}
+                      alt={selectedProject.title}
+                      className="w-full h-full object-cover opacity-90 transition-transform duration-700 ease-out will-change-transform animate-fade-in"
+                      style={{ transform: 'scale(1.05)' }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#0a0a0a] pointer-events-none opacity-80"></div>
+                  </div>
+
+                  {/* Navigation Arrows */}
+                  {galleryImages.length > 1 && (
+                    <>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); prevImage(); }}
+                        className="absolute left-4 top-1/2 -translate-y-1/2 p-4 bg-black/20 hover:bg-brand-accent/90 text-white rounded-full backdrop-blur-md border border-white/10 transition-all opacity-0 group-hover/gallery:opacity-100 transform -translate-x-4 group-hover/gallery:translate-x-0 hover:scale-110"
+                      >
+                        <ChevronLeft size={24} />
+                      </button>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); nextImage(); }}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 p-4 bg-black/20 hover:bg-brand-accent/90 text-white rounded-full backdrop-blur-md border border-white/10 transition-all opacity-0 group-hover/gallery:opacity-100 transform translate-x-4 group-hover/gallery:translate-x-0 hover:scale-110"
+                      >
+                        <ChevronRight size={24} />
+                      </button>
+                    </>
+                  )}
+
+                  {/* Thumbnails Bar */}
+                  {galleryImages.length > 1 && (
+                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 px-4 py-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full z-20 transition-all duration-300 transform translate-y-20 group-hover/gallery:translate-y-0 hover:bg-black/60">
+                      {galleryImages.map((img, idx) => (
+                        <button
+                          key={idx}
+                          onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(idx); }}
+                          className={`relative w-12 h-12 rounded-lg overflow-hidden border-2 transition-all duration-300 ${currentImageIndex === idx ? 'border-brand-accent scale-110 shadow-lg shadow-brand-accent/20' : 'border-transparent opacity-50 hover:opacity-100 hover:scale-105'
+                            }`}
+                        >
+                          <img src={img} alt={`Thumbnail ${idx}`} className="w-full h-full object-cover" />
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Image Counter Badge */}
+                  {galleryImages.length > 1 && (
+                    <div className="absolute top-6 left-6 px-4 py-2 bg-black/40 backdrop-blur-md rounded-full border border-white/10 text-xs text-white font-mono flex items-center gap-2 shadow-lg">
+                      <ImageIcon size={14} className="text-brand-accent" />
+                      <span className="tracking-widest">{currentImageIndex + 1} / {galleryImages.length}</span>
+                    </div>
+                  )}
                 </>
-              )}
-
-              {/* Thumbnails Bar */}
-              {galleryImages.length > 1 && (
-                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 px-3 py-2 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full z-20 transition-all duration-300 transform translate-y-20 group-hover/gallery:translate-y-0">
-                  {galleryImages.map((img, idx) => (
-                    <button
-                      key={idx}
-                      onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(idx); }}
-                      className={`relative w-10 h-10 rounded-lg overflow-hidden border-2 transition-all duration-300 ${currentImageIndex === idx ? 'border-brand-accent scale-110' : 'border-transparent opacity-60 hover:opacity-100'
-                        }`}
-                    >
-                      <img src={img} alt={`Thumbnail ${idx}`} className="w-full h-full object-cover" />
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {/* Image Counter Badge */}
-              {galleryImages.length > 1 && (
-                <div className="absolute top-6 left-6 px-3 py-1 bg-black/40 backdrop-blur-md rounded-full border border-white/10 text-[10px] text-white font-mono flex items-center gap-2">
-                  <ImageIcon size={12} />
-                  <span>{currentImageIndex + 1} / {galleryImages.length}</span>
-                </div>
               )}
             </div>
 
             {/* Right Content Section */}
             <div
-              className="w-full md:w-5/12 p-8 md:p-12 flex flex-col overflow-y-auto custom-scrollbar relative z-10"
+              className="w-full md:w-5/12 p-8 md:p-12 flex flex-col overflow-y-auto custom-scrollbar relative z-10 bg-gradient-to-b from-[#0a0a0a] to-[#050505]"
               onScroll={handleModalScroll}
             >
               <div className="mb-auto">
-                <span className="font-gothic text-brand-accent text-xl mb-4 block">
-                  {selectedProject.category}
-                </span>
-                <h3 className="text-4xl md:text-5xl font-serif font-bold text-white mb-8 leading-[1.1]">
+                <div className="flex items-center gap-3 mb-6">
+                  {selectedProject.categories.map(cat => (
+                    <span key={cat} className="px-3 py-1 rounded-full bg-brand-accent/10 border border-brand-accent/20 text-brand-accent text-xs font-mono uppercase tracking-widest">
+                      {cat}
+                    </span>
+                  ))}
+                </div>
+
+                <h3 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-8 leading-[1.05] tracking-tight">
                   {selectedProject.title}
                 </h3>
 
-                <div className="flex items-center gap-6 text-gray-500 font-mono text-xs mb-10 border-b border-white/10 pb-8 uppercase tracking-widest">
-                  <div className="flex items-center">
-                    <Calendar size={14} className="mr-2" />
+                <div className="flex items-center gap-8 text-gray-400 font-mono text-xs mb-12 border-b border-white/10 pb-8 uppercase tracking-widest">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-full bg-white/5">
+                      <Calendar size={14} className="text-brand-accent" />
+                    </div>
                     <span>{selectedProject.year}</span>
                   </div>
-                  <div className="flex items-center">
-                    <Layers size={14} className="mr-2" />
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-full bg-white/5">
+                      <Layers size={14} className="text-brand-accent" />
+                    </div>
                     <span>{t.gallery.case_study}</span>
                   </div>
                 </div>
 
-                <div className="prose prose-invert prose-lg">
-                  <p className="text-gray-300 font-light leading-loose text-lg mb-8">
+                <div className="prose prose-invert prose-lg max-w-none">
+                  <p className="text-gray-300 font-light leading-loose text-lg mb-8 first-letter:text-5xl first-letter:font-serif first-letter:text-brand-accent first-letter:mr-3 first-letter:float-left">
                     {selectedProject.description[language]}
                   </p>
-                  <p className="text-gray-400 font-light text-sm leading-relaxed border-l-2 border-brand-accent pl-4">
-                    {t.gallery.description_prefix}
-                  </p>
+                  <div className="bg-white/5 p-6 rounded-2xl border border-white/5">
+                    <p className="text-gray-400 font-light text-sm leading-relaxed italic">
+                      "{t.gallery.description_prefix}"
+                    </p>
+                  </div>
                 </div>
               </div>
 
@@ -299,7 +338,7 @@ const Gallery: React.FC = () => {
                   {selectedProject.tags.map(tag => (
                     <span
                       key={tag}
-                      className="px-4 py-1.5 border border-white/20 rounded-full text-xs text-gray-300 font-mono uppercase tracking-wider hover:bg-white hover:text-black hover:border-white transition-all duration-300 cursor-default shadow-[0_0_10px_rgba(0,0,0,0.2)]"
+                      className="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-xs text-gray-300 font-mono uppercase tracking-wider hover:bg-brand-accent/20 hover:border-brand-accent/30 hover:text-white transition-all duration-300 cursor-default hover:scale-105"
                     >
                       {tag}
                     </span>

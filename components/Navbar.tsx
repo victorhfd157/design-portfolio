@@ -8,6 +8,9 @@ const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [activeSection, setActiveSection] = useState('home');
   const location = useLocation();
   const navigate = useNavigate();
   const { language, setLanguage, t } = useLanguage();
@@ -15,19 +18,45 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Toggle Scrolled State
-      setIsScrolled(window.scrollY > 50);
+      const currentScrollY = window.scrollY;
 
-      // Calculate Progress
+      // Toggle Scrolled State
+      setIsScrolled(currentScrollY > 50);
+
+      // Scroll Direction Detection (hide navbar when scrolling down, show when scrolling up)
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsVisible(false); // Scrolling down
+      } else {
+        setIsVisible(true); // Scrolling up or at top
+      }
+      setLastScrollY(currentScrollY);
+
+      // Calculate Scroll Progress
       const totalScroll = document.documentElement.scrollTop;
       const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scroll = `${totalScroll / windowHeight}`;
       setScrollProgress(Number(scroll));
+
+      // Active Section Detection (only on home page)
+      if (location.pathname === '/') {
+        const sections = ['home', 'works', 'about', 'contact'];
+        const offsets = sections.map(id => {
+          const element = document.getElementById(id);
+          return element ? { id, offset: element.offsetTop - 200 } : { id, offset: 0 };
+        });
+
+        for (let i = offsets.length - 1; i >= 0; i--) {
+          if (currentScrollY >= offsets[i].offset) {
+            setActiveSection(offsets[i].id);
+            break;
+          }
+        }
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [lastScrollY, location.pathname]);
 
   const handleNavigation = (targetId: string) => {
     setIsMobileMenuOpen(false);
@@ -74,8 +103,10 @@ const Navbar: React.FC = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'glass-panel py-3 shadow-lg' : 'bg-transparent py-8'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled ? 'glass-panel py-3 shadow-lg' : 'bg-transparent py-8'
+        } ${isVisible ? 'translate-y-0' : '-translate-y-full'
         }`}
+      style={{ transition: 'transform 0.3s ease-in-out, background-color 0.3s, padding 0.3s' }}
     >
       <div className="container mx-auto px-6 flex justify-between items-center relative z-20">
         {/* Logo with Gothic Font */}
@@ -88,22 +119,25 @@ const Navbar: React.FC = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-10">
-          {navLinks.map((link) => (
-            <button
-              key={link.name}
-              onClick={() => handleNavigation(link.id)}
-              className={`text-xs uppercase tracking-[0.2em] font-medium relative group transition-colors focus:outline-none ${(location.pathname === '/about' && link.id === 'about') || (location.pathname === '/' && link.id === 'home' && window.scrollY < 500)
-                  ? 'text-white'
-                  : 'text-gray-400 hover:text-white'
-                }`}
-            >
-              {link.name}
-              <span
-                className={`absolute -bottom-1 left-0 h-0.5 bg-brand-accent transition-all duration-300 ${(location.pathname === '/about' && link.id === 'about') ? 'w-full' : 'w-0 group-hover:w-full'
+          {navLinks.map((link) => {
+            const isActive = location.pathname === '/about' && link.id === 'about'
+              || location.pathname === '/' && activeSection === link.id;
+
+            return (
+              <button
+                key={link.name}
+                onClick={() => handleNavigation(link.id)}
+                className={`text-xs uppercase tracking-[0.2em] font-medium relative group transition-colors focus:outline-none ${isActive ? 'text-white' : 'text-gray-400 hover:text-white'
                   }`}
-              ></span>
-            </button>
-          ))}
+              >
+                {link.name}
+                <span
+                  className={`absolute -bottom-1 left-0 h-0.5 bg-brand-accent transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                    }`}
+                ></span>
+              </button>
+            );
+          })}
 
           {/* Theme Toggle */}
           <button
@@ -145,8 +179,17 @@ const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Progress Bar (Visible only when scrolled) */}
-      <div className={`absolute bottom-0 left-0 h-[1px] bg-gradient-to-r from-brand-accent via-purple-500 to-brand-accent transition-all duration-100 ease-out opacity-0 ${isScrolled ? 'opacity-100' : ''}`} style={{ width: `${scrollProgress * 100}%` }}></div>
+      {/* Enhanced Progress Bar */}
+      <div className={`absolute bottom-0 left-0 h-[2px] transition-all duration-100 ease-out ${isScrolled ? 'opacity-100' : 'opacity-0'
+        }`}>
+        <div
+          className="h-full bg-gradient-to-r from-brand-accent via-purple-500 to-pink-500 transition-all duration-100 ease-out relative"
+          style={{ width: `${scrollProgress * 100}%` }}
+        >
+          {/* Glowing dot at the end */}
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-white shadow-[0_0_8px_rgba(99,102,241,0.8)] animate-pulse"></div>
+        </div>
+      </div>
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (

@@ -2,11 +2,12 @@ import { Project } from '../types';
 
 // Helper to load projects dynamically
 export async function loadProjects(): Promise<Project[]> {
-    // 1. Load all data.json files
-    const dataFiles = import.meta.glob('/content/projects/*/data.json', { eager: true });
+    // 1. Load all data.json files recursively
+    // This will match /content/projects/data.json, /content/projects/branding/project-a/data.json, etc.
+    const dataFiles = import.meta.glob('/content/projects/**/data.json', { eager: true });
 
     // 2. Load all images (we need their resolved URLs)
-    // We glob all images in content/projects
+    // We glob all images in content/projects recursively
     const imageFiles = import.meta.glob('/content/projects/**/*.{png,jpg,jpeg,webp,svg}', { eager: true, as: 'url' });
 
     const projects: Project[] = [];
@@ -15,31 +16,58 @@ export async function loadProjects(): Promise<Project[]> {
         const module = dataFiles[path] as { default: any };
         const data = module.default;
 
-        // Extract slug from path: /content/projects/{slug}/data.json
-        const slug = path.split('/').slice(-2, -1)[0];
+        // Extract slug from path. 
+        // If path is /content/projects/branding/my-project/data.json, slug is my-project
+        // If path is /content/projects/my-project/data.json, slug is my-project
+        const parts = path.split('/');
+        const slug = parts[parts.length - 2];
+
+        // Determine Categories
+        let categories: string[] = [];
+
+        // Priority 1: Explicit 'categories' array in data.json
+        if (Array.isArray(data.categories)) {
+            categories = data.categories;
+        }
+        // Priority 2: Explicit 'category' string in data.json (legacy support)
+        else if (data.category) {
+            categories = [data.category];
+        }
+        // Priority 3: Folder name if nested
+        // Example: /content/projects/Branding/ProjectA/data.json -> Category: Branding
+        // We check if the parent folder is NOT 'projects'
+        else {
+            const parentFolder = parts[parts.length - 3];
+            if (parentFolder !== 'projects') {
+                // Capitalize first letter
+                categories = [parentFolder.charAt(0).toUpperCase() + parentFolder.slice(1)];
+            } else {
+                categories = ['Uncategorized'];
+            }
+        }
 
         // Resolve Image URLs
-        // The data.json should contain relative paths like "./cover.png" or just "cover.png"
-        // We need to map them to the resolved URL from imageFiles
-
         const resolveImage = (relativePath: string) => {
-            // Construct the absolute path key that matches imageFiles keys
-            // path is like /content/projects/samsara-studio/data.json
-            // relativePath is like "cover.png"
-            // target is /content/projects/samsara-studio/cover.png
+            if (!relativePath) return '';
             const dir = path.substring(0, path.lastIndexOf('/'));
             const cleanRelative = relativePath.startsWith('./') ? relativePath.slice(2) : relativePath;
             const fullPath = `${dir}/${cleanRelative}`;
 
-            return imageFiles[fullPath] || relativePath; // Fallback to original if not found (e.g. external URL)
+            return imageFiles[fullPath] || relativePath;
         };
 
         const project: Project = {
             ...data,
-            id: data.id || slug, // Use slug as ID if not provided, or keep numeric if preferred
+            id: data.id || slug,
+            categories: categories,
             imageUrl: resolveImage(data.imageUrl),
             gallery: data.gallery ? data.gallery.map((img: string) => resolveImage(img)) : []
         };
+
+        // Remove legacy category field if present in spread
+        if ('category' in project) {
+            delete (project as any).category;
+        }
 
         projects.push(project);
     }

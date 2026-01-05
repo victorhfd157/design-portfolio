@@ -1,0 +1,23 @@
+{
+    "id": 101,
+    "title": "Masmind: Masmorra do Conhecimento",
+    "categories": [
+        "Presentations",
+        "E-Learning"
+    ],
+    "contentType": "presentation",
+    "embedUrl": "/projects/masmind/index.html",
+    "description": {
+        "en": "An interactive educational game where players explore a dungeon of knowledge, answering questions to progress. Built with React and Vite.",
+        "pt": "Um jogo educativo interativo onde os jogadores exploram uma masmorra do conhecimento, respondendo a perguntas para progredir. Desenvolvido com React e Vite."
+    },
+    "imageUrl": "cover.png",
+    "year": "2024",
+    "tags": [
+        "React",
+        "Gamification",
+        "E-Learning",
+        "Education",
+        "Interactive"
+    ]
+}

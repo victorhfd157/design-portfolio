@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { MoveRight, Sparkles, Circle, Zap, Hexagon } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
+import { MoveRight, Sparkles, Circle, Zap, Hexagon, TrendingUp, Award, Users } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { PROJECTS } from '../constants';
+import ParticleBackground from './ParticleBackground';
+import MagneticButton from './MagneticButton';
+import { useParallax } from '../utils/useParallax';
 
 const Hero: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [particles, setParticles] = useState<Array<{ id: number, x: number, y: number, size: number, delay: number, duration: number }>>([]);
   const { t, language } = useLanguage();
+  const parallaxOffset = useParallax(0.3);
 
   // Generate floating particles
   useEffect(() => {
@@ -44,8 +49,41 @@ const Hero: React.FC = () => {
   // Get latest project title
   const latestProject = PROJECTS && PROJECTS.length > 0 ? PROJECTS[0] : null;
 
+  // Animated stat counters
+  const Counter: React.FC<{ end: number; suffix?: string; duration?: number }> = ({ end, suffix = '', duration = 2 }) => {
+    const [count, setCount] = useState(0);
+    const countRef = useRef(0);
+
+    useEffect(() => {
+      const startTime = Date.now();
+      const endTime = startTime + duration * 1000;
+
+      const updateCount = () => {
+        const now = Date.now();
+        const progress = Math.min((now - startTime) / (duration * 1000), 1);
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        countRef.current = Math.floor(easeOutQuart * end);
+        setCount(countRef.current);
+
+        if (now < endTime) {
+          requestAnimationFrame(updateCount);
+        } else {
+          setCount(end);
+        }
+      };
+
+      const timer = setTimeout(updateCount, 500); // Start after 500ms
+      return () => clearTimeout(timer);
+    }, [end, duration]);
+
+    return <>{count}{suffix}</>;
+  };
+
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-brand-dark pt-20">
+
+      {/* Particle Background */}
+      <ParticleBackground particleCount={60} mouseInteraction={true} />
 
       {/* Background Noise & Gradients */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -91,15 +129,30 @@ const Hero: React.FC = () => {
           }} />
         </div>
 
-        {/* Geometric Decorative Elements */}
-        <div className="absolute top-20 left-10 opacity-20 animate-spin-slow">
+        {/* Geometric Decorative Elements with Parallax */}
+        <div
+          className="absolute top-20 left-10 opacity-20 animate-spin-slow"
+          style={{ transform: `translateY(${parallaxOffset}px)` }}
+        >
           <Hexagon size={60} className="text-brand-accent" strokeWidth={1} />
         </div>
 
-        <div className="absolute top-1/3 right-20 opacity-25 animate-pulse-slow" style={{ animationDelay: '2s' }}>
+        <div
+          className="absolute top-1/3 right-20 opacity-25 animate-pulse-slow"
+          style={{
+            animationDelay: '2s',
+            transform: `translateY(${parallaxOffset * 0.5}px)`
+          }}
+        >
           <Zap size={50} className="text-brand-accent" strokeWidth={1} />
         </div>
-        <div className="absolute bottom-20 right-1/3 opacity-20 animate-float" style={{ animationDelay: '3s' }}>
+        <div
+          className="absolute bottom-20 right-1/3 opacity-20 animate-float"
+          style={{
+            animationDelay: '3s',
+            transform: `translateY(${parallaxOffset * 1.5}px)`
+          }}
+        >
           <Circle size={35} className="text-white" strokeWidth={1} />
         </div>
 
@@ -122,8 +175,13 @@ const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* Main Headline */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[8rem] leading-[1.1] sm:leading-[0.95] lg:leading-[0.9] text-white mb-4 sm:mb-6 perspective-500">
+          {/* Main Headline with 3D Effect */}
+          <motion.h1
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[8rem] leading-[1.1] sm:leading-[0.95] lg:leading-[0.9] text-white mb-4 sm:mb-6 perspective-500"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+          >
             <span
               className="block font-sans font-black tracking-tighter mix-blend-difference transition-transform duration-700 ease-out"
               style={{ transform: `translateX(${mousePosition.x * 15}px)` }}
@@ -131,7 +189,7 @@ const Hero: React.FC = () => {
               {t.hero.headline_1}
             </span>
             <span
-              className="block font-gothic text-brand-accent lg:-mt-4 transition-transform duration-1000 ease-out"
+              className="block font-gothic text-brand-accent holographic-text lg:-mt-4 transition-transform duration-1000 ease-out"
               style={{ transform: `translateX(${mousePosition.x * -8}px)` }}
             >
               {t.hero.headline_2}
@@ -147,7 +205,7 @@ const Hero: React.FC = () => {
                 {t.hero.headline_3_2}
               </span>
             </div>
-          </h1>
+          </motion.h1>
 
           {/* Subheadline */}
           <p className="text-sm sm:text-base md:text-lg text-gray-400 max-w-xl mx-auto lg:mx-0 mb-6 sm:mb-8 leading-relaxed px-4 sm:px-0">
@@ -156,41 +214,85 @@ const Hero: React.FC = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8 sm:mb-12 px-4 sm:px-0">
-            {/* Primary Button: Gradient & Glow */}
-            <button
+            {/* Primary Button: Gradient & Glow with Magnetic Effect */}
+            <MagneticButton
               onClick={() => scrollToSection('works')}
               className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-brand-accent text-white rounded-full font-bold uppercase tracking-wider text-xs sm:text-sm overflow-hidden shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_40px_rgba(99,102,241,0.6)] hover:scale-105 transition-all duration-300"
+              strength={0.4}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-brand-accent to-purple-600 transition-transform duration-300 group-hover:scale-110"></div>
               <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
               <span className="relative flex items-center gap-3 tracking-wider text-xs uppercase">
                 {t.hero.cta_primary} <MoveRight size={16} className="group-hover:translate-x-1 transition-transform" />
               </span>
-            </button>
+            </MagneticButton>
 
-            {/* Secondary Button: Glass & Slide */}
-            <button
+            {/* Secondary Button: Glass & Slide with Magnetic Effect */}
+            <MagneticButton
               onClick={() => scrollToSection('contact')}
               className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-full overflow-hidden transition-all duration-300 border border-white/20 hover:border-white/50"
+              strength={0.3}
             >
               <div className="absolute inset-0 bg-white/5 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-300"></div>
               <span className="relative flex items-center gap-2 font-serif italic text-sm sm:text-base text-gray-300 group-hover:text-white transition-colors">
                 {t.hero.cta_secondary}
                 <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
               </span>
-            </button>
+            </MagneticButton>
           </div>
 
-          {/* Floating Stats - Left */}
-          <div
-            className="absolute -left-10 bottom-0 hidden lg:block transition-transform duration-1000 ease-out"
-            style={{ transform: `translate(${mousePosition.x * -10}px, ${mousePosition.y * -10}px)` }}
+          {/* Animated Stats - Bottom */}
+          <motion.div
+            className="flex gap-6 sm:gap-8 justify-center lg:justify-start mt-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.6 }}
           >
-            <div className="glass-panel p-4 rounded-xl border border-white/5 backdrop-blur-md rotate-[-5deg] hover:rotate-0 transition-transform animate-float delay-700">
-              <p className="text-2xl font-bold font-gothic text-white">10+</p>
-              <p className="text-xs text-gray-400 uppercase">{t.hero.years_xp}</p>
+            {/* Years of Experience */}
+            <div className="glass-panel px-6 py-4 rounded-2xl border border-white/10 backdrop-blur-md group hover:border-brand-accent/50 transition-all duration-300">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-brand-accent/20 rounded-lg group-hover:bg-brand-accent/30 transition-colors">
+                  <TrendingUp size={20} className="text-brand-accent" />
+                </div>
+                <div>
+                  <p className="text-3xl font-bold font-gothic text-white">
+                    <Counter end={10} suffix="+" />
+                  </p>
+                  <p className="text-xs text-gray-400 uppercase tracking-wider">{t.hero.years_xp}</p>
+                </div>
+              </div>
             </div>
-          </div>
+
+            {/* Projects Completed */}
+            <div className="glass-panel px-6 py-4 rounded-2xl border border-white/10 backdrop-blur-md group hover:border-purple-500/50 transition-all duration-300">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-purple-500/20 rounded-lg group-hover:bg-purple-500/30 transition-colors">
+                  <Award size={20} className="text-purple-400" />
+                </div>
+                <div>
+                  <p className="text-3xl font-bold font-gothic text-white">
+                    <Counter end={50} suffix="+" />
+                  </p>
+                  <p className="text-xs text-gray-400 uppercase tracking-wider">Projects</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Happy Clients */}
+            <div className="glass-panel px-6 py-4 rounded-2xl border border-white/10 backdrop-blur-md group hover:border-cyan-500/50 transition-all duration-300">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-cyan-500/20 rounded-lg group-hover:bg-cyan-500/30 transition-colors">
+                  <Users size={20} className="text-cyan-400" />
+                </div>
+                <div>
+                  <p className="text-3xl font-bold font-gothic text-white">
+                    <Counter end={30} suffix="+" />
+                  </p>
+                  <p className="text-xs text-gray-400 uppercase tracking-wider">Clients</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
 
         {/* RIGHT COLUMN: Visual Centerpiece */}

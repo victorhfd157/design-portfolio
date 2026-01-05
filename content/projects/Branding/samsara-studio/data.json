@@ -1,0 +1,21 @@
+{
+    "id": 1,
+    "title": "Samsara Studio",
+    "category": "Branding",
+    "description": {
+        "en": "A futuristic visual identity for an augmented reality startup, blending cyberpunk aesthetics with clean corporate lines.",
+        "pt": "Uma identidade visual futurista para uma startup de realidade aumentada, misturando estética cyberpunk com linhas corporativas limpas."
+    },
+    "imageUrl": "capa.webp",
+    "gallery": [
+        "1.webp",
+        "2.webp",
+        "3.webp"
+    ],
+    "year": "2024",
+    "tags": [
+        "Logo",
+        "Identity",
+        "Branding"
+    ]
+}

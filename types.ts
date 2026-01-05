@@ -8,12 +8,14 @@ export interface BilingualText {
 export interface Project {
   id: number;
   title: string;
-  category: string; // We'll keep category keys in English for filtering logic, but display can be translated if needed
+  categories: string[]; // Array of categories for the project
   description: BilingualText;
   imageUrl: string;
   gallery?: string[]; // Array of additional image URLs
   year: string;
   tags: string[];
+  embedUrl?: string; // URL for iframe embeds (Google Slides, YouTube, Vimeo, etc.)
+  contentType?: 'gallery' | 'presentation' | 'video'; // Type of content to display
 }
 
 export interface Message {

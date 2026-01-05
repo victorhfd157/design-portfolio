@@ -1,0 +1,20 @@
+{
+    "id": 100,
+    "title": "Escape do Vulcão",
+    "category": "Presentations",
+    "contentType": "presentation",
+    "embedUrl": "https://docs.google.com/presentation/d/e/2PACX-1vT9gb2gjgdBdSQVIk0zyaSCcrtHEsXiigjPXhfYEXiW2kmfMchnCQ8vo5fe08OZfA/embed?start=false&loop=false&delayms=3000",
+    "description": {
+        "en": "Interactive e-learning game where players must escape from an erupting volcano by making strategic decisions. This gamified presentation combines education with entertainment, teaching geology and emergency response through an immersive narrative experience.",
+        "pt": "Jogo educativo interativo onde os jogadores devem escapar de um vulcão em erupção tomando decisões estratégicas. Esta apresentação gamificada combina educação com entretenimento, ensinando geologia e resposta a emergências através de uma experiência narrativa imersiva."
+    },
+    "imageUrl": "capa.webp",
+    "year": "2024",
+    "tags": [
+        "E-Learning",
+        "Game Design",
+        "Interactive",
+        "Education",
+        "Google Slides"
+    ]
+}

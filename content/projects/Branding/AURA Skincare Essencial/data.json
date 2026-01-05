@@ -1,0 +1,22 @@
+{
+    "id": 3,
+    "title": "AURA Skinkcare",
+    "category": "Branding",
+    "description": {
+        "en": "Mobile app design focused on wellness and sustainability featuring a minimalist interface and calming color palette.",
+        "pt": "Design de aplicativo focado em bem-estar e sustentabilidade com interface minimalista e paleta de cores relaxante."
+    },
+    "imageUrl": "capa.webp",
+    "gallery": [
+        "1.webp",
+        "2.webp",
+        "3.webp",
+        "4.webp"
+    ],
+    "year": "2023",
+    "tags": [
+        "Logo",
+        "Identity",
+        "Branding"
+    ]
+}

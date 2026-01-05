@@ -1,0 +1,21 @@
+{
+    "id": 103,
+    "title": "Crisis Command: Corporate Simulator",
+    "category": "Presentations",
+    "contentType": "presentation",
+    "embedUrl": "http://localhost:3002",
+    "description": {
+        "en": "Interactive role-playing game where you navigate high-stakes corporate crises. Make critical decisions that impact team morale, profitability, and company reputation. Powered by AI to create dynamic, realistic scenarios that test your leadership and crisis management skills in a safe learning environment.",
+        "pt": "Jogo interativo de RPG onde você navega por crises corporativas de alto risco. Tome decisões críticas que impactam o moral da equipe, lucratividade e reputação da empresa. Alimentado por IA para criar cenários dinâmicos e realistas que testam suas habilidades de liderança e gestão de crises em um ambiente de aprendizado seguro."
+    },
+    "imageUrl": "capa.webp",
+    "year": "2024",
+    "tags": [
+        "E-Learning",
+        "Simulation",
+        "AI",
+        "Corporate Training",
+        "Interactive",
+        "Crisis Management"
+    ]
+}

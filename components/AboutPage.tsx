@@ -1,12 +1,79 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Timeline from './Timeline';
 import AlchemistLab from './AlchemistLab';
 import Grimoire from './Grimoire';
-import { Download, Cpu, GraduationCap } from 'lucide-react';
+import { Download, Cpu, GraduationCap, Award, Users, Briefcase, Code } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useScrollReveal, revealVariants, staggerContainer, staggerItem } from '../utils/useScrollReveal';
 
 const AboutPage: React.FC = () => {
    const { t, language } = useLanguage();
+   const photoRef = useRef<HTMLDivElement>(null);
+   const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
+   const [isPhotoHovering, setIsPhotoHovering] = useState(false);
+
+   // Scroll reveal hooks
+   const bioReveal = useScrollReveal({ threshold: 0.2 });
+   const statsReveal = useScrollReveal({ threshold: 0.2 });
+   const timelineReveal = useScrollReveal({ threshold: 0.1 });
+   const educationReveal = useScrollReveal({ threshold: 0.2 });
+
+   // 3D photo effect
+   useEffect(() => {
+      const photo = photoRef.current;
+      if (!photo) return;
+
+      const handleMouseMove = (e: MouseEvent) => {
+         const rect = photo.getBoundingClientRect();
+         const x = ((e.clientX - rect.left) / rect.width) * 100;
+         const y = ((e.clientY - rect.top) / rect.height) * 100;
+         setMousePosition({ x, y });
+      };
+
+      photo.addEventListener('mousemove', handleMouseMove);
+      photo.addEventListener('mouseenter', () => setIsPhotoHovering(true));
+      photo.addEventListener('mouseleave', () => {
+         setIsPhotoHovering(false);
+         setMousePosition({ x: 50, y: 50 });
+      });
+
+      return () => {
+         photo.removeEventListener('mousemove', handleMouseMove);
+         photo.removeEventListener('mouseenter', () => setIsPhotoHovering(true));
+         photo.removeEventListener('mouseleave', () => setIsPhotoHovering(false));
+      };
+   }, []);
+
+   // Calculate 3D tilt
+   const tiltX = isPhotoHovering ? (mousePosition.y - 50) * 0.1 : 0;
+   const tiltY = isPhotoHovering ? (mousePosition.x - 50) * -0.1 : 0;
+
+   // Animated counter component
+   const Counter: React.FC<{ end: number; suffix?: string; duration?: number }> = ({ end, suffix = '', duration = 2 }) => {
+      const [count, setCount] = useState(0);
+
+      useEffect(() => {
+         let startTime: number;
+         const animate = (timestamp: number) => {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / (duration * 1000), 1);
+            const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+            setCount(Math.floor(easeOutQuart * end));
+
+            if (progress < 1) {
+               requestAnimationFrame(animate);
+            } else {
+               setCount(end);
+            }
+         };
+
+         const timer = setTimeout(() => requestAnimationFrame(animate), 500);
+         return () => clearTimeout(timer);
+      }, [end, duration]);
+
+      return <>{count}{suffix}</>;
+   };
 
    const handleDownloadCV = (e: React.MouseEvent) => {
       e.preventDefault();
@@ -50,8 +117,30 @@ const AboutPage: React.FC = () => {
 
             {/* Bio Section */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-32 items-start">
-               <div className="lg:col-span-5 relative">
-                  <div className="aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 relative shadow-2xl">
+               <motion.div
+                  className="lg:col-span-5 relative"
+                  ref={bioReveal.ref}
+                  initial="hidden"
+                  animate={bioReveal.isVisible ? "visible" : "hidden"}
+                  variants={revealVariants.fadeInLeft}
+                  transition={{ duration: 0.8 }}
+               >
+                  <div
+                     ref={photoRef}
+                     className="aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 relative shadow-2xl cursor-pointer"
+                     style={{
+                        transform: `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`,
+                        transition: 'transform 0.1s ease-out',
+                     }}
+                  >
+                     {/* Glow effect */}
+                     <div
+                        className="absolute -inset-[2px] opacity-0 hover:opacity-100 transition-opacity duration-500 blur-xl pointer-events-none"
+                        style={{
+                           background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(99, 102, 241, 0.4), transparent 60%)`,
+                        }}
+                     />
+
                      <img
                         src="/avatar.jpg"
                         alt="Victor Duarte"
@@ -60,7 +149,10 @@ const AboutPage: React.FC = () => {
                      <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-60"></div>
 
                      {/* Floating Badge */}
-                     <div className="absolute bottom-6 left-6 glass-panel px-4 py-3 rounded-xl border border-white/10 flex items-center gap-3">
+                     <motion.div
+                        className="absolute bottom-6 left-6 glass-panel px-4 py-3 rounded-xl border border-white/10 flex items-center gap-3"
+                        whileHover={{ scale: 1.05 }}
+                     >
                         <div className="bg-[#76b900]/20 p-2 rounded-lg">
                            <Cpu size={20} className="text-[#76b900]" />
                         </div>
@@ -68,11 +160,17 @@ const AboutPage: React.FC = () => {
                            <p className="text-[10px] text-gray-400 uppercase tracking-widest">{t.about_page.certification_label}</p>
                            <p className="text-xs text-white font-bold">Nvidia AI & Diffusion Models</p>
                         </div>
-                     </div>
+                     </motion.div>
                   </div>
-               </div>
+               </motion.div>
 
-               <div className="lg:col-span-7 prose prose-invert prose-lg">
+               <motion.div
+                  className="lg:col-span-7 prose prose-invert prose-lg"
+                  initial="hidden"
+                  animate={bioReveal.isVisible ? "visible" : "hidden"}
+                  variants={revealVariants.fadeInRight}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+               >
                   <h3 className="text-3xl font-serif text-white italic mb-6">{t.about_page.quote}</h3>
                   <p className="text-gray-300 font-light leading-relaxed">
                      {t.about_page.bio_p1}
@@ -96,18 +194,74 @@ const AboutPage: React.FC = () => {
                         </span>
                      </button>
                   </div>
-               </div>
+               </motion.div>
             </div>
 
+            {/* Animated Stats */}
+            <motion.div
+               ref={statsReveal.ref}
+               className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-32"
+               initial="hidden"
+               animate={statsReveal.isVisible ? "visible" : "hidden"}
+               variants={staggerContainer}
+            >
+               <motion.div variants={staggerItem} className="glass-panel p-6 rounded-2xl border border-white/10 text-center group hover:border-brand-accent/50 transition-all">
+                  <div className="w-12 h-12 mx-auto mb-4 bg-brand-accent/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                     <Briefcase size={24} className="text-brand-accent" />
+                  </div>
+                  <div className="text-4xl font-bold font-gothic text-white mb-2">
+                     <Counter end={10} suffix="+" />
+                  </div>
+                  <p className="text-xs text-gray-400 uppercase tracking-wider">Anos XP</p>
+               </motion.div>
+
+               <motion.div variants={staggerItem} className="glass-panel p-6 rounded-2xl border border-white/10 text-center group hover:border-purple-500/50 transition-all">
+                  <div className="w-12 h-12 mx-auto mb-4 bg-purple-500/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                     <Award size={24} className="text-purple-400" />
+                  </div>
+                  <div className="text-4xl font-bold font-gothic text-white mb-2">
+                     <Counter end={150} suffix="+" />
+                  </div>
+                  <p className="text-xs text-gray-400 uppercase tracking-wider">Projetos</p>
+               </motion.div>
+
+               <motion.div variants={staggerItem} className="glass-panel p-6 rounded-2xl border border-white/10 text-center group hover:border-cyan-500/50 transition-all">
+                  <div className="w-12 h-12 mx-auto mb-4 bg-cyan-500/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                     <Users size={24} className="text-cyan-400" />
+                  </div>
+                  <div className="text-4xl font-bold font-gothic text-white mb-2">
+                     <Counter end={50} suffix="+" />
+                  </div>
+                  <p className="text-xs text-gray-400 uppercase tracking-wider">Clientes</p>
+               </motion.div>
+
+               <motion.div variants={staggerItem} className="glass-panel p-6 rounded-2xl border border-white/10 text-center group hover:border-green-500/50 transition-all">
+                  <div className="w-12 h-12 mx-auto mb-4 bg-green-500/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                     <Code size={24} className="text-green-400" />
+                  </div>
+                  <div className="text-4xl font-bold font-gothic text-white mb-2">
+                     <Counter end={25} suffix="+" />
+                  </div>
+                  <p className="text-xs text-gray-400 uppercase tracking-wider">Tecnologias</p>
+               </motion.div>
+            </motion.div>
+
             {/* Timeline Section */}
-            <div className="mb-32">
+            <motion.div
+               ref={timelineReveal.ref}
+               className="mb-32"
+               initial="hidden"
+               animate={timelineReveal.isVisible ? "visible" : "hidden"}
+               variants={revealVariants.fadeInUp}
+               transition={{ duration: 0.6 }}
+            >
                <div className="flex items-center gap-4 mb-12">
                   <span className="h-px flex-1 bg-white/10"></span>
                   <h2 className="text-3xl font-serif italic text-white">{t.about_page.career_timeline}</h2>
                   <span className="h-px flex-1 bg-white/10"></span>
                </div>
                <Timeline />
-            </div>
+            </motion.div>
 
             {/* Alchemist Lab Section */}
             <div className="mb-20">
@@ -120,9 +274,15 @@ const AboutPage: React.FC = () => {
             </div>
 
             {/* Academic Formation */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-               <div className="glass-panel p-8 rounded-2xl border border-white/5 flex items-center gap-6">
-                  <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center">
+            <motion.div
+               ref={educationReveal.ref}
+               className="grid grid-cols-1 md:grid-cols-2 gap-6"
+               initial="hidden"
+               animate={educationReveal.isVisible ? "visible" : "hidden"}
+               variants={staggerContainer}
+            >
+               <motion.div variants={staggerItem} className="glass-panel p-8 rounded-2xl border border-white/5 flex items-center gap-6 hover:border-white/20 transition-all group">
+                  <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform">
                      <GraduationCap size={32} className="text-white" />
                   </div>
                   <div>
@@ -130,10 +290,10 @@ const AboutPage: React.FC = () => {
                      <h4 className="text-xl font-serif text-white italic">Design Gráfico</h4>
                      <p className="text-sm text-gray-400">Universidade Cruzeiro do Sul</p>
                   </div>
-               </div>
+               </motion.div>
 
-               <div className="glass-panel p-8 rounded-2xl border border-white/5 flex items-center gap-6">
-                  <div className="w-16 h-16 rounded-full bg-[#76b900]/10 flex items-center justify-center border border-[#76b900]/20">
+               <motion.div variants={staggerItem} className="glass-panel p-8 rounded-2xl border border-white/5 flex items-center gap-6 hover:border-[#76b900]/30 transition-all group">
+                  <div className="w-16 h-16 rounded-full bg-[#76b900]/10 flex items-center justify-center border border-[#76b900]/20 group-hover:scale-110 transition-transform">
                      <Cpu size={32} className="text-[#76b900]" />
                   </div>
                   <div>
@@ -141,8 +301,8 @@ const AboutPage: React.FC = () => {
                      <h4 className="text-xl font-serif text-white italic">Generative AI with Diffusion Models</h4>
                      <p className="text-sm text-gray-400">Nvidia Deep Learning Institute</p>
                   </div>
-               </div>
-            </div>
+               </motion.div>
+            </motion.div>
 
          </div>
       </div>

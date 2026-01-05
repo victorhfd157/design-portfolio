@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
-import { FlaskConical, Palette, Bot, BarChart3, ChevronDown, Sparkles, Feather, Database, GraduationCap } from 'lucide-react';
+import { FlaskConical, Palette, Bot, BarChart3, Sparkles, Code, Layers, Zap, X } from 'lucide-react';
 
 type StationKey = 'elearning' | 'design' | 'ai' | 'data';
 
@@ -8,179 +9,287 @@ const AlchemistLab: React.FC = () => {
     const { t } = useLanguage();
     const [activeStation, setActiveStation] = useState<StationKey | null>(null);
 
-    const stations: { key: StationKey; icon: React.ElementType; color: string; secondaryColor: string; gradient: string; glow: string }[] = [
+    const stations = [
         {
-            key: 'elearning',
-            icon: GraduationCap,
-            color: 'text-blue-400',
-            secondaryColor: 'bg-blue-500/10',
-            gradient: 'from-blue-500/20 to-purple-500/20',
-            glow: 'shadow-[0_0_30px_rgba(59,130,246,0.3)]'
+            key: 'elearning' as StationKey,
+            icon: Code,
+            title: 'E-Learning',
+            subtitle: 'Digital Education',
+            color: 'from-blue-500 to-cyan-500',
+            borderColor: 'border-blue-500',
+            bgColor: 'bg-blue-500/20',
+            skills: [
+                { name: 'Moodle Architecture', level: 95 },
+                { name: 'SCORM Engineering', level: 90 },
+                { name: 'H5P Innovation', level: 85 },
+                { name: 'Articulate Mastery', level: 88 },
+            ]
         },
         {
-            key: 'design',
+            key: 'design' as StationKey,
             icon: Palette,
-            color: 'text-pink-400',
-            secondaryColor: 'bg-pink-500/10',
-            gradient: 'from-pink-500/20 to-rose-500/20',
-            glow: 'shadow-[0_0_30px_rgba(236,72,153,0.3)]'
+            title: 'Design',
+            subtitle: 'Visual Alchemy',
+            color: 'from-pink-500 to-purple-500',
+            borderColor: 'border-pink-500',
+            bgColor: 'bg-pink-500/20',
+            skills: [
+                { name: 'Figma Wizardry', level: 95 },
+                { name: 'Adobe Creative Suite', level: 92 },
+                { name: 'UI/UX Design', level: 93 },
+                { name: '3D Design', level: 80 },
+            ]
         },
         {
-            key: 'ai',
+            key: 'ai' as StationKey,
             icon: Bot,
-            color: 'text-cyan-400',
-            secondaryColor: 'bg-cyan-500/10',
-            gradient: 'from-cyan-500/20 to-blue-500/20',
-            glow: 'shadow-[0_0_30px_rgba(6,182,212,0.3)]'
+            title: 'Artificial Intelligence',
+            subtitle: 'Neural Synthesis',
+            color: 'from-cyan-500 to-teal-500',
+            borderColor: 'border-cyan-500',
+            bgColor: 'bg-cyan-500/20',
+            skills: [
+                { name: 'LLM Integration', level: 95 },
+                { name: 'Image Generation', level: 92 },
+                { name: 'Prompt Engineering', level: 90 },
+                { name: 'AI Workflows', level: 88 },
+            ]
         },
         {
-            key: 'data',
+            key: 'data' as StationKey,
             icon: BarChart3,
-            color: 'text-emerald-400',
-            secondaryColor: 'bg-emerald-500/10',
-            gradient: 'from-emerald-500/20 to-teal-500/20',
-            glow: 'shadow-[0_0_30px_rgba(16,185,129,0.3)]'
+            title: 'Data & Analytics',
+            subtitle: 'Insight Engine',
+            color: 'from-emerald-500 to-green-500',
+            borderColor: 'border-emerald-500',
+            bgColor: 'bg-emerald-500/20',
+            skills: [
+                { name: 'Data Visualization', level: 88 },
+                { name: 'Analytics', level: 85 },
+                { name: 'Excel Mastery', level: 92 },
+                { name: 'Business Intelligence', level: 80 },
+            ]
         },
     ];
 
-    const toggleStation = (key: StationKey) => {
-        setActiveStation(activeStation === key ? null : key);
-    };
+    const activeData = activeStation ? stations.find(s => s.key === activeStation) : null;
+    const activeContent = activeStation ? t.alchemist_lab.stations[activeStation] : null;
 
     return (
-        <div className="py-20 relative">
-            {/* Ambient Background Glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-purple-900/20 rounded-full blur-[120px] pointer-events-none"></div>
-
-            <div className="text-center mb-20 relative z-10">
-                <div className="inline-block p-4 rounded-full bg-white/5 border border-white/10 mb-6 animate-pulse shadow-[0_0_20px_rgba(168,85,247,0.2)]">
-                    <FlaskConical className="text-purple-400" size={32} />
-                </div>
-                <h2 className="text-5xl md:text-6xl font-serif text-white mb-4 tracking-tight">
-                    {t.alchemist_lab.title}
-                </h2>
-                <div className="h-1 w-24 bg-gradient-to-r from-transparent via-purple-500 to-transparent mx-auto mt-6"></div>
+        <div className="min-h-screen bg-brand-dark py-32 px-4 md:px-8 relative overflow-hidden">
+            {/* Simple Animated Background */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div className="absolute top-0 left-1/4 w-96 h-96 bg-brand-accent/10 rounded-full blur-[120px] animate-pulse-slow" />
+                <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px] animate-pulse-slow" style={{ animationDelay: '2s' }} />
+                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay" />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto px-4">
-                {stations.map((station) => {
-                    const isActive = activeStation === station.key;
-                    const content = t.alchemist_lab.stations[station.key];
+            <div className="max-w-7xl mx-auto relative z-10">
+                {/* Header */}
+                <motion.div
+                    className="text-center mb-20"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                >
+                    <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 border border-white/10 rounded-full bg-white/5 backdrop-blur-sm">
+                        <Sparkles className="w-4 h-4 text-brand-accent" />
+                        <span className="text-xs font-mono uppercase tracking-widest text-gray-400">
+                            The Digital Alchemist Laboratory
+                        </span>
+                    </div>
 
-                    return (
-                        <div
-                            key={station.key}
-                            className={`
-                relative overflow-hidden rounded-3xl border transition-all duration-500 cursor-pointer group
-                ${isActive
-                                    ? `border-white/30 bg-gradient-to-br ${station.gradient} ${station.glow} scale-[1.02]`
-                                    : 'border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10'
-                                }
-              `}
-                            onClick={() => toggleStation(station.key)}
+                    <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent">
+                        {t.alchemist_lab.title}
+                    </h2>
+
+                    <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+                        Explore my core areas of expertise through interactive stations
+                    </p>
+                </motion.div>
+
+                {/* Active Station Detail Panel */}
+                <AnimatePresence mode="wait">
+                    {activeData && activeContent && (
+                        <motion.div
+                            key={activeStation}
+                            className="mb-16"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.4 }}
                         >
-                            {/* Decorative Particles/Runes Background */}
-                            <div className="absolute inset-0 opacity-10 pointer-events-none overflow-hidden">
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
-                                <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full blur-xl translate-y-1/2 -translate-x-1/2"></div>
-                            </div>
+                            <div className={`relative rounded-3xl bg-gradient-to-br ${activeData.color} p-[2px]`}>
+                                <div className="bg-black/95 backdrop-blur-xl rounded-[calc(1.5rem-2px)] p-8 md:p-12 relative">
+                                    {/* Close button */}
+                                    <button
+                                        onClick={() => setActiveStation(null)}
+                                        className="absolute top-6 right-6 p-2 rounded-xl bg-white/5 hover:bg-white/10 text-white/60 hover:text-white transition-all z-10"
+                                    >
+                                        <X size={20} />
+                                    </button>
 
-                            {/* Card Header */}
-                            <div className="p-8 flex items-start justify-between relative z-10">
-                                <div className="flex items-center gap-6">
-                                    <div className={`
-                    w-16 h-16 rounded-2xl flex items-center justify-center text-3xl
-                    ${station.secondaryColor} ${station.color} border border-white/10
-                    transition-all duration-500 shadow-lg
-                    ${isActive ? 'scale-110 rotate-3 shadow-white/10' : 'group-hover:scale-105'}
-                  `}>
-                                        <station.icon size={32} className={`transition-all duration-500 ${isActive ? 'drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]' : ''}`} />
+                                    <div className="flex items-start gap-6 mb-8">
+                                        <div className={`w-24 h-24 rounded-2xl bg-gradient-to-br ${activeData.color} flex items-center justify-center shadow-lg`}>
+                                            <activeData.icon size={48} className="text-white" />
+                                        </div>
+                                        <div className="flex-1">
+                                            <h3 className="text-3xl md:text-4xl font-bold text-white mb-2">{activeContent.title}</h3>
+                                            <p className="text-sm font-mono uppercase tracking-wider text-gray-400">{activeData.subtitle}</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <h3 className={`text-2xl font-serif text-white mb-2 transition-colors duration-300 ${isActive ? 'text-white drop-shadow-md' : 'group-hover:text-white'}`}>
-                                            {content.title}
-                                        </h3>
-                                        <p className={`text-xs font-mono uppercase tracking-widest transition-colors duration-300 ${isActive ? 'text-white/80' : 'text-gray-500'}`}>
-                                            {content.subtitle}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className={`
-                  w-10 h-10 rounded-full flex items-center justify-center border border-white/10 bg-white/5
-                  transition-all duration-500 ${isActive ? 'bg-white/20 rotate-180' : 'group-hover:bg-white/10'}
-                `}>
-                                    <ChevronDown size={20} className="text-white/70" />
-                                </div>
-                            </div>
 
-                            {/* Expanded Content */}
-                            <div
-                                className={`
-                  overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.4,0,0.2,1)]
-                  ${isActive ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}
-                `}
-                            >
-                                <div className="p-8 pt-0 mx-2 mb-2">
-                                    <div className="h-px w-full bg-gradient-to-r from-transparent via-white/20 to-transparent mb-6"></div>
-
-                                    <p className="text-gray-200 font-light leading-relaxed mb-8 text-lg">
-                                        {content.description}
+                                    <p className="text-gray-300 text-lg leading-relaxed mb-10">
+                                        {activeContent.description}
                                     </p>
 
-                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-                                        {/* Ingredients */}
-                                        <div className="space-y-4">
-                                            <h4 className="flex items-center gap-2 text-xs font-bold text-white/60 uppercase tracking-widest">
-                                                <FlaskConical size={14} className={station.color} /> {content.ingredients_title}
-                                            </h4>
-                                            <ul className="space-y-3">
-                                                {content.ingredients.map((item: string, idx: number) => (
-                                                    <li key={idx} className="flex items-start gap-3 text-gray-300 text-sm group/item">
-                                                        <span className={`w-1.5 h-1.5 rounded-full mt-1.5 ${station.color} shadow-[0_0_5px_currentColor] opacity-70 group-hover/item:opacity-100 transition-opacity`}></span>
-                                                        <span className="group-hover/item:text-white transition-colors">{item}</span>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-
-                                        {/* Catalysts */}
-                                        <div className="space-y-4">
-                                            <h4 className="flex items-center gap-2 text-xs font-bold text-white/60 uppercase tracking-widest">
-                                                <Sparkles size={14} className="text-amber-300" /> {content.catalysts_title}
-                                            </h4>
-                                            <ul className="space-y-3">
-                                                {content.catalysts.map((item: string, idx: number) => (
-                                                    <li key={idx} className="flex items-start gap-3 text-gray-300 text-sm group/item">
-                                                        <span className="w-1.5 h-1.5 rounded-full mt-1.5 bg-amber-300 shadow-[0_0_5px_currentColor] opacity-50 group-hover/item:opacity-100 transition-opacity"></span>
-                                                        <span className="group-hover/item:text-white transition-colors">{item}</span>
-                                                    </li>
-                                                ))}
-                                            </ul>
+                                    {/* Skills Grid */}
+                                    <div className="mb-10">
+                                        <h4 className="text-sm font-bold uppercase tracking-wider text-gray-400 mb-6 flex items-center gap-2">
+                                            <Layers size={16} />
+                                            Expertise Levels
+                                        </h4>
+                                        <div className="grid gap-5">
+                                            {activeData.skills.map((skill, idx) => (
+                                                <motion.div
+                                                    key={skill.name}
+                                                    initial={{ opacity: 0, x: -20 }}
+                                                    animate={{ opacity: 1, x: 0 }}
+                                                    transition={{ delay: idx * 0.1 }}
+                                                >
+                                                    <div className="flex justify-between mb-2">
+                                                        <span className="text-white font-medium">{skill.name}</span>
+                                                        <span className="text-gray-400 font-mono text-sm">{skill.level}%</span>
+                                                    </div>
+                                                    <div className="h-2.5 bg-white/10 rounded-full overflow-hidden">
+                                                        <motion.div
+                                                            className={`h-full bg-gradient-to-r ${activeData.color}`}
+                                                            initial={{ width: 0 }}
+                                                            animate={{ width: `${skill.level}%` }}
+                                                            transition={{ duration: 1, delay: idx * 0.1 }}
+                                                        />
+                                                    </div>
+                                                </motion.div>
+                                            ))}
                                         </div>
                                     </div>
 
-                                    {/* Potion Result */}
-                                    <div className={`
-                    p-6 rounded-2xl border border-white/10 relative overflow-hidden group/potion
-                    bg-black/40 backdrop-blur-md
-                  `}>
-                                        <div className={`absolute inset-0 opacity-0 group-hover/potion:opacity-20 transition-opacity duration-700 bg-gradient-to-r ${station.gradient}`}></div>
-                                        <div className="absolute -right-4 -bottom-4 opacity-10 rotate-12 transform group-hover/potion:scale-110 transition-transform duration-700">
-                                            <Feather size={100} className="text-white" />
+                                    {/* Bottom Grid */}
+                                    <div className="grid md:grid-cols-2 gap-6">
+                                        <div className="bg-white/5 rounded-2xl p-6 border border-white/10">
+                                            <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4 flex items-center gap-2">
+                                                <FlaskConical size={14} />
+                                                {activeContent.ingredients_title}
+                                            </h4>
+                                            <ul className="space-y-2">
+                                                {activeContent.ingredients.map((item: string, idx: number) => (
+                                                    <li key={idx} className="text-gray-300 text-sm flex items-start gap-2">
+                                                        <Zap size={12} className="text-brand-accent mt-1 flex-shrink-0" />
+                                                        {item}
+                                                    </li>
+                                                ))}
+                                            </ul>
                                         </div>
 
-                                        <h4 className="relative z-10 flex items-center gap-2 text-xs font-bold text-white uppercase tracking-widest mb-3">
-                                            <Feather size={14} className={station.color} /> {content.potion_title}
-                                        </h4>
-                                        <p className="relative z-10 text-white font-serif italic text-xl leading-relaxed drop-shadow-md">
-                                            "{content.potion}"
-                                        </p>
+                                        <div className="bg-gradient-to-br from-white/10 to-white/5 rounded-2xl p-6 border border-white/10">
+                                            <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4 flex items-center gap-2">
+                                                <Sparkles size={14} />
+                                                {activeContent.potion_title}
+                                            </h4>
+                                            <p className="text-white italic text-lg leading-relaxed">
+                                                "{activeContent.potion}"
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    );
-                })}
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
+                {/* Station Cards Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {stations.map((station, index) => {
+                        const isActive = activeStation === station.key;
+                        return (
+                            <motion.div
+                                key={station.key}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: index * 0.1 }}
+                                whileHover={{ y: -8, scale: 1.02 }}
+                                onClick={() => setActiveStation(isActive ? null : station.key)}
+                                className="cursor-pointer group"
+                            >
+                                <div className={`
+                                    relative rounded-2xl p-8 h-full
+                                    bg-gradient-to-br from-white/10 to-white/[0.02]
+                                    border-2 transition-all duration-300
+                                    ${isActive
+                                        ? `${station.borderColor} shadow-2xl`
+                                        : 'border-white/20 hover:border-white/40'
+                                    }
+                                    backdrop-blur-sm
+                                `}>
+                                    {/* Icon */}
+                                    <div className={`
+                                        w-20 h-20 rounded-xl mb-6 flex items-center justify-center
+                                        bg-gradient-to-br ${station.color}
+                                        shadow-lg transition-transform duration-300
+                                        group-hover:scale-110
+                                    `}>
+                                        <station.icon size={36} className="text-white" />
+                                    </div>
+
+                                    {/* Content */}
+                                    <h3 className="text-2xl font-bold text-white mb-2">
+                                        {station.title}
+                                    </h3>
+                                    <p className="text-sm text-gray-400 font-mono uppercase tracking-wider mb-6">
+                                        {station.subtitle}
+                                    </p>
+
+                                    {/* Mini skills preview */}
+                                    <div className="space-y-3 mb-6">
+                                        {station.skills.slice(0, 3).map((skill, idx) => (
+                                            <div key={idx}>
+                                                <div className="flex items-center justify-between mb-1">
+                                                    <span className="text-xs text-gray-500">{skill.name}</span>
+                                                    <span className="text-xs text-gray-600 font-mono">{skill.level}%</span>
+                                                </div>
+                                                <div className="h-1 bg-white/5 rounded-full overflow-hidden">
+                                                    <motion.div
+                                                        className={`h-full bg-gradient-to-r ${station.color}`}
+                                                        initial={{ width: 0 }}
+                                                        whileInView={{ width: `${skill.level}%` }}
+                                                        viewport={{ once: true }}
+                                                        transition={{ duration: 1, delay: idx * 0.1 }}
+                                                    />
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    {/* Action hint */}
+                                    <div className={`
+                                        flex items-center gap-2 text-xs font-medium
+                                        ${isActive ? 'text-white' : 'text-brand-accent'}
+                                        transition-colors duration-300
+                                    `}>
+                                        <span>{isActive ? 'Active Station' : 'Click to explore'}</span>
+                                        <Zap size={14} />
+                                    </div>
+
+                                    {/* Subtle glow on hover */}
+                                    <div className={`
+                                        absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 -z-10 blur-xl
+                                        bg-gradient-to-br ${station.color}
+                                    `} />
+                                </div>
+                            </motion.div>
+                        );
+                    })}
+                </div>
             </div>
         </div>
     );

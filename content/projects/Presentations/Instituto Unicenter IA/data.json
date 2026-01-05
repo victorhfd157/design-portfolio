@@ -1,0 +1,20 @@
+{
+    "id": 102,
+    "title": "Instituto Unicenter IA",
+    "category": "Presentations",
+    "contentType": "presentation",
+    "embedUrl": "https://institutounicenter.com/ia/",
+    "description": {
+        "en": "Interactive website showcasing Instituto Unicenter's Artificial Intelligence initiatives and educational programs. Features comprehensive information about AI courses, workshops, and innovative learning experiences designed to prepare students for the future of technology and digital transformation.",
+        "pt": "Site interativo apresentando as iniciativas de Inteligência Artificial do Instituto Unicenter e programas educacionais. Apresenta informações abrangentes sobre cursos de IA, workshops e experiências de aprendizado inovadoras projetadas para preparar estudantes para o futuro da tecnologia e transformação digital."
+    },
+    "imageUrl": "capa.webp",
+    "year": "2024",
+    "tags": [
+        "AI",
+        "Education",
+        "Technology",
+        "Innovation",
+        "Web Design"
+    ]
+}

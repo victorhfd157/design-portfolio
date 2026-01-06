@@ -1,58 +1,85 @@
 import React from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { BookOpen, Sparkles } from 'lucide-react';
+import { BookOpen, Sparkles, Star, Moon } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Grimoire: React.FC = () => {
     const { t } = useLanguage();
 
     return (
-        <div className="py-24 relative">
-            <div className="max-w-4xl mx-auto text-center px-6 relative z-10">
+        <section className="py-32 relative overflow-hidden">
+            {/* Mystical Background Layers */}
+            <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50rem] h-[50rem] bg-purple-900/10 rounded-full blur-[120px] mix-blend-screen animate-pulse-slow" />
+                <div className="absolute top-0 right-0 w-[30rem] h-[30rem] bg-blue-900/10 rounded-full blur-[100px] animate-pulse-slow" style={{ animationDelay: '1s' }} />
+                <div className="absolute bottom-0 left-0 w-[40rem] h-[40rem] bg-indigo-900/10 rounded-full blur-[120px] animate-pulse-slow" style={{ animationDelay: '2s' }} />
+                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay" />
+            </div>
 
-                {/* Floating Icon */}
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#1a1a2e] border border-purple-500/30 mb-8 shadow-[0_0_30px_rgba(168,85,247,0.15)] animate-float">
-                    <BookOpen className="text-purple-300" size={28} />
-                </div>
-
-                <h2 className="text-4xl md:text-5xl font-serif text-white mb-12 italic tracking-wide drop-shadow-lg">
-                    {t.grimoire.title}
-                </h2>
-
-                <div className="relative group">
-                    {/* Magical Glow Behind */}
-                    <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-
-                    <div className="relative p-10 md:p-16 border border-white/10 rounded-2xl bg-[#0f0f16] backdrop-blur-xl shadow-2xl overflow-hidden">
-
-                        {/* Texture Overlay */}
-                        <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] pointer-events-none"></div>
-
-                        {/* Decorative Corners */}
-                        <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-purple-500/30 rounded-tl-2xl"></div>
-                        <div className="absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-purple-500/30 rounded-tr-2xl"></div>
-                        <div className="absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-purple-500/30 rounded-bl-2xl"></div>
-                        <div className="absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-purple-500/30 rounded-br-2xl"></div>
-
-                        {/* Content */}
-                        <div className="relative z-10">
-                            <Sparkles className="absolute -top-4 -left-4 text-purple-400/50 animate-pulse" size={20} />
-                            <Sparkles className="absolute -bottom-4 -right-4 text-blue-400/50 animate-pulse delay-700" size={20} />
-
-                            <p className="text-2xl md:text-3xl font-light text-gray-200 leading-relaxed mb-8 font-serif">
-                                <span className="text-5xl md:text-6xl float-left mr-3 mt-[-10px] text-purple-400 font-gothic">"</span>
-                                {t.grimoire.text_1}
-                            </p>
-
-                            <div className="w-24 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mx-auto mb-8"></div>
-
-                            <p className="text-xl text-gray-400 font-serif italic">
-                                {t.grimoire.text_2}
-                            </p>
+            <div className="max-w-5xl mx-auto px-6 relative z-10">
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                    className="relative"
+                >
+                    {/* Floating Icon */}
+                    <div className="flex justify-center mb-12">
+                        <div className="relative group">
+                            <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500" />
+                            <div className="relative w-20 h-20 rounded-full bg-[#1a1a2e] border border-white/10 flex items-center justify-center shadow-2xl backdrop-blur-sm animate-float">
+                                <BookOpen className="text-purple-300" size={32} />
+                            </div>
+                            <Sparkles className="absolute -top-2 -right-2 text-yellow-300/80 w-5 h-5 animate-pulse" />
+                            <Star className="absolute bottom-0 -left-2 text-blue-300/80 w-4 h-4 animate-pulse delay-700" />
                         </div>
                     </div>
-                </div>
+
+                    <h2 className="text-center text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-16 tracking-tight drop-shadow-2xl">
+                        <span className="bg-gradient-to-r from-white via-purple-100 to-white/70 bg-clip-text text-transparent">
+                            {t.grimoire.title}
+                        </span>
+                    </h2>
+
+                    <div className="relative group perspective-1000">
+                        {/* Magical Glow Behind Card */}
+                        <div className="absolute -inset-1 bg-gradient-to-r from-purple-600/30 to-blue-600/30 rounded-[2rem] blur-2xl opacity-20 group-hover:opacity-40 transition duration-1000" />
+
+                        <div className="relative p-10 md:p-16 border border-white/10 rounded-[2rem] bg-[#0a0a0f]/80 backdrop-blur-2xl shadow-2xl overflow-hidden group-hover:bg-[#0a0a0f]/90 transition-all duration-500">
+
+                            {/* Decorative Elements */}
+                            <div className="absolute top-0 right-0 p-8 opacity-20">
+                                <Moon size={100} className="text-purple-300 rotate-12" strokeWidth={0.5} />
+                            </div>
+
+                            {/* Corner Accents */}
+                            <div className="absolute top-8 left-8 w-32 h-32 border-t border-l border-white/10 rounded-tl-3xl rounded-none opacity-50" />
+                            <div className="absolute bottom-8 right-8 w-32 h-32 border-b border-r border-white/10 rounded-br-3xl rounded-none opacity-50" />
+
+                            {/* Content */}
+                            <div className="relative z-10 flex flex-col items-center text-center space-y-10">
+                                <p className="text-2xl md:text-3xl lg:text-4xl font-light text-gray-200 leading-relaxed font-serif tracking-wide max-w-3xl">
+                                    <span className="text-6xl md:text-7xl absolute -top-8 -left-4 md:-left-10 text-purple-500/20 font-serif">"</span>
+                                    {t.grimoire.text_1}
+                                    <span className="text-6xl md:text-7xl absolute -bottom-12 -right-4 md:-right-10 text-purple-500/20 font-serif rotate-180">"</span>
+                                </p>
+
+                                <div className="flex items-center gap-4 w-full justify-center opacity-30">
+                                    <div className="h-px bg-gradient-to-r from-transparent via-white to-transparent w-32" />
+                                    <Star size={12} className="text-white" />
+                                    <div className="h-px bg-gradient-to-r from-transparent via-white to-transparent w-32" />
+                                </div>
+
+                                <p className="text-lg md:text-xl text-gray-400 font-sans italic max-w-2xl bg-gradient-to-r from-gray-400 to-gray-200 bg-clip-text text-transparent">
+                                    {t.grimoire.text_2}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </motion.div>
             </div>
-        </div>
+        </section>
     );
 };
 

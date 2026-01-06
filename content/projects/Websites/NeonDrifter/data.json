@@ -1,0 +1,26 @@
+{
+    "id": "neon-drifter",
+    "title": "Neon Drifter",
+    "category": "Websites",
+    "description": {
+        "en": "A cyberpunk-themed NFT marketplace and gaming platform featuring a high-energy neon aesthetic, glitch effects, and a dark, immersive UI. Designed for the web3 era.",
+        "pt": "Um marketplace de NFTs e plataforma de jogos com tema cyberpunk, apresentando uma estética neon vibrante, efeitos de glitch e uma UI imersiva e escura. Projetado para a era web3."
+    },
+    "embedUrl": "/prototypes/neon-drifter/index.html",
+    "contentType": "presentation",
+    "imageUrl": "./homepage_-_neon_drifter/mockup.png",
+    "gallery": [
+        "./homepage_-_neon_drifter/screen.png",
+        "./explore_nfts/games_-_neon_drifter/mockup.png",
+        "./item_detail_-_neon_drifter/screen.png",
+        "./user_profile_-_neon_drifter/screen.png",
+        "./connect_wallet_-_neon_drifter/screen.png"
+    ],
+    "year": "2024",
+    "tags": [
+        "Web3",
+        "Cyberpunk",
+        "UI Design",
+        "NFT"
+    ]
+}

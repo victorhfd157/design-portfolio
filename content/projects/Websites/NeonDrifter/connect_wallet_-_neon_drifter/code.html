@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Connect Wallet - Neon Drifter</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0657f9",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#0f1623",
+                        "surface-dark": "#101623",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Static styling for visual glitch effect without animation keyframes */
+        .glitch-text {
+            text-shadow: 2px 0 rgba(6, 87, 249, 0.7), -2px 0 rgba(255, 0, 85, 0.7);
+        }
+        .scanline {
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+            background-size: 100% 4px;
+        }
+    </style>
+</head>
+<body class="bg-background-dark text-white font-display overflow-x-hidden selection:bg-primary selection:text-white flex flex-col min-h-screen">
+<!-- Background Visuals -->
+<div class="fixed inset-0 pointer-events-none z-0">
+<!-- Deep radial gradient for void effect -->
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,_#1a2540_0%,_#0f1623_60%)]"></div>
+<!-- Scanline overlay -->
+<div class="absolute top-0 left-0 w-full h-full opacity-30 scanline pointer-events-none"></div>
+<!-- Decorative Brutalist Elements -->
+<div class="absolute top-[15%] left-[5%] text-primary/10 text-9xl font-black select-none pointer-events-none -z-10 blur-sm">01</div>
+<div class="absolute bottom-[10%] right-[5%] text-primary/10 text-9xl font-black select-none pointer-events-none -z-10 blur-sm">CONNECT</div>
+</div>
+<div class="relative z-10 flex flex-col flex-grow w-full max-w-[1440px] mx-auto">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between border-b border-white/10 px-6 py-4 lg:px-10 backdrop-blur-sm bg-background-dark/80 sticky top-0 z-50">
+<div class="flex items-center gap-3">
+<div class="size-8 bg-primary flex items-center justify-center rounded-sm">
+<span class="material-symbols-outlined text-white text-xl">hub</span>
+</div>
+<h1 class="text-xl font-bold tracking-widest uppercase">Neon Drifter</h1>
+</div>
+<div class="hidden md:flex items-center gap-8 text-sm font-bold tracking-wider text-gray-500">
+<span class="hover:text-primary cursor-pointer transition-colors">MARKET</span>
+<span class="hover:text-primary cursor-pointer transition-colors">INVENTORY</span>
+<span class="hover:text-primary cursor-pointer transition-colors">FACTIONS</span>
+</div>
+<div class="flex gap-4 items-center">
+<div class="hidden sm:flex flex-col items-end text-[10px] font-mono leading-tight text-gray-500">
+<span>SERVER: US-EAST-1</span>
+<span class="text-green-500">PING: 24ms</span>
+</div>
+<button class="group flex items-center gap-2 border border-white/20 px-4 py-2 hover:bg-white/5 transition-all bg-[#151c2f]">
+<span class="text-xs font-bold uppercase tracking-wider">Menu</span>
+<span class="material-symbols-outlined text-sm">grid_view</span>
+</button>
+</div>
+</header>
+<!-- Main Content Area: Centered Modal -->
+<main class="flex-1 flex items-center justify-center p-4 py-12">
+<!-- Connection Card Container -->
+<div class="w-full max-w-lg relative group perspective-1000">
+<!-- Floating Decorative Elements around modal -->
+<div class="absolute -top-3 -left-3 w-16 h-16 border-t-[3px] border-l-[3px] border-primary z-20"></div>
+<div class="absolute -bottom-3 -right-3 w-16 h-16 border-b-[3px] border-r-[3px] border-primary z-20"></div>
+<div class="absolute top-1/2 -right-12 text-[10px] font-mono text-primary/40 rotate-90 hidden md:block">SEC_PROTO_V2</div>
+<!-- Main Card -->
+<div class="bg-surface-dark border border-[#212f4a] shadow-[0_0_50px_rgba(0,0,0,0.5)] relative overflow-hidden backdrop-blur-xl">
+<!-- Top Accent Line -->
+<div class="h-1.5 w-full bg-gradient-to-r from-background-dark via-primary to-background-dark"></div>
+<div class="p-8 md:p-10 flex flex-col gap-8">
+<!-- Header Section -->
+<div class="space-y-4 text-center">
+<div class="inline-flex items-center gap-2 bg-primary/10 px-3 py-1.5 rounded text-primary text-xs font-bold font-mono border border-primary/20 shadow-[0_0_10px_rgba(6,87,249,0.2)]">
+<span class="material-symbols-outlined text-[10px] animate-pulse">circle</span>
+<span>SECURE UPLINK REQUIRED</span>
+</div>
+<div class="space-y-1">
+<h2 class="text-4xl md:text-5xl font-black uppercase tracking-tighter leading-[0.9] text-white glitch-text">
+                                Initialize<br/>Link
+                            </h2>
+</div>
+<p class="text-gray-400 text-sm font-body max-w-xs mx-auto leading-relaxed border-t border-b border-white/5 py-3">
+                            Connect a Web3 provider to access the neural net. Identities are pseudo-anonymous.
+                        </p>
+</div>
+<!-- Wallet List Section -->
+<div class="flex flex-col gap-3">
+<!-- MetaMask -->
+<button class="group/item flex items-center justify-between p-4 bg-[#151c2f] border-l-4 border-transparent hover:border-l-primary border-y border-r border-white/5 hover:bg-[#1a2339] hover:shadow-[0_0_20px_rgba(6,87,249,0.15)] transition-all duration-200 w-full text-left">
+<div class="flex items-center gap-4">
+<div class="bg-white/5 p-2 rounded border border-white/10 group-hover/item:border-primary/50 transition-colors">
+<div class="bg-center bg-no-repeat bg-contain size-8" data-alt="MetaMask fox logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBbl6J7AbwTSXBqi9orOXFuG0Rj17zMkzMhZ3CjUJKQ-CyRhyX9lG0YMghdPbiLo1xCmE38QICJIPOUnucuuayZe0u5yHW_BaRF_ZivSQo-g_qd84YSM0i8qbf8Gwji-vjRu3aSA_Ht4QvIx8LCAuPwAUyGBRQl0Nzw8kVXVtDA3y6rVC1p89nHZEfzQ9_k6eJKOpOsa419OCRmtazKe31R8Fm8_JlcXQsEojOCdAe7f2PpJlBbjGw66DUlFjUbqhbnnoD45ErnDKne");'></div>
+</div>
+<div class="flex flex-col">
+<span class="text-lg font-bold uppercase tracking-tight text-white group-hover/item:text-primary transition-colors">MetaMask</span>
+<span class="text-xs text-gray-500 font-mono group-hover/item:text-gray-300">Ether_Mainnet // Detected</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-gray-600 group-hover/item:text-primary transition-colors group-hover/item:translate-x-1">chevron_right</span>
+</button>
+<!-- WalletConnect -->
+<button class="group/item flex items-center justify-between p-4 bg-[#151c2f] border-l-4 border-transparent hover:border-l-primary border-y border-r border-white/5 hover:bg-[#1a2339] hover:shadow-[0_0_20px_rgba(6,87,249,0.15)] transition-all duration-200 w-full text-left">
+<div class="flex items-center gap-4">
+<div class="bg-white/5 p-2 rounded border border-white/10 group-hover/item:border-primary/50 transition-colors">
+<div class="bg-center bg-no-repeat bg-contain size-8" data-alt="WalletConnect logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDo8lZKINR75LEeJWJIC51dHtCopialD5fVA4W70vIe__c4Pg0pYE3rFEGY_VzvdW4-9B7wbMsMFyPnyt5IUZlDNgeYG-j1D8uWposWegQLSc0TYGL9qa2i7lCaGFX3dH6_DT9jjY-zF2T-OBvN_FYidQ9FWASDNBrIPQqJ3nsFH2JiCJyVIPwt73p5ZljfzJAdzNl5SlBtc2DFVSly-n2SW9VMPhgf6fn5vK5kFQsgqf3-1QZHx72v1fVFDyNMXgtYVEnEbyZVMh80");'></div>
+</div>
+<div class="flex flex-col">
+<span class="text-lg font-bold uppercase tracking-tight text-white group-hover/item:text-primary transition-colors">WalletConnect</span>
+<span class="text-xs text-gray-500 font-mono group-hover/item:text-gray-300">Multi_Chain // QR Sync</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-gray-600 group-hover/item:text-primary transition-colors group-hover/item:translate-x-1">qr_code_scanner</span>
+</button>
+<!-- Phantom -->
+<button class="group/item flex items-center justify-between p-4 bg-[#151c2f] border-l-4 border-transparent hover:border-l-primary border-y border-r border-white/5 hover:bg-[#1a2339] hover:shadow-[0_0_20px_rgba(6,87,249,0.15)] transition-all duration-200 w-full text-left">
+<div class="flex items-center gap-4">
+<div class="bg-white/5 p-2 rounded border border-white/10 group-hover/item:border-primary/50 transition-colors">
+<div class="bg-center bg-no-repeat bg-contain size-8 grayscale group-hover/item:grayscale-0 transition-all" data-alt="Phantom Wallet logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBsUmT66lodVgT2xBGcu5iq1QWgNmK6H32lV_JoHBdP65TWIjlgYpv3v6B7_EUdSOwUY20yQ32ansFR80IVSRU0cUaaJ63MLGTx2mhpYYgJj3XUHipj6HjGzvON0trQheD5Ry1ypfHa2h2yS2TdhPXYkBUd--jm2DToTYV8SMqyp_kR0wbPZIXyvRX82ye93qsxCAtdRqxlP3CJ_pXaZ_6nKBbfIP7Jj9Zoe-8bIDTEV1dC6oMJh7KwQlNkzOqmTuRswDopDYL28E2o");'></div>
+</div>
+<div class="flex flex-col">
+<span class="text-lg font-bold uppercase tracking-tight text-white group-hover/item:text-primary transition-colors">Phantom</span>
+<span class="text-xs text-gray-500 font-mono group-hover/item:text-gray-300">Solana_Net // Ready</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-gray-600 group-hover/item:text-primary transition-colors group-hover/item:translate-x-1">chevron_right</span>
+</button>
+</div>
+<!-- Footer / Disclaimer -->
+<div class="pt-2 flex flex-col gap-2">
+<div class="flex gap-3 text-[11px] text-gray-500 border border-white/5 bg-black/20 p-3 rounded">
+<span class="material-symbols-outlined text-sm text-primary shrink-0">info</span>
+<p class="leading-tight">
+                                Accessing the terminal signifies agreement to the <a class="text-white hover:text-primary underline decoration-primary/50 underline-offset-2" href="#">Terms of Protocol</a>. 
+                                <span class="block mt-1 text-primary/70 font-mono">GAS ESTIMATE: 14 GWEI</span>
+</p>
+</div>
+</div>
+</div>
+<!-- Simulated Status Ticker -->
+<div class="bg-black py-2 px-4 border-t border-white/10 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="size-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]"></div>
+<span class="text-[10px] font-mono text-gray-400 tracking-wider">SYSTEM READY</span>
+</div>
+<span class="text-[10px] font-mono text-primary/60 tracking-widest">V.2.0.4-BETA</span>
+</div>
+</div>
+<!-- Floating Close Action -->
+<button class="absolute -top-10 right-0 sm:-right-10 text-gray-500 hover:text-primary hover:rotate-90 transition-all duration-300 flex items-center justify-center size-8">
+<span class="material-symbols-outlined text-3xl">close</span>
+</button>
+</div>
+</main>
+<!-- Page Footer -->
+<footer class="p-6 border-t border-white/5 bg-background-dark/90 flex flex-wrap justify-between items-end gap-6 text-xs font-mono text-gray-600">
+<div class="flex gap-10">
+<div class="flex flex-col gap-1">
+<span class="text-gray-700 font-bold uppercase">Network Status</span>
+<div class="flex items-center gap-2">
+<span class="size-1.5 bg-primary rounded-full"></span>
+<span class="text-gray-400">Mainnet (Synced)</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-gray-700 font-bold uppercase">Smart Contract</span>
+<span class="text-gray-400 hover:text-primary cursor-pointer transition-colors">0x71C...9A2F</span>
+</div>
+</div>
+<div class="text-right">
+<div class="font-bold text-gray-500">NEON DRIFTER INC.</div>
+<div class="text-[10px] opacity-50 mt-1">EST. 2077 // TOKYO_PRIME</div>
+</div>
+</footer>
+</div>
+</body></html>

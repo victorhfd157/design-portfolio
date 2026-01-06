@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Neon Drifter - Explore</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0657f9",
+                        "primary-dark": "#023eb5",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#0f1623", 
+                        "surface-dark": "#1a2436",
+                        "neon-accent": "#00ff9d"
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    boxShadow: {
+                        "neon": "0 0 10px rgba(6, 87, 249, 0.5)",
+                        "neon-hover": "0 0 20px rgba(6, 87, 249, 0.8), 0 0 4px rgba(6, 87, 249, 1)",
+                        "glitch": "2px 2px 0px rgba(255, 0, 80, 0.7), -2px -2px 0px rgba(0, 255, 255, 0.7)"
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white font-display overflow-x-hidden min-h-screen flex flex-col">
+<!-- Navbar -->
+<header class="sticky top-0 z-50 flex items-center justify-between border-b border-[#212f4a] bg-background-dark/95 backdrop-blur-sm px-6 py-4 md:px-10">
+<div class="flex items-center gap-4 text-white group cursor-pointer">
+<div class="size-8 flex items-center justify-center text-primary group-hover:animate-pulse">
+<span class="material-symbols-outlined text-3xl">hub</span>
+</div>
+<h2 class="text-white text-xl font-bold leading-tight tracking-wider uppercase group-hover:text-primary transition-colors">Neon Drifter</h2>
+</div>
+<div class="hidden md:flex flex-1 justify-end gap-8 items-center">
+<nav class="flex items-center gap-8">
+<a class="text-gray-300 hover:text-white hover:shadow-neon text-sm font-bold uppercase tracking-widest transition-all" href="#">Marketplace</a>
+<a class="text-primary hover:text-white hover:shadow-neon text-sm font-bold uppercase tracking-widest transition-all" href="#">Games</a>
+<a class="text-gray-300 hover:text-white hover:shadow-neon text-sm font-bold uppercase tracking-widest transition-all" href="#">Stats</a>
+<a class="text-gray-300 hover:text-white hover:shadow-neon text-sm font-bold uppercase tracking-widest transition-all" href="#">Docs</a>
+</nav>
+<button class="flex items-center justify-center overflow-hidden rounded bg-primary hover:bg-primary-dark hover:shadow-neon-hover transition-all duration-300 h-10 px-6 text-white text-sm font-bold uppercase tracking-wider border border-transparent hover:border-white">
+<span class="mr-2 material-symbols-outlined text-[18px]">account_balance_wallet</span>
+<span class="truncate">Connect</span>
+</button>
+</div>
+<!-- Mobile Menu Icon -->
+<div class="md:hidden text-white">
+<span class="material-symbols-outlined">menu</span>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col">
+<!-- Hero Section -->
+<section class="relative w-full bg-cover bg-center py-16 md:py-24 border-b border-[#212f4a]" data-alt="Dark cybernetic landscape with blue neon grid lines" style='background-image: linear-gradient(rgba(15, 22, 35, 0.7) 0%, rgba(15, 22, 35, 1) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuBv66VjczDwQAh0_fYEWRjPF7pc-KC0puvmWbN6evGf4LDPzPSHctxXqFLPonS9qsVc6qcE8vbYcTMFuWGvi2Kl1u7bp5ceL9xA-0erxrswgCkJhXqdBu8CAhB8loJVOgKw0f4YejNKZ872lLZ9287aglylEYOMm-L9nbLV8yT7LLVhnNIdqKCUhTUditCV5iHQZgBBmUpuXrtCcdEA91CDFevps4OyfMdTK79cL6FqaCSji9tvPgBmeU1Rs8YB2ixgUF4RbLXAO7b4");'>
+<div class="container mx-auto px-4 md:px-10 flex flex-col items-center text-center">
+<div class="mb-4 inline-flex items-center gap-2 px-3 py-1 rounded border border-primary/30 bg-primary/10 text-primary text-xs font-mono uppercase tracking-widest">
+<span class="animate-pulse w-2 h-2 rounded-full bg-primary"></span>
+                    System Online
+                </div>
+<h1 class="text-white text-4xl md:text-6xl lg:text-7xl font-black leading-tight tracking-tighter uppercase mb-4 drop-shadow-[0_0_15px_rgba(6,87,249,0.5)]">
+                    Neon Drifter // <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-[#00ff9d]">System Ready</span>
+</h1>
+<p class="text-gray-400 text-sm md:text-lg font-normal max-w-2xl mb-8 font-mono">
+                    &gt; Access the digital underground.<br/>
+                    &gt; Collect rare artifacts, play decentralized games, and trade in the void.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4 w-full justify-center">
+<button class="h-12 px-8 bg-primary text-white font-bold uppercase tracking-widest hover:shadow-neon-hover hover:-translate-y-1 transition-all border border-primary">
+                        Start Exploring
+                    </button>
+<button class="h-12 px-8 bg-transparent text-white font-bold uppercase tracking-widest border border-gray-600 hover:border-white hover:bg-white/5 hover:text-primary transition-all">
+                        View Collections
+                    </button>
+</div>
+</div>
+</section>
+<!-- Search & Filter Toolbar -->
+<section class="sticky top-[73px] z-40 bg-background-dark/95 backdrop-blur border-b border-[#212f4a]">
+<div class="container mx-auto px-4 md:px-10 py-4">
+<div class="flex flex-col lg:flex-row gap-4 lg:items-center justify-between">
+<!-- Search -->
+<div class="relative w-full lg:w-96 group">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-gray-500 group-focus-within:text-primary transition-colors">search</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-3 border border-[#212f4a] bg-surface-dark text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary sm:text-sm font-mono uppercase tracking-wide transition-all" placeholder="Search assets or games..." type="text"/>
+</div>
+<!-- Toggle & Chips -->
+<div class="flex flex-wrap items-center gap-4 flex-1 justify-end">
+<!-- Segmented Buttons -->
+<div class="flex bg-surface-dark p-1 rounded border border-[#212f4a]">
+<button class="px-6 py-2 bg-primary text-white text-xs font-bold uppercase tracking-wider shadow-sm rounded-sm">
+                                Games
+                            </button>
+<button class="px-6 py-2 text-gray-400 hover:text-white text-xs font-bold uppercase tracking-wider rounded-sm transition-colors">
+                                Assets
+                            </button>
+</div>
+<!-- Divider -->
+<div class="hidden lg:block w-px h-8 bg-[#212f4a]"></div>
+<!-- Dropdowns -->
+<div class="flex gap-2 overflow-x-auto pb-2 lg:pb-0">
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-dark border border-[#212f4a] hover:border-primary text-white text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all group">
+                                Rarity
+                                <span class="material-symbols-outlined text-gray-500 text-sm group-hover:text-primary">expand_more</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-dark border border-[#212f4a] hover:border-primary text-white text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all group">
+                                Price Range
+                                <span class="material-symbols-outlined text-gray-500 text-sm group-hover:text-primary">expand_more</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-dark border border-[#212f4a] hover:border-primary text-white text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all group">
+                                Chain
+                                <span class="material-symbols-outlined text-gray-500 text-sm group-hover:text-primary">expand_more</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Grid Content -->
+<section class="flex-1 bg-background-dark py-8">
+<div class="container mx-auto px-4 md:px-10">
+<!-- Status Bar -->
+<div class="flex justify-between items-end mb-6 border-b border-[#212f4a] pb-2">
+<h3 class="text-white text-xl font-bold uppercase tracking-tight flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">grid_view</span>
+                        Live Feeds
+                    </h3>
+<span class="text-gray-500 font-mono text-xs">1,204 ITEMS FOUND</span>
+</div>
+<!-- Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<!-- Card 1 -->
+<article class="group relative flex flex-col bg-surface-dark border border-[#212f4a] hover:border-primary transition-all duration-300 hover:-translate-y-1 hover:shadow-neon">
+<div class="relative aspect-square overflow-hidden bg-black">
+<div class="absolute inset-0 bg-primary/20 z-10 opacity-0 group-hover:opacity-100 transition-opacity mix-blend-overlay"></div>
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 filter grayscale group-hover:grayscale-0" data-alt="Abstract neon glowing katana sword" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVcN68Nl7MHOe3XzaVkclof0R_5ahDHSB-By_6uv06pQSnenF_lBvPnnrRUFNiLeQxelMlgAseCY9-CcjICrD6fa79Ab3yETfgtX3A7430jT-S90oJEXugmlfjaXn2Ya0XTwgaUVitdjMNzP3Mx15NBAl8mAch3FWfngrDuKTQP2Ttiq0GlNGq_TUmdsrGnHv0X2mwSqj2vfGSXmwbO7MbIhSm17GrpuSsJ7WfxOBv2EREsq7NQz7vuCI90qeNOgmcGOqVc7Fhbeer"/>
+<div class="absolute top-2 right-2 z-20 bg-black/80 backdrop-blur border border-primary/50 text-primary text-xs font-bold px-2 py-1 uppercase">
+                                Legendary
+                            </div>
+</div>
+<div class="p-4 flex flex-col gap-3 flex-1">
+<div class="flex justify-between items-start">
+<h4 class="text-white text-lg font-bold uppercase leading-tight truncate pr-2 group-hover:text-primary transition-colors">Cyber-Katana Gen 1</h4>
+<button class="text-gray-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</button>
+</div>
+<div class="flex items-center gap-2 text-gray-400 text-xs font-mono">
+<div class="w-4 h-4 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500"></div>
+                                @NEON_FORGE
+                            </div>
+<div class="mt-auto pt-3 border-t border-[#212f4a] flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-gray-500 text-[10px] uppercase font-bold">Current Bid</span>
+<span class="text-white font-mono font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">currency_bitcoin</span> 0.5 ETH
+                                    </span>
+</div>
+<button class="px-4 py-2 bg-white text-black text-xs font-bold uppercase hover:bg-primary hover:text-white transition-colors">
+                                    Buy Now
+                                </button>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="group relative flex flex-col bg-surface-dark border border-[#212f4a] hover:border-primary transition-all duration-300 hover:-translate-y-1 hover:shadow-neon">
+<div class="relative aspect-square overflow-hidden bg-black">
+<div class="absolute inset-0 bg-primary/20 z-10 opacity-0 group-hover:opacity-100 transition-opacity mix-blend-overlay"></div>
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 filter grayscale group-hover:grayscale-0" data-alt="Glitch art cityscape with purple and pink hues" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBokK0_Qh1POEhDA1YQ6cLXTNlfWYTGqhtxyUc_L9RaVVKMcXNDT9tOrlOmz6gOw0K8XzShbj2OZsuyqrItEdZ1WImdGIBNY2oXSicX-pT0WNpTAeth2wisWjmKVnKYjfW0Jy9hbHVcLYG2F-ZR64j5D-jPIGX2VjhZFJHyyiADHGk9dmT43SXUhLz9V8thCwbgHUP2KqV8MXIK0VUib1tDTDGfRyU2O2bS6zfyTkts8Nh2KWwD_bXI4A6TpnKXV3XtGR81Lzj_bGeU"/>
+</div>
+<div class="p-4 flex flex-col gap-3 flex-1">
+<div class="flex justify-between items-start">
+<h4 class="text-white text-lg font-bold uppercase leading-tight truncate pr-2 group-hover:text-primary transition-colors">Glitch City Plot #49</h4>
+<button class="text-gray-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</button>
+</div>
+<div class="flex items-center gap-2 text-gray-400 text-xs font-mono">
+<div class="w-4 h-4 rounded-full bg-gradient-to-tr from-green-500 to-blue-500"></div>
+                                @METAVERSE_ARCH
+                            </div>
+<div class="mt-auto pt-3 border-t border-[#212f4a] flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-gray-500 text-[10px] uppercase font-bold">Price</span>
+<span class="text-white font-mono font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">currency_bitcoin</span> 1.2 ETH
+                                    </span>
+</div>
+<button class="px-4 py-2 bg-transparent border border-gray-600 text-white text-xs font-bold uppercase hover:border-primary hover:text-primary transition-colors">
+                                    Make Offer
+                                </button>
+</div>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="group relative flex flex-col bg-surface-dark border border-[#212f4a] hover:border-primary transition-all duration-300 hover:-translate-y-1 hover:shadow-neon">
+<div class="relative aspect-square overflow-hidden bg-black">
+<div class="absolute inset-0 bg-primary/20 z-10 opacity-0 group-hover:opacity-100 transition-opacity mix-blend-overlay"></div>
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 filter grayscale group-hover:grayscale-0" data-alt="Futuristic helmet avatar 3D render" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3hVIiMupkp8VmogcUCsFOKMMc64mQIPSLOmQzHkWKZrkCkUXA5YQ2sazZzE0hT5QbFtkJshxfto83_XndItz4XZv1Shv9SG3LXP1I-CgJZTHVAZhledG6BfHk4kp0j7A51qpdKrOrt4jHkypUnyJHL4TA7Ls7XRk9smZGe0qp-OdGLwBK_R4NZ65Xj6jVE9TFJG9Qm39uXi2cpZXDsw6TdltkcpJdB0t6gs6ooYrmjdBJ0PspVS9OuWekx4dy_lnF5NMTW-QvlnVv"/>
+<div class="absolute top-2 right-2 z-20 bg-black/80 backdrop-blur border border-primary/50 text-primary text-xs font-bold px-2 py-1 uppercase">
+                                New
+                            </div>
+</div>
+<div class="p-4 flex flex-col gap-3 flex-1">
+<div class="flex justify-between items-start">
+<h4 class="text-white text-lg font-bold uppercase leading-tight truncate pr-2 group-hover:text-primary transition-colors">Drifter Avatar #4092</h4>
+<button class="text-gray-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</button>
+</div>
+<div class="flex items-center gap-2 text-gray-400 text-xs font-mono">
+<div class="w-4 h-4 rounded-full bg-gradient-to-tr from-pink-500 to-orange-500"></div>
+                                @DRIFTER_DAO
+                            </div>
+<div class="mt-auto pt-3 border-t border-[#212f4a] flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-gray-500 text-[10px] uppercase font-bold">Price</span>
+<span class="text-white font-mono font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">currency_bitcoin</span> 0.08 ETH
+                                    </span>
+</div>
+<button class="px-4 py-2 bg-white text-black text-xs font-bold uppercase hover:bg-primary hover:text-white transition-colors">
+                                    Buy Now
+                                </button>
+</div>
+</div>
+</article>
+<!-- Card 4 -->
+<article class="group relative flex flex-col bg-surface-dark border border-[#212f4a] hover:border-primary transition-all duration-300 hover:-translate-y-1 hover:shadow-neon">
+<div class="relative aspect-square overflow-hidden bg-black">
+<div class="absolute inset-0 bg-primary/20 z-10 opacity-0 group-hover:opacity-100 transition-opacity mix-blend-overlay"></div>
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 filter grayscale group-hover:grayscale-0" data-alt="Abstract fluid liquid gold texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJKwvknFO2bW7eIvmSb1ZKo9AFcRKXsbvSmt_gXJZVsV9t5NZp5OERV6XnBilDoaaedNv-ZaNtBFLuXTroFOpQEiBQPRkzyACWV1xN-5ahL3raMTPnKWnw4XlIGSStXwWSkZ8Gi5wy-JMv-ZjCwz103nBr8HsGFnmgDkiVrXXy55iAaTiul79JiSCjbIU-ObN6BWisyzYwLtSYxjR4ICsAFkc5OANZhGc1ZOYmy7Hm52PPhQD6qOgsiSigfYTg3IPEIzXStTYlMzYn"/>
+</div>
+<div class="p-4 flex flex-col gap-3 flex-1">
+<div class="flex justify-between items-start">
+<h4 class="text-white text-lg font-bold uppercase leading-tight truncate pr-2 group-hover:text-primary transition-colors">Liquid Gold Token</h4>
+<button class="text-gray-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</button>
+</div>
+<div class="flex items-center gap-2 text-gray-400 text-xs font-mono">
+<div class="w-4 h-4 rounded-full bg-gradient-to-tr from-yellow-500 to-yellow-200"></div>
+                                @ALCHEMY_LABS
+                            </div>
+<div class="mt-auto pt-3 border-t border-[#212f4a] flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-gray-500 text-[10px] uppercase font-bold">Last Sale</span>
+<span class="text-white font-mono font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">currency_bitcoin</span> 2.5 ETH
+                                    </span>
+</div>
+<button class="px-4 py-2 bg-transparent border border-gray-600 text-white text-xs font-bold uppercase hover:border-primary hover:text-primary transition-colors">
+                                    Bid
+                                </button>
+</div>
+</div>
+</article>
+<!-- Card 5 -->
+<article class="group relative flex flex-col bg-surface-dark border border-[#212f4a] hover:border-primary transition-all duration-300 hover:-translate-y-1 hover:shadow-neon">
+<div class="relative aspect-square overflow-hidden bg-black">
+<div class="absolute inset-0 bg-primary/20 z-10 opacity-0 group-hover:opacity-100 transition-opacity mix-blend-overlay"></div>
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 filter grayscale group-hover:grayscale-0" data-alt="Abstract 3D shapes floating in dark space" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnmgNemsqV4ig0KYHUy5amZj6nObcPD6Hi5yWIeTwrL8eIsqtVNLDfTgbBKq8ikzWyGprDBB7mIvqPG3ze5VQXcWD9QcdoOfpRWRkzqWy0qAnw-wCM-54WYsBA4QmKEUm6gJ_FujK8gvZE3Z2PQ3ATUlCIJwqIPHgeuExBlVq3PJ92sYGIVbzC6SeEyQ3v3jiGzxvOJ6kpTs1UGlB03rAi_Nr1f4vptUQIhbDD6huQgPdxuFWkmqQVnR66b25H-pWhXPTcK2xS5lz7"/>
+</div>
+<div class="p-4 flex flex-col gap-3 flex-1">
+<div class="flex justify-between items-start">
+<h4 class="text-white text-lg font-bold uppercase leading-tight truncate pr-2 group-hover:text-primary transition-colors">Void Relic #003</h4>
+<button class="text-gray-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</button>
+</div>
+<div class="flex items-center gap-2 text-gray-400 text-xs font-mono">
+<div class="w-4 h-4 rounded-full bg-gradient-to-tr from-gray-500 to-white"></div>
+                                @UNKNOWN_ENTITY
+                            </div>
+<div class="mt-auto pt-3 border-t border-[#212f4a] flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-gray-500 text-[10px] uppercase font-bold">Price</span>
+<span class="text-white font-mono font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">currency_bitcoin</span> 0.15 ETH
+                                    </span>
+</div>
+<button class="px-4 py-2 bg-white text-black text-xs font-bold uppercase hover:bg-primary hover:text-white transition-colors">
+                                    Buy Now
+                                </button>
+</div>
+</div>
+</article>
+<!-- Card 6 -->
+<article class="group relative flex flex-col bg-surface-dark border border-[#212f4a] hover:border-primary transition-all duration-300 hover:-translate-y-1 hover:shadow-neon">
+<div class="relative aspect-square overflow-hidden bg-black">
+<div class="absolute inset-0 bg-primary/20 z-10 opacity-0 group-hover:opacity-100 transition-opacity mix-blend-overlay"></div>
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 filter grayscale group-hover:grayscale-0" data-alt="Cyberpunk code raining down on screen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdH8DkptMKogi6LJk6tCsQRAm0LdCtGuVbUv_kdrjq13cLnA8rwjhuEF5ZmODCnaWQ8VPrT2Eh5oAeanSL-EgALXbagTFYH6R5l6s39gifWWSL_v3-Kk1BF2syxjMLqr_99cYXz1eQczw1iFYCRcg3aHY-m9a9ojxCPonoCeH0ft571wBG3hQC0WLn6joMXVtMmDwrewIvhi7ywOtvugl-feujsNZIRpO_SU2Axw81lCpewIfscIXCRy1C6CXWIOY-uVGEGxPZ4BUi"/>
+<div class="absolute top-2 right-2 z-20 bg-black/80 backdrop-blur border border-primary/50 text-primary text-xs font-bold px-2 py-1 uppercase">
+                                Epic
+                            </div>
+</div>
+<div class="p-4 flex flex-col gap-3 flex-1">
+<div class="flex justify-between items-start">
+<h4 class="text-white text-lg font-bold uppercase leading-tight truncate pr-2 group-hover:text-primary transition-colors">Source Code Frag</h4>
+<button class="text-gray-400 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-xl">favorite</span>
+</button>
+</div>
+<div class="flex items-center gap-2 text-gray-400 text-xs font-mono">
+<div class="w-4 h-4 rounded-full bg-gradient-to-tr from-green-400 to-green-800"></div>
+                                @MATRIX_DEV
+                            </div>
+<div class="mt-auto pt-3 border-t border-[#212f4a] flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-gray-500 text-[10px] uppercase font-bold">Current Bid</span>
+<span class="text-white font-mono font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">currency_bitcoin</span> 0.9 ETH
+                                    </span>
+</div>
+<button class="px-4 py-2 bg-transparent border border-gray-600 text-white text-xs font-bold uppercase hover:border-primary hover:text-primary transition-colors">
+                                    Bid
+                                </button>
+</div>
+</div>
+</article>
+</div>
+<!-- Load More -->
+<div class="mt-16 flex justify-center">
+<button class="group relative px-12 py-4 bg-transparent border border-[#212f4a] text-white font-bold uppercase tracking-widest hover:border-primary hover:bg-primary/5 hover:shadow-neon transition-all">
+<span class="absolute top-0 left-0 w-2 h-2 border-t border-l border-white opacity-0 group-hover:opacity-100 transition-opacity"></span>
+<span class="absolute top-0 right-0 w-2 h-2 border-t border-r border-white opacity-0 group-hover:opacity-100 transition-opacity"></span>
+<span class="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-white opacity-0 group-hover:opacity-100 transition-opacity"></span>
+<span class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white opacity-0 group-hover:opacity-100 transition-opacity"></span>
+<span class="flex items-center gap-2">
+                            Load More Data <span class="animate-pulse">_</span>
+</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-background-dark border-t border-[#212f4a] py-10">
+<div class="container mx-auto px-4 md:px-10">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl">hub</span>
+<span class="text-white font-bold uppercase tracking-widest">Neon Drifter</span>
+</div>
+<div class="flex gap-8 font-mono text-xs text-gray-500 uppercase">
+<a class="hover:text-primary transition-colors hover:underline decoration-primary underline-offset-4" href="#">Discord</a>
+<a class="hover:text-primary transition-colors hover:underline decoration-primary underline-offset-4" href="#">Twitter</a>
+<a class="hover:text-primary transition-colors hover:underline decoration-primary underline-offset-4" href="#">Manifesto</a>
+</div>
+<div class="text-gray-600 text-[10px] font-mono">
+                    // SYSTEM VERSION 2.0.4 <br/>
+                    // COPYRIGHT © 2024
+                </div>
+</div>
+</div>
+</footer>
+</body></html>

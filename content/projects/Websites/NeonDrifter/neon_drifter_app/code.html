@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Neon Drifter App</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0657f9",
+                        "primary-dark": "#0442bd",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#0f1623",
+                        "surface": "#151e2e",
+                        "surface-dark": "#1a2436",
+                        "neon-accent": "#00ff9d",
+                        "neon-green": "#0bda5e",
+                        "neon-purple": "#b026ff",
+                        "border-dark": "#2f436a"
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "mono": ["Space Grotesk", "monospace"],
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                    backgroundImage: {
+                        'cyber-grid': "linear-gradient(rgba(6, 87, 249, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 87, 249, 0.05) 1px, transparent 1px)",
+                    },
+                    boxShadow: {
+                        "neon": "0 0 10px rgba(6, 87, 249, 0.5)",
+                        "neon-hover": "0 0 20px rgba(6, 87, 249, 0.8), 0 0 4px rgba(6, 87, 249, 1)",
+                        "glitch": "2px 2px 0px rgba(255, 0, 80, 0.7), -2px -2px 0px rgba(0, 255, 255, 0.7)"
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 3s linear infinite',
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Shared Styles */
+        body { font-family: 'Space Grotesk', sans-serif; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #0f1623; }
+        ::-webkit-scrollbar-thumb { background: #212f4a; border-radius: 2px; }
+        ::-webkit-scrollbar-thumb:hover { background: #0657f9; }
+
+        /* Screen 1 Specific */
+        .glitch-static { text-shadow: 2px 0 #0657f9, -2px 0 #ff00c1; }
+        .scanline {
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+
+        /* Screen 3 Specific */
+        .glitch-text { position: relative; }
+        .glitch-text::before, .glitch-text::after {
+            content: attr(data-text);
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        }
+        .glitch-text::before {
+            left: 2px; text-shadow: -1px 0 #0657f9;
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+        .glitch-text::after {
+            left: -2px; text-shadow: -1px 0 #b026ff;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim {
+            0% { clip: rect(11px, 9999px, 88px, 0); } 100% { clip: rect(3px, 9999px, 93px, 0); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); } 100% { clip: rect(0, 9999px, 35px, 0); }
+        }
+        .clip-path-slant { clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%); }
+    </style>
+
+    <!-- React Libraries -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/history@5/umd/history.development.js"></script>
+    <script src="https://unpkg.com/react-router@6.3.0/umd/react-router.development.js"></script>
+    <script src="https://unpkg.com/react-router-dom@6.3.0/umd/react-router-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-white font-display overflow-x-hidden min-h-screen flex flex-col">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { createRoot } = ReactDOM;
+        const { MemoryRouter, Routes, Route, Link, useNavigate } = ReactRouterDOM;
+
+        // --- COMPONENTS ---
+
+        // Navigation Components for reuse
+        const NavLink = ({ to, children, active }) => (
+            <Link 
+                to={to} 
+                className={`text-sm font-medium hover:text-primary transition-colors tracking-widest uppercase relative group ${active ? 'text-primary' : 'text-gray-300'}`}
+            >
+                <span className="text-primary/50 mr-1">//</span> {children}
+                <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all ${active ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
+            </Link>
+        );
+
+        const TopBar = ({ title }) => {
+            return (
+                <header class="w-full border-b border-primary/20 bg-background-dark/95 backdrop-blur sticky top-0 z-50">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="flex items-center justify-between h-20">
+                            {/* Logo */}
+                            <Link to="/" class="flex items-center gap-4 group">
+                                <div class="size-8 text-primary flex items-center justify-center border border-primary/50 bg-primary/10 rounded group-hover:animate-pulse">
+                                    <span class="material-symbols-outlined text-[24px]">terminal</span>
+                                </div>
+                                <h2 class="text-xl font-bold tracking-widest uppercase glitch-static">{title || "NEON DRIFTER"}</h2>
+                            </Link>
+                            
+                            {/* Nav Links (Desktop) */}
+                            <nav class="hidden md:flex items-center gap-8">
+                                <NavLink to="/explore">MARKET</NavLink>
+                                <NavLink to="/detail">DROPS</NavLink>
+                                <NavLink to="/profile">PROFILE</NavLink>
+                                <NavLink to="#">GAME</NavLink>
+                            </nav>
+
+                            {/* Actions */}
+                            <div class="flex items-center gap-6">
+                                {/* Search */}
+                                <div class="hidden lg:flex items-center bg-surface border border-primary/20 rounded h-10 w-64 focus-within:border-primary transition-colors">
+                                    <span class="material-symbols-outlined text-gray-400 ml-3 text-[20px]">search</span>
+                                    <input class="bg-transparent border-none text-sm text-white placeholder-gray-500 w-full focus:ring-0" placeholder="SEARCH ASSETS..." type="text"/>
+                                </div>
+                                {/* Connect Button */}
+                                <button class="flex items-center justify-center h-10 px-6 bg-primary/10 border border-primary hover:bg-primary text-primary hover:text-white transition-all duration-300 rounded uppercase font-bold text-xs tracking-wider group">
+                                    <span class="material-symbols-outlined text-[18px] mr-2 group-hover:animate-pulse">bolt</span>
+                                    <span>CONNECT</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+            );
+        };
+
+        const Footer = () => (
+            <footer className="bg-background-dark border-t border-primary/20 py-12 text-sm font-mono mt-auto">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                        <div className="col-span-1 md:col-span-2">
+                            <div className="flex items-center gap-2 mb-4">
+                                <div className="size-6 bg-primary rounded-full"></div>
+                                <span className="text-xl font-bold tracking-widest text-white">NEON DRIFTER</span>
+                            </div>
+                            <p className="text-gray-500 max-w-xs mb-4">
+                                &gt; executing_shutdown_sequence...<br/>
+                                &gt; all_systems_nominal<br/>
+                                &gt; awaiting_user_input
+                            </p>
+                        </div>
+                        <div>
+                            <h4 className="text-white font-bold uppercase mb-4 border-b border-primary/30 inline-block pb-1">Protocols</h4>
+                            <ul className="space-y-2">
+                                <li><Link className="text-gray-500 hover:text-primary hover:pl-2 transition-all" to="/explore">&gt; MARKETPLACE</Link></li>
+                                <li><a className="text-gray-500 hover:text-primary hover:pl-2 transition-all" href="#">&gt; STAKING</a></li>
+                                <li><Link className="text-gray-500 hover:text-primary hover:pl-2 transition-all" to="/profile">&gt; PROFILE</Link></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="text-white font-bold uppercase mb-4 border-b border-primary/30 inline-block pb-1">System</h4>
+                            <ul className="space-y-2">
+                                <li><a className="text-gray-500 hover:text-primary hover:pl-2 transition-all" href="#">&gt; TERMS_OF_SERVICE</a></li>
+                                <li><a className="text-gray-500 hover:text-primary hover:pl-2 transition-all" href="#">&gt; SUPPORT_TICKET</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="mt-12 pt-8 border-t border-gray-800 flex justify-between items-center text-xs text-gray-600">
+                        <p>© 2024 NEON DRIFTER INC. ALL RIGHTS RESERVED.</p>
+                        <p>STATUS: <span className="text-green-500">ONLINE</span></p>
+                    </div>
+                </div>
+            </footer>
+        );
+
+        // --- SCREEN 1: HOME PAGE ---
+        const HomePage = () => {
+            const navigate = useNavigate();
+
+            return (
+                <div className="flex flex-col min-h-screen">
+                    <TopBar />
+                    <main className="flex-grow bg-cyber-grid bg-[length:40px_40px]">
+                        {/* Hero Section */}
+                        <section className="relative min-h-[600px] flex items-center border-b border-primary/20 overflow-hidden">
+                            <div className="absolute inset-0 z-0">
+                                <img className="w-full h-full object-cover opacity-40 mix-blend-luminosity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrZmczWyupnLUIT0mL7CwKjHBwL86sBUdzpn4z32XANmcK_sNZ9Flwlkggjl7c8BhDZD6hXiOTOUn7SoH6wmAVjX4gkjrT_sYn6RuP73uRAZWFeCqRR1SR75cPrCSl0oJ4g3FQq8VD0ZdozplSgjXbkiLjyBrXXMK5UXF7wt-WkjsodWGkAZTow_KaRCXL3h00SH9-FGWy7fCeNOSAEpRqQInfsgb94GR5b7fpGEj1hWu9LuAoKU68OOPaDiyw1n4qg4sX56mwTSiO" alt="Hero Background"/>
+                                <div className="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/80 to-transparent"></div>
+                                <div className="absolute inset-0 scanline opacity-20 pointer-events-none"></div>
+                            </div>
+                            <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                                <div className="max-w-3xl">
+                                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/30 rounded mb-6 backdrop-blur-sm">
+                                        <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                                        <span className="text-xs font-mono text-primary tracking-widest">SYSTEM ONLINE v2.4</span>
+                                    </div>
+                                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-none tracking-tighter mb-6 glitch-static text-white mix-blend-overlay">
+                                        DRIFT INTO<br/>
+                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-primary/50">THE VOID</span>
+                                    </h1>
+                                    <p className="text-lg md:text-xl text-gray-400 max-w-xl mb-10 leading-relaxed font-light border-l-2 border-primary pl-6">
+                                        The premier Web3 nexus for cyber-enhanced assets. Trade, battle, and collect in a brutalist digital dystopia.
+                                    </p>
+                                    <div className="flex flex-col sm:flex-row gap-4">
+                                        <button className="h-14 px-8 bg-primary text-white text-base font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-all clip-path-slant flex items-center justify-center gap-2 group">
+                                            INITIALIZE_WALLET
+                                            <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                                        </button>
+                                        <button onClick={() => navigate('/explore')} className="h-14 px-8 bg-transparent border border-white/20 text-white text-base font-bold tracking-widest uppercase hover:border-primary hover:text-primary transition-all flex items-center justify-center backdrop-blur-sm">
+                                            EXPLORE MAP
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                         {/* Marquee */}
+                        <div className="w-full bg-primary text-white py-3 overflow-hidden border-y border-white/10 select-none">
+                            <div className="flex gap-8 items-center whitespace-nowrap font-mono font-bold tracking-widest text-sm animate-[marquee_20s_linear_infinite]">
+                                <span>/// SYSTEM OVERRIDE DETECTED</span><span className="opacity-50">|</span>
+                                <span>NEW COLLECTION DROPPING IN 24:00:00</span><span className="opacity-50">|</span>
+                                <span>WARNING: HIGH VOLTAGE</span><span className="opacity-50">|</span>
+                                <span>MARKET VOLATILITY: EXTREME</span><span className="opacity-50">|</span>
+                                <span>/// SYSTEM OVERRIDE DETECTED</span><span className="opacity-50">|</span>
+                                <span>NEW COLLECTION DROPPING IN 24:00:00</span>
+                            </div>
+                        </div>
+
+                        {/* Stats Section */}
+                        <section className="py-12 border-b border-primary/10">
+                            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    <div className="bg-surface border border-primary/20 p-6 relative group hover:border-primary transition-colors">
+                                        <div className="absolute top-2 right-2 text-primary/20 group-hover:text-primary transition-colors"><span className="material-symbols-outlined">analytics</span></div>
+                                        <p className="text-sm text-gray-400 font-mono mb-2 uppercase tracking-widest">Total Volume</p>
+                                        <p className="text-4xl font-bold text-white tracking-tight">8,492 <span className="text-primary text-lg">ETH</span></p>
+                                        <div className="w-full bg-gray-700 h-0.5 mt-4"><div className="bg-primary h-full w-[75%]"></div></div>
+                                    </div>
+                                    <div className="bg-surface border border-primary/20 p-6 relative group hover:border-primary transition-colors">
+                                        <div className="absolute top-2 right-2 text-primary/20 group-hover:text-primary transition-colors"><span className="material-symbols-outlined">group</span></div>
+                                        <p className="text-sm text-gray-400 font-mono mb-2 uppercase tracking-widest">Drifters Online</p>
+                                        <p className="text-4xl font-bold text-white tracking-tight">1,204</p>
+                                        <div className="w-full bg-gray-700 h-0.5 mt-4"><div className="bg-primary h-full w-[45%]"></div></div>
+                                    </div>
+                                    <div className="bg-surface border border-primary/20 p-6 relative group hover:border-primary transition-colors">
+                                        <div className="absolute top-2 right-2 text-primary/20 group-hover:text-primary transition-colors"><span className="material-symbols-outlined">trending_up</span></div>
+                                        <p className="text-sm text-gray-400 font-mono mb-2 uppercase tracking-widest">Floor Price</p>
+                                        <p className="text-4xl font-bold text-white tracking-tight">0.45 <span className="text-primary text-lg">ETH</span></p>
+                                        <div className="w-full bg-gray-700 h-0.5 mt-4"><div className="bg-primary h-full w-[12%]"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Drops Section (Preview of Screen 2 content style) */}
+                        <section className="py-20 relative">
+                            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                                <div className="flex items-end justify-between mb-12 border-b border-primary/30 pb-4">
+                                    <div>
+                                        <div className="text-primary font-mono text-xs mb-2">/// SECURE CONNECTION ESTABLISHED</div>
+                                        <h2 className="text-3xl md:text-4xl font-bold uppercase tracking-tighter">Incoming Signals</h2>
+                                    </div>
+                                    <Link to="/explore" className="hidden md:flex items-center gap-2 text-primary font-bold uppercase text-sm hover:text-white transition-colors">
+                                        View All
+                                        <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                                    </Link>
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                    {/* Sample Card linking to Detail */}
+                                    <Link to="/detail" className="group relative bg-surface border border-primary/20 hover:border-primary hover:shadow-[0_0_15px_rgba(6,87,249,0.3)] transition-all duration-300">
+                                        <div className="relative aspect-square overflow-hidden bg-black/50">
+                                            <img className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA36zXFqYBvDKUU0UCaDwwRpvhuz0tntC563d6_Xmdsp4xjvhgwFODia-ureb430Z2YrUUwnkCeqHGm4gNUoAcwRwJmmbkRjJWOMLyBwyDq2YteAxM_vE0MAPL_2uloNqrgvu9cR_flJfj0IS8qG--qaWc9cPSvrgEXGx7k9kDxHMFaC912y73wW-NJ_WRctPejgVHhfIE50w2jbLAukydZWbFsF-WYhxaQKarXzVxeUZJ8fycGGfYicAU_M4RyNXg35iJJdqoaNG8q" alt="Item"/>
+                                            <div className="absolute top-2 left-2 bg-black/80 border border-primary/50 px-2 py-1 text-[10px] font-mono text-primary">RARE</div>
+                                        </div>
+                                        <div className="p-4 border-t border-primary/20">
+                                            <h3 className="text-lg font-bold text-white mb-1 group-hover:text-primary transition-colors">CYBER_SKULL #099</h3>
+                                            <div className="flex justify-between items-end mt-4">
+                                                <div>
+                                                    <p className="text-[10px] text-gray-500 font-mono uppercase">Current Bid</p>
+                                                    <p className="text-xl font-bold text-white">2.5 ETH</p>
+                                                </div>
+                                                <div className="size-8 flex items-center justify-center bg-primary text-white hover:bg-white hover:text-black transition-colors">
+                                                    <span className="material-symbols-outlined text-sm">add</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                    {/* More cards would go here, simplified for prototype */}
+                                </div>
+                            </div>
+                        </section>
+                    </main>
+                    <Footer />
+                </div>
+            );
+        };
+
+        // --- SCREEN 2: EXPLORE PAGE ---
+        const ExplorePage = () => {
+            return (
+                <div className="flex flex-col min-h-screen">
+                    <TopBar title="EXPLORE" />
+                    
+                    <main className="flex-1 flex flex-col">
+                        {/* Hero Section */}
+                        <section className="relative w-full bg-cover bg-center py-16 md:py-24 border-b border-[#212f4a]" style={{backgroundImage: 'linear-gradient(rgba(15, 22, 35, 0.7) 0%, rgba(15, 22, 35, 1) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuBv66VjczDwQAh0_fYEWRjPF7pc-KC0puvmWbN6evGf4LDPzPSHctxXqFLPonS9qsVc6qcE8vbYcTMFuWGvi2Kl1u7bp5ceL9xA-0erxrswgCkJhXqdBu8CAhB8loJVOgKw0f4YejNKZ872lLZ9287aglylEYOMm-L9nbLV8yT7LLVhnNIdqKCUhTUditCV5iHQZgBBmUpuXrtCcdEA91CDFevps4OyfMdTK79cL6FqaCSji9tvPgBmeU1Rs8YB2ixgUF4RbLXAO7b4")'}}>
+                            <div className="container mx-auto px-4 md:px-10 flex flex-col items-center text-center">
+                                <div className="mb-4 inline-flex items-center gap-2 px-3 py-1 rounded border border-primary/30 bg-primary/10 text-primary text-xs font-mono uppercase tracking-widest">
+                                    <span className="animate-pulse w-2 h-2 rounded-full bg-primary"></span>
+                                    System Online
+                                </div>
+                                <h1 className="text-white text-4xl md:text-6xl lg:text-7xl font-black leading-tight tracking-tighter uppercase mb-4 drop-shadow-[0_0_15px_rgba(6,87,249,0.5)]">
+                                    Neon Drifter // <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-[#00ff9d]">System Ready</span>
+                                </h1>
+                                <p className="text-gray-400 text-sm md:text-lg font-normal max-w-2xl mb-8 font-mono">
+                                    &gt; Access the digital underground.<br/>
+                                    &gt; Collect rare artifacts, play decentralized games, and trade in the void.
+                                </p>
+                            </div>
+                        </section>
+
+                        {/* Search & Filter */}
+                        <section className="sticky top-20 z-40 bg-background-dark/95 backdrop-blur border-b border-[#212f4a]">
+                            <div className="container mx-auto px-4 md:px-10 py-4">
+                                <div className="flex flex-col lg:flex-row gap-4 lg:items-center justify-between">
+                                    <div className="relative w-full lg:w-96 group">
+                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <span className="material-symbols-outlined text-gray-500 group-focus-within:text-primary transition-colors">search</span>
+                                        </div>
+                                        <input className="block w-full pl-10 pr-3 py-3 border border-[#212f4a] bg-surface-dark text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary sm:text-sm font-mono uppercase tracking-wide transition-all" placeholder="Search assets or games..." type="text"/>
+                                    </div>
+                                    <div className="flex flex-wrap items-center gap-4 flex-1 justify-end">
+                                        <div className="flex bg-surface-dark p-1 rounded border border-[#212f4a]">
+                                            <button className="px-6 py-2 bg-primary text-white text-xs font-bold uppercase tracking-wider shadow-sm rounded-sm">Games</button>
+                                            <button className="px-6 py-2 text-gray-400 hover:text-white text-xs font-bold uppercase tracking-wider rounded-sm transition-colors">Assets</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Grid Content */}
+                        <section className="flex-1 bg-background-dark py-8">
+                            <div className="container mx-auto px-4 md:px-10">
+                                <div className="flex justify-between items-end mb-6 border-b border-[#212f4a] pb-2">
+                                    <h3 className="text-white text-xl font-bold uppercase tracking-tight flex items-center gap-2">
+                                        <span className="material-symbols-outlined text-primary">grid_view</span>
+                                        Live Feeds
+                                    </h3>
+                                    <span className="text-gray-500 font-mono text-xs">1,204 ITEMS FOUND</span>
+                                </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                                    {/* Card 1 */}
+                                    <Link to="/detail" className="group relative flex flex-col bg-surface-dark border border-[#212f4a] hover:border-primary transition-all duration-300 hover:-translate-y-1 hover:shadow-neon">
+                                        <div className="relative aspect-square overflow-hidden bg-black">
+                                            <img className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 filter grayscale group-hover:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVcN68Nl7MHOe3XzaVkclof0R_5ahDHSB-By_6uv06pQSnenF_lBvPnnrRUFNiLeQxelMlgAseCY9-CcjICrD6fa79Ab3yETfgtX3A7430jT-S90oJEXugmlfjaXn2Ya0XTwgaUVitdjMNzP3Mx15NBAl8mAch3FWfngrDuKTQP2Ttiq0GlNGq_TUmdsrGnHv0X2mwSqj2vfGSXmwbO7MbIhSm17GrpuSsJ7WfxOBv2EREsq7NQz7vuCI90qeNOgmcGOqVc7Fhbeer"/>
+                                            <div className="absolute top-2 right-2 z-20 bg-black/80 backdrop-blur border border-primary/50 text-primary text-xs font-bold px-2 py-1 uppercase">Legendary</div>
+                                        </div>
+                                        <div className="p-4 flex flex-col gap-3 flex-1">
+                                            <div className="flex justify-between items-start">
+                                                <h4 className="text-white text-lg font-bold uppercase leading-tight truncate pr-2 group-hover:text-primary transition-colors">Cyber-Katana Gen 1</h4>
+                                            </div>
+                                            <div className="mt-auto pt-3 border-t border-[#212f4a] flex items-center justify-between">
+                                                <div className="flex flex-col">
+                                                    <span className="text-gray-500 text-[10px] uppercase font-bold">Current Bid</span>
+                                                    <span className="text-white font-mono font-bold flex items-center gap-1"><span className="material-symbols-outlined text-sm">currency_bitcoin</span> 0.5 ETH</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                    {/* Card 2 */}
+                                    <Link to="/detail" className="group relative flex flex-col bg-surface-dark border border-[#212f4a] hover:border-primary transition-all duration-300 hover:-translate-y-1 hover:shadow-neon">
+                                        <div className="relative aspect-square overflow-hidden bg-black">
+                                            <img className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 filter grayscale group-hover:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBokK0_Qh1POEhDA1YQ6cLXTNlfWYTGqhtxyUc_L9RaVVKMcXNDT9tOrlOmz6gOw0K8XzShbj2OZsuyqrItEdZ1WImdGIBNY2oXSicX-pT0WNpTAeth2wisWjmKVnKYjfW0Jy9hbHVcLYG2F-ZR64j5D-jPIGX2VjhZFJHyyiADHGk9dmT43SXUhLz9V8thCwbgHUP2KqV8MXIK0VUib1tDTDGfRyU2O2bS6zfyTkts8Nh2KWwD_bXI4A6TpnKXV3XtGR81Lzj_bGeU"/>
+                                        </div>
+                                        <div className="p-4 flex flex-col gap-3 flex-1">
+                                            <div className="flex justify-between items-start">
+                                                <h4 className="text-white text-lg font-bold uppercase leading-tight truncate pr-2 group-hover:text-primary transition-colors">Glitch City Plot #49</h4>
+                                            </div>
+                                            <div className="mt-auto pt-3 border-t border-[#212f4a] flex items-center justify-between">
+                                                <div className="flex flex-col">
+                                                    <span className="text-gray-500 text-[10px] uppercase font-bold">Price</span>
+                                                    <span className="text-white font-mono font-bold flex items-center gap-1"><span className="material-symbols-outlined text-sm">currency_bitcoin</span> 1.2 ETH</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </div>
+                            </div>
+                        </section>
+                    </main>
+                    <Footer />
+                </div>
+            );
+        };
+
+        // --- SCREEN 3: ITEM DETAIL PAGE ---
+        const DetailPage = () => {
+            return (
+                <div className="flex flex-col min-h-screen">
+                    <TopBar title="MARKET" />
+                    
+                    {/* Ticker Tape */}
+                    <div className="bg-primary overflow-hidden py-1 border-b border-white/10 relative z-40">
+                        <div className="whitespace-nowrap animate-[marquee_20s_linear_infinite] flex gap-8 text-xs font-mono font-bold text-white">
+                            <span>/// SYSTEM STATUS: OPERATIONAL</span>
+                            <span>/// ETH: $3,240.50 (+2.4%)</span>
+                            <span>/// LATEST DROP: CYBER_GENESIS_V2 [SOLD OUT]</span>
+                            <span>/// WELCOME RUNNER #9201</span>
+                            <span>/// SYSTEM STATUS: OPERATIONAL</span>
+                            <span>/// ETH: $3,240.50 (+2.4%)</span>
+                        </div>
+                    </div>
+
+                    <main className="flex flex-col lg:flex-row min-h-[calc(100vh-140px)]">
+                        {/* Left Column */}
+                        <section className="lg:w-[55%] relative flex flex-col border-r border-white/10 bg-black overflow-hidden group">
+                            <div className="absolute top-6 left-6 z-20 flex flex-wrap gap-2 mix-blend-difference">
+                                <Link to="/" className="text-slate-400 hover:text-primary text-xs font-bold uppercase tracking-widest">Home</Link>
+                                <span className="text-slate-600 text-xs">/</span>
+                                <Link to="/explore" className="text-slate-400 hover:text-primary text-xs font-bold uppercase tracking-widest">Collections</Link>
+                                <span className="text-slate-600 text-xs">/</span>
+                                <span className="text-white text-xs font-bold uppercase tracking-widest">Neon Drifter #8024</span>
+                            </div>
+                            <div className="relative flex-grow flex items-center justify-center p-8 lg:p-12">
+                                <div className="absolute top-8 right-8 size-16 border-t-2 border-r-2 border-primary/50"></div>
+                                <div className="absolute bottom-8 left-8 size-16 border-b-2 border-l-2 border-primary/50"></div>
+                                <div className="relative w-full aspect-square max-w-[700px] border border-white/10 bg-surface-dark/50 shadow-[0_0_50px_rgba(6,87,249,0.1)] group-hover:shadow-[0_0_80px_rgba(6,87,249,0.2)] transition-shadow duration-500 overflow-hidden">
+                                    <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style={{backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDwzKu6mh9NJAnwnSkKZzP2M4-vlVktwFWaYmvHtg5XUGz_GK9BYdv8NIeb6q2GrYGdPw4MjGXnHKxKm-eQQH0Ge6GSEEoFp_6YgjnNvAsaVMBPbIK-mZ3t5y3d0YPZkrVscLjBhK2nXb1onvreguqAT21MPqGhynL9o6cJmxCXkv23kxZKWzzeAdywCu5HGLXTLnyNC8kAds8iofzDQvUSJhkLZ597mnOaWrG79sIfPAkz2vKu3KalgDc4jrXt5tcUvOxjl6SpKrwQ')"}}></div>
+                                    <div className="absolute inset-0 scanlines opacity-50 pointer-events-none"></div>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Right Column */}
+                        <section className="lg:w-[45%] flex flex-col bg-surface-dark h-auto lg:h-[calc(100vh-140px)] lg:overflow-y-auto">
+                            <div className="p-8 lg:p-10 flex flex-col gap-10">
+                                <div className="flex flex-col gap-4">
+                                    <div className="flex items-center gap-3">
+                                        <span className="px-2 py-0.5 bg-primary/20 border border-primary text-primary text-[10px] font-bold tracking-widest uppercase">Legendary</span>
+                                        <span className="px-2 py-0.5 bg-white/5 border border-white/10 text-slate-400 text-[10px] font-bold tracking-widest uppercase">Cyber_Genesis_V1</span>
+                                    </div>
+                                    <h1 className="text-5xl lg:text-6xl font-black text-white uppercase leading-[0.9] tracking-tighter glitch-text" data-text="NEON DRIFTER #8024">
+                                        NEON DRIFTER <span className="text-slate-600 block text-4xl mt-2">#8024</span>
+                                    </h1>
+                                    <p className="text-slate-400 text-sm font-mono max-w-md border-l-2 border-primary pl-4 py-1 leading-relaxed">
+                                        A rogue AI consciousness trapped in a synth-skin shell. Origin: Sector 7 Slums. Special Ability: Network Override.
+                                    </p>
+                                </div>
+
+                                <div className="border border-white/10 bg-black/40 p-6 relative overflow-hidden group/card">
+                                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-primary/20 to-transparent pointer-events-none"></div>
+                                    <div className="flex flex-col gap-6">
+                                        <div className="flex items-end justify-between">
+                                            <div className="flex flex-col">
+                                                <span className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Current Bid</span>
+                                                <div className="flex items-baseline gap-2">
+                                                    <span className="text-4xl font-bold text-white tracking-tight">4.20 ETH</span>
+                                                    <span className="text-slate-500 font-mono text-sm">($12,400)</span>
+                                                </div>
+                                            </div>
+                                            <div className="text-right">
+                                                <span className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1 block">Auction Ends In</span>
+                                                <span className="text-xl font-mono text-neon-green">04:20:59</span>
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-col sm:flex-row gap-3 mt-2">
+                                            <button className="flex-1 h-14 bg-primary hover:bg-white hover:text-primary transition-all duration-200 text-white text-lg font-bold tracking-widest uppercase flex items-center justify-center gap-2 group/btn relative overflow-hidden">
+                                                <span className="material-symbols-outlined relative z-10">shopping_cart</span>
+                                                <span className="relative z-10">Buy Now</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </main>
+                    <div className="fixed inset-0 pointer-events-none z-[-1] opacity-20" style={{backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuAviYfXa_LHyiYJJCdrQjJNMK_ix-8YqNBGUNoUvUd3U0Q4W0yLrmdEii4WNr0Wy_ifmLi7l1GwJVRalW69vqO1zL0iBTn2mRsyfPxhvdBKFpxB20n4QBYdRvLr9_K3jiJdhoTcLRtFZWSZhw3jkz9deB6MklCjSMYpBILhrolq8x1rtYDECpCbW9-7cJ50tzffV6zloQ7Jl_cJ_Yl3MblPduc4rr5B2n4iRY60qd3MeoYYV0ziP_13EIxFLH0lYu9ciLcT1iKJIIP-')"}}></div>
+                </div>
+            );
+        };
+
+        // --- SCREEN 4: PROFILE PAGE ---
+        const ProfilePage = () => {
+            return (
+                <div className="flex flex-col min-h-screen bg-background-light dark:bg-background-dark text-white relative">
+                    <div className="scanline fixed inset-0 h-screen w-screen z-50 pointer-events-none"></div>
+                    <TopBar title="PROFILE" />
+
+                    <main className="flex-grow w-full max-w-[1440px] mx-auto p-6 md:p-10 flex flex-col gap-10">
+                        {/* Profile Header */}
+                        <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full">
+                            <div className="lg:col-span-8 bg-surface-dark border border-border-dark p-6 md:p-8 relative overflow-hidden group">
+                                <div className="absolute top-0 right-0 p-4 opacity-20">
+                                    <span className="material-symbols-outlined text-9xl text-primary transform rotate-12">qr_code_2</span>
+                                </div>
+                                <div className="flex flex-col md:flex-row gap-8 relative z-10 items-start md:items-center">
+                                    <div className="relative shrink-0">
+                                        <div className="size-32 md:size-40 bg-black rounded-sm border-2 border-primary overflow-hidden shadow-neon">
+                                            <div className="w-full h-full bg-cover bg-center" style={{backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDU5-YMBD6XhKxOlY1xcrOlmdDl66kIZtoBru_c9pFeWRtoT5_GV4xoCszcRFUSc6WH1K0Xre2E5ajD83QEj9qzli_OOh4YyLcuJcS-fRnWFVMHFLXhFe0ynfqfa6WNQ-m3hBZcN7mJjL_8qp6lJRApqCqg1PRTj6D9KtNSu2L4lMlMKdxddpI1R9d1Kdwz6ShQD2SlBzO5CHPcbN2J2hubiMYcMyF3hSeXR95DpXbn5VyhDUVxOGR-cgIiWBHYhmSeLkH49kG3nGfR')"}}></div>
+                                        </div>
+                                        <div className="absolute -bottom-3 -right-3 bg-background-dark border border-primary px-2 py-1 text-xs font-bold text-primary uppercase tracking-wider">Lvl 42</div>
+                                    </div>
+                                    <div className="flex flex-col gap-2 w-full">
+                                        <div className="flex flex-wrap items-center gap-3">
+                                            <h1 className="text-3xl md:text-5xl font-bold uppercase tracking-tighter text-white">Neon_Drifter_88</h1>
+                                            <span className="material-symbols-outlined text-primary" title="Verified">verified</span>
+                                        </div>
+                                        <div className="flex items-center gap-3 text-gray-400 font-mono text-sm">
+                                            <span className="bg-black/30 px-2 py-1 rounded border border-gray-700 hover:border-primary cursor-copy transition-colors flex items-center gap-2">
+                                                0x71C...3A9 <span className="material-symbols-outlined text-[14px]">content_copy</span>
+                                            </span>
+                                            <span className="hidden md:inline">|</span>
+                                            <span>Collector of rare glitches and void artifacts.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* Stats */}
+                            <div className="lg:col-span-4 flex flex-col gap-4">
+                                <div className="grid grid-cols-2 gap-4 h-full">
+                                    <div className="bg-surface-dark border border-border-dark p-4 flex flex-col justify-between hover:border-primary/50 transition-colors group">
+                                        <div className="flex items-center justify-between text-gray-400 text-xs font-mono uppercase">
+                                            <span>Assets</span><span className="material-symbols-outlined group-hover:text-primary transition-colors">dataset</span>
+                                        </div>
+                                        <p className="text-4xl font-bold text-white mt-2">42</p>
+                                        <div className="w-full bg-gray-800 h-1 mt-4"><div className="bg-primary h-1 w-[42%] shadow-[0_0_10px_#0657f9]"></div></div>
+                                    </div>
+                                    <div className="bg-surface-dark border border-border-dark p-4 flex flex-col justify-between hover:border-primary/50 transition-colors group">
+                                        <div className="flex items-center justify-between text-gray-400 text-xs font-mono uppercase">
+                                            <span>Volume</span><span className="material-symbols-outlined group-hover:text-primary transition-colors">currency_bitcoin</span>
+                                        </div>
+                                        <p className="text-4xl font-bold text-white mt-2">12.5<span className="text-sm ml-1 text-gray-500">ETH</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Inventory Grid */}
+                        <section className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                             <aside className="hidden lg:flex flex-col gap-6">
+                                <div className="bg-black/40 border border-border-dark p-4 font-mono text-xs">
+                                    <div className="flex items-center justify-between mb-3 pb-2 border-b border-gray-800">
+                                        <h3 className="text-primary font-bold uppercase tracking-widest">System Log</h3>
+                                        <div className="size-2 bg-green-500 rounded-full animate-pulse"></div>
+                                    </div>
+                                    <ul className="space-y-3 text-gray-400">
+                                        <li className="flex gap-2"><span className="text-gray-600">[14:02]</span><span>Minted <span className="text-white">Void Blade #044</span></span></li>
+                                        <li className="flex gap-2"><span className="text-gray-600">[12:30]</span><span>Sold <span className="text-white">Cyber Skull</span></span></li>
+                                    </ul>
+                                </div>
+                            </aside>
+                            <div className="lg:col-span-3 flex flex-col gap-6">
+                                {/* Tabs */}
+                                <div className="border-b border-border-dark flex overflow-x-auto no-scrollbar">
+                                    <button className="relative px-6 py-3 text-white font-bold text-sm tracking-widest hover:bg-white/5 transition-colors uppercase flex items-center gap-2 group">
+                                        <span className="material-symbols-outlined text-lg text-primary">grid_view</span> Inventory
+                                        <span className="absolute bottom-0 left-0 w-full h-[2px] bg-primary shadow-[0_0_10px_#0657f9]"></span>
+                                    </button>
+                                </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    {/* Item 1 */}
+                                    <div className="group bg-surface-dark border border-border-dark hover:border-primary transition-all duration-300 flex flex-col relative overflow-hidden hover:shadow-neon hover:-translate-y-1">
+                                        <div className="aspect-square w-full overflow-hidden relative bg-black">
+                                            <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style={{backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuDXb6CdxN_GT9__5RJ4wRjsGc5gxlWnwJyMnv4AVQTN_IfxV6pWBVP4VY_cyiF98S4uOIty4-qgZ1F9wfg4LsMZTYVpOOH9I0X2dx5sPKOFIzstv9e1cB0Y5k7pcLiMbBxWAW9MkzL8BwfWj-28L5a8EDrfXS7K9K6u4U3E8L95l_Ta8aw9eIXHsCgJNLjdCXQg4yYWoD8MfW8eM-PnFJlW0piveNDAEU3b4HS6olkNeMfQcaPS7mrXkQCBJa4HU9AU0oDIvebrsBZE')"}}></div>
+                                        </div>
+                                        <div className="p-4 flex flex-col gap-2 relative bg-surface-dark z-10">
+                                            <div className="flex justify-between items-start">
+                                                <div><h4 className="text-white font-bold uppercase tracking-tight truncate pr-2">Neural Link v2</h4><p className="text-gray-500 text-xs font-mono">Neon City Collection</p></div>
+                                                <div className="bg-primary/20 text-primary p-1 rounded"><span className="material-symbols-outlined text-lg">bolt</span></div>
+                                            </div>
+                                            <div className="h-px w-full bg-border-dark my-2"></div>
+                                            <div className="flex justify-between items-center text-sm font-mono"><span className="text-gray-400">Last Sale</span><span className="text-white font-bold flex items-center gap-1"><span className="material-symbols-outlined text-xs">currency_bitcoin</span> 0.85 ETH</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </main>
+                    <Footer />
+                </div>
+            );
+        };
+
+        // --- APP ROOT ---
+        const App = () => {
+            return (
+                <MemoryRouter>
+                    <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/explore" element={<ExplorePage />} />
+                        <Route path="/detail" element={<DetailPage />} />
+                        <Route path="/profile" element={<ProfilePage />} />
+                    </Routes>
+                </MemoryRouter>
+            );
+        };
+
+        const root = createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

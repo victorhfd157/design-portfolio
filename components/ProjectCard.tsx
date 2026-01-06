@@ -48,7 +48,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
     <motion.div
       ref={cardRef}
       data-cursor="view"
-      className="project-card group relative w-full aspect-[3/4] md:aspect-[4/5] overflow-hidden rounded-[2rem] cursor-pointer bg-[#0a0a0a] border border-white/5 hover:border-brand-accent/30 transition-all duration-500 shadow-2xl"
+      className="project-card group relative w-full aspect-[3/4] md:aspect-[4/5] overflow-hidden rounded-[2rem] cursor-pointer bg-[#0a0a0a] border border-white/5 transition-all duration-700"
       style={{
         transform: `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`,
         transition: 'transform 0.1s ease-out',
@@ -56,6 +56,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       whileHover={{ scale: 1.02 }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     >
+      {/* Animated Gradient Border Layer */}
+      <div className="absolute inset-0 rounded-[2rem] p-[1px] bg-gradient-to-br from-white/10 to-transparent group-hover:from-brand-accent/50 group-hover:to-purple-500/50 transition-colors duration-700 -z-10" />
+
       {/* Animated Glow Effect */}
       <div
         className="absolute -inset-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl pointer-events-none"
@@ -73,21 +76,22 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       />
 
       {/* Image Container with Zoom Effect */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden rounded-[calc(2rem-1px)]">
+        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
         <img
           src={project.imageUrl}
           alt={project.title}
-          className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110 group-hover:rotate-1 filter grayscale-[30%] contrast-[1.1] group-hover:grayscale-0"
+          className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110 group-hover:rotate-1 filter grayscale-[20%] contrast-[1.1] group-hover:grayscale-0"
         />
         {/* Cinematic Grain Overlay */}
-        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none"></div>
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none z-10"></div>
       </div>
 
       {/* Gradient Overlay - Always visible but stronger on hover */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent opacity-80 group-hover:opacity-95 transition-opacity duration-500 z-20"></div>
 
       {/* Content Container */}
-      <div className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-between z-10">
+      <div className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-between z-30">
 
         {/* Top Section: Category & Arrow */}
         <div className="flex justify-between items-start">
@@ -100,7 +104,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             {project.categories.slice(0, 2).map((cat, index) => (
               <motion.span
                 key={cat}
-                className="inline-block px-3 py-1 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-[10px] font-mono uppercase tracking-widest text-gray-300 group-hover:bg-brand-accent/20 group-hover:border-brand-accent/30 group-hover:text-white transition-all duration-300"
+                className="inline-block px-3 py-1 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-[10px] font-mono uppercase tracking-widest text-gray-300 group-hover:bg-white group-hover:text-black transition-all duration-300 shadow-lg"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2 + index * 0.1 }}
@@ -126,7 +130,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           )}
 
           <motion.div
-            className="w-10 h-10 rounded-full bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:scale-110 transition-all duration-300 ease-out"
+            className="w-10 h-10 rounded-full bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:scale-110 transition-all duration-300 ease-out shadow-xl"
             whileHover={{ rotate: 45 }}
             transition={{ type: 'spring', stiffness: 400, damping: 10 }}
           >
@@ -136,12 +140,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 
         {/* Bottom Section: Title & Tags */}
         <motion.div
-          className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 ease-out"
+          className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
-          <h3 className="text-2xl sm:text-3xl font-serif font-medium text-white leading-tight mb-3 group-hover:text-brand-accent transition-colors duration-300">
+          <h3 className="text-2xl sm:text-3xl font-serif font-medium text-white leading-tight mb-3 group-hover:text-brand-accent transition-colors duration-300 drop-shadow-lg">
             {project.title}
           </h3>
 

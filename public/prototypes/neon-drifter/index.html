@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Neon Drifter</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0657f9",
+                        "primary-dark": "#0442bd",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#0f1623",
+                        "surface": "#151e2e",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "mono": ["Space Grotesk", "monospace"],
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                    backgroundImage: {
+                        'cyber-grid': "linear-gradient(rgba(6, 87, 249, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 87, 249, 0.05) 1px, transparent 1px)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Static glitch effect visualization without animation */
+        .glitch-static {
+            text-shadow: 2px 0 #0657f9, -2px 0 #ff00c1;
+        }
+        
+        .scanline {
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+            background-size: 100% 4px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-white font-display overflow-x-hidden min-h-screen flex flex-col">
+<!-- Top Navigation -->
+<header class="w-full border-b border-primary/20 bg-background-dark/95 backdrop-blur sticky top-0 z-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-20">
+<!-- Logo -->
+<div class="flex items-center gap-4">
+<div class="size-8 text-primary flex items-center justify-center border border-primary/50 bg-primary/10 rounded">
+<span class="material-symbols-outlined text-[24px]">terminal</span>
+</div>
+<h2 class="text-xl font-bold tracking-widest uppercase glitch-static">NEON DRIFTER</h2>
+</div>
+<!-- Nav Links (Desktop) -->
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium hover:text-primary transition-colors tracking-widest uppercase relative group" href="#">
+<span class="text-primary/50 mr-1">//</span> DROPS
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+</a>
+<a class="text-sm font-medium hover:text-primary transition-colors tracking-widest uppercase relative group" href="#">
+<span class="text-primary/50 mr-1">//</span> MARKET
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+</a>
+<a class="text-sm font-medium hover:text-primary transition-colors tracking-widest uppercase relative group" href="#">
+<span class="text-primary/50 mr-1">//</span> GAME
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+</a>
+<a class="text-sm font-medium hover:text-primary transition-colors tracking-widest uppercase relative group" href="#">
+<span class="text-primary/50 mr-1">//</span> ROADMAP
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-6">
+<!-- Search -->
+<div class="hidden lg:flex items-center bg-surface border border-primary/20 rounded h-10 w-64 focus-within:border-primary transition-colors">
+<span class="material-symbols-outlined text-gray-400 ml-3 text-[20px]">search</span>
+<input class="bg-transparent border-none text-sm text-white placeholder-gray-500 w-full focus:ring-0" placeholder="SEARCH ASSETS..." type="text"/>
+</div>
+<!-- Connect Button -->
+<button class="flex items-center justify-center h-10 px-6 bg-primary/10 border border-primary hover:bg-primary text-primary hover:text-white transition-all duration-300 rounded uppercase font-bold text-xs tracking-wider group">
+<span class="material-symbols-outlined text-[18px] mr-2 group-hover:animate-pulse">bolt</span>
+<span>CONNECT_WALLET</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow bg-cyber-grid bg-[length:40px_40px]">
+<!-- Hero Section -->
+<section class="relative min-h-[600px] flex items-center border-b border-primary/20 overflow-hidden">
+<!-- Background Image with Overlay -->
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-40 mix-blend-luminosity" data-alt="Futuristic cyberpunk city street with neon lights and rain at night" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrZmczWyupnLUIT0mL7CwKjHBwL86sBUdzpn4z32XANmcK_sNZ9Flwlkggjl7c8BhDZD6hXiOTOUn7SoH6wmAVjX4gkjrT_sYn6RuP73uRAZWFeCqRR1SR75cPrCSl0oJ4g3FQq8VD0ZdozplSgjXbkiLjyBrXXMK5UXF7wt-WkjsodWGkAZTow_KaRCXL3h00SH9-FGWy7fCeNOSAEpRqQInfsgb94GR5b7fpGEj1hWu9LuAoKU68OOPaDiyw1n4qg4sX56mwTSiO"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-background-dark/80 to-transparent"></div>
+<div class="absolute inset-0 scanline opacity-20 pointer-events-none"></div>
+</div>
+<div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+<div class="max-w-3xl">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 border border-primary/30 rounded mb-6 backdrop-blur-sm">
+<span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+<span class="text-xs font-mono text-primary tracking-widest">SYSTEM ONLINE v2.4</span>
+</div>
+<h1 class="text-5xl md:text-7xl lg:text-8xl font-black leading-none tracking-tighter mb-6 glitch-static text-white mix-blend-overlay">
+                        DRIFT INTO<br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-primary/50">THE VOID</span>
+</h1>
+<p class="text-lg md:text-xl text-gray-400 max-w-xl mb-10 leading-relaxed font-light border-l-2 border-primary pl-6">
+                        The premier Web3 nexus for cyber-enhanced assets. Trade, battle, and collect in a brutalist digital dystopia.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="h-14 px-8 bg-primary text-white text-base font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-all clip-path-slant flex items-center justify-center gap-2 group">
+                            INITIALIZE_WALLET
+                            <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<button class="h-14 px-8 bg-transparent border border-white/20 text-white text-base font-bold tracking-widest uppercase hover:border-primary hover:text-primary transition-all flex items-center justify-center backdrop-blur-sm">
+                            EXPLORE MAP
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Marquee / Alert Strip -->
+<div class="w-full bg-primary text-white py-3 overflow-hidden border-y border-white/10 select-none">
+<div class="flex gap-8 items-center whitespace-nowrap font-mono font-bold tracking-widest text-sm">
+<span>/// SYSTEM OVERRIDE DETECTED</span>
+<span class="opacity-50">|</span>
+<span>NEW COLLECTION DROPPING IN 24:00:00</span>
+<span class="opacity-50">|</span>
+<span>WARNING: HIGH VOLTAGE</span>
+<span class="opacity-50">|</span>
+<span>MARKET VOLATILITY: EXTREME</span>
+<span class="opacity-50">|</span>
+<span>/// SYSTEM OVERRIDE DETECTED</span>
+<span class="opacity-50">|</span>
+<span>NEW COLLECTION DROPPING IN 24:00:00</span>
+<span class="opacity-50">|</span>
+<span>WARNING: HIGH VOLTAGE</span>
+<span class="opacity-50">|</span>
+<span>MARKET VOLATILITY: EXTREME</span>
+<span class="opacity-50">|</span>
+<span>/// SYSTEM OVERRIDE DETECTED</span>
+<span class="opacity-50">|</span>
+<span>NEW COLLECTION DROPPING IN 24:00:00</span>
+</div>
+</div>
+<!-- Stats Section -->
+<section class="py-12 border-b border-primary/10">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Stat 1 -->
+<div class="bg-surface border border-primary/20 p-6 relative group hover:border-primary transition-colors">
+<div class="absolute top-2 right-2 text-primary/20 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">analytics</span>
+</div>
+<p class="text-sm text-gray-400 font-mono mb-2 uppercase tracking-widest">Total Volume</p>
+<p class="text-4xl font-bold text-white tracking-tight">8,492 <span class="text-primary text-lg">ETH</span></p>
+<div class="w-full bg-gray-700 h-0.5 mt-4">
+<div class="bg-primary h-full w-[75%]"></div>
+</div>
+</div>
+<!-- Stat 2 -->
+<div class="bg-surface border border-primary/20 p-6 relative group hover:border-primary transition-colors">
+<div class="absolute top-2 right-2 text-primary/20 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">group</span>
+</div>
+<p class="text-sm text-gray-400 font-mono mb-2 uppercase tracking-widest">Drifters Online</p>
+<p class="text-4xl font-bold text-white tracking-tight">1,204</p>
+<div class="w-full bg-gray-700 h-0.5 mt-4">
+<div class="bg-primary h-full w-[45%]"></div>
+</div>
+</div>
+<!-- Stat 3 -->
+<div class="bg-surface border border-primary/20 p-6 relative group hover:border-primary transition-colors">
+<div class="absolute top-2 right-2 text-primary/20 group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">trending_up</span>
+</div>
+<p class="text-sm text-gray-400 font-mono mb-2 uppercase tracking-widest">Floor Price</p>
+<p class="text-4xl font-bold text-white tracking-tight">0.45 <span class="text-primary text-lg">ETH</span></p>
+<div class="w-full bg-gray-700 h-0.5 mt-4">
+<div class="bg-primary h-full w-[12%]"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Drops Section -->
+<section class="py-20 relative">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- Section Header -->
+<div class="flex items-end justify-between mb-12 border-b border-primary/30 pb-4">
+<div>
+<div class="text-primary font-mono text-xs mb-2">/// SECURE CONNECTION ESTABLISHED</div>
+<h2 class="text-3xl md:text-4xl font-bold uppercase tracking-tighter">Incoming Signals</h2>
+</div>
+<a class="hidden md:flex items-center gap-2 text-primary font-bold uppercase text-sm hover:text-white transition-colors" href="#">
+                        View All
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<!-- Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Card 1 -->
+<div class="group relative bg-surface border border-primary/20 hover:border-primary hover:shadow-[0_0_15px_rgba(6,87,249,0.3)] transition-all duration-300">
+<div class="relative aspect-square overflow-hidden bg-black/50">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0" data-alt="Abstract 3D neon geometric shapes representing a digital artifact" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA36zXFqYBvDKUU0UCaDwwRpvhuz0tntC563d6_Xmdsp4xjvhgwFODia-ureb430Z2YrUUwnkCeqHGm4gNUoAcwRwJmmbkRjJWOMLyBwyDq2YteAxM_vE0MAPL_2uloNqrgvu9cR_flJfj0IS8qG--qaWc9cPSvrgEXGx7k9kDxHMFaC912y73wW-NJ_WRctPejgVHhfIE50w2jbLAukydZWbFsF-WYhxaQKarXzVxeUZJ8fycGGfYicAU_M4RyNXg35iJJdqoaNG8q"/>
+<div class="absolute top-2 left-2 bg-black/80 border border-primary/50 px-2 py-1 text-[10px] font-mono text-primary">
+                                RARE
+                            </div>
+</div>
+<div class="p-4 border-t border-primary/20">
+<h3 class="text-lg font-bold text-white mb-1 group-hover:text-primary transition-colors">CYBER_SKULL #099</h3>
+<div class="flex justify-between items-end mt-4">
+<div>
+<p class="text-[10px] text-gray-500 font-mono uppercase">Current Bid</p>
+<p class="text-xl font-bold text-white">2.5 ETH</p>
+</div>
+<button class="size-8 flex items-center justify-center bg-primary text-white hover:bg-white hover:text-black transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group relative bg-surface border border-primary/20 hover:border-primary hover:shadow-[0_0_15px_rgba(6,87,249,0.3)] transition-all duration-300">
+<div class="relative aspect-square overflow-hidden bg-black/50">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0" data-alt="Glitch art portrait of a digital avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAghQDm2s3VImt2mmA6S53WF9WxjT2EpRWVyC-eSidZT900RN-OaO6Qgf2IQ36wAf8PXkVsoCHkCHtKTqwKNLuvdyw2Rpq8EEPVTcgbtmeOwdgXFUcnqsHj9-8x8EhoDJ_-L-Vzx-lVrgR64s43YcRI5Nn2a74xZlezS8q_ELh5HjLNEuvOXv4-PV1XHRTvpF_drRc2R3e7ZF4iRD3C3jQTF4V8D-sw92sTL1qHZBmhBHfiha8JGUICBn3tYkvOs66NSmbqk4rl9Pfx"/>
+<div class="absolute top-2 left-2 bg-black/80 border border-primary/50 px-2 py-1 text-[10px] font-mono text-primary">
+                                LEGENDARY
+                            </div>
+</div>
+<div class="p-4 border-t border-primary/20">
+<h3 class="text-lg font-bold text-white mb-1 group-hover:text-primary transition-colors">NEON_WRAITH v2</h3>
+<div class="flex justify-between items-end mt-4">
+<div>
+<p class="text-[10px] text-gray-500 font-mono uppercase">Current Bid</p>
+<p class="text-xl font-bold text-white">5.0 ETH</p>
+</div>
+<button class="size-8 flex items-center justify-center bg-primary text-white hover:bg-white hover:text-black transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group relative bg-surface border border-primary/20 hover:border-primary hover:shadow-[0_0_15px_rgba(6,87,249,0.3)] transition-all duration-300">
+<div class="relative aspect-square overflow-hidden bg-black/50">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0" data-alt="Futuristic glowing orb texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgm54N4febKRrO9Zy9y3W5xZHhekxmZ19brko964Zoe-7kWDRuTjHDt6dP8juWFuzsgV_Yb5SxMAqgDrgrZtmkSWZTfPoexWV7UIvZS-JGfP0esdk_gEfnJBUBFSDhOKUcmTL30b9WIlBvwa5Wq94esVkX59z3kQ2XbYJB_ssxbdWgVe_mFwr9RvZknYgqOc94LfAU2_reijgaZG6b8Ig3sQxa4T-q7wacVWJAb1Chpaucp7gcCdlm9DqauJYM62YWWV-VtW-wQSNF"/>
+</div>
+<div class="p-4 border-t border-primary/20">
+<h3 class="text-lg font-bold text-white mb-1 group-hover:text-primary transition-colors">CORE_NODE_ALPHA</h3>
+<div class="flex justify-between items-end mt-4">
+<div>
+<p class="text-[10px] text-gray-500 font-mono uppercase">Current Bid</p>
+<p class="text-xl font-bold text-white">0.8 ETH</p>
+</div>
+<button class="size-8 flex items-center justify-center bg-primary text-white hover:bg-white hover:text-black transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="group relative bg-surface border border-primary/20 hover:border-primary hover:shadow-[0_0_15px_rgba(6,87,249,0.3)] transition-all duration-300">
+<div class="relative aspect-square overflow-hidden bg-black/50">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0" data-alt="Abstract dark fluid liquid metal background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeGmLaXf3Bf9yLl1R9Jw8GTrbTYaHFOdtf9eruGwibyv7gBZjVnPuNn1AHAo7ljgl9Gks8OrT_w8-MJAleoDcRv40zDSc-_Kr3CQfofrJBuPe137tJOeMD9qiKqAQvPVZdalvdyHNRSb-VzO0ov6BtWStLl6j-U8ChV3P-AQe38ITEXYK9Q7F5X0LSjbrbIHThCZNgGD3MzTfR4MIl_A_LJoVZKbGKvuZOD-_hD6svj84Q7vY--G668TGP9Was5gTMSV8i_cEYyrz_"/>
+<div class="absolute top-2 left-2 bg-black/80 border border-primary/50 px-2 py-1 text-[10px] font-mono text-primary">
+                                EPIC
+                            </div>
+</div>
+<div class="p-4 border-t border-primary/20">
+<h3 class="text-lg font-bold text-white mb-1 group-hover:text-primary transition-colors">LIQUID_METAL_X</h3>
+<div class="flex justify-between items-end mt-4">
+<div>
+<p class="text-[10px] text-gray-500 font-mono uppercase">Current Bid</p>
+<p class="text-xl font-bold text-white">1.2 ETH</p>
+</div>
+<button class="size-8 flex items-center justify-center bg-primary text-white hover:bg-white hover:text-black transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter / CTA -->
+<section class="py-20 border-t border-primary/20 bg-primary/5">
+<div class="max-w-4xl mx-auto px-4 text-center">
+<span class="material-symbols-outlined text-6xl text-primary mb-6">token</span>
+<h2 class="text-4xl font-bold uppercase tracking-tight mb-4">Join the Network</h2>
+<p class="text-gray-400 mb-8 max-w-lg mx-auto">Subscribe to the frequency. Get notified about exclusive drops, system updates, and black market access.</p>
+<form class="max-w-md mx-auto relative flex items-stretch">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-gray-500">mail</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-3 border border-r-0 border-gray-600 bg-background-dark placeholder-gray-500 text-white focus:outline-none focus:ring-0 focus:border-primary uppercase text-sm font-mono" placeholder="ENTER_EMAIL_ADDRESS" type="email"/>
+<button class="px-6 py-3 bg-primary text-white font-bold uppercase hover:bg-white hover:text-black transition-colors border border-primary" type="button">
+                        Initialize
+                    </button>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-background-dark border-t border-primary/20 py-12 text-sm font-mono">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="col-span-1 md:col-span-2">
+<div class="flex items-center gap-2 mb-4">
+<div class="size-6 bg-primary rounded-full"></div>
+<span class="text-xl font-bold tracking-widest text-white">NEON DRIFTER</span>
+</div>
+<p class="text-gray-500 max-w-xs mb-4">
+                        &gt; executing_shutdown_sequence...<br/>
+                        &gt; all_systems_nominal<br/>
+                        &gt; awaiting_user_input
+                    </p>
+<div class="flex gap-4">
+<a class="text-gray-500 hover:text-primary transition-colors" href="#">TWITTER</a>
+<a class="text-gray-500 hover:text-primary transition-colors" href="#">DISCORD</a>
+<a class="text-gray-500 hover:text-primary transition-colors" href="#">MEDIUM</a>
+</div>
+</div>
+<div>
+<h4 class="text-white font-bold uppercase mb-4 border-b border-primary/30 inline-block pb-1">Protocols</h4>
+<ul class="space-y-2">
+<li><a class="text-gray-500 hover:text-primary hover:pl-2 transition-all" href="#">&gt; MARKETPLACE</a></li>
+<li><a class="text-gray-500 hover:text-primary hover:pl-2 transition-all" href="#">&gt; STAKING</a></li>
+<li><a class="text-gray-500 hover:text-primary hover:pl-2 transition-all" href="#">&gt; DAO_GOVERNANCE</a></li>
+<li><a class="text-gray-500 hover:text-primary hover:pl-2 transition-all" href="#">&gt; AUDIT_LOGS</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-bold uppercase mb-4 border-b border-primary/30 inline-block pb-1">System</h4>
+<ul class="space-y-2">
+<li><a class="text-gray-500 hover:text-primary hover:pl-2 transition-all" href="#">&gt; TERMS_OF_SERVICE</a></li>
+<li><a class="text-gray-500 hover:text-primary hover:pl-2 transition-all" href="#">&gt; PRIVACY_POLICY</a></li>
+<li><a class="text-gray-500 hover:text-primary hover:pl-2 transition-all" href="#">&gt; BUG_BOUNTY</a></li>
+<li><a class="text-gray-500 hover:text-primary hover:pl-2 transition-all" href="#">&gt; SUPPORT_TICKET</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-12 pt-8 border-t border-gray-800 flex justify-between items-center text-xs text-gray-600">
+<p>© 2024 NEON DRIFTER INC. ALL RIGHTS RESERVED.</p>
+<p>STATUS: <span class="text-green-500">ONLINE</span></p>
+</div>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,17 @@
+{
+    "id": 99,
+    "title": "Website Placeholder",
+    "category": "Websites",
+    "description": {
+        "en": "This is a placeholder project to initialize the Websites category. More projects coming soon.",
+        "pt": "Este é um projeto placeholder para inicializar a categoria Websites. Mais projetos em breve."
+    },
+    "imageUrl": "cover.webp",
+    "gallery": [],
+    "year": "2024",
+    "tags": [
+        "Web Design",
+        "Development",
+        "React"
+    ]
+}

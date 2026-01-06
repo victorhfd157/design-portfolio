@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Neon Drifter - Create Item</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0657f9",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#0f1623",
+                        "surface-dark": "#182135",
+                        "border-dark": "#2f436a",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                    boxShadow: {
+                        "neon": "0 0 10px rgba(6, 87, 249, 0.5), 0 0 20px rgba(6, 87, 249, 0.3)",
+                        "neon-hover": "0 0 15px rgba(6, 87, 249, 0.7), 0 0 30px rgba(6, 87, 249, 0.4)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for terminal look */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .terminal-text {
+            text-shadow: 0 0 5px rgba(6, 87, 249, 0.5);
+        }
+        .glitch-border {
+            position: relative;
+        }
+        .glitch-border::before {
+            content: '';
+            position: absolute;
+            top: -1px; left: -1px; right: -1px; bottom: -1px;
+            background: linear-gradient(45deg, #0657f9, transparent, #ff00ff);
+            z-index: -1;
+            opacity: 0.5;
+            border-radius: inherit;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display min-h-screen flex flex-col overflow-x-hidden selection:bg-primary selection:text-white">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 w-full border-b border-solid border-border-dark bg-background-dark/80 backdrop-blur-md">
+<div class="flex items-center justify-between px-6 py-4 lg:px-10">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-white group cursor-pointer">
+<div class="size-8 text-primary transition-transform group-hover:rotate-12">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 42.4379C4 42.4379 14.0962 36.0744 24 41.1692C35.0664 46.8624 44 42.2078 44 42.2078L44 7.01134C44 7.01134 35.068 11.6577 24.0031 5.96913C14.0971 0.876274 4 7.27094 4 7.27094L4 42.4379Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-white text-xl font-bold leading-tight tracking-[-0.015em] uppercase">Neon Drifter</h2>
+</div>
+<nav class="hidden md:flex items-center gap-9">
+<a class="text-gray-400 hover:text-primary transition-colors text-sm font-medium leading-normal uppercase tracking-wide" href="#">Market</a>
+<a class="text-white text-sm font-medium leading-normal uppercase tracking-wide border-b-2 border-primary" href="#">Create</a>
+<a class="text-gray-400 hover:text-primary transition-colors text-sm font-medium leading-normal uppercase tracking-wide" href="#">Drops</a>
+<a class="text-gray-400 hover:text-primary transition-colors text-sm font-medium leading-normal uppercase tracking-wide" href="#">Stats</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<!-- Search (Hidden on small screens) -->
+<div class="hidden lg:flex w-64 h-10">
+<div class="flex w-full items-stretch rounded bg-surface-dark border border-border-dark group-focus-within:border-primary transition-colors">
+<div class="text-[#8ea3cc] flex items-center justify-center pl-3">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="w-full bg-transparent border-none text-white placeholder:text-[#8ea3cc] px-3 py-2 text-sm focus:ring-0 focus:outline-none" placeholder="SEARCH_ASSETS..."/>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center justify-center rounded h-10 px-6 bg-primary hover:bg-blue-600 hover:shadow-neon transition-all text-white text-sm font-bold tracking-wide uppercase">
+<span class="mr-2 material-symbols-outlined text-[18px]">account_balance_wallet</span>
+                        Connect
+                    </button>
+<button class="lg:hidden text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 w-full max-w-[1440px] mx-auto px-4 py-8 md:px-10 md:py-12">
+<!-- Page Header -->
+<div class="mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-4 border-b border-border-dark pb-6">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-sm">terminal</span>
+<span class="text-xs font-mono uppercase tracking-widest">System Ready</span>
+</div>
+<h1 class="text-white text-4xl md:text-5xl font-black leading-tight tracking-[-0.033em] uppercase glitch-text">
+                    Initiate_Listing // V.2.0
+                </h1>
+<p class="text-[#8ea3cc] text-base font-normal max-w-2xl mt-2">
+                    Configure new asset parameters for deployment to the blockchain. Ensure all metadata is accurate before minting.
+                </p>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 bg-surface-dark border border-border-dark hover:border-primary text-xs text-gray-400 hover:text-white uppercase tracking-wider transition-colors rounded">
+                    Save Draft
+                </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
+<!-- Left Column: Form Inputs -->
+<div class="lg:col-span-7 flex flex-col gap-8">
+<!-- Section: Basic Info -->
+<div class="bg-surface-dark/50 border border-border-dark rounded-lg p-6 md:p-8">
+<div class="flex items-center gap-2 mb-6 text-white border-b border-border-dark pb-2 w-fit">
+<span class="material-symbols-outlined text-primary">edit_square</span>
+<h3 class="text-lg font-bold uppercase tracking-wide">Asset Parameters</h3>
+</div>
+<div class="flex flex-col gap-6">
+<!-- Asset Name -->
+<label class="flex flex-col w-full">
+<span class="text-white text-xs font-bold uppercase tracking-wider mb-2 flex justify-between">
+                                Designation / Name
+                                <span class="text-primary font-mono text-[10px]">REQUIRED*</span>
+</span>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-[#8ea3cc] group-focus-within:text-primary transition-colors">label</span>
+</div>
+<input class="w-full bg-background-dark border border-border-dark focus:border-primary text-white h-14 pl-12 pr-4 rounded text-base font-mono placeholder:text-[#8ea3cc]/50 focus:ring-1 focus:ring-primary focus:shadow-neon transition-all" placeholder="ENTER_ASSET_NAME"/>
+</div>
+</label>
+<!-- Collection Select -->
+<label class="flex flex-col w-full">
+<span class="text-white text-xs font-bold uppercase tracking-wider mb-2">Target Collection</span>
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-[#8ea3cc] group-focus-within:text-primary transition-colors">category</span>
+</div>
+<select class="w-full bg-background-dark border border-border-dark focus:border-primary text-white h-14 pl-12 pr-10 rounded text-base appearance-none focus:ring-1 focus:ring-primary focus:shadow-neon transition-all cursor-pointer">
+<option>NEON_GENESIS_COLLECTION</option>
+<option>CYBER_RUNNER_AVATARS</option>
+<option>GLITCH_WEAPONRY_V1</option>
+<option>CREATE_NEW_COLLECTION (+)</option>
+</select>
+<div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-[#8ea3cc]">
+<span class="material-symbols-outlined">expand_more</span>
+</div>
+</div>
+</label>
+<!-- Description -->
+<label class="flex flex-col w-full">
+<span class="text-white text-xs font-bold uppercase tracking-wider mb-2 flex justify-between">
+                                Narrative Data
+                                <span class="text-[#8ea3cc] font-mono text-[10px]">0/1000 CHARS</span>
+</span>
+<textarea class="w-full bg-background-dark border border-border-dark focus:border-primary text-white min-h-36 p-4 rounded text-base leading-relaxed placeholder:text-[#8ea3cc]/50 focus:ring-1 focus:ring-primary focus:shadow-neon transition-all resize-y" placeholder="ENTER_ASSET_NARRATIVE_DATA..."></textarea>
+</label>
+</div>
+</div>
+<!-- Section: Market & Stats -->
+<div class="bg-surface-dark/50 border border-border-dark rounded-lg p-6 md:p-8">
+<div class="flex items-center gap-2 mb-6 text-white border-b border-border-dark pb-2 w-fit">
+<span class="material-symbols-outlined text-primary">currency_bitcoin</span>
+<h3 class="text-lg font-bold uppercase tracking-wide">Market &amp; Stats</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<!-- Price -->
+<label class="flex flex-col w-full">
+<span class="text-white text-xs font-bold uppercase tracking-wider mb-2">Listing Price</span>
+<div class="flex">
+<div class="bg-surface-dark border border-border-dark border-r-0 rounded-l flex items-center px-3 min-w-[80px]">
+<select class="bg-transparent border-none text-white text-sm font-bold focus:ring-0 cursor-pointer">
+<option>ETH</option>
+<option>SOL</option>
+<option>USDC</option>
+</select>
+</div>
+<input class="flex-1 bg-background-dark border border-border-dark focus:border-primary text-white h-14 px-4 rounded-r text-lg font-mono placeholder:text-[#8ea3cc]/50 focus:ring-1 focus:ring-primary focus:shadow-neon transition-all" placeholder="0.00" step="0.001" type="number"/>
+</div>
+<span class="text-[#8ea3cc] text-[10px] mt-1 font-mono text-right">≈ $0.00 USD</span>
+</label>
+<!-- Supply -->
+<label class="flex flex-col w-full">
+<span class="text-white text-xs font-bold uppercase tracking-wider mb-2">Supply Quantity</span>
+<input class="w-full bg-background-dark border border-border-dark focus:border-primary text-white h-14 px-4 rounded text-base font-mono placeholder:text-[#8ea3cc]/50 focus:ring-1 focus:ring-primary focus:shadow-neon transition-all" placeholder="1" type="number" value="1"/>
+</label>
+</div>
+<!-- Properties Adder -->
+<div class="border-t border-border-dark pt-6">
+<span class="text-white text-xs font-bold uppercase tracking-wider mb-4 block">Asset Properties</span>
+<div class="flex flex-col gap-3">
+<div class="flex gap-3">
+<input class="flex-1 bg-background-dark border border-border-dark focus:border-primary text-white h-10 px-3 rounded text-sm placeholder:text-[#8ea3cc]/50 font-mono" placeholder="TYPE (E.G. WEAPON)"/>
+<input class="flex-1 bg-background-dark border border-border-dark focus:border-primary text-white h-10 px-3 rounded text-sm placeholder:text-[#8ea3cc]/50 font-mono" placeholder="VALUE (E.G. PLASMA RIFLE)"/>
+<button class="size-10 flex items-center justify-center bg-surface-dark border border-border-dark text-white hover:bg-primary hover:border-primary rounded transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<!-- Added Items Example -->
+<div class="flex flex-wrap gap-2 mt-2">
+<div class="flex items-center gap-2 bg-primary/20 border border-primary/40 rounded px-3 py-1 text-xs text-primary font-mono uppercase">
+<span>RARITY: LEGENDARY</span>
+<button class="hover:text-white"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</div>
+<div class="flex items-center gap-2 bg-primary/20 border border-primary/40 rounded px-3 py-1 text-xs text-primary font-mono uppercase">
+<span>LEVEL: 99</span>
+<button class="hover:text-white"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Upload & Actions -->
+<div class="lg:col-span-5 flex flex-col gap-8 h-full">
+<!-- Upload Area -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between text-white">
+<h3 class="text-xs font-bold uppercase tracking-wider">Visual Data Source</h3>
+<span class="text-[10px] text-primary font-mono">[MAX 50MB]</span>
+</div>
+<div class="group relative w-full aspect-square md:aspect-[4/3] bg-background-dark border-2 border-dashed border-border-dark rounded-lg flex flex-col items-center justify-center p-8 transition-all hover:border-primary hover:bg-primary/5 cursor-pointer overflow-hidden">
+<!-- Grid Background Pattern -->
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: linear-gradient(#2f436a 1px, transparent 1px), linear-gradient(90deg, #2f436a 1px, transparent 1px); background-size: 20px 20px;"></div>
+<div class="z-10 flex flex-col items-center text-center gap-4 transition-transform group-hover:scale-105 duration-300">
+<div class="size-16 rounded-full bg-surface-dark border border-border-dark flex items-center justify-center text-primary shadow-[0_0_15px_rgba(6,87,249,0.3)] group-hover:shadow-[0_0_25px_rgba(6,87,249,0.6)] transition-all">
+<span class="material-symbols-outlined text-4xl">cloud_upload</span>
+</div>
+<div class="space-y-1">
+<p class="text-white font-bold text-lg">DROP_FILE_HERE</p>
+<p class="text-[#8ea3cc] text-xs">JPG, PNG, GIF, MP4, GLB</p>
+</div>
+<button class="mt-2 px-4 py-2 bg-primary/10 border border-primary text-primary text-xs font-bold uppercase hover:bg-primary hover:text-white transition-colors rounded">
+                                Browse System
+                            </button>
+</div>
+</div>
+</div>
+<!-- Console Log / Terminal -->
+<div class="flex-1 min-h-[200px] bg-[#050505] border border-border-dark rounded-lg p-4 font-mono text-xs overflow-hidden flex flex-col">
+<div class="flex items-center justify-between border-b border-gray-800 pb-2 mb-2">
+<span class="text-gray-500 uppercase tracking-widest text-[10px]">System_Log</span>
+<div class="flex gap-1">
+<div class="size-2 rounded-full bg-red-500"></div>
+<div class="size-2 rounded-full bg-yellow-500"></div>
+<div class="size-2 rounded-full bg-green-500"></div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto scrollbar-hide space-y-1 text-green-500/80 terminal-text">
+<p>&gt; INITIALIZING UPLOAD PROTOCOL...</p>
+<p>&gt; CONNECTION_ESTABLISHED [SECURE]</p>
+<p>&gt; WALLET: 0x82...A3F CONNECTED</p>
+<p>&gt; AWAITING INPUT STREAM...</p>
+<p class="text-primary animate-pulse">&gt; _</p>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-3 pt-4 sticky bottom-0 bg-background-dark/95 backdrop-blur pb-4 lg:static lg:bg-transparent lg:pb-0">
+<div class="flex items-center gap-2 mb-2">
+<input class="rounded border-border-dark bg-surface-dark text-primary focus:ring-offset-background-dark focus:ring-primary size-4" id="terms" type="checkbox"/>
+<label class="text-[#8ea3cc] text-xs cursor-pointer select-none" for="terms">I agree to the <span class="text-white hover:underline">Terms of Service</span> and <span class="text-white hover:underline">Gas Fees</span>.</label>
+</div>
+<button class="w-full h-14 bg-primary text-white text-lg font-bold uppercase tracking-widest hover:bg-white hover:text-primary transition-all duration-300 shadow-neon hover:shadow-neon-hover clip-path-slant relative overflow-hidden group">
+<span class="relative z-10 flex items-center justify-center gap-3">
+                            Initiate Listing
+                            <span class="material-symbols-outlined">rocket_launch</span>
+</span>
+<!-- Glitch overlay effect on hover -->
+<div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 w-full h-full transform translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 ease-in-out"></div>
+</button>
+<button class="w-full h-10 bg-transparent border border-border-dark text-[#8ea3cc] text-sm font-medium uppercase tracking-wider hover:text-white hover:border-white transition-colors">
+                        Cancel Operation
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer decoration (Cyberpunk lines) -->
+<div class="fixed bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50 pointer-events-none"></div>
+</body></html>

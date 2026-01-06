@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Neon Drifter - Item Detail</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0657f9",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#050505", // Deep black for brutalist feel
+                        "surface-dark": "#0f1623",
+                        "neon-green": "#0bda5e",
+                        "neon-purple": "#b026ff",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "mono": ["Space Grotesk", "monospace"], // Using Space Grotesk as mono substitute for consistency
+                    },
+                    borderRadius: {"DEFAULT": "0px", "sm": "2px", "lg": "4px", "xl": "8px", "full": "9999px"}, // Tight corners
+                    animation: {
+                        'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom Scrollbar for Webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f1623; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #212f4a; 
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0657f9; 
+        }
+
+        /* Glitch Effect Utilities */
+        .glitch-text {
+            position: relative;
+        }
+        .glitch-text::before,
+        .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -1px 0 #0657f9;
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+        .glitch-text::after {
+            left: -2px;
+            text-shadow: -1px 0 #b026ff;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim {
+            0% { clip: rect(11px, 9999px, 88px, 0); }
+            5% { clip: rect(78px, 9999px, 93px, 0); }
+            10% { clip: rect(13px, 9999px, 16px, 0); }
+            15% { clip: rect(65px, 9999px, 3px, 0); }
+            20% { clip: rect(4px, 9999px, 86px, 0); }
+            25% { clip: rect(32px, 9999px, 16px, 0); }
+            30% { clip: rect(96px, 9999px, 49px, 0); }
+            35% { clip: rect(6px, 9999px, 2px, 0); }
+            40% { clip: rect(55px, 9999px, 86px, 0); }
+            45% { clip: rect(21px, 9999px, 2px, 0); }
+            50% { clip: rect(8px, 9999px, 98px, 0); }
+            55% { clip: rect(1px, 9999px, 3px, 0); }
+            60% { clip: rect(38px, 9999px, 59px, 0); }
+            65% { clip: rect(98px, 9999px, 18px, 0); }
+            70% { clip: rect(29px, 9999px, 16px, 0); }
+            75% { clip: rect(68px, 9999px, 46px, 0); }
+            80% { clip: rect(1px, 9999px, 49px, 0); }
+            85% { clip: rect(53px, 9999px, 7px, 0); }
+            90% { clip: rect(26px, 9999px, 88px, 0); }
+            95% { clip: rect(10px, 9999px, 35px, 0); }
+            100% { clip: rect(3px, 9999px, 93px, 0); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(65px, 9999px, 100px, 0); }
+            100% { clip: rect(0, 9999px, 35px, 0); }
+        }
+
+        /* Scanline Overlay */
+        .scanlines {
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.2) 50%,
+                rgba(0,0,0,0.2)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-white overflow-x-hidden selection:bg-primary selection:text-white">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-white/10 bg-background-dark/90 backdrop-blur-md px-6 py-4">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-white group cursor-pointer">
+<div class="size-8 text-primary group-hover:text-white transition-colors duration-300">
+<span class="material-symbols-outlined text-[32px]">deployed_code</span>
+</div>
+<h2 class="text-white text-xl font-bold leading-tight tracking-wider glitch-text" data-text="NEON MARKET">NEON MARKET</h2>
+</div>
+<nav class="hidden lg:flex items-center gap-8 pl-8 border-l border-white/10 h-6">
+<a class="text-slate-400 hover:text-primary hover:tracking-widest transition-all text-sm font-bold uppercase" href="#">Marketplace</a>
+<a class="text-slate-400 hover:text-primary hover:tracking-widest transition-all text-sm font-bold uppercase" href="#">Inventory</a>
+<a class="text-slate-400 hover:text-primary hover:tracking-widest transition-all text-sm font-bold uppercase" href="#">Leaderboard</a>
+<a class="text-slate-400 hover:text-primary hover:tracking-widest transition-all text-sm font-bold uppercase" href="#">Drops</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-6">
+<label class="hidden md:flex flex-col w-64 h-10 group focus-within:w-80 transition-all duration-300">
+<div class="flex w-full flex-1 items-stretch border border-white/10 group-focus-within:border-primary bg-surface-dark/50">
+<div class="text-slate-500 flex items-center justify-center pl-3">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="w-full bg-transparent border-none text-white focus:ring-0 placeholder:text-slate-600 text-sm font-mono uppercase" placeholder="SEARCH_ASSETS..."/>
+</div>
+</label>
+<div class="flex gap-3">
+<button class="flex items-center justify-center h-10 px-6 bg-primary hover:bg-white hover:text-black transition-colors text-white text-sm font-bold tracking-widest uppercase clip-path-polygon">
+<span class="truncate">CONNECT_WALLET</span>
+</button>
+<button class="flex items-center justify-center size-10 bg-surface-dark border border-white/10 hover:border-primary text-white transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Ticker Tape -->
+<div class="bg-primary overflow-hidden py-1 border-b border-white/10 relative z-40">
+<div class="whitespace-nowrap animate-[marquee_20s_linear_infinite] flex gap-8 text-xs font-mono font-bold text-white">
+<span>/// SYSTEM STATUS: OPERATIONAL</span>
+<span>/// ETH: $3,240.50 (+2.4%)</span>
+<span>/// GAS: 12 GWEI</span>
+<span>/// LATEST DROP: CYBER_GENESIS_V2 [SOLD OUT]</span>
+<span>/// WELCOME RUNNER #9201</span>
+<span>/// SYSTEM STATUS: OPERATIONAL</span>
+<span>/// ETH: $3,240.50 (+2.4%)</span>
+<span>/// GAS: 12 GWEI</span>
+<span>/// LATEST DROP: CYBER_GENESIS_V2 [SOLD OUT]</span>
+</div>
+</div>
+<!-- Main Content Layout -->
+<main class="flex flex-col lg:flex-row min-h-[calc(100vh-100px)]">
+<!-- Left Column: Immersive Visual -->
+<section class="lg:w-[55%] relative flex flex-col border-r border-white/10 bg-black overflow-hidden group">
+<!-- Breadcrumbs Overlay -->
+<div class="absolute top-6 left-6 z-20 flex flex-wrap gap-2 mix-blend-difference">
+<a class="text-slate-400 hover:text-primary text-xs font-bold uppercase tracking-widest" href="#">Home</a>
+<span class="text-slate-600 text-xs">/</span>
+<a class="text-slate-400 hover:text-primary text-xs font-bold uppercase tracking-widest" href="#">Collections</a>
+<span class="text-slate-600 text-xs">/</span>
+<span class="text-white text-xs font-bold uppercase tracking-widest">Neon Drifter #8024</span>
+</div>
+<!-- Main Image/Canvas -->
+<div class="relative flex-grow flex items-center justify-center p-8 lg:p-12">
+<!-- Decorative Frame Elements -->
+<div class="absolute top-8 right-8 size-16 border-t-2 border-r-2 border-primary/50"></div>
+<div class="absolute bottom-8 left-8 size-16 border-b-2 border-l-2 border-primary/50"></div>
+<!-- Image Container with Glitch Hover -->
+<div class="relative w-full aspect-square max-w-[700px] border border-white/10 bg-surface-dark/50 shadow-[0_0_50px_rgba(6,87,249,0.1)] group-hover:shadow-[0_0_80px_rgba(6,87,249,0.2)] transition-shadow duration-500 overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="Futuristic neon cyberpunk character portrait with glitch effects" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDwzKu6mh9NJAnwnSkKZzP2M4-vlVktwFWaYmvHtg5XUGz_GK9BYdv8NIeb6q2GrYGdPw4MjGXnHKxKm-eQQH0Ge6GSEEoFp_6YgjnNvAsaVMBPbIK-mZ3t5y3d0YPZkrVscLjBhK2nXb1onvreguqAT21MPqGhynL9o6cJmxCXkv23kxZKWzzeAdywCu5HGLXTLnyNC8kAds8iofzDQvUSJhkLZ597mnOaWrG79sIfPAkz2vKu3KalgDc4jrXt5tcUvOxjl6SpKrwQ');">
+</div>
+<!-- Scanline Overlay -->
+<div class="absolute inset-0 scanlines opacity-50 pointer-events-none"></div>
+<!-- Glitch Overlay (Active on hover) -->
+<div class="absolute inset-0 bg-primary mix-blend-overlay opacity-0 group-hover:opacity-20 transition-opacity duration-100"></div>
+</div>
+<!-- Floating Controls -->
+<div class="absolute bottom-12 right-12 flex gap-2">
+<button class="size-10 flex items-center justify-center bg-black/80 border border-white/20 text-white hover:bg-primary hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-lg">fullscreen</span>
+</button>
+<button class="size-10 flex items-center justify-center bg-black/80 border border-white/20 text-white hover:bg-primary hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-lg">share</span>
+</button>
+<button class="size-10 flex items-center justify-center bg-black/80 border border-white/20 text-white hover:bg-primary hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-lg">more_horiz</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Right Column: Data & Action -->
+<section class="lg:w-[45%] flex flex-col bg-surface-dark h-auto lg:h-[calc(100vh-100px)] lg:overflow-y-auto custom-scrollbar">
+<div class="p-8 lg:p-10 flex flex-col gap-10">
+<!-- Title Block -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<span class="px-2 py-0.5 bg-primary/20 border border-primary text-primary text-[10px] font-bold tracking-widest uppercase">Legendary</span>
+<span class="px-2 py-0.5 bg-white/5 border border-white/10 text-slate-400 text-[10px] font-bold tracking-widest uppercase">Cyber_Genesis_V1</span>
+</div>
+<h1 class="text-5xl lg:text-6xl font-black text-white uppercase leading-[0.9] tracking-tighter glitch-text" data-text="NEON DRIFTER #8024">
+                        NEON DRIFTER <span class="text-slate-600 block text-4xl mt-2">#8024</span>
+</h1>
+<p class="text-slate-400 text-sm font-mono max-w-md border-l-2 border-primary pl-4 py-1 leading-relaxed">
+                        A rogue AI consciousness trapped in a synth-skin shell. Origin: Sector 7 Slums. Special Ability: Network Override.
+                    </p>
+</div>
+<!-- Main Action Module -->
+<div class="border border-white/10 bg-black/40 p-6 relative overflow-hidden group/card">
+<div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-primary/20 to-transparent pointer-events-none"></div>
+<div class="flex flex-col gap-6">
+<div class="flex items-end justify-between">
+<div class="flex flex-col">
+<span class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Current Bid</span>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-bold text-white tracking-tight">4.20 ETH</span>
+<span class="text-slate-500 font-mono text-sm">($12,400)</span>
+</div>
+</div>
+<div class="text-right">
+<span class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1 block">Auction Ends In</span>
+<span class="text-xl font-mono text-neon-green">04:20:59</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row gap-3 mt-2">
+<button class="flex-1 h-14 bg-primary hover:bg-white hover:text-primary transition-all duration-200 text-white text-lg font-bold tracking-widest uppercase flex items-center justify-center gap-2 group/btn relative overflow-hidden">
+<div class="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300"></div>
+<span class="material-symbols-outlined relative z-10">shopping_cart</span>
+<span class="relative z-10">Buy Now</span>
+</button>
+<button class="flex-1 h-14 bg-transparent border border-white/20 hover:border-white text-white transition-all duration-200 text-lg font-bold tracking-widest uppercase flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">gavel</span>
+                                Make Offer
+                            </button>
+</div>
+</div>
+</div>
+<!-- Attributes Grid -->
+<div class="grid grid-cols-2 gap-4">
+<div class="border border-white/10 p-4 bg-white/5 hover:bg-white/10 transition-colors">
+<span class="block text-slate-500 text-[10px] uppercase tracking-widest mb-1">Class</span>
+<span class="text-white font-bold text-lg uppercase">Cyber</span>
+<span class="block text-slate-600 text-[10px] mt-1">12% have this</span>
+</div>
+<div class="border border-white/10 p-4 bg-white/5 hover:bg-white/10 transition-colors">
+<span class="block text-slate-500 text-[10px] uppercase tracking-widest mb-1">Origin</span>
+<span class="text-white font-bold text-lg uppercase">Sector 7</span>
+<span class="block text-slate-600 text-[10px] mt-1">4% have this</span>
+</div>
+<div class="border border-white/10 p-4 bg-white/5 hover:bg-white/10 transition-colors">
+<span class="block text-slate-500 text-[10px] uppercase tracking-widest mb-1">Weapon</span>
+<span class="text-white font-bold text-lg uppercase">Katana_V2</span>
+<span class="block text-slate-600 text-[10px] mt-1">8% have this</span>
+</div>
+<div class="border border-white/10 p-4 bg-white/5 hover:bg-white/10 transition-colors">
+<span class="block text-slate-500 text-[10px] uppercase tracking-widest mb-1">Glitch</span>
+<span class="text-white font-bold text-lg uppercase">Heavy</span>
+<span class="block text-slate-600 text-[10px] mt-1">2% have this</span>
+</div>
+</div>
+<!-- Ownership History Terminal -->
+<div class="flex flex-col gap-4 border-t border-white/10 pt-8">
+<div class="flex items-center justify-between">
+<h3 class="text-white font-bold text-lg uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">terminal</span>
+                            Transaction_Log
+                        </h3>
+<button class="text-xs text-primary font-mono hover:text-white uppercase">[View All]</button>
+</div>
+<div class="font-mono text-xs w-full bg-black border border-white/10 p-4">
+<div class="grid grid-cols-12 text-slate-500 border-b border-white/10 pb-2 mb-2 uppercase tracking-wider">
+<div class="col-span-2">Event</div>
+<div class="col-span-3">Price</div>
+<div class="col-span-4">From/To</div>
+<div class="col-span-3 text-right">Time</div>
+</div>
+<div class="flex flex-col gap-3">
+<div class="grid grid-cols-12 text-white items-center hover:bg-white/5 p-1 -mx-1">
+<div class="col-span-2 text-neon-green uppercase">Bid</div>
+<div class="col-span-3">4.20 ETH</div>
+<div class="col-span-4 truncate text-slate-400">0x84...9a2 <span class="text-slate-600">-&gt;</span> 0x12...b4c</div>
+<div class="col-span-3 text-right text-slate-500">2m ago</div>
+</div>
+<div class="grid grid-cols-12 text-white items-center hover:bg-white/5 p-1 -mx-1">
+<div class="col-span-2 text-slate-300 uppercase">List</div>
+<div class="col-span-3">4.50 ETH</div>
+<div class="col-span-4 truncate text-slate-400">0x33...f11 <span class="text-slate-600">-&gt;</span> Market</div>
+<div class="col-span-3 text-right text-slate-500">2h ago</div>
+</div>
+<div class="grid grid-cols-12 text-white items-center hover:bg-white/5 p-1 -mx-1 opacity-70">
+<div class="col-span-2 text-neon-purple uppercase">Transfer</div>
+<div class="col-span-3">---</div>
+<div class="col-span-4 truncate text-slate-400">0xAdmin <span class="text-slate-600">-&gt;</span> 0x33...f11</div>
+<div class="col-span-3 text-right text-slate-500">1d ago</div>
+</div>
+<div class="grid grid-cols-12 text-white items-center hover:bg-white/5 p-1 -mx-1 opacity-50">
+<div class="col-span-2 text-slate-300 uppercase">MINT</div>
+<div class="col-span-3">0.08 ETH</div>
+<div class="col-span-4 truncate text-slate-400">NullAddress <span class="text-slate-600">-&gt;</span> 0xAdmin</div>
+<div class="col-span-3 text-right text-slate-500">140d ago</div>
+</div>
+</div>
+<div class="mt-4 pt-2 border-t border-dashed border-white/20 text-slate-500">
+                            &gt; _WAITING FOR NEW BLOCKS<span class="animate-pulse">_</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Background Decor (Gradient Noise) -->
+<div class="fixed inset-0 pointer-events-none z-[-1] opacity-20" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAviYfXa_LHyiYJJCdrQjJNMK_ix-8YqNBGUNoUvUd3U0Q4W0yLrmdEii4WNr0Wy_ifmLi7l1GwJVRalW69vqO1zL0iBTn2mRsyfPxhvdBKFpxB20n4QBYdRvLr9_K3jiJdhoTcLRtFZWSZhw3jkz9deB6MklCjSMYpBILhrolq8x1rtYDECpCbW9-7cJ50tzffV6zloQ7Jl_cJ_Yl3MblPduc4rr5B2n4iRY60qd3MeoYYV0ziP_13EIxFLH0lYu9ciLcT1iKJIIP-');"></div>
+</body></html>

@@ -3,7 +3,6 @@ import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-d
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import AboutPage from './components/AboutPage';
-import AIChatbot from './components/AIChatbot';
 import CustomCursor from './components/CustomCursor';
 import SEO from './components/SEO';
 import { LanguageProvider } from './contexts/LanguageContext';
@@ -43,7 +42,6 @@ function App() {
             </main>
 
             <CustomCursor />
-            <AIChatbot />
           </div>
         </Router>
       </LanguageProvider>

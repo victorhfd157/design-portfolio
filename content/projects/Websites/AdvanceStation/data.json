@@ -1,0 +1,33 @@
+{
+    "id": "advance-station",
+    "title": "Advance Station",
+    "category": "Websites",
+    "description": {
+        "en": "Advance Station is a Portuguese educational holding company. The website reflects its strategic positioning, integrating various specialized hubs in education and professional training into a cohesive digital ecosystem.",
+        "pt": "A Advance Station é uma holding educativa portuguesa. O website reflete o seu posicionamento estratégico, integrando vários hubs especializados em educação e formação profissional num ecossistema digital coeso.",
+        "es": "Advance Station es un holding educativo portugués. El sitio web refleja su posicionamiento estratégico, integrando varios centros especializados en educación y formación profesional en un ecosistema digital cohesivo."
+    },
+    "imageUrl": "mockup_advance_station.png",
+    "gallery": [
+        "mockup_advance_station.png",
+        "mockup_hubs.png",
+        "homepage.png",
+        "ecosystem-intro.png",
+        "hubs.png",
+        "ecosystem-detail.png",
+        "footer.png"
+    ],
+    "year": "2024",
+    "tags": [
+        "Corporate",
+        "Education",
+        "Strategy",
+        "Web Design"
+    ],
+    "techStack": [
+        "React",
+        "Tailwind CSS",
+        "Corporate Identity"
+    ],
+    "link": "https://advancestation.pt"
+}

@@ -1,6 +1,6 @@
 import { Project } from '../types';
 
-// Helper to load projects dynamically
+// Helper to load projects dynamically (force reload)
 export async function loadProjects(): Promise<Project[]> {
     // 1. Load all data.json files recursively
     // This will match /content/projects/data.json, /content/projects/branding/project-a/data.json, etc.

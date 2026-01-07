@@ -1,0 +1,35 @@
+{
+    "id": "instituto-unicenter",
+    "title": "Instituto Unicenter",
+    "category": "Websites",
+    "description": {
+        "en": "A comprehensive educational platform designed to transform careers through professional training. The website features a vast catalog of courses, an intuitive search interface, and institutional information, all presented with a clean and modern design.",
+        "pt": "Uma plataforma educacional abrangente projetada para transformar carreiras através da formação profissional. O site apresenta um vasto catálogo de cursos, uma interface de busca intuitiva e informações institucionais, tudo apresentado com um design limpo e moderno.",
+        "es": "Una plataforma educativa integral diseñada para transformar carreras a través de la formación profesional. El sitio web presenta un vasto catálogo de cursos, una interfaz de búsqueda intuitiva e información institucional, todo presentado con un diseño limpio y moderno."
+    },
+    "embedUrl": "/videos/instituto-unicenter/index.html",
+    "contentType": "video",
+    "imageUrl": "mockup_unicenter.png",
+    "gallery": [
+        "mockup_unicenter.png",
+        "mockup_courses.png",
+        "homepage.png",
+        "about.png",
+        "courses.png",
+        "stats.png",
+        "programs.png"
+    ],
+    "year": "2024",
+    "tags": [
+        "Education",
+        "Web Design",
+        "UX/UI",
+        "Corporate"
+    ],
+    "techStack": [
+        "React",
+        "Next.js",
+        "Tailwind CSS"
+    ],
+    "link": "https://institutounicenter.com"
+}

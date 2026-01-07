@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { loadProjects } from '../utils/projectLoader';
 import ProjectCard from './ProjectCard';
 import { Project } from '../types';
-import { X, Calendar, Layers, Sparkles, ChevronLeft, ChevronRight, Image as ImageIcon, Monitor } from 'lucide-react';
+import { X, Calendar, Layers, Sparkles, ChevronLeft, ChevronRight, Image as ImageIcon, Monitor, Maximize2 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import EmbedViewer from './EmbedViewer';
 
@@ -169,29 +169,41 @@ const Gallery: React.FC = () => {
         </div>
 
         {/* Projects Grid */}
+        {/* Projects Grid - Bento Layout */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           layout
         >
           <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project, index) => (
-              <motion.div
-                key={project.id}
-                layout
-                initial={{ opacity: 0, scale: 0.9, y: 30 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                transition={{
-                  type: 'spring',
-                  stiffness: 100,
-                  damping: 15,
-                  delay: index * 0.05,
-                }}
-                onClick={() => handleOpenProject(project)}
-              >
-                <ProjectCard project={project} />
-              </motion.div>
-            ))}
+            {filteredProjects.map((project, index) => {
+              // Refined Bento Logic: 7-item cycle for perfect 3-column balance
+              // Row 1: Large (2) + Small (1)
+              // Row 2: Small (1) + Small (1) + Small (1)
+              // Row 3: Small (1) + Large (2)
+              const cycleIndex = index % 7;
+              const isLarge = cycleIndex === 0 || cycleIndex === 6;
+
+              // Use dense flow to handle any edge cases
+              return (
+                <motion.div
+                  key={project.id}
+                  layout
+                  className={`${isLarge ? 'md:col-span-2' : 'md:col-span-1'} w-full h-[350px] md:h-[450px]`}
+                  initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                  transition={{
+                    type: 'spring',
+                    stiffness: 100,
+                    damping: 15,
+                    delay: index * 0.05,
+                  }}
+                  onClick={() => handleOpenProject(project)}
+                >
+                  <ProjectCard project={project} />
+                </motion.div>
+              )
+            })}
           </AnimatePresence>
         </motion.div>
 
@@ -235,7 +247,7 @@ const Gallery: React.FC = () => {
               </button>
 
               {/* Left Image Section (Carousel) or Embed Viewer */}
-              <div className="w-full md:w-7/12 h-[40vh] md:h-full relative bg-black overflow-hidden group/gallery">
+              <div className="w-full md:w-7/12 h-[50vh] md:h-full relative bg-black overflow-hidden group/gallery">
 
                 {/* View Switcher (Prototype vs Gallery) */}
                 {selectedProject.embedUrl && (
@@ -262,7 +274,7 @@ const Gallery: React.FC = () => {
                   // Render Embed Viewer for presentations/videos/prototypes
                   <EmbedViewer
                     embedUrl={selectedProject.embedUrl}
-                    contentType={selectedProject.contentType}
+                    contentType={selectedProject.contentType as 'presentation' | 'video'}
                     title={selectedProject.title}
                   />
                 ) : (
@@ -270,17 +282,47 @@ const Gallery: React.FC = () => {
                   <div className="w-full h-full relative">
                   // Render Image Gallery (existing functionality)
                     <>
-                      {/* Main Image */}
-                      <div className="w-full h-full relative overflow-hidden">
+                      {/* Main Image Container */}
+                      <div className="w-full h-full relative overflow-hidden flex items-center justify-center bg-black/80">
+
+                        {/* Blurred Background Layer for "Atmosphere" */}
+                        <div className="absolute inset-0 overflow-hidden">
+                          <img
+                            key={`${currentImageUrl}-blur`}
+                            src={currentImageUrl}
+                            alt=""
+                            className="w-full h-full object-cover opacity-30 blur-2xl scale-125 transition-opacity duration-700"
+                          />
+                          <div className="absolute inset-0 bg-black/20" />
+                        </div>
+
+                        {/* Main Content Image - Contained */}
                         <img
                           ref={imageRef}
                           key={currentImageUrl}
                           src={currentImageUrl}
                           alt={selectedProject.title}
-                          className="w-full h-full object-cover opacity-90 transition-transform duration-700 ease-out will-change-transform animate-fade-in"
-                          style={{ transform: 'scale(1.05)' }}
+                          className="relative z-10 max-w-full max-h-full object-contain shadow-2xl transition-transform duration-700 ease-out will-change-transform animate-fade-in p-4 md:p-8"
+                          style={{ transform: 'scale(1)' }}
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#0a0a0a] pointer-events-none opacity-80"></div>
+
+                        {/* Fullscreen Button */}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            // Simple fullscreen implementation for the image
+                            const img = imageRef.current;
+                            if (img && img.requestFullscreen) {
+                              img.requestFullscreen();
+                            } else if (img && (img as any).webkitRequestFullscreen) {
+                              (img as any).webkitRequestFullscreen();
+                            }
+                          }}
+                          className="absolute bottom-6 right-6 p-3 bg-black/50 hover:bg-brand-accent text-white rounded-full backdrop-blur-md border border-white/10 transition-all opacity-0 group-hover/gallery:opacity-100 hover:scale-110 z-20"
+                          title="View Fullscreen"
+                        >
+                          <Maximize2 size={20} />
+                        </button>
                       </div>
 
                       {/* Navigation Arrows */}
@@ -288,13 +330,13 @@ const Gallery: React.FC = () => {
                         <>
                           <button
                             onClick={(e) => { e.stopPropagation(); prevImage(); }}
-                            className="absolute left-4 top-1/2 -translate-y-1/2 p-4 bg-black/20 hover:bg-brand-accent/90 text-white rounded-full backdrop-blur-md border border-white/10 transition-all opacity-0 group-hover/gallery:opacity-100 transform -translate-x-4 group-hover/gallery:translate-x-0 hover:scale-110"
+                            className="absolute left-4 top-1/2 -translate-y-1/2 p-4 bg-black/20 hover:bg-brand-accent/90 text-white rounded-full backdrop-blur-md border border-white/10 transition-all opacity-0 group-hover/gallery:opacity-100 transform -translate-x-4 group-hover/gallery:translate-x-0 hover:scale-110 z-30"
                           >
                             <ChevronLeft size={24} />
                           </button>
                           <button
                             onClick={(e) => { e.stopPropagation(); nextImage(); }}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 p-4 bg-black/20 hover:bg-brand-accent/90 text-white rounded-full backdrop-blur-md border border-white/10 transition-all opacity-0 group-hover/gallery:opacity-100 transform translate-x-4 group-hover/gallery:translate-x-0 hover:scale-110"
+                            className="absolute right-4 top-1/2 -translate-y-1/2 p-4 bg-black/20 hover:bg-brand-accent/90 text-white rounded-full backdrop-blur-md border border-white/10 transition-all opacity-0 group-hover/gallery:opacity-100 transform translate-x-4 group-hover/gallery:translate-x-0 hover:scale-110 z-30"
                           >
                             <ChevronRight size={24} />
                           </button>

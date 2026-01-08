@@ -17,6 +17,7 @@ const Gallery: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const imageRef = useRef<HTMLImageElement>(null);
   const [viewMode, setViewMode] = useState<'prototype' | 'gallery'>('gallery');
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     loadProjects().then(setProjects);
@@ -227,13 +228,21 @@ const Gallery: React.FC = () => {
               onClick={handleCloseModal}
             />
 
-            {/* Modal Container */}
+            {/* Modal Container - Enhanced */}
             <motion.div
-              initial={{ opacity: 0, y: 50, scale: 0.95 }}
+              initial={{ opacity: 0, y: 60, scale: 0.92 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 50, scale: 0.95 }}
-              transition={{ type: "spring", duration: 0.5, bounce: 0.2 }}
-              className="relative w-full h-full sm:h-[90vh] md:max-w-7xl bg-[#0a0a0a] sm:rounded-[2rem] overflow-hidden shadow-2xl flex flex-col md:flex-row border-0 sm:border border-white/10 group"
+              exit={{ opacity: 0, y: 60, scale: 0.92 }}
+              transition={{ type: "spring", duration: 0.6, bounce: 0.15 }}
+              drag="y"
+              dragConstraints={{ top: 0, bottom: 0 }}
+              dragElastic={{ top: 0.05, bottom: 0.8 }}
+              onDragEnd={(e, { offset, velocity }) => {
+                if (offset.y > 100 || velocity.y > 200) {
+                  handleCloseModal();
+                }
+              }}
+              className="relative w-full h-full sm:h-[90vh] md:max-w-7xl bg-[#0a0a0a] sm:rounded-[2rem] overflow-hidden shadow-2xl flex flex-col md:flex-row border-0 sm:border border-white/10 group cursor-grab active:cursor-grabbing"
             >
               {/* Modal Content */}
               <div className="absolute inset-0 pointer-events-none opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay z-0"></div>
@@ -246,8 +255,8 @@ const Gallery: React.FC = () => {
                 <X size={20} />
               </button>
 
-              {/* Left Image Section (Carousel) or Embed Viewer */}
-              <div className="w-full md:w-7/12 h-[40vh] md:h-full relative bg-black overflow-hidden group/gallery">
+              {/* Left Image Section (Carousel) or Embed Viewer - Optimized for Mobile */}
+              <div className={`w-full md:w-7/12 relative bg-black overflow-hidden group/gallery transition-all duration-300 ${isExpanded ? 'h-[70vh]' : 'h-[45vh] md:h-full'}`}>
 
                 {/* View Switcher (Prototype vs Gallery) */}
                 {selectedProject.embedUrl && (
@@ -280,63 +289,77 @@ const Gallery: React.FC = () => {
                 ) : (
                   // Render Image Gallery
                   <div className="w-full h-full relative">
-                  // Render Image Gallery (existing functionality)
                     <>
                       {/* Main Image Container */}
                       <div className="w-full h-full relative overflow-hidden flex items-center justify-center bg-black/80">
 
-                        {/* Blurred Background Layer for "Atmosphere" */}
+                        {/* Enhanced Blurred Background with Crossfade */}
                         <div className="absolute inset-0 overflow-hidden">
-                          <img
-                            key={`${currentImageUrl}-blur`}
-                            src={currentImageUrl}
-                            alt=""
-                            className="w-full h-full object-cover opacity-30 blur-2xl scale-125 transition-opacity duration-700"
-                          />
-                          <div className="absolute inset-0 bg-black/20" />
+                          <AnimatePresence mode="wait">
+                            <motion.img
+                              key={`${currentImageUrl}-blur`}
+                              src={currentImageUrl}
+                              alt=""
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 0.4 }}
+                              exit={{ opacity: 0 }}
+                              transition={{ duration: 0.5 }}
+                              className="w-full h-full object-cover blur-3xl scale-125"
+                            />
+                          </AnimatePresence>
+                          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60" />
                         </div>
 
-                        {/* Main Content Image - Contained */}
-                        <img
-                          ref={imageRef}
+                        {/* Main Content Image - Enhanced with Crossfade */}
+                        <motion.img
+                          ref={imageRef as any}
                           key={currentImageUrl}
                           src={currentImageUrl}
                           alt={selectedProject.title}
-                          className="relative z-10 max-w-full max-h-full object-contain shadow-2xl transition-transform duration-700 ease-out will-change-transform animate-fade-in p-4 md:p-8"
-                          style={{ transform: 'scale(1)' }}
+                          drag="x"
+                          dragConstraints={{ left: 0, right: 0 }}
+                          dragElastic={0.15}
+                          onDragEnd={(e, { offset, velocity }) => {
+                            const swipeThreshold = 50;
+                            if (offset.x > swipeThreshold) {
+                              prevImage();
+                            } else if (offset.x < -swipeThreshold) {
+                              nextImage();
+                            }
+                          }}
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.95 }}
+                          transition={{ duration: 0.4, ease: "easeOut" }}
+                          className="relative z-10 max-w-full max-h-full object-contain shadow-[0_0_40px_rgba(0,0,0,0.5)] cursor-grab active:cursor-grabbing p-4 md:p-8"
                         />
 
-                        {/* Fullscreen Button */}
+                        {/* Expand/Collapse Button - Mobile Prominent */}
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
-                            // Simple fullscreen implementation for the image
-                            const img = imageRef.current;
-                            if (img && img.requestFullscreen) {
-                              img.requestFullscreen();
-                            } else if (img && (img as any).webkitRequestFullscreen) {
-                              (img as any).webkitRequestFullscreen();
-                            }
+                            setIsExpanded(!isExpanded);
                           }}
-                          className="absolute bottom-6 right-6 p-3 bg-black/50 hover:bg-brand-accent text-white rounded-full backdrop-blur-md border border-white/10 transition-all opacity-0 group-hover/gallery:opacity-100 hover:scale-110 z-20"
-                          title="View Fullscreen"
+                          className="absolute bottom-6 right-6 w-12 h-12 md:w-10 md:h-10 p-3 bg-brand-accent hover:bg-brand-accent/90 active:scale-95 md:bg-black/50 md:hover:bg-brand-accent text-white rounded-full backdrop-blur-md border border-white/10 transition-all md:opacity-0 md:group-hover/gallery:opacity-100 hover:scale-110 z-20 shadow-lg flex items-center justify-center"
+                          title={isExpanded ? 'Reduzir imagem' : 'Expandir imagem'}
+                          aria-label={isExpanded ? 'Reduzir imagem' : 'Expandir imagem'}
                         >
-                          <Maximize2 size={20} />
+                          <Maximize2 size={20} className={isExpanded ? 'rotate-180' : ''} />
                         </button>
                       </div>
 
-                      {/* Navigation Arrows */}
+                      {/* Navigation Arrows - Always visible on mobile */}
                       {galleryImages.length > 1 && (
                         <>
                           <button
                             onClick={(e) => { e.stopPropagation(); prevImage(); }}
-                            className="absolute left-4 top-1/2 -translate-y-1/2 p-4 bg-black/20 hover:bg-brand-accent/90 text-white rounded-full backdrop-blur-md border border-white/10 transition-all opacity-0 group-hover/gallery:opacity-100 transform -translate-x-4 group-hover/gallery:translate-x-0 hover:scale-110 z-30"
+                            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-12 h-12 md:w-12 md:h-12 flex items-center justify-center bg-black/50 hover:bg-brand-accent/90 text-white rounded-full transition-all duration-300 backdrop-blur-md border border-white/10 md:opacity-0 md:group-hover/gallery:opacity-100 hover:scale-110 z-30 active:scale-95"
                           >
                             <ChevronLeft size={24} />
                           </button>
                           <button
                             onClick={(e) => { e.stopPropagation(); nextImage(); }}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 p-4 bg-black/20 hover:bg-brand-accent/90 text-white rounded-full backdrop-blur-md border border-white/10 transition-all opacity-0 group-hover/gallery:opacity-100 transform translate-x-4 group-hover/gallery:translate-x-0 hover:scale-110 z-30"
+                            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-12 h-12 md:w-12 md:h-12 flex items-center justify-center bg-black/50 hover:bg-brand-accent/90 text-white rounded-full transition-all duration-300 backdrop-blur-md border border-white/10 md:opacity-0 md:group-hover/gallery:opacity-100 hover:scale-110 z-30 active:scale-95"
                           >
                             <ChevronRight size={24} />
                           </button>
@@ -345,12 +368,12 @@ const Gallery: React.FC = () => {
 
                       {/* Thumbnails Bar */}
                       {galleryImages.length > 1 && (
-                        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 px-4 py-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full z-20 transition-all duration-300 transform translate-y-20 group-hover/gallery:translate-y-0 hover:bg-black/60">
+                        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full z-20 transition-all duration-300 transform translate-y-20 group-hover/gallery:translate-y-0 hover:bg-black/60">
                           {galleryImages.map((img, idx) => (
                             <button
                               key={idx}
                               onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(idx); }}
-                              className={`relative w-12 h-12 rounded-lg overflow-hidden border-2 transition-all duration-300 ${currentImageIndex === idx ? 'border-brand-accent scale-110 shadow-lg shadow-brand-accent/20' : 'border-transparent opacity-50 hover:opacity-100 hover:scale-105'
+                              className={`relative w-14 h-14 sm:w-12 sm:h-12 rounded-lg overflow-hidden border-2 transition-all duration-300 ${currentImageIndex === idx ? 'border-brand-accent scale-110 shadow-lg shadow-brand-accent/20' : 'border-transparent opacity-50 hover:opacity-100 hover:scale-105'
                                 }`}
                             >
                               <img src={img} alt={`Thumbnail ${idx}`} className="w-full h-full object-cover" />
@@ -371,25 +394,41 @@ const Gallery: React.FC = () => {
                 )}
               </div>
 
-              {/* Right Content Section */}
+              {/* Right Content Section - Mobile Optimized */}
               <div
-                className="w-full md:w-5/12 p-8 md:p-12 flex flex-col overflow-y-auto custom-scrollbar relative z-10 bg-gradient-to-b from-[#0a0a0a] to-[#050505]"
+                className="w-full md:w-5/12 p-6 md:p-12 flex flex-col overflow-y-auto custom-scrollbar relative z-10 bg-gradient-to-b from-[#0a0a0a] to-[#050505]"
                 onScroll={handleModalScroll}
               >
                 <div className="mb-auto">
-                  <div className="flex items-center gap-3 mb-8">
-                    {selectedProject.categories.map(cat => (
-                      <span key={cat} className="px-3 py-1 rounded-full bg-brand-accent/10 border border-brand-accent/20 text-brand-accent text-xs font-mono uppercase tracking-widest shadow-[0_0_10px_rgba(99,102,241,0.2)]">
+                  <motion.div
+                    className="flex items-center gap-3 mb-8"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                  >
+                    {selectedProject.categories.map((cat, idx) => (
+                      <motion.span
+                        key={cat}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.2 + idx * 0.1 }}
+                        className="px-4 py-2 rounded-full bg-gradient-to-r from-brand-accent/20 to-brand-accent/10 border border-brand-accent/30 text-brand-accent text-xs font-bold uppercase tracking-widest shadow-[0_0_15px_rgba(99,102,241,0.3)] backdrop-blur-sm hover:scale-105 transition-transform"
+                      >
                         {cat}
-                      </span>
+                      </motion.span>
                     ))}
-                  </div>
+                  </motion.div>
 
-                  <h3 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-8 leading-[1.1] tracking-tight">
+                  <motion.h3
+                    className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6 leading-[1.1] tracking-tight"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2, duration: 0.5 }}
+                  >
                     {selectedProject.title}
-                  </h3>
+                  </motion.h3>
 
-                  <div className="flex items-center gap-8 text-gray-400 font-mono text-xs mb-12 border-b border-white/10 pb-8 uppercase tracking-widest">
+                  <div className="flex items-center gap-6 text-gray-400 font-mono text-xs mb-8 border-b border-white/10 pb-6 uppercase tracking-widest">
                     <div className="flex items-center gap-3">
                       <div className="p-2 rounded-full bg-white/5 border border-white/5">
                         <Calendar size={14} className="text-brand-accent" />
@@ -405,7 +444,7 @@ const Gallery: React.FC = () => {
                   </div>
 
                   <div className="prose prose-invert prose-lg max-w-none">
-                    <p className="text-gray-300 font-light leading-loose text-lg mb-8 first-letter:text-5xl first-letter:font-serif first-letter:text-brand-accent first-letter:mr-3 first-letter:float-left">
+                    <p className="text-gray-300 font-light leading-relaxed text-base md:text-lg mb-6 first-letter:text-4xl md:first-letter:text-5xl first-letter:font-serif first-letter:text-brand-accent first-letter:mr-2 first-letter:float-left">
                       {selectedProject.description[language]}
                     </p>
                     <div className="bg-white/5 p-8 rounded-3xl border border-white/5 relative overflow-hidden">

@@ -101,7 +101,7 @@ const AlchemistLab: React.FC = () => {
                         </span>
                     </div>
 
-                    <h2 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 tracking-tight">
+                    <h2 className="text-7xl md:text-8xl lg:text-9xl font-black mb-8 tracking-tighter leading-[0.85]">
                         <span className="bg-gradient-to-b from-white via-white to-white/50 bg-clip-text text-transparent filter drop-shadow-2xl">
                             {t.alchemist_lab.title}
                         </span>
@@ -127,7 +127,7 @@ const AlchemistLab: React.FC = () => {
                                 {/* Gradient Border Animation */}
                                 <div className={`absolute inset-0 bg-gradient-to-r ${activeData.color} opacity-50 blur-xl group-hover:opacity-75 transition-opacity duration-500`} />
                                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" style={{ backgroundSize: '200% 100%' }} />
-                                
+
                                 <div className="relative bg-[#0a0a0a]/90 backdrop-blur-2xl rounded-[2rem] p-8 md:p-12 border border-white/10 shadow-2xl">
                                     {/* Close button */}
                                     <button
@@ -228,8 +228,8 @@ const AlchemistLab: React.FC = () => {
                     )}
                 </AnimatePresence>
 
-                {/* Station Cards Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {/* Station Cards Grid - Horizontal Scroll on Mobile (App-like feel) */}
+                <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-8 md:pb-0 px-4 md:px-0 -mx-4 md:mx-0 scrollbar-hide">
                     {stations.map((station, index) => {
                         const isActive = activeStation === station.key;
                         return (
@@ -241,7 +241,7 @@ const AlchemistLab: React.FC = () => {
                                 transition={{ delay: index * 0.1, duration: 0.6 }}
                                 whileHover={{ y: -10, scale: 1.02 }}
                                 onClick={() => setActiveStation(isActive ? null : station.key)}
-                                className="h-full"
+                                className="min-w-[85vw] md:min-w-0 h-full snap-center"
                             >
                                 <div className={`
                                     relative h-full rounded-2xl p-8 cursor-pointer overflow-hidden group
@@ -250,7 +250,7 @@ const AlchemistLab: React.FC = () => {
                                 `}>
                                     {/* Glass Background */}
                                     <div className="absolute inset-0 bg-white/[0.03] backdrop-blur-xl transition-all duration-500 group-hover:bg-white/[0.06]" />
-                                    
+
                                     {/* Gradient Blobs (Hover) */}
                                     <div className={`
                                         absolute -top-20 -right-20 w-40 h-40 rounded-full blur-[80px]

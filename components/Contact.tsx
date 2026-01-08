@@ -47,9 +47,9 @@ const Contact: React.FC = () => {
             <span className="text-[10px] font-mono text-gray-400 tracking-widest uppercase">Open for opportunities</span>
           </div>
 
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[9rem] leading-[0.9] sm:leading-[0.88] md:leading-[0.85] text-white tracking-tight">
-            <span className="font-serif italic block text-gray-600 mix-blend-difference hover:text-gray-500 transition-colors duration-500">{t.contact.headline_1}</span>
-            <span className="font-sans font-black block text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400">{t.contact.headline_2}</span>
+          <h2 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] leading-[0.85] sm:leading-[0.85] md:leading-[0.85] text-white tracking-tighter">
+            <span className="font-serif italic block text-gray-600 mix-blend-difference hover:text-gray-500 transition-colors duration-500 mb-2">{t.contact.headline_1}</span>
+            <span className="font-sans font-black block text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 mb-2">{t.contact.headline_2}</span>
             <span className="font-gothic block text-brand-accent opacity-90">{t.contact.headline_3}</span>
           </h2>
         </div>
@@ -99,7 +99,7 @@ const Contact: React.FC = () => {
             <a
               key={i}
               href={social.href}
-              className="group relative px-6 py-3 rounded-full border border-white/10 bg-white/5 hover:bg-white hover:text-black transition-all duration-300 flex items-center gap-3 overflow-hidden"
+              className="group relative px-6 py-3.5 min-h-[44px] rounded-full border border-white/10 bg-white/5 hover:bg-white hover:text-black transition-all duration-300 flex items-center gap-3 overflow-hidden active:scale-95"
             >
               <social.icon size={18} className="text-gray-400 group-hover:text-black transition-colors" />
               <span className="text-xs font-mono uppercase tracking-widest text-gray-400 group-hover:text-black transition-colors">

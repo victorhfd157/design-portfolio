@@ -13,16 +13,16 @@ const Timeline: React.FC = () => {
       if (containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect();
         const windowHeight = window.innerHeight;
-        
+
         // Calculate how much of the timeline is scrolled past the center of the screen
         // Start filling when the top enters the center
         const startOffset = windowHeight / 2;
         const totalHeight = rect.height;
         const currentPos = startOffset - rect.top;
-        
+
         let progress = currentPos / totalHeight;
         progress = Math.max(0, Math.min(1, progress));
-        
+
         setScrollProgress(progress);
       }
     };
@@ -36,15 +36,15 @@ const Timeline: React.FC = () => {
     <div ref={containerRef} className="relative py-10">
       {/* Central Line - Static Background */}
       <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-white/5 md:-translate-x-1/2"></div>
-      
+
       {/* Central Line - Dynamic Beam Light */}
-      <div 
+      <div
         className="absolute left-6 md:left-1/2 top-0 w-px bg-brand-accent md:-translate-x-1/2 shadow-[0_0_15px_rgba(99,102,241,0.8)] transition-all duration-100 ease-out"
         style={{ height: `${scrollProgress * 100}%` }}
       ></div>
-      
+
       {/* Beam Head Glow */}
-      <div 
+      <div
         className="absolute left-6 md:left-1/2 w-1 h-8 bg-white/50 blur-md md:-translate-x-1/2 transition-all duration-100 ease-out"
         style={{ top: `${scrollProgress * 100}%`, transform: 'translateY(-100%) translateX(-50%)' }}
       ></div>
@@ -54,25 +54,23 @@ const Timeline: React.FC = () => {
           const isEven = index % 2 === 0;
           return (
             <div key={exp.id} className={`relative flex flex-col md:flex-row items-start ${isEven ? 'md:flex-row-reverse' : ''} gap-8 animate-fade-in`} style={{ animationDelay: `${index * 200}ms` }}>
-              
+
               {/* Dot - Lights up when passed */}
-              <div 
-                 className={`absolute left-6 md:left-1/2 w-4 h-4 rounded-full -translate-x-1/2 mt-6 z-10 transition-all duration-500 border-2 ${
-                    scrollProgress > (index / EXPERIENCES.length) 
-                        ? 'bg-brand-dark border-brand-accent shadow-[0_0_15px_rgba(99,102,241,0.8)] scale-110' 
-                        : 'bg-brand-dark border-white/10 scale-100'
-                 }`}
+              <div
+                className={`absolute left-0 md:left-1/2 w-4 h-4 rounded-full md:-translate-x-1/2 mt-6 z-10 transition-all duration-500 border-2 ${scrollProgress > (index / EXPERIENCES.length)
+                    ? 'bg-brand-dark border-brand-accent shadow-[0_0_15px_rgba(99,102,241,0.8)] scale-110'
+                    : 'bg-brand-dark border-white/10 scale-100'
+                  }`}
               >
-                 <div className={`absolute inset-0 bg-brand-accent rounded-full animate-ping opacity-20 ${scrollProgress > (index / EXPERIENCES.length) ? 'block' : 'hidden'}`}></div>
+                <div className={`absolute inset-0 bg-brand-accent rounded-full animate-ping opacity-20 ${scrollProgress > (index / EXPERIENCES.length) ? 'block' : 'hidden'}`}></div>
               </div>
 
               {/* Content Card */}
-              <div className={`w-full md:w-[calc(50%-2rem)] pl-16 md:pl-0 ${isEven ? 'md:pr-8 md:text-right' : 'md:pl-8 md:text-left'}`}>
-                <div className={`glass-panel p-6 rounded-2xl border transition-all duration-500 group hover:-translate-y-1 hover:shadow-2xl ${
-                    scrollProgress > (index / EXPERIENCES.length)
-                        ? 'border-brand-accent/30 shadow-brand-accent/5'
-                        : 'border-white/5'
-                }`}>
+              <div className={`w-full md:w-[calc(50%-2rem)] pl-10 md:pl-0 ${isEven ? 'md:pr-8 md:text-right' : 'md:pl-8 md:text-left'}`}>
+                <div className={`glass-panel p-6 rounded-2xl border transition-all duration-500 group hover:-translate-y-1 hover:shadow-2xl ${scrollProgress > (index / EXPERIENCES.length)
+                    ? 'border-brand-accent/30 shadow-brand-accent/5'
+                    : 'border-white/5'
+                  }`}>
                   <div className={`flex flex-col ${isEven ? 'md:items-end' : 'md:items-start'} mb-4`}>
                     <h3 className="text-xl font-bold text-white group-hover:text-brand-accent transition-colors">{exp.role[language]}</h3>
                     <p className="text-lg font-serif italic text-gray-400">{exp.company}</p>
@@ -97,7 +95,7 @@ const Timeline: React.FC = () => {
                 </div>
               </div>
 
-              {/* Spacer for the other side */}
+              {/* Spacer for the other side (Desktop only) */}
               <div className="hidden md:block w-[calc(50%-2rem)]"></div>
             </div>
           );

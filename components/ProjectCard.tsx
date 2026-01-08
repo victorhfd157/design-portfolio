@@ -1,13 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Project } from '../types';
-import { ArrowUpRight, Play, Presentation } from 'lucide-react';
+import { ArrowUpRight, Play, Presentation, Sparkles } from 'lucide-react';
+import { getCategoryColor, isNewProject } from '../utils/categoryHelpers';
 
 interface ProjectCardProps {
   project: Project;
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
+  const showNewBadge = project.year && isNewProject(`${project.year}-01-01`);
   return (
     <div
       className="group relative w-full h-full overflow-hidden rounded-[2rem] cursor-pointer bg-neutral-900 border border-white/5"

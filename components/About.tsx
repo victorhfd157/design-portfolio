@@ -100,10 +100,10 @@ const About: React.FC = () => {
             <span className="text-xs font-gothic tracking-widest text-gray-300 uppercase">{t.about.badge_name}</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl leading-[1] text-white">
-            <span className="font-serif italic font-bold block mb-2 text-gray-400">{t.about.role_1}</span>
-            <span className="font-gothic text-brand-accent block sm:ml-6 md:ml-8">{t.about.role_2}</span>
-            <span className="font-sans font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-600 block text-xl sm:text-2xl md:text-3xl lg:text-5xl mt-4">
+          <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.85] text-white">
+            <span className="font-serif italic font-bold block mb-4 text-gray-400">{t.about.role_1}</span>
+            <span className="font-gothic text-brand-accent block sm:ml-6 md:ml-8 mb-2">{t.about.role_2}</span>
+            <span className="font-sans font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-600 block text-3xl sm:text-4xl md:text-5xl lg:text-6xl mt-6 tracking-tight">
               {t.about.role_3}
             </span>
           </h2>
@@ -112,69 +112,69 @@ const About: React.FC = () => {
         {/* Split Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
 
-          {/* Left Column: Biography */}
+          {/* Left Column: Biography - Mobile Optimized */}
           <div
-            className={`flex flex-col justify-center text-gray-400 font-light leading-relaxed text-lg transition-all duration-1000 ease-out delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            className={`flex flex-col justify-center text-gray-400 font-light leading-relaxed text-base md:text-lg transition-all duration-1000 ease-out delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
           >
-            <p className="mb-8 first-letter:text-5xl first-letter:font-serif first-letter:text-white first-letter:float-left first-letter:mr-3 first-letter:leading-[0.8]">
+            <p className="mb-6 md:mb-8 first-letter:text-4xl md:first-letter:text-5xl first-letter:font-serif first-letter:text-white first-letter:float-left first-letter:mr-2 md:first-letter:mr-3 first-letter:leading-[0.8]">
               {t.about.bio_intro_1} <strong className="text-white">{t.about.bio_intro_2}</strong> {t.about.bio_intro_3}
             </p>
 
-            <p className="mb-10">
+            <p className="mb-8 md:mb-10">
               {t.about.bio_body} <span className="text-white font-medium">{t.about.bio_body_2}</span>{t.about.bio_body_3} <span className="text-brand-accent font-bold">{t.about.bio_body_4}</span>{t.about.bio_body_5}
             </p>
 
-            {/* Action Buttons - Redesigned (Smaller) */}
-            <div className="flex flex-col sm:flex-row gap-4 mt-4">
+            {/* Action Buttons - Mobile Optimized */}
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6">
               <a
                 href="#"
                 onClick={handleDownloadCV}
-                className="group relative flex items-center justify-center gap-3 px-6 py-3 bg-brand-accent text-white rounded-full font-bold uppercase tracking-wider text-[10px] overflow-hidden shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_40px_rgba(99,102,241,0.6)] hover:scale-105 transition-all duration-300"
+                className="group relative flex items-center justify-center gap-3 px-8 py-4 min-h-[48px] bg-brand-accent text-white rounded-full font-bold uppercase tracking-wider text-xs overflow-hidden shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_40px_rgba(99,102,241,0.6)] hover:scale-105 active:scale-95 transition-all duration-300"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-brand-accent to-purple-600"></div>
                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
                 <span className="relative z-10 flex items-center gap-2">
-                  <Download size={14} /> {t.about.download_cv}
+                  <Download size={16} /> {t.about.download_cv}
                 </span>
               </a>
               <button
                 onClick={scrollToContact}
-                className="group relative flex items-center justify-center gap-3 px-6 py-3 border border-white/10 bg-white/5 text-white rounded-full font-bold uppercase tracking-wider text-[10px] overflow-hidden hover:bg-white/10 hover:border-white/30 backdrop-blur-sm transition-all duration-300"
+                className="group relative flex items-center justify-center gap-3 px-8 py-4 min-h-[48px] border border-white/10 bg-white/5 text-white rounded-full font-bold uppercase tracking-wider text-xs overflow-hidden hover:bg-white/10 hover:border-white/30 backdrop-blur-sm active:scale-95 transition-all duration-300"
               >
                 <div className="absolute inset-0 bg-white/5 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-300 ease-out"></div>
                 <span className="relative z-10 flex items-center gap-2">
-                  {t.about.lets_talk} <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                  {t.about.lets_talk} <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                 </span>
               </button>
             </div>
 
-            {/* Additional Info / Certifications */}
-            <div className="mt-12 pt-8 border-t border-white/10">
+            {/* Additional Info / Certifications - Mobile Enhanced */}
+            <div className="mt-10 md:mt-12 pt-6 md:pt-8 border-t border-white/10">
               <p className="text-xs font-mono text-gray-500 uppercase tracking-widest mb-4">{t.about.latest_cert}</p>
-              <div className="flex items-start gap-4">
-                <div className="bg-[#76b900]/10 p-2 rounded-lg border border-[#76b900]/20">
-                  <Cpu className="text-[#76b900]" size={20} />
+              <div className="flex items-start gap-3 md:gap-4 p-4 md:p-0 bg-white/5 md:bg-transparent rounded-xl md:rounded-none border border-white/5 md:border-0">
+                <div className="bg-[#76b900]/10 p-2.5 md:p-2 rounded-lg border border-[#76b900]/20">
+                  <Cpu className="text-[#76b900]" size={24} />
                 </div>
                 <div>
-                  <h5 className="text-white font-bold text-sm">Generative AI with Diffusion Models</h5>
+                  <h5 className="text-white font-bold text-sm md:text-base">Generative AI with Diffusion Models</h5>
                   <p className="text-xs text-gray-500">Nvidia Deep Learning Institute</p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Skills List (Compact for Home) */}
+          {/* Right Column: Skills List - Mobile Enhanced */}
           <div
             className={`w-full transition-all duration-1000 ease-out delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
               }`}
           >
-            {/* Wrapper for the new Skills Component */}
-            <div className="relative h-full bg-white/5 border border-white/5 rounded-2xl p-6 md:p-10 backdrop-blur-sm min-h-[500px]">
+            {/* Wrapper for the Skills Component */}
+            <div className="relative h-full bg-white/5 border border-white/10 md:border-white/5 rounded-2xl p-4 md:p-6 lg:p-10 backdrop-blur-sm min-h-[500px] shadow-xl md:shadow-none">
               <div className="absolute top-0 right-0 p-4 opacity-20 hover:opacity-100 transition-opacity">
                 <ExternalLink size={24} className="text-white" />
               </div>
-              <h3 className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-8">{t.about.tech_proficiency}</h3>
+              <h3 className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-6 md:mb-8">{t.about.tech_proficiency}</h3>
 
               <SkillsList />
             </div>

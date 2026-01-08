@@ -160,22 +160,9 @@ const Navbar: React.FC = () => {
           </button>
         </div>
 
-        {/* Mobile Toggle */}
-        <div className="flex md:hidden items-center gap-4">
-          <button
-            onClick={toggleLanguage}
-            className="flex items-center gap-1 text-xs font-mono text-gray-400 border border-white/10 px-2 py-1 rounded-full"
-          >
-            <span className={language === 'en' ? 'text-brand-accent' : ''}>EN</span>
-            <span className="opacity-30">|</span>
-            <span className={language === 'pt' ? 'text-brand-accent' : ''}>PT</span>
-          </button>
-          <button
-            className="text-white focus:outline-none"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+        {/* Mobile Toggle - Hidden as we use Bottom Nav now */}
+        <div className="hidden md:hidden">
+          {/* Kept hidden structure to avoid breaking layout if needed, or just remove */}
         </div>
       </div>
 

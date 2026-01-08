@@ -165,7 +165,7 @@ const Hero: React.FC = () => {
       <div className="container mx-auto px-4 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center h-full">
 
         {/* LEFT COLUMN: Typography & Content */}
-        <div className="lg:col-span-7 flex flex-col justify-center text-center lg:text-left order-2 lg:order-1 relative">
+        <div className="col-span-1 lg:col-span-7 flex flex-col justify-center text-center lg:text-left order-2 lg:order-1 relative h-screen lg:h-auto z-20">
 
           {/* Badge */}
           <div className="flex justify-center lg:justify-start mb-6">
@@ -177,7 +177,7 @@ const Hero: React.FC = () => {
 
           {/* Main Headline with 3D Effect */}
           <motion.h1
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[8rem] leading-[1.1] sm:leading-[0.95] lg:leading-[0.9] text-white mb-4 sm:mb-6 perspective-500"
+            className="text-7xl sm:text-8xl md:text-9xl lg:text-8xl xl:text-[8rem] leading-[0.85] sm:leading-[0.85] lg:leading-[0.9] text-white mb-6 sm:mb-8 perspective-500"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
@@ -195,13 +195,13 @@ const Hero: React.FC = () => {
               {t.hero.headline_2}
             </span>
             <div
-              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2 sm:gap-4 lg:-mt-2 transition-transform duration-500 ease-out"
+              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2 sm:gap-4 mt-2 lg:-mt-2 transition-transform duration-500 ease-out"
               style={{ transform: `translateY(${mousePosition.y * 5}px)` }}
             >
-              <span className="font-script text-2xl sm:text-3xl md:text-4xl lg:text-6xl text-gray-400 font-light">
+              <span className="font-script text-5xl sm:text-5xl md:text-6xl lg:text-6xl text-gray-400 font-light">
                 {t.hero.headline_3_1}
               </span>
-              <span className="font-serif italic font-bold text-2xl sm:text-3xl md:text-4xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-600">
+              <span className="font-serif italic font-bold text-5xl sm:text-5xl md:text-6xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-600">
                 {t.hero.headline_3_2}
               </span>
             </div>
@@ -217,7 +217,7 @@ const Hero: React.FC = () => {
             {/* Primary Button: Gradient & Glow with Magnetic Effect */}
             <MagneticButton
               onClick={() => scrollToSection('works')}
-              className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-brand-accent text-white rounded-full font-bold uppercase tracking-wider text-xs sm:text-sm overflow-hidden shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_40px_rgba(99,102,241,0.6)] hover:scale-105 transition-all duration-300"
+              className="group relative px-8 py-3 bg-brand-accent text-white rounded-full font-bold uppercase tracking-wider text-xs sm:text-sm overflow-hidden shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_40px_rgba(99,102,241,0.6)] hover:scale-105 transition-all duration-300"
               strength={0.4}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-brand-accent to-purple-600 transition-transform duration-300 group-hover:scale-110"></div>
@@ -230,7 +230,7 @@ const Hero: React.FC = () => {
             {/* Secondary Button: Glass & Slide with Magnetic Effect */}
             <MagneticButton
               onClick={() => scrollToSection('contact')}
-              className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-full overflow-hidden transition-all duration-300 border border-white/20 hover:border-white/50"
+              className="group relative px-8 py-3 rounded-full overflow-hidden transition-all duration-300 border border-white/20 hover:border-white/50"
               strength={0.3}
             >
               <div className="absolute inset-0 bg-white/5 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-300"></div>
@@ -243,7 +243,7 @@ const Hero: React.FC = () => {
 
           {/* Animated Stats - Bottom */}
           <motion.div
-            className="flex gap-6 sm:gap-8 justify-center lg:justify-start mt-12"
+            className="hidden sm:flex gap-6 sm:gap-8 justify-center lg:justify-start mt-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
@@ -295,8 +295,8 @@ const Hero: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* RIGHT COLUMN: Visual Centerpiece */}
-        <div className="lg:col-span-5 relative h-[40vh] sm:h-[50vh] lg:h-[80vh] flex items-center justify-center order-1 lg:order-2">
+        {/* RIGHT COLUMN: Visual Centerpiece - Hidden on Mobile for clean typography look */}
+        <div className="hidden lg:block lg:col-span-5 relative h-[80vh] flex items-center justify-center order-1 lg:order-2">
 
           {/* Background Circle/Halo */}
           <div
@@ -320,7 +320,7 @@ const Hero: React.FC = () => {
               }}
             >
               {/* Overlay Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent z-20 opacity-60"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent z-20 opacity-80"></div>
 
               {/* Statue Image */}
               <img

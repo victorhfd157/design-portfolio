@@ -140,7 +140,7 @@ const Gallery: React.FC = () => {
 
           {/* Categories Filter - Sticky on all devices */}
           <div className="sticky top-24 z-30 -mx-4 sm:mx-0">
-            <div className="flex overflow-x-auto md:flex-wrap gap-3 pb-4 md:pb-0 pt-2 px-4 sm:px-0 scrollbar-hide w-full md:w-auto max-w-full md:max-w-2xl justify-start md:justify-end animate-fade-in delay-200">
+            <div className="flex overflow-x-auto md:flex-wrap gap-3 pb-4 md:pb-0 pt-2 px-4 sm:px-0 scrollbar-hide w-full md:w-auto max-w-full md:max-w-2xl justify-start md:justify-end animate-fade-in delay-200 mask-linear-fade">
               {categories.map((category) => (
                 <button
                   key={category}
@@ -240,14 +240,14 @@ const Gallery: React.FC = () => {
 
               <button
                 onClick={handleCloseModal}
-                className="absolute top-6 right-6 z-50 w-12 h-12 flex items-center justify-center bg-black/50 hover:bg-white text-white hover:text-black rounded-full transition-all duration-300 backdrop-blur-md border border-white/10 shadow-lg hover:rotate-90"
+                className="absolute top-4 right-4 md:top-6 md:right-6 z-[60] w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-black/50 hover:bg-white text-white hover:text-black rounded-full transition-all duration-300 backdrop-blur-md border border-white/10 shadow-lg hover:rotate-90"
                 aria-label="Close modal"
               >
                 <X size={20} />
               </button>
 
               {/* Left Image Section (Carousel) or Embed Viewer */}
-              <div className="w-full md:w-7/12 h-[50vh] md:h-full relative bg-black overflow-hidden group/gallery">
+              <div className="w-full md:w-7/12 h-[40vh] md:h-full relative bg-black overflow-hidden group/gallery">
 
                 {/* View Switcher (Prototype vs Gallery) */}
                 {selectedProject.embedUrl && (

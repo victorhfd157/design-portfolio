@@ -51,10 +51,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         {/* Bottom Content: Title & Arrow */}
         <div className="flex items-end justify-between gap-4">
           <div className="transform transition-transform duration-500 group-hover:-translate-y-2">
-            <h3 className="text-3xl md:text-4xl lg:text-5xl font-serif font-light text-white leading-tight mb-2 group-hover:text-brand-accent transition-colors duration-300">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-light text-white leading-tight mb-2 group-hover:text-brand-accent transition-colors duration-300">
               {project.title}
             </h3>
-            <div className="flex flex-wrap gap-3 overflow-hidden h-0 group-hover:h-auto opacity-0 group-hover:opacity-100 transition-all duration-500">
+            <div className="flex flex-wrap gap-3 overflow-hidden h-auto opacity-100 md:h-0 md:opacity-0 md:group-hover:h-auto md:group-hover:opacity-100 transition-all duration-500">
               {project.tags.slice(0, 3).map((tag) => (
                 <span key={tag} className="text-xs text-gray-300 font-mono tracking-wide">#{tag}</span>
               ))}

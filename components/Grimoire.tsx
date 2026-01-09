@@ -58,11 +58,11 @@ const Grimoire: React.FC = () => {
                             <div className="absolute bottom-8 right-8 w-32 h-32 border-b border-r border-white/10 rounded-br-3xl rounded-none opacity-50" />
 
                             {/* Content */}
-                            <div className="relative z-10 flex flex-col items-center text-center space-y-10">
-                                <p className="text-2xl md:text-3xl lg:text-4xl font-light text-gray-200 leading-relaxed font-serif tracking-wide max-w-3xl">
-                                    <span className="text-6xl md:text-7xl absolute -top-8 -left-4 md:-left-10 text-purple-500/20 font-serif">"</span>
+                            <div className="relative z-10 flex flex-col items-center text-center space-y-10 px-2 md:px-0">
+                                <p className="text-xl md:text-3xl lg:text-4xl text-gray-200 leading-relaxed font-serif tracking-wide max-w-3xl hyphens-none">
+                                    <span className="text-5xl md:text-7xl absolute -top-10 -left-2 md:-left-10 text-purple-500/20 font-serif">"</span>
                                     {t.grimoire.text_1}
-                                    <span className="text-6xl md:text-7xl absolute -bottom-12 -right-4 md:-right-10 text-purple-500/20 font-serif rotate-180">"</span>
+                                    <span className="text-5xl md:text-7xl absolute -bottom-14 -right-2 md:-right-10 text-purple-500/20 font-serif rotate-180">"</span>
                                 </p>
 
                                 <div className="flex items-center gap-4 w-full justify-center opacity-30">

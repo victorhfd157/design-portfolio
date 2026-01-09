@@ -101,8 +101,8 @@ const AlchemistLab: React.FC = () => {
                         </span>
                     </div>
 
-                    <h2 className="text-7xl md:text-8xl lg:text-9xl font-black mb-8 tracking-tighter leading-[0.85]">
-                        <span className="bg-gradient-to-b from-white via-white to-white/50 bg-clip-text text-transparent filter drop-shadow-2xl">
+                    <h2 className="text-4xl xs:text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-black mb-8 tracking-tighter leading-[0.9] md:leading-[0.85] break-words hyphens-none">
+                        <span className="bg-gradient-to-b from-white via-white to-white/50 bg-clip-text text-transparent filter drop-shadow-2xl block">
                             {t.alchemist_lab.title}
                         </span>
                     </h2>
@@ -117,106 +117,132 @@ const AlchemistLab: React.FC = () => {
                     {activeData && activeContent && (
                         <motion.div
                             key={activeStation}
-                            className="mb-20"
-                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.95, y: -20 }}
-                            transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
+                            className="mb-20 perspective-1000"
+                            initial={{ opacity: 0, scale: 0.9, rotateX: 10 }}
+                            animate={{ opacity: 1, scale: 1, rotateX: 0 }}
+                            exit={{ opacity: 0, scale: 0.9, rotateX: -10 }}
+                            transition={{ duration: 0.6, type: "spring", bounce: 0.3 }}
                         >
-                            <div className={`relative rounded-[2rem] p-[1px] overflow-hidden group`}>
-                                {/* Gradient Border Animation */}
-                                <div className={`absolute inset-0 bg-gradient-to-r ${activeData.color} opacity-50 blur-xl group-hover:opacity-75 transition-opacity duration-500`} />
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" style={{ backgroundSize: '200% 100%' }} />
+                            <div className="relative rounded-[2.5rem] p-[1px] overflow-hidden group">
+                                {/* Living Gradient Border */}
+                                <div className={`absolute inset-0 bg-gradient-to-br ${activeData.color} opacity-40 blur-xl group-hover:opacity-60 transition-opacity duration-1000 animate-pulse-slow`} />
+                                <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-20 transition-opacity duration-500" />
 
-                                <div className="relative bg-[#0a0a0a]/90 backdrop-blur-2xl rounded-[2rem] p-8 md:p-12 border border-white/10 shadow-2xl">
-                                    {/* Close button */}
+                                <div className="relative bg-[#050505]/95 backdrop-blur-3xl rounded-[2.5rem] p-6 md:p-12 overflow-hidden border border-white/10 shadow-[0_0_80px_rgba(0,0,0,0.5)]">
+
+                                    {/* Background Decor */}
+                                    <div className={`absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br ${activeData.color} rounded-full blur-[120px] opacity-20 pointer-events-none`} />
+                                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] mix-blend-overlay pointer-events-none" />
+
+                                    {/* Close button - Premium Sticky */}
                                     <button
                                         onClick={() => setActiveStation(null)}
-                                        className="absolute top-6 right-6 p-3 rounded-full bg-white/5 hover:bg-white/10 text-white/50 hover:text-white transition-all hover:rotate-90 duration-300 z-10 border border-transparent hover:border-white/20"
+                                        className="absolute top-4 right-4 md:top-8 md:right-8 p-3 rounded-full bg-black/20 hover:bg-white/10 text-white/70 hover:text-white transition-all hover:rotate-90 duration-300 z-50 border border-white/5 hover:border-white/20 backdrop-blur-xl group/close"
                                     >
-                                        <X size={20} />
+                                        <X size={20} className="group-hover/close:scale-110 transition-transform" />
                                     </button>
 
-                                    <div className="grid lg:grid-cols-[1fr_1.5fr] gap-12 items-start">
-                                        <div className="space-y-8">
-                                            <div className="flex items-start gap-6">
-                                                <div className={`
-                                                    w-24 h-24 rounded-2xl flex items-center justify-center shadow-lg transform rotate-3
-                                                    bg-gradient-to-br ${activeData.color}
-                                                `}>
-                                                    <activeData.icon size={48} className="text-white drop-shadow-md" />
-                                                </div>
-                                                <div className="flex-1 pt-2">
-                                                    <h3 className="text-3xl md:text-4xl font-bold text-white mb-2 tracking-tight">{activeContent.title}</h3>
-                                                    <div className={`inline-block px-3 py-1 rounded-md bg-${activeData.bgColor} border ${activeData.borderColor} border-opacity-30`}>
-                                                        <p className="text-sm font-mono uppercase tracking-wider text-white/90">{activeData.subtitle}</p>
+                                    <div className="flex flex-col gap-10 md:gap-16 relative z-10">
+
+                                        {/* Header Identity & Narrative */}
+                                        <div className="text-center md:text-left">
+                                            <div className="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-10">
+                                                {/* Orbital Icon Animation */}
+                                                <div className="relative w-24 h-24 md:w-32 md:h-32 shrink-0">
+                                                    <div className={`absolute inset-0 rounded-full border-2 border-dashed ${activeData.borderColor} opacity-30 animate-spin-slow`} />
+                                                    <div className={`absolute inset-[-4px] rounded-full border border-white/10 opacity-20`} />
+                                                    <div className={`
+                                                        absolute inset-2 rounded-2xl flex items-center justify-center
+                                                        bg-gradient-to-br ${activeData.color} shadow-[0_0_30px_rgba(0,0,0,0.3)]
+                                                        transform rotate-3 group-hover:rotate-6 transition-transform duration-700
+                                                    `}>
+                                                        <activeData.icon size={48} className="text-white drop-shadow-xl md:w-16 md:h-16" />
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div className="bg-white/5 rounded-2xl p-6 border border-white/10">
-                                                <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4 flex items-center gap-2">
-                                                    <FlaskConical size={14} />
-                                                    {activeContent.ingredients_title}
-                                                </h4>
-                                                <ul className="space-y-3">
-                                                    {activeContent.ingredients.map((item: string, idx: number) => (
-                                                        <li key={idx} className="text-gray-300 text-sm flex items-start gap-3 group/item">
-                                                            <div className={`mt-1 p-1 rounded-full bg-white/5 group-hover/item:bg-${activeData.color.split(' ')[1]}/20 transition-colors`}>
-                                                                <Zap size={10} className={`text-gray-400 group-hover/item:text-white transition-colors`} />
-                                                            </div>
-                                                            <span className="group-hover/item:text-white transition-colors">{item}</span>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            </div>
+                                                <div className="space-y-4 max-w-2xl">
+                                                    <h3 className="text-3xl xs:text-4xl md:text-6xl font-black text-white tracking-tighter leading-[0.9] hyphens-none">
+                                                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-gray-400">
+                                                            {activeContent.title}
+                                                        </span>
+                                                    </h3>
+                                                    <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-${activeData.bgColor} border ${activeData.borderColor} border-opacity-30`}>
+                                                        <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${activeData.color} animate-pulse`} />
+                                                        <p className="text-xs font-mono uppercase tracking-widest text-white/90">{activeData.subtitle}</p>
+                                                    </div>
 
-                                            <div className="bg-gradient-to-br from-white/10 to-white/5 rounded-2xl p-6 border border-white/10 relative overflow-hidden">
-                                                <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${activeData.color} opcode-10 blur-3xl rounded-full translate-x-10 -translate-y-10`} />
-                                                <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4 flex items-center gap-2 relative z-10">
-                                                    <Sparkles size={14} />
-                                                    {activeContent.potion_title}
-                                                </h4>
-                                                <p className="text-white italic text-lg leading-relaxed relative z-10">
-                                                    "{activeContent.potion}"
-                                                </p>
+                                                    <p className="text-base md:text-xl text-gray-300 leading-relaxed font-light mt-4 md:pr-10">
+                                                        {activeContent.description}
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div className="space-y-8">
-                                            <p className="text-xl text-gray-300 leading-relaxed font-light border-l-2 border-white/10 pl-6">
-                                                {activeContent.description}
-                                            </p>
+                                        <div className="grid md:grid-cols-2 gap-8 md:gap-16">
+                                            {/* Column 1: Ingredients & Potion */}
+                                            <div className="space-y-8">
+                                                {/* Ingredients Chips */}
+                                                <div className="space-y-4">
+                                                    <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 flex items-center gap-2 border-b border-white/5 pb-2">
+                                                        <FlaskConical size={14} className="text-brand-accent" />
+                                                        {activeContent.ingredients_title}
+                                                    </h4>
+                                                    <div className="flex flex-wrap gap-2">
+                                                        {activeContent.ingredients.map((item: string, idx: number) => (
+                                                            <span
+                                                                key={idx}
+                                                                className={`
+                                                                    px-3 py-1.5 md:px-4 md:py-2 rounded-lg text-xs md:text-sm font-medium text-gray-300
+                                                                    bg-white/5 border border-white/5 hover:border-white/20 
+                                                                    hover:bg-white/10 transition-all cursor-default
+                                                                    flex items-center gap-2 group/chip w-full md:w-auto
+                                                                `}
+                                                            >
+                                                                <span className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${activeData.color} opacity-50 group-hover/chip:opacity-100 shrink-0`} />
+                                                                {item}
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                </div>
 
+                                                {/* Rare Potion Card */}
+                                                <div className="relative group/card overflow-hidden rounded-xl bg-black/40 border border-white/10 p-6 md:p-8 hover:border-white/20 transition-all duration-500">
+                                                    <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${activeData.color} opacity-10 blur-[60px] transition-opacity duration-500`} />
+                                                    <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 mb-4 flex items-center gap-2 relative z-10">
+                                                        <Sparkles size={14} className="text-amber-400" />
+                                                        {activeContent.potion_title}
+                                                    </h4>
+                                                    <p className="text-lg md:text-2xl font-serif italic text-white/90 leading-loose relative z-10">
+                                                        "{activeContent.potion}"
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            {/* Column 2: Mastery */}
                                             <div>
-                                                <h4 className="text-sm font-bold uppercase tracking-wider text-gray-400 mb-8 flex items-center gap-2">
-                                                    <Layers size={16} />
+                                                <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 mb-6 flex items-center gap-2 border-b border-white/5 pb-2">
+                                                    <Layers size={14} className="text-brand-accent" />
                                                     Mastery Levels
                                                 </h4>
-                                                <div className="grid gap-6">
+                                                <div className="space-y-6">
                                                     {activeData.skills.map((skill, idx) => (
-                                                        <motion.div
-                                                            key={skill.name}
-                                                            initial={{ opacity: 0, x: 20 }}
-                                                            animate={{ opacity: 1, x: 0 }}
-                                                            transition={{ delay: idx * 0.1 }}
-                                                            className="group/skill"
-                                                        >
-                                                            <div className="flex justify-between mb-2">
-                                                                <span className="text-gray-200 font-medium group-hover/skill:text-white transition-colors">{skill.name}</span>
-                                                                <span className="text-gray-500 font-mono text-sm">{skill.level}%</span>
+                                                        <div key={skill.name} className="group/skill relative">
+                                                            <div className="flex justify-between mb-2 items-center">
+                                                                <span className="text-sm md:text-base font-medium text-gray-200 group-hover/skill:text-white transition-colors">{skill.name}</span>
+                                                                <span className="text-xs font-mono text-brand-accent px-2 py-0.5 rounded bg-white/5">{skill.level}%</span>
                                                             </div>
-                                                            <div className="h-2 bg-white/5 rounded-full overflow-hidden backdrop-blur-sm border border-white/5">
+                                                            {/* Custom Tech Progress Bar */}
+                                                            <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden">
                                                                 <motion.div
-                                                                    className={`h-full bg-gradient-to-r ${activeData.color} relative overflow-hidden`}
+                                                                    className={`h-full bg-gradient-to-r ${activeData.color} relative shadow-[0_0_10px_rgba(255,255,255,0.3)]`}
                                                                     initial={{ width: 0 }}
                                                                     animate={{ width: `${skill.level}%` }}
-                                                                    transition={{ duration: 1.2, delay: idx * 0.1, type: "spring" }}
+                                                                    transition={{ duration: 1.5, delay: 0.2 + (idx * 0.1), type: "spring", stiffness: 50, damping: 20 }}
                                                                 >
-                                                                    <div className="absolute inset-0 bg-white/20 animate-shimmer" style={{ width: '50%', transform: 'skewX(-20deg)' }} />
+                                                                    <div className="absolute right-0 top-0 bottom-0 w-1 bg-white shadow-[0_0_5px_white]" />
                                                                 </motion.div>
                                                             </div>
-                                                        </motion.div>
+                                                        </div>
                                                     ))}
                                                 </div>
                                             </div>
@@ -228,8 +254,18 @@ const AlchemistLab: React.FC = () => {
                     )}
                 </AnimatePresence>
 
-                {/* Station Cards Grid - Horizontal Scroll on Mobile (App-like feel) */}
-                <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-8 md:pb-0 px-4 md:px-0 -mx-4 md:mx-0 scrollbar-hide">
+                {/* Scroll Indicator Mobile */}
+                <div className="md:hidden flex items-center justify-center gap-2 mb-4 animate-pulse">
+                    <span className="text-xs font-mono uppercase tracking-widest text-gray-500">Swipe to Explore</span>
+                    <div className="flex gap-1">
+                        <div className="w-1 h-1 rounded-full bg-brand-accent animate-bounce" style={{ animationDelay: '0s' }}></div>
+                        <div className="w-1 h-1 rounded-full bg-brand-accent animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                        <div className="w-1 h-1 rounded-full bg-brand-accent animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+                    </div>
+                </div>
+
+                {/* Station Cards Grid - Horizontal Scroll on Mobile (Better Centering & No Clipping) */}
+                <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory py-12 md:py-0 w-[calc(100%+2rem)] md:w-full -mx-4 md:mx-0 scrollbar-hide px-0 md:px-0 before:shrink-0 before:w-[12.5vw] after:shrink-0 after:w-[12.5vw] md:before:content-none md:after:content-none">
                     {stations.map((station, index) => {
                         const isActive = activeStation === station.key;
                         return (
@@ -241,12 +277,12 @@ const AlchemistLab: React.FC = () => {
                                 transition={{ delay: index * 0.1, duration: 0.6 }}
                                 whileHover={{ y: -10, scale: 1.02 }}
                                 onClick={() => setActiveStation(isActive ? null : station.key)}
-                                className="min-w-[85vw] md:min-w-0 h-full snap-center"
+                                className="w-[75vw] shrink-0 md:min-w-0 md:w-auto h-full snap-center"
                             >
                                 <div className={`
                                     relative h-full rounded-2xl p-8 cursor-pointer overflow-hidden group
                                     border border-white/5 hover:border-white/20 transition-all duration-500
-                                    ${isActive ? 'ring-2 ring-offset-2 ring-offset-black ring-white/50' : ''}
+                                    ${isActive ? 'ring-1 ring-brand-accent shadow-[0_0_30px_rgba(99,102,241,0.2)] bg-white/[0.08]' : 'bg-white/[0.02]'}
                                 `}>
                                     {/* Glass Background */}
                                     <div className="absolute inset-0 bg-white/[0.03] backdrop-blur-xl transition-all duration-500 group-hover:bg-white/[0.06]" />

@@ -11,6 +11,9 @@
     tailwind.config = {
       theme: {
         extend: {
+          screens: {
+            'xs': '475px',
+          },
           fontFamily: {
             sans: ['Inter', 'sans-serif'],
             serif: ['Playfair Display', 'serif'],
@@ -31,6 +34,13 @@
             'fade-in': 'fadeIn 0.5s ease-out forwards',
             'spin-slow': 'spin 12s linear infinite',
             'slide-in-right': 'slideInRight 0.3s ease-out',
+          },
+          backgroundSize: {
+            '200': '200% 200%',
+          },
+          backgroundPosition: {
+            '0': '0% 50%',
+            '100': '100% 50%',
           },
           keyframes: {
             float: {

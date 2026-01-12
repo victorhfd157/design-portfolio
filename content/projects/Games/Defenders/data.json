@@ -1,0 +1,29 @@
+{
+    "id": "defenders-game",
+    "title": "Defensores do Conhecimento",
+    "description": {
+        "en": "An educational arcade space shooter where players solve math problems to destroy asteroids. Featuring synthesized audio, parallax backgrounds, and touch controls.",
+        "pt": "Um jogo educativo estilo arcade espacial onde jogadores resolvem problemas de matemática para destruir asteroides. Apresenta áudio sintetizado, fundos parallax e controles de toque."
+    },
+    "imageUrl": "/defenders_game_cover_1768234780202.png",
+    "year": "2024",
+    "categories": [
+        "GAME",
+        "E-LEARNING",
+        "TYPESCRIPT"
+    ],
+    "tags": [
+        "React",
+        "Canvas API",
+        "Web Audio API",
+        "Education"
+    ],
+    "embedUrl": "#/game/defenders",
+    "contentType": "presentation",
+    "link": "#/game/defenders",
+    "gallery": [
+        "/defenders_action.png",
+        "/defenders_menu.png",
+        "/defenders_boss.png"
+    ]
+}

@@ -41,11 +41,25 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             ))}
           </div>
 
-          {/* Type Indicator */}
+          {/* Type Indicator / Live Demo Badge */}
           {project.embedUrl && (project.contentType === 'presentation' || project.contentType === 'video') && (
-            <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white">
-              {project.contentType === 'video' ? <Play size={12} fill="currentColor" /> : <Presentation size={14} />}
-            </div>
+            <motion.div
+              className="px-3 py-1.5 bg-gradient-to-r from-brand-accent/90 to-purple-600/90 backdrop-blur-md rounded-full border border-white/30 flex items-center gap-2 shadow-lg shadow-brand-accent/30"
+              animate={{ scale: [1, 1.05, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              {project.contentType === 'video' ? (
+                <Play size={12} className="text-white" fill="currentColor" />
+              ) : (
+                <Presentation size={12} className="text-white" />
+              )}
+              <span className="text-[10px] font-black uppercase tracking-widest text-white">Live Demo</span>
+              <motion.div
+                className="w-1.5 h-1.5 rounded-full bg-white"
+                animate={{ opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
+            </motion.div>
           )}
         </div>
 

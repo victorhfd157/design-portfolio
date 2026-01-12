@@ -1,0 +1,29 @@
+{
+    "id": "linguaquest",
+    "title": "LinguaQuest",
+    "description": {
+        "en": "A cartoon-style roleplay adventure game where you learn languages by interacting with characters in dynamic scenarios. Powered by Generative AI.",
+        "pt": "Uma aventura de RPG estilo cartoon onde você aprende idiomas interagindo com personagens em cenários dinâmicos. Impulsionado por IA Generativa."
+    },
+    "imageUrl": "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=2071&auto=format&fit=crop",
+    "year": "2024",
+    "categories": [
+        "GAME",
+        "AI",
+        "EDUCATION"
+    ],
+    "tags": [
+        "React",
+        "Generative AI",
+        "Roleplay",
+        "Cartoon UI"
+    ],
+    "embedUrl": "#/game/linguaquest",
+    "contentType": "presentation",
+    "link": "#/game/linguaquest",
+    "gallery": [
+        "/games/linguaquest/gallery/menu.png",
+        "/games/linguaquest/gallery/gameplay.png",
+        "/games/linguaquest/gallery/win_state.png"
+    ]
+}

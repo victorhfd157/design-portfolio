@@ -8,6 +8,7 @@ export const getCategoryColor = (category: string): string => {
         'APP DESIGN': 'from-indigo-500/80 to-purple-500/80',
         'MOTION': 'from-yellow-500/80 to-orange-500/80',
         'VIDEO': 'from-red-500/80 to-rose-500/80',
+        'GAME': 'from-cyan-500/80 to-blue-600/80',
     };
 
     return categoryColors[category.toUpperCase()] || 'from-gray-500/80 to-gray-600/80';

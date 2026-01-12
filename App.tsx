@@ -1,17 +1,18 @@
-import React, { useEffect } from 'react';
-import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import MobileNavbar from './components/MobileNavbar';
-import BackToTop from './components/BackToTop';
+import React, { useEffect, Suspense } from 'react';
+import { HashRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import ScrollProgress from './components/ScrollProgress';
 import Home from './components/Home';
 import AboutPage from './components/AboutPage';
-import CustomCursor from './components/CustomCursor';
 import SEO from './components/SEO';
+
 import { LanguageProvider } from './contexts/LanguageContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { ToastProvider } from './contexts/ToastContext';
 import { useEasterEggs, displayConsoleArt } from './utils/useEasterEggs';
+import Layout from './components/Layout';
+// Lazy load the game to avoid bundle bloating
+const DefendersGame = React.lazy(() => import('./components/games/defenders/DefendersGame'));
+const LinguaQuestGame = React.lazy(() => import('./components/games/linguaquest/LinguaQuestGame'));
 
 // Helper to scroll to top on route change
 const ScrollToTop = () => {
@@ -37,20 +38,21 @@ function App() {
             <SEO />
             <ScrollToTop />
             <ScrollProgress />
-            <div className="bg-brand-dark min-h-screen text-white selection:bg-brand-accent selection:text-white flex flex-col">
-              <Navbar />
-              <MobileNavbar />
-              <BackToTop />
-
-              <main className="flex-grow">
+            <Layout>
+              <Suspense fallback={
+                <div className="h-screen w-full flex items-center justify-center bg-[#0a0a0a] text-white font-mono">
+                  LOADING ASSETS...
+                </div>
+              }>
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/about" element={<AboutPage />} />
+                  <Route path="/game/defenders" element={<DefendersGame />} />
+                  <Route path="/game/linguaquest" element={<LinguaQuestGame />} />
+                  <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
-              </main>
-
-              <CustomCursor />
-            </div>
+              </Suspense>
+            </Layout>
           </Router>
         </ToastProvider>
       </LanguageProvider>

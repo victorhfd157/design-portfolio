@@ -1,0 +1,29 @@
+{
+    "id": "100",
+    "title": "Moodle Alchemy: Real-World LMS Modernization",
+    "description": {
+        "en": "The Challenge: 'Act Academy' required a learning environment that matched their forward-thinking content. The default Moodle interface was too rigid and dated, failing to engage modern learners accustomed to Netflix-grade UX.\n\nThe Solution: I delivered a fully customized Moodle theme that completely reshapes the user experience. Moving beyond simple CSS tweaks, I implemented a 'Dark Mode' interface with glassmorphism elements, custom login flows, and immersive hero banners that celebrate the course content.\n\nKey Transformations:\n✨ Custom Login & Branding: A unified identity from the very first screen (see 'Formação de Formadores' & 'Act Academy').\n✨ Immersive Dashboard: Glossy, high-contrast course cards that replace boring lists.\n✨ Visual Storytelling: Use of 3D and neon aesthetics to make the platform feel like a destination, not just a tool.\n\nThe Result: A live, deployed LMS that proves Moodle can look and feel as premium as any bespoke EdTech platform.",
+        "pt": "O Desafio: A 'Act Academy' precisava de um ambiente de aprendizado à altura de seu conteúdo inovador. A interface padrão do Moodle era muito rígida e datada, falhando em engajar alunos modernos acostumados com a UX da Netflix.\n\nA Solução: Entreguei um tema Moodle totalmente personalizado que reformula completamente a experiência do usuário. Indo além de ajustes simples de CSS, implementei uma interface 'Dark Mode' com elementos de glassmorphism, fluxos de login personalizados e banners imersivos.\n\nPrincipais Transformações:\n✨ Login & Branding Personalizados: Identidade unificada desde a primeira tela (ver 'Formação de Formadores' & 'Act Academy').\n✨ Dashboard Imersivo: Cards de curso brilhantes e de alto contraste substituem listas chatas.\n✨ Storytelling Visual: Uso de estética 3D e neon para tornar a plataforma um destino, não apenas uma ferramenta.\n\nO Resultado: Um LMS ativo que prova que o Moodle pode ter a aparência e a sensação 'premium' de qualquer plataforma EdTech sob medida."
+    },
+    "imageUrl": "act_dashboard.png",
+    "categories": [
+        "E-Learning",
+        "UX/UI"
+    ],
+    "tags": [
+        "Moodle Customization",
+        "LMS Theme",
+        "Dark Mode",
+        "EdTech",
+        "Real Client Work"
+    ],
+    "link": "#",
+    "year": "2024",
+    "gallery": [
+        "act_dashboard.png",
+        "act_login.png",
+        "formacao_login.png",
+        "vr_hero_1.png",
+        "vr_hero_2.jpg"
+    ]
+}

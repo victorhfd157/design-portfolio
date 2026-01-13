@@ -253,7 +253,7 @@ const MobileProjectModal: React.FC<MobileModalProps> = ({
                             </div>
 
                             {/* Description */}
-                            <p className="text-gray-300 text-base leading-relaxed mb-6">
+                            <p className="text-gray-300 text-base leading-relaxed mb-6 whitespace-pre-line">
                                 {project.description[language]}
                             </p>
 

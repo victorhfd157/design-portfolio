@@ -322,11 +322,11 @@ const Hero: React.FC = () => {
               {/* Overlay Gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent z-20 opacity-80"></div>
 
-              {/* Statue Image */}
+              {/* Design Workspace Image - Clean & Monochrome */}
               <img
-                src="https://images.unsplash.com/photo-1534670007418-fbb7f6cf32c3?auto=format&fit=crop&w=800&q=80"
-                alt="Classical Statue"
-                className="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-700"
+                src="/hero_design_v1.jpg"
+                alt="Design Workspace"
+                className="w-full h-full object-cover hover:scale-105 transition-all duration-700"
               />
 
               {/* Floating UI Elements on top of image - Only show if latestProject exists */}

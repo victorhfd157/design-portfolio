@@ -76,19 +76,17 @@ const AlchemistLab: React.FC = () => {
     const activeContent = activeStation ? t.alchemist_lab.stations[activeStation] : null;
 
     return (
-        <div className="min-h-screen bg-brand-dark py-32 px-4 md:px-8 relative overflow-hidden">
-            {/* Enhanced Animated Background */}
+        <div className="w-full relative py-12 md:py-24 px-4 md:px-8">
+            {/* Ambient Blobs (Kept for local atmosphere, but transparent BG) */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-[-10%] left-[-10%] w-[40rem] h-[40rem] bg-brand-accent/20 rounded-full blur-[120px] animate-pulse-slow mix-blend-screen" />
-                <div className="absolute bottom-[-10%] right-[-10%] w-[40rem] h-[40rem] bg-purple-600/20 rounded-full blur-[120px] animate-pulse-slow mix-blend-screen" style={{ animationDelay: '2s' }} />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60rem] h-[60rem] bg-blue-500/10 rounded-full blur-[150px] animate-pulse-slow mix-blend-screen" style={{ animationDelay: '4s' }} />
-                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
+                <div className="absolute top-[-20%] left-[-10%] w-[30rem] h-[30rem] bg-brand-accent/10 rounded-full blur-[100px] animate-pulse-slow mix-blend-screen" />
+                <div className="absolute bottom-[-10%] right-[-10%] w-[30rem] h-[30rem] bg-purple-600/10 rounded-full blur-[100px] animate-pulse-slow mix-blend-screen" style={{ animationDelay: '2s' }} />
             </div>
 
             <div className="max-w-7xl mx-auto relative z-10">
                 {/* Header */}
                 <motion.div
-                    className="text-center mb-24"
+                    className="text-center mb-20"
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -264,8 +262,8 @@ const AlchemistLab: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Station Cards Grid - Horizontal Scroll on Mobile (Better Centering & No Clipping) */}
-                <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory py-12 md:py-0 w-[calc(100%+2rem)] md:w-full -mx-4 md:mx-0 scrollbar-hide px-0 md:px-0 before:shrink-0 before:w-[12.5vw] after:shrink-0 after:w-[12.5vw] md:before:content-none md:after:content-none">
+                {/* Station Cards Grid - Horizontal Scroll on Mobile */}
+                <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory py-12 md:py-0 w-[calc(100%+2rem)] md:w-full -mx-4 md:mx-0 scrollbar-hide px-4 md:px-0">
                     {stations.map((station, index) => {
                         const isActive = activeStation === station.key;
                         return (
@@ -277,50 +275,53 @@ const AlchemistLab: React.FC = () => {
                                 transition={{ delay: index * 0.1, duration: 0.6 }}
                                 whileHover={{ y: -10, scale: 1.02 }}
                                 onClick={() => setActiveStation(isActive ? null : station.key)}
-                                className="w-[75vw] shrink-0 md:min-w-0 md:w-auto h-full snap-center"
+                                className="w-[85vw] shrink-0 md:min-w-0 md:w-auto h-full snap-center"
                             >
                                 <div className={`
-                                    relative h-full rounded-2xl p-8 cursor-pointer overflow-hidden group
-                                    border border-white/5 hover:border-white/20 transition-all duration-500
-                                    ${isActive ? 'ring-1 ring-brand-accent shadow-[0_0_30px_rgba(99,102,241,0.2)] bg-white/[0.08]' : 'bg-white/[0.02]'}
+                                    relative h-full rounded-3xl p-8 cursor-pointer overflow-hidden group
+                                    border backdrop-blur-sm transition-all duration-500
+                                    ${isActive
+                                        ? `border-${station.borderColor} shadow-[0_0_50px_rgba(0,0,0,0.5)] bg-white/5`
+                                        : 'border-white/5 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/20'}
                                 `}>
-                                    {/* Glass Background */}
-                                    <div className="absolute inset-0 bg-white/[0.03] backdrop-blur-xl transition-all duration-500 group-hover:bg-white/[0.06]" />
+                                    {/* Glass Reflection */}
+                                    <div className="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 
                                     {/* Gradient Blobs (Hover) */}
                                     <div className={`
-                                        absolute -top-20 -right-20 w-40 h-40 rounded-full blur-[80px]
-                                        bg-gradient-to-br ${station.color}
-                                        opacity-0 group-hover:opacity-60 transition-opacity duration-700
-                                    `} />
-                                    <div className={`
-                                        absolute -bottom-20 -left-20 w-40 h-40 rounded-full blur-[80px]
+                                        absolute -top-10 -right-10 w-32 h-32 rounded-full blur-[60px]
                                         bg-gradient-to-br ${station.color}
                                         opacity-0 group-hover:opacity-40 transition-opacity duration-700
                                     `} />
 
                                     {/* Content */}
-                                    <div className="relative z-10 flex flex-col h-full">
+                                    <div className="relative z-10 flex flex-col h-full items-center text-center">
+                                        {/* IMPROVED ICON: Floating Glass Sphere */}
                                         <div className={`
-                                            w-16 h-16 rounded-xl mb-8 flex items-center justify-center
-                                            bg-gradient-to-br ${station.color}
-                                            shadow-lg transform transition-all duration-500
-                                            group-hover:scale-110 group-hover:rotate-3
+                                            w-20 h-20 rounded-2xl mb-6 flex items-center justify-center
+                                            bg-white/5 border border-white/10 backdrop-blur-md
+                                            shadow-[0_8px_32px_rgba(0,0,0,0.3)]
+                                            group-hover:border-${station.borderColor}
+                                            group-hover:shadow-[0_0_20px_rgba(99,102,241,0.4)]
+                                            transition-all duration-500
                                         `}>
-                                            <station.icon size={32} className="text-white" />
+                                            <station.icon
+                                                size={36}
+                                                className={`text-gray-400 group-hover:text-white transition-colors duration-300 drop-shadow-lg`}
+                                            />
                                         </div>
 
-                                        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all">
+                                        <h3 className="text-xl font-bold text-white mb-2 group-hover:scale-105 transition-transform">
                                             {station.title}
                                         </h3>
-                                        <p className="text-xs text-gray-500 font-mono uppercase tracking-wider mb-6 group-hover:text-gray-400 transition-colors">
+                                        <p className="text-xs text-gray-500 font-mono uppercase tracking-widest mb-6 opacity-70 group-hover:opacity-100 transition-opacity">
                                             {station.subtitle}
                                         </p>
 
-                                        {/* Visual Divider / Progress Bars Mockup */}
-                                        <div className="mt-auto space-y-2 opacity-50 group-hover:opacity-100 transition-opacity duration-500">
+                                        {/* Mini Bars */}
+                                        <div className="w-full mt-auto space-y-2 opacity-30 group-hover:opacity-100 transition-opacity duration-500">
                                             {station.skills.slice(0, 3).map((skill, idx) => (
-                                                <div key={idx} className="h-1 bg-white/10 rounded-full overflow-hidden">
+                                                <div key={idx} className="h-0.5 bg-white/10 rounded-full overflow-hidden">
                                                     <div
                                                         className={`h-full bg-gradient-to-r ${station.color}`}
                                                         style={{ width: `${skill.level}%` }}
@@ -330,11 +331,11 @@ const AlchemistLab: React.FC = () => {
                                         </div>
 
                                         <div className={`
-                                            mt-6 flex items-center gap-2 text-xs font-medium uppercase tracking-widest
-                                            text-gray-500 group-hover:text-white transition-colors duration-300
+                                            mt-6 flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em]
+                                            text-gray-600 group-hover:text-brand-accent transition-colors duration-300
                                         `}>
-                                            <span>Explore</span>
-                                            <Zap size={12} className="group-hover:text-brand-accent transition-colors" />
+                                            <span>Access Lab</span>
+                                            <Zap size={10} className="group-hover:text-white transition-colors" />
                                         </div>
                                     </div>
                                 </div>

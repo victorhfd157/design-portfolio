@@ -181,39 +181,29 @@ const Gallery: React.FC = () => {
         {/* Projects Grid */}
         {/* Projects Grid - Bento Layout */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           layout
         >
           <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project, index) => {
-              // Refined Bento Logic: 7-item cycle for perfect 3-column balance
-              // Row 1: Large (2) + Small (1)
-              // Row 2: Small (1) + Small (1) + Small (1)
-              // Row 3: Small (1) + Large (2)
-              const cycleIndex = index % 7;
-              const isLarge = cycleIndex === 0 || cycleIndex === 6;
-
-              // Use dense flow to handle any edge cases
-              return (
-                <motion.div
-                  key={project.id}
-                  layout
-                  className={`${isLarge ? 'md:col-span-2' : 'md:col-span-1'} w-full h-[350px] md:h-[450px]`}
-                  initial={{ opacity: 0, scale: 0.9, y: 30 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                  transition={{
-                    type: 'spring',
-                    stiffness: 100,
-                    damping: 15,
-                    delay: index * 0.05,
-                  }}
-                  onClick={() => handleOpenProject(project)}
-                >
-                  <ProjectCard project={project} />
-                </motion.div>
-              )
-            })}
+            {filteredProjects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                layout
+                className="w-full h-[400px] md:h-[500px]"
+                initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                transition={{
+                  type: 'spring',
+                  stiffness: 100,
+                  damping: 15,
+                  delay: index * 0.05,
+                }}
+                onClick={() => handleOpenProject(project)}
+              >
+                <ProjectCard project={project} />
+              </motion.div>
+            ))}
           </AnimatePresence>
         </motion.div>
 
@@ -473,7 +463,7 @@ const Gallery: React.FC = () => {
                     </div>
 
                     <div className="prose prose-invert prose-lg max-w-none">
-                      <p className="text-gray-300 font-light leading-relaxed text-base md:text-lg mb-6 first-letter:text-4xl md:first-letter:text-5xl first-letter:font-serif first-letter:text-brand-accent first-letter:mr-2 first-letter:float-left">
+                      <p className="text-gray-300 font-light leading-relaxed text-base md:text-lg mb-6 first-letter:text-4xl md:first-letter:text-5xl first-letter:font-serif first-letter:text-brand-accent first-letter:mr-2 first-letter:float-left whitespace-pre-line">
                         {selectedProject.description[language]}
                       </p>
                       <div className="bg-white/5 p-8 rounded-3xl border border-white/5 relative overflow-hidden">

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import SkillsList from './SkillsList';
+import LightRays from './LightRays';
 import { Download, ArrowRight, ExternalLink, Cpu } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -81,6 +82,7 @@ const About: React.FC = () => {
     <div id="about" className="pt-32 pb-20 bg-brand-dark relative min-h-screen overflow-hidden">
       {/* Background Noise */}
       <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
+        <LightRays />
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-50 mix-blend-overlay"></div>
       </div>
 
@@ -164,13 +166,36 @@ const About: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Skills List - Mobile Enhanced */}
+          {/* Right Column: Visual + Skills - Redesigned */}
           <div
-            className={`w-full transition-all duration-1000 ease-out delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
+            className={`w-full transition-all duration-1000 ease-out delay-300 flex flex-col gap-8 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
               }`}
           >
-            {/* Wrapper for the Skills Component */}
-            <div className="relative h-full bg-white/5 border border-white/10 md:border-white/5 rounded-2xl p-4 md:p-6 lg:p-10 backdrop-blur-sm min-h-[500px] shadow-xl md:shadow-none">
+            {/* New "Alchemist Portrait" Card */}
+            <div className="relative h-[300px] w-full rounded-2xl overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent z-10"></div>
+
+              {/* Image with Parallax & Zoom Effect */}
+              <img
+                src="/alchemist_v2.png"
+                alt="Digital Alchemist"
+                className="w-full h-full object-cover object-center transform group-hover:scale-110 transition-transform duration-[2s] ease-out filter grayscale-[30%] group-hover:grayscale-0"
+              />
+
+              {/* Floating "Magical" Elements */}
+              <div className="absolute top-4 right-4 z-20 p-2 bg-black/50 backdrop-blur-md rounded-full border border-white/10 animate-spin-slow">
+                <img src="https://cdn-icons-png.flaticon.com/512/10476/10476277.png" className="w-6 h-6 invert opacity-80" alt="Magic" />
+              </div>
+
+              {/* Caption */}
+              <div className="absolute bottom-6 left-6 z-20">
+                <p className="text-xs font-mono text-brand-accent uppercase tracking-widest mb-1">The Persona</p>
+                <h3 className="text-2xl font-serif text-white font-bold">Digital Alchemist</h3>
+              </div>
+            </div>
+
+            {/* Skills Component (Existing) */}
+            <div className="relative h-full bg-white/5 border border-white/10 md:border-white/5 rounded-2xl p-4 md:p-6 lg:p-10 backdrop-blur-sm shadow-xl md:shadow-none hover:bg-white/[0.07] transition-colors duration-500">
               <div className="absolute top-0 right-0 p-4 opacity-20 hover:opacity-100 transition-opacity">
                 <ExternalLink size={24} className="text-white" />
               </div>

@@ -38,15 +38,24 @@ const Timeline: React.FC = () => {
       <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-white/5 md:-translate-x-1/2"></div>
 
       {/* Central Line - Dynamic Beam Light */}
+      {/* Central Line - Dynamic Beam Light (Magic Color Shift) */}
       <div
-        className="absolute left-6 md:left-1/2 top-0 w-px bg-brand-accent md:-translate-x-1/2 shadow-[0_0_15px_rgba(99,102,241,0.8)] transition-all duration-100 ease-out"
-        style={{ height: `${scrollProgress * 100}%` }}
+        className="absolute left-6 md:left-1/2 top-0 w-px md:-translate-x-1/2 shadow-[0_0_15px_rgba(99,102,241,0.8)] transition-all duration-100 ease-out"
+        style={{
+          height: `${scrollProgress * 100}%`,
+          background: `linear-gradient(to bottom, #6366f1, hsl(${280 + (scrollProgress * 60)}, 100%, 70%))`
+        }}
       ></div>
 
       {/* Beam Head Glow */}
       <div
-        className="absolute left-6 md:left-1/2 w-1 h-8 bg-white/50 blur-md md:-translate-x-1/2 transition-all duration-100 ease-out"
-        style={{ top: `${scrollProgress * 100}%`, transform: 'translateY(-100%) translateX(-50%)' }}
+        className="absolute left-6 md:left-1/2 w-2 h-12 blur-lg md:-translate-x-1/2 transition-all duration-100 ease-out z-20"
+        style={{
+          top: `${scrollProgress * 100}%`,
+          transform: 'translateY(-100%) translateX(-50%)',
+          backgroundColor: `hsl(${280 + (scrollProgress * 60)}, 100%, 70%)`,
+          boxShadow: `0 0 20px hsl(${280 + (scrollProgress * 60)}, 100%, 70%)`
+        }}
       ></div>
 
       <div className="space-y-12">
@@ -58,8 +67,8 @@ const Timeline: React.FC = () => {
               {/* Dot - Lights up when passed */}
               <div
                 className={`absolute left-0 md:left-1/2 w-4 h-4 rounded-full md:-translate-x-1/2 mt-6 z-10 transition-all duration-500 border-2 ${scrollProgress > (index / EXPERIENCES.length)
-                    ? 'bg-brand-dark border-brand-accent shadow-[0_0_15px_rgba(99,102,241,0.8)] scale-110'
-                    : 'bg-brand-dark border-white/10 scale-100'
+                  ? 'bg-brand-dark border-brand-accent shadow-[0_0_15px_rgba(99,102,241,0.8)] scale-110'
+                  : 'bg-brand-dark border-white/10 scale-100'
                   }`}
               >
                 <div className={`absolute inset-0 bg-brand-accent rounded-full animate-ping opacity-20 ${scrollProgress > (index / EXPERIENCES.length) ? 'block' : 'hidden'}`}></div>
@@ -68,8 +77,8 @@ const Timeline: React.FC = () => {
               {/* Content Card */}
               <div className={`w-full md:w-[calc(50%-2rem)] pl-10 md:pl-0 ${isEven ? 'md:pr-8 md:text-right' : 'md:pl-8 md:text-left'}`}>
                 <div className={`glass-panel p-6 rounded-2xl border transition-all duration-500 group hover:-translate-y-1 hover:shadow-2xl ${scrollProgress > (index / EXPERIENCES.length)
-                    ? 'border-brand-accent/30 shadow-brand-accent/5'
-                    : 'border-white/5'
+                  ? 'border-brand-accent/30 shadow-brand-accent/5'
+                  : 'border-white/5'
                   }`}>
                   <div className={`flex flex-col ${isEven ? 'md:items-end' : 'md:items-start'} mb-4`}>
                     <h3 className="text-xl font-bold text-white group-hover:text-brand-accent transition-colors">{exp.role[language]}</h3>

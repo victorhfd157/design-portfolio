@@ -16,6 +16,64 @@
     "tags": [
         "Logo",
         "Identity",
-        "Branding"
-    ]
+        "Branding",
+        "AR/VR"
+    ],
+    "caseStudy": {
+        "challenge": {
+            "en": "Create a brand for an AR startup that feels cutting-edge and futuristic without being too abstract or inaccessible for enterprise clients. Balance sci-fi aesthetics with corporate professionalism.",
+            "pt": "Criar uma marca para startup AR que pareça vanguardista e futurista sem ser muito abstrata ou inacessível para clientes corporativos. Equilibrar estética sci-fi com profissionalismo corporativo."
+        },
+        "solution": {
+            "en": "Designed a hybrid identity combining geometric precision with neon cyberpunk elements. The logo features overlapping geometric shapes suggesting AR layers, while the color palette balances tech-forward gradients with professional navy.",
+            "pt": "Desenhei uma identidade híbrida combinando precisão geométrica com elementos cyberpunk neon. O logo apresenta formas geométricas sobrepostas sugerindo camadas AR, enquanto a paleta de cores equilibra gradientes tech-forward com azul navy profissional."
+        },
+        "process": [
+            {
+                "phase": "Market Positioning",
+                "description": {
+                    "en": "Researched AR/VR industry branding, analyzed competitors (Magic Leap, Niantic, Meta), and defined brand personality: innovative yet trustworthy, futuristic yet approachable.",
+                    "pt": "Pesquisei branding da indústria AR/VR, analisei competidores (Magic Leap, Niantic, Meta) e defini personalidade da marca: inovadora mas confiável, futurista mas acessível."
+                }
+            },
+            {
+                "phase": "Logo & Identity Design",
+                "description": {
+                    "en": "Created logomark using overlapping geometric forms symbolizing AR overlay. Designed wordmark with futuristic typography balanced by clean spacing for corporate use.",
+                    "pt": "Criei logomark usando formas geométricas sobrepostas simbolizando overlay AR. Desenhei wordmark com tipografia futurista equilibrada por espaçamento limpo para uso corporativo."
+                }
+            },
+            {
+                "phase": "Brand System Development",
+                "description": {
+                    "en": "Expanded identity into complete system: business cards with holographic effects, pitch deck template, and AR app UI mockups demonstrating brand in context.",
+                    "pt": "Expandi identidade em sistema completo: cartões de visita com efeitos holográficos, template de pitch deck e mockups de UI de app AR demonstrando marca em contexto."
+                }
+            },
+            {
+                "phase": "Guidelines & Delivery",
+                "description": {
+                    "en": "Compiled brandbook covering logo variations, color systems (with both digital and print specs), typography, and usage examples across media.",
+                    "pt": "Compilei brandbook cobrindo variações de logo, sistemas de cores (com especificações digitais e impressas), tipografia e exemplos de uso em diferentes mídias."
+                }
+            }
+        ],
+        "tools": [
+            "Adobe Illustrator",
+            "Photoshop",
+            "After Effects (Logo Animation)",
+            "Figma (UI Applications)",
+            "InDesign (Brand Guidelines)"
+        ],
+        "results": {
+            "en": "Delivered a distinctive brand that positions Samsara Studio as an innovative yet professional player in the AR space. The identity successfully bridges consumer appeal with enterprise credibility.",
+            "pt": "Entreguei uma marca distinta que posiciona Samsara Studio como player inovador mas profissional no espaço AR. A identidade conecta com sucesso apelo ao consumidor com credibilidade corporativa."
+        },
+        "impact": [
+            "Futuristic yet professional aesthetic",
+            "Scalable across platforms",
+            "AR overlay symbolism in logo",
+            "Enterprise-ready brand system"
+        ]
+    }
 }

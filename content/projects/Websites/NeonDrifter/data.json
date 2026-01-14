@@ -22,5 +22,62 @@
         "Cyberpunk",
         "UI Design",
         "NFT"
-    ]
+    ],
+    "caseStudy": {
+        "challenge": {
+            "en": "Design a Web3 marketplace that appeals to crypto-native users while remaining accessible to newcomers. The platform needed to convey trust and security in a visually exciting way within the chaotic NFT space.",
+            "pt": "Desenhar um marketplace Web3 que atraia usuários nativos de cripto mantendo acessibilidade para novatos. A plataforma precisava transmitir confiança e segurança de forma visualmente emocionante dentro do caótico espaço NFT."
+        },
+        "solution": {
+            "en": "Created a cyberpunk-inspired interface using neon gradients, glitch effects, and dark UI principles. Balanced visual excitement with clear information architecture and intuitive wallet connection flows.",
+            "pt": "Criei uma interface inspirada em cyberpunk usando gradientes neon, efeitos de glitch e princípios de dark UI. Equilibrei emoção visual com arquitetura de informação clara e fluxos intuitivos de conexão de carteira."
+        },
+        "process": [
+            {
+                "phase": "UX Research",
+                "description": {
+                    "en": "Analyzed top NFT marketplaces (OpenSea, Rarible, Foundation), identified UX friction points in wallet connection, and studied cyberpunk aesthetics in popular media.",
+                    "pt": "Analisei principais marketplaces NFT (OpenSea, Rarible, Foundation), identifiquei pontos de fricção UX em conexão de carteira e estudei estéticas cyberpunk em mídia popular."
+                }
+            },
+            {
+                "phase": "Visual Design System",
+                "description": {
+                    "en": "Designed component library featuring neon buttons, holographic cards, and glitch animations. Created dark color palette with electric blue, magenta, and cyan accents.",
+                    "pt": "Desenhei biblioteca de componentes apresentando botões neon, cards holográficos e animações de glitch. Criei paleta de cores escura com acentos de azul elétrico, magenta e ciano."
+                }
+            },
+            {
+                "phase": "Prototyping & Animation",
+                "description": {
+                    "en": "Built interactive Figma prototype with micro-animations, hover states, and wallet connection flow. Tested with web3 users for usability feedback.",
+                    "pt": "Construí protótipo interativo no Figma com micro-animações, estados de hover e fluxo de conexão de carteira. Testei com usuários web3 para feedback de usabilidade."
+                }
+            },
+            {
+                "phase": "Responsive Adaptation",
+                "description": {
+                    "en": "Adapted designs for mobile viewing ensuring NFT details remain legible and wallet connection flows work on smaller screens.",
+                    "pt": "Adaptei designs para visualização mobile garantindo que detalhes NFT permaneçam legíveis e fluxos de conexão de carteira funcionem em telas menores."
+                }
+            }
+        ],
+        "tools": [
+            "Figma (Design & Prototyping)",
+            "Adobe After Effects (Animations)",
+            "Spline (3D Elements)",
+            "Blender (NFT Mockups)",
+            "Principle (Micro-interactions)"
+        ],
+        "results": {
+            "en": "Delivered a visually striking marketplace design that stands out in the crowded Web3 space while maintaining usability. The cyberpunk aesthetic resonates with crypto culture while feeling fresh and modern.",
+            "pt": "Entreguei um design de marketplace visualmente impressionante que se destaca no lotado espaço Web3 mantendo usabilidade. A estética cyberpunk ressoa com cultura cripto enquanto parece fresca e moderna."
+        },
+        "impact": [
+            "5-screen complete user journey",
+            "Wallet connection flow simplified",
+            "NFT detail pages optimized for discovery",
+            "Mobile-responsive design system"
+        ]
+    }
 }

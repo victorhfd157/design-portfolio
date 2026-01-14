@@ -4,15 +4,16 @@ import { loadProjects } from '../utils/projectLoader';
 import ProjectCard from './ProjectCard';
 import { Project } from '../types';
 import { getCategoryColor } from '../utils/categoryHelpers';
-import { X, Calendar, Layers, Sparkles, ChevronLeft, ChevronRight, Image as ImageIcon, Monitor, Maximize2 } from 'lucide-react';
+import { X, Calendar, Layers, Sparkles, ChevronLeft, ChevronRight, Image as ImageIcon, Monitor, Maximize2, Search, ArrowUpDown, Filter, ArrowRight, Eye } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import EmbedViewer from './EmbedViewer';
 import MobileProjectModal from './MobileProjectModal';
+import CaseStudySection from './CaseStudy';
 
 const Gallery: React.FC = () => {
   const { t, language } = useLanguage();
-  const activeCategoryState = useState('All');
-  const [activeCategory, setActiveCategory] = activeCategoryState;
+  const [activeCategory, setActiveCategory] = useState('All');
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -20,10 +21,15 @@ const Gallery: React.FC = () => {
   const imageRef = useRef<HTMLImageElement>(null);
   const [viewMode, setViewMode] = useState<'prototype' | 'gallery'>('gallery');
   const [isExpanded, setIsExpanded] = useState(false);
+  // showDetails now controls the transition from Visual Mode (Full Image) to Overview Mode (Split Layout)
   const [showDetails, setShowDetails] = useState(false);
 
   useEffect(() => {
-    loadProjects().then(setProjects);
+    loadProjects().then((data) => {
+      // Deduplicate projects by ID to prevent key collision errors
+      const uniqueProjects = Array.from(new Map(data.map(p => [String(p.id), p])).values());
+      setProjects(uniqueProjects);
+    });
   }, []);
 
   // Generate unique categories list automatically
@@ -32,13 +38,35 @@ const Gallery: React.FC = () => {
     return ['All', ...Array.from(new Set(allCategories))];
   }, [projects]);
 
-  const filteredProjects = activeCategory === 'All'
-    ? projects
-    : projects.filter(project => project.categories.includes(activeCategory));
+  // Enhanced Filtering & Search Logic
+  const filteredProjects = useMemo(() => {
+    let result = projects;
+
+    // Category Filter
+    if (activeCategory !== 'All') {
+      result = result.filter(project => project.categories.includes(activeCategory));
+    }
+
+    // Search Filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      result = result.filter(project =>
+        project.title.toLowerCase().includes(query) ||
+        project.description[language].toLowerCase().includes(query) ||
+        project.tags.some(tag => tag.toLowerCase().includes(query))
+      );
+    }
+
+    // Sort by Year (Newest First) - Default
+    return result.sort((a, b) => b.year.localeCompare(a.year));
+  }, [projects, activeCategory, searchQuery, language]);
 
   const handleOpenProject = (project: Project) => {
     setSelectedProject(project);
     setCurrentImageIndex(0);
+    // Reset to Visual Mode initially
+    setShowDetails(false);
+
     // Default to prototype if available, otherwise gallery
     if (project.embedUrl) {
       setViewMode('prototype');
@@ -56,6 +84,7 @@ const Gallery: React.FC = () => {
       setSelectedProject(null);
       setCurrentImageIndex(0);
       setViewMode('gallery');
+      setShowDetails(false);
     }, 500);
   }, []);
 
@@ -77,6 +106,15 @@ const Gallery: React.FC = () => {
     }
   }, [selectedProject]);
 
+  const handleNextProject = useCallback(() => {
+    if (!selectedProject || projects.length === 0) return;
+    const currentIndex = projects.findIndex(p => p.id === selectedProject.id);
+    if (currentIndex !== -1) {
+      const nextIndex = (currentIndex + 1) % projects.length;
+      handleOpenProject(projects[nextIndex]);
+    }
+  }, [selectedProject, projects]);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -96,14 +134,6 @@ const Gallery: React.FC = () => {
       document.body.style.overflow = 'unset';
     };
   }, [selectedProject, handleCloseModal, nextImage, prevImage]);
-
-  const handleModalScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    if (imageRef.current) {
-      const scrollTop = e.currentTarget.scrollTop;
-      // Parallax effect
-      imageRef.current.style.transform = `scale(1.1) translateY(${scrollTop * 0.05}px)`;
-    }
-  };
 
   const currentImageUrl = selectedProject
     ? (selectedProject.gallery && selectedProject.gallery.length > 0
@@ -127,8 +157,8 @@ const Gallery: React.FC = () => {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
-        <div className="mb-24 flex flex-col md:flex-row md:justify-between md:items-end gap-10">
-          <div>
+        <div className="mb-16 flex flex-col xl:flex-row xl:items-end justify-between gap-10">
+          <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-6 animate-fade-in group">
               <div className="p-2 rounded-full bg-white/5 border border-white/10 group-hover:bg-brand-accent/20 transition-colors duration-300">
                 <Sparkles size={14} className="text-brand-accent" />
@@ -136,50 +166,56 @@ const Gallery: React.FC = () => {
               <span className="text-xs font-mono text-gray-400 uppercase tracking-[0.2em]">{t.gallery.portfolio_year}</span>
             </div>
 
-            <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white leading-[0.9] tracking-tighter animate-fade-in delay-100 relative z-20">
+            <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white leading-[0.9] tracking-tighter animate-fade-in delay-100 relative z-20 mb-8">
               <span className="font-gothic block text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-purple-400 filter drop-shadow-[0_0_15px_rgba(168,85,247,0.5)]">{t.gallery.selected}</span>
               <span className="font-serif italic font-light block md:ml-20 text-gray-200">{t.gallery.works}</span>
             </h2>
           </div>
 
-          {/* Categories Filter - Restored Style & Fixed Text */}
-          <div className="sticky top-24 z-30 -mx-4 sm:mx-0 w-full md:w-auto md:max-w-xl md:ml-auto group/filters">
-            <div className="relative">
-              <div className="flex overflow-x-auto md:flex-wrap gap-3 pb-2 pt-2 px-4 sm:px-0 scrollbar-hide justify-start md:justify-end items-center mask-linear-fade">
+          {/* CONTROLS TOOLBAR */}
+          <div className="flex flex-col gap-6 w-full xl:w-auto xl:min-w-[500px]">
+            {/* Search Bar */}
+            <div className="relative group">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-500 group-focus-within:text-brand-accent transition-colors">
+                <Search size={18} />
+              </div>
+              <input
+                type="text"
+                placeholder="Search for branding, UI, apps..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:border-brand-accent/50 focus:bg-white/10 transition-all font-mono text-base md:text-sm"
+              />
+            </div>
+
+            {/* Categories Filter */}
+            <div className="relative group/filters">
+              <div className="flex overflow-x-auto gap-2 pb-2 scrollbar-hide mask-linear-fade">
                 {categories.map((category) => (
                   <button
                     key={category}
                     onClick={() => setActiveCategory(category)}
                     className={`
-                      px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300 whitespace-nowrap shrink-0 border relative overflow-hidden group
-                      ${activeCategory === category
+                        px-5 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all duration-300 whitespace-nowrap shrink-0 border relative overflow-hidden group
+                        ${activeCategory === category
                         ? 'text-white border-brand-accent bg-brand-accent/10 shadow-[0_0_20px_rgba(168,85,247,0.3)]'
                         : 'text-gray-400 border-white/5 bg-white/5 hover:bg-white/10 hover:border-white/20 hover:text-white'
                       }
-                      backdrop-blur-md
-                    `}
+                        backdrop-blur-md
+                        `}
                   >
-                    <span className="relative z-10">{category === 'All' ? t.gallery.all : category}</span>
-                    {activeCategory === category && (
-                      <motion.div
-                        layoutId="activeCategory"
-                        className="absolute inset-0 bg-brand-accent/10 -z-10"
-                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                      />
-                    )}
+                    <span className="relative z-10 flex items-center gap-2">
+                      {category}
+                      {activeCategory === category && <span className="w-1 h-1 rounded-full bg-brand-accent"></span>}
+                    </span>
                   </button>
                 ))}
-              </div>
-              {/* Scroll Indicator (Mobile Only) */}
-              <div className="absolute -right-2 top-1/2 -translate-y-1/2 pointer-events-none md:hidden flex items-center justify-center animate-pulse z-20">
-                <ChevronRight className="text-brand-accent w-6 h-6 drop-shadow-[0_0_8px_rgba(0,0,0,0.8)] filter" />
               </div>
             </div>
           </div>
         </div>
 
         {/* Projects Grid */}
-        {/* Projects Grid - Bento Layout */}
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           layout
@@ -209,7 +245,8 @@ const Gallery: React.FC = () => {
 
         {filteredProjects.length === 0 && (
           <div className="text-center py-32 border border-dashed border-white/10 rounded-[2rem] mt-8 bg-white/[0.02]">
-            <p className="text-gray-500 text-xl font-serif italic">{t.gallery.empty}</p>
+            <Search className="w-12 h-12 text-gray-700 mx-auto mb-4" />
+            <p className="text-gray-500 text-xl font-serif italic">{t.gallery.empty || "No projects found matching your search."}</p>
           </div>
         )}
       </div>
@@ -227,21 +264,13 @@ const Gallery: React.FC = () => {
               onClick={handleCloseModal}
             />
 
-            {/* Modal Container - Enhanced */}
+            {/* Modal Container */}
             <motion.div
               initial={{ opacity: 0, y: 60, scale: 0.92 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 60, scale: 0.92 }}
               transition={{ type: "spring", duration: 0.6, bounce: 0.15 }}
-              drag="y"
-              dragConstraints={{ top: 0, bottom: 0 }}
-              dragElastic={{ top: 0.05, bottom: 0.8 }}
-              onDragEnd={(e, { offset, velocity }) => {
-                if (offset.y > 100 || velocity.y > 200) {
-                  handleCloseModal();
-                }
-              }}
-              className="relative w-full h-full sm:h-[90vh] md:max-w-7xl bg-[#0a0a0a] sm:rounded-[2rem] overflow-hidden shadow-2xl flex flex-col md:flex-row border-0 sm:border border-white/10 group cursor-grab active:cursor-grabbing"
+              className="relative w-full h-full sm:h-[90vh] md:max-w-[95vw] xl:max-w-[92vw] bg-[#0a0a0a] sm:rounded-[2rem] overflow-hidden shadow-2xl flex flex-col md:flex-row border-0 sm:border border-white/10 group cursor-default"
             >
               {/* Modal Content */}
               <div className="absolute inset-0 pointer-events-none opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay z-0"></div>
@@ -269,13 +298,50 @@ const Gallery: React.FC = () => {
                   viewMode={viewMode}
                   setViewMode={setViewMode}
                   language={language}
+                  onClose={handleCloseModal}
                 />
               </div>
 
-              {/* DESKTOP LAYOUT - Original */}
+              {/* DESKTOP LAYOUT - Enhanced Grid with Progressive Disclosure */}
               <div className="hidden md:flex w-full">
-                {/* Left Image Section (Carousel) or Embed Viewer - Optimized for Desktop */}
-                <div className={`w-7/12 relative bg-black overflow-hidden group/gallery transition-all duration-300 ${isExpanded ? 'h-[70vh]' : 'h-full'}`}>
+                {/* Left Image Section - Expands to Full Width in Visual Mode */}
+                <div
+                  className={`relative bg-black overflow-hidden group/gallery transition-all duration-700 ease-in-out ${showDetails ? 'md:w-[40%]' : 'md:w-full'
+                    } ${isExpanded ? 'h-[70vh]' : 'h-full'}`}
+                >
+
+                  {/* VISUAL MODE OVERLAY - Only visible when details are hidden */}
+                  <AnimatePresence>
+                    {!showDetails && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 20 }}
+                        transition={{ delay: 0.3 }}
+                        className="absolute bottom-0 left-0 right-0 p-12 lg:p-16 bg-gradient-to-t from-black via-black/80 to-transparent z-40 flex flex-col items-start gap-6 pointer-events-none"
+                      >
+                        <div className="pointer-events-auto">
+                          <div className="flex flex-wrap gap-2 mb-2">
+                            {selectedProject.categories.map((cat) => (
+                              <span key={cat} className="px-3 py-1 bg-white/10 backdrop-blur-md border border-white/10 rounded-full text-xs font-bold uppercase tracking-widest text-white shadow-lg">
+                                {cat}
+                              </span>
+                            ))}
+                          </div>
+                          <h2 className="text-5xl lg:text-7xl font-serif font-bold text-white mb-8 tracking-tight drop-shadow-xl">{selectedProject.title}</h2>
+
+                          <button
+                            onClick={() => setShowDetails(true)}
+                            className="group px-8 py-3 bg-brand-accent text-white font-bold rounded-full hover:bg-brand-accent/90 transition-all flex items-center gap-3 shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_30px_rgba(168,85,247,0.6)] hover:scale-105"
+                          >
+                            <Eye size={18} />
+                            "View Project Details"
+                            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                          </button>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
 
                   {/* View Switcher (Prototype vs Gallery) */}
                   {selectedProject.embedUrl && (
@@ -299,7 +365,7 @@ const Gallery: React.FC = () => {
 
                   {/* Conditional Rendering based on viewMode */}
                   {viewMode === 'prototype' && selectedProject.embedUrl ? (
-                    // Render Embed Viewer for presentations/videos/prototypes
+                    // Render Embed Viewer
                     <EmbedViewer
                       embedUrl={selectedProject.embedUrl}
                       contentType={selectedProject.contentType as 'presentation' | 'video'}
@@ -312,7 +378,7 @@ const Gallery: React.FC = () => {
                         {/* Main Image Container */}
                         <div className="w-full h-full relative overflow-hidden flex items-center justify-center bg-black/80">
 
-                          {/* Enhanced Blurred Background with Crossfade */}
+                          {/* Enhanced Blurred Background */}
                           <div className="absolute inset-0 overflow-hidden">
                             <AnimatePresence mode="wait">
                               <motion.img
@@ -329,7 +395,7 @@ const Gallery: React.FC = () => {
                             <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/60" />
                           </div>
 
-                          {/* Main Content Image - Enhanced with Crossfade */}
+                          {/* Main Content Image */}
                           <motion.img
                             ref={imageRef as any}
                             key={currentImageUrl}
@@ -350,24 +416,25 @@ const Gallery: React.FC = () => {
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.95 }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
-                            className="relative z-10 max-w-full max-h-full object-contain shadow-[0_0_40px_rgba(0,0,0,0.5)] cursor-grab active:cursor-grabbing p-4 md:p-8"
+                            className={`relative z-10 max-h-full object-contain shadow-[0_0_40px_rgba(0,0,0,0.5)] cursor-grab active:cursor-grabbing md:p-8 ${showDetails ? 'max-w-full' : 'max-w-[85vw]'}`}
                           />
 
-                          {/* Expand/Collapse Button - Mobile Prominent */}
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setIsExpanded(!isExpanded);
-                            }}
-                            className="absolute bottom-6 right-6 w-12 h-12 md:w-10 md:h-10 p-3 bg-brand-accent hover:bg-brand-accent/90 active:scale-95 md:bg-black/50 md:hover:bg-brand-accent text-white rounded-full backdrop-blur-md border border-white/10 transition-all md:opacity-0 md:group-hover/gallery:opacity-100 hover:scale-110 z-20 shadow-lg flex items-center justify-center"
-                            title={isExpanded ? 'Reduzir imagem' : 'Expandir imagem'}
-                            aria-label={isExpanded ? 'Reduzir imagem' : 'Expandir imagem'}
-                          >
-                            <Maximize2 size={20} className={isExpanded ? 'rotate-180' : ''} />
-                          </button>
+                          {/* Expand/Collapse Button - Only show when details are visible to avoid clutter */}
+                          {showDetails && (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setIsExpanded(!isExpanded);
+                              }}
+                              className="absolute bottom-6 right-6 w-12 h-12 md:w-10 md:h-10 p-3 bg-brand-accent hover:bg-brand-accent/90 active:scale-95 md:bg-black/50 md:hover:bg-brand-accent text-white rounded-full backdrop-blur-md border border-white/10 transition-all md:opacity-0 md:group-hover/gallery:opacity-100 hover:scale-110 z-20 shadow-lg flex items-center justify-center"
+                              title={isExpanded ? 'Reduzir imagem' : 'Expandir imagem'}
+                            >
+                              <Maximize2 size={20} className={isExpanded ? 'rotate-180' : ''} />
+                            </button>
+                          )}
                         </div>
 
-                        {/* Navigation Arrows - Always visible on mobile */}
+                        {/* Navigation Arrows */}
                         {galleryImages.length > 1 && (
                           <>
                             <button
@@ -387,7 +454,7 @@ const Gallery: React.FC = () => {
 
                         {/* Thumbnails Bar */}
                         {galleryImages.length > 1 && (
-                          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full z-20 transition-all duration-300 transform translate-y-20 group-hover/gallery:translate-y-0 hover:bg-black/60">
+                          <div className={`absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full z-20 transition-all duration-300 transform  hover:bg-black/60 ${showDetails ? 'translate-y-20 group-hover/gallery:translate-y-0' : 'translate-y-0'}`}>
                             {galleryImages.map((img, idx) => (
                               <button
                                 key={idx}
@@ -413,30 +480,41 @@ const Gallery: React.FC = () => {
                   )}
                 </div>
 
-                {/* Right Content Section - Mobile Optimized */}
+                {/* Right Content Section - Hidden initially, reveals when toggled */}
                 <div
-                  className="w-full md:w-5/12 p-6 md:p-12 flex flex-col overflow-y-auto custom-scrollbar relative z-10 bg-gradient-to-b from-[#0a0a0a] to-[#050505]"
-                  onScroll={handleModalScroll}
+                  className={`flex flex-col overflow-y-auto custom-scrollbar relative z-10 bg-gradient-to-b from-[#0a0a0a] to-[#050505] transition-all duration-700 ease-in-out ${showDetails ? 'md:w-[60%] p-6 md:p-12 opacity-100' : 'md:w-0 p-0 opacity-0 overflow-hidden'
+                    }`}
                 >
-                  <div className="mb-auto">
-                    <motion.div
-                      className="flex items-center gap-3 mb-8"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.1 }}
-                    >
-                      {selectedProject.categories.map((cat, idx) => (
-                        <motion.span
-                          key={cat}
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: 0.2 + idx * 0.1 }}
-                          className="px-4 py-2 rounded-full bg-gradient-to-r from-brand-accent/20 to-brand-accent/10 border border-brand-accent/30 text-brand-accent text-xs font-bold uppercase tracking-widest shadow-[0_0_15px_rgba(99,102,241,0.3)] backdrop-blur-sm hover:scale-105 transition-transform"
-                        >
-                          {cat}
-                        </motion.span>
-                      ))}
-                    </motion.div>
+                  <div className="mb-auto min-w-[300px]"> {/* min-w prevents text reflow during transition */}
+                    <div className="flex justify-between items-start mb-8">
+                      <motion.div
+                        className="flex items-center gap-3"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 }}
+                      >
+                        {selectedProject.categories.map((cat, idx) => (
+                          <motion.span
+                            key={cat}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.2 + idx * 0.1 }}
+                            className="px-4 py-2 rounded-full bg-gradient-to-r from-brand-accent/20 to-brand-accent/10 border border-brand-accent/30 text-brand-accent text-xs font-bold uppercase tracking-widest shadow-[0_0_15px_rgba(99,102,241,0.3)] backdrop-blur-sm hover:scale-105 transition-transform"
+                          >
+                            {cat}
+                          </motion.span>
+                        ))}
+                      </motion.div>
+
+                      {/* Hide Info Button */}
+                      <button
+                        onClick={() => setShowDetails(false)}
+                        className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-xs font-mono uppercase tracking-widest"
+                      >
+                        Hide Info <X size={14} />
+                      </button>
+                    </div>
+
 
                     <motion.h3
                       className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6 leading-[1.1] tracking-tight"
@@ -474,6 +552,17 @@ const Gallery: React.FC = () => {
                       </div>
                     </div>
                   </div>
+
+
+                  {/* Case Study Section - Always Rendered but handles own state */}
+                  {selectedProject.caseStudy && (
+                    <CaseStudySection
+                      caseStudy={selectedProject.caseStudy}
+                      language={language}
+                      isMobile={false}
+                      onNextProject={handleNextProject}
+                    />
+                  )}
 
                   {/* Tags Section - Visual Pills */}
                   <div className="pt-12 mt-12 border-t border-white/5">

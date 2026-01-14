@@ -6,12 +6,35 @@ import { PROJECTS } from '../constants';
 import ParticleBackground from './ParticleBackground';
 import MagneticButton from './MagneticButton';
 import { useParallax } from '../utils/useParallax';
+import { loadProjects } from '../utils/projectLoader';
+import { Project } from '../types';
 
 const Hero: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [particles, setParticles] = useState<Array<{ id: number, x: number, y: number, size: number, delay: number, duration: number }>>([]);
   const { t, language } = useLanguage();
   const parallaxOffset = useParallax(0.3);
+
+  const [projectsList, setProjectsList] = useState<Project[]>([]);
+
+  // Load Projects on Mount
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const loaded = await loadProjects();
+      setProjectsList(loaded.reverse());
+    };
+    fetchProjects();
+  }, []);
+
+  // Get latest project title
+  const latestProject = projectsList.length > 0 ? projectsList[0] : null;
+
+  // Carousel Logic
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const currentProject = projectsList[currentImageIndex];
+  const heroImage = currentProject ? currentProject.imageUrl : '/hero_design_v1.jpg';
+  const heroTitle = currentProject ? currentProject.title : (latestProject?.title || "Latest Work");
 
   // Generate floating particles
   useEffect(() => {
@@ -46,8 +69,7 @@ const Hero: React.FC = () => {
     }
   };
 
-  // Get latest project title
-  const latestProject = PROJECTS && PROJECTS.length > 0 ? PROJECTS[0] : null;
+
 
   // Animated stat counters
   const Counter: React.FC<{ end: number; suffix?: string; duration?: number }> = ({ end, suffix = '', duration = 2 }) => {
@@ -177,13 +199,13 @@ const Hero: React.FC = () => {
 
           {/* Main Headline with 3D Effect */}
           <motion.h1
-            className="text-7xl sm:text-8xl md:text-9xl lg:text-8xl xl:text-[8rem] leading-[0.85] sm:leading-[0.85] lg:leading-[0.9] text-white mb-6 sm:mb-8 perspective-500"
+            className="text-[13vw] sm:text-8xl md:text-9xl lg:text-8xl xl:text-[8rem] leading-[0.85] sm:leading-[0.85] lg:leading-[0.9] text-white mb-6 sm:mb-8 perspective-500"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
           >
             <span
-              className="block font-sans font-black tracking-tighter mix-blend-difference transition-transform duration-700 ease-out"
+              className="block font-sans font-black tracking-tighter mix-blend-difference transition-transform duration-700 ease-out break-words"
               style={{ transform: `translateX(${mousePosition.x * 15}px)` }}
             >
               {t.hero.headline_1}
@@ -311,41 +333,72 @@ const Hero: React.FC = () => {
             style={{ transform: `translate(${mousePosition.x * -5}px, ${mousePosition.y * -5}px)` }}
           ></div>
 
-          {/* The Statue Image (Masked) */}
-          <div className="relative z-10 w-full h-full flex items-center justify-center perspective-1000">
+          {/* The Portal - "Broken Reality" Layout */}
+          <div className="relative z-10 w-full h-[600px] flex items-center justify-center perspective-1000">
+
+            {/* Spinning Magic Text Ring */}
+            <div className="absolute w-[500px] h-[500px] animate-spin-slow-reverse opacity-20 pointer-events-none">
+              <svg viewBox="0 0 100 100" className="w-full h-full">
+                <path id="circlePath" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" fill="transparent" />
+                <text fill="currentColor" className="text-white" fontSize="4.5" letterSpacing="3px">
+                  <textPath href="#circlePath" startOffset="0%">
+                    DIGITAL ALCHEMIST • CREATIVE DEVELOPER • DESIGN MAGIC •
+                  </textPath>
+                </text>
+              </svg>
+            </div>
+
+
+
+            {/* Split Image Effect - DECONSTRUCT ON HOVER -- ROTATE IMAGE ON INTERACTION */}
             <div
-              className="relative w-full max-w-md aspect-[3/4] overflow-hidden rounded-t-[10rem] rounded-b-[2rem] border border-white/10 shadow-2xl transition-transform duration-700 ease-out hover:scale-105"
-              style={{
-                transform: `rotateY(${mousePosition.x * 3}deg) rotateX(${mousePosition.y * -3}deg)`
+              className="relative w-[320px] h-[480px] group cursor-pointer"
+              onMouseEnter={() => {
+                if (projectsList.length > 0) {
+                  setCurrentImageIndex((prev) => (prev + 1) % projectsList.length);
+                }
+              }}
+              onTouchStart={() => {
+                if (projectsList.length > 0) {
+                  setCurrentImageIndex((prev) => (prev + 1) % projectsList.length);
+                }
               }}
             >
-              {/* Overlay Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent z-20 opacity-80"></div>
 
-              {/* Design Workspace Image - Clean & Monochrome */}
-              <img
-                src="/hero_design_v1.jpg"
-                alt="Design Workspace"
-                className="w-full h-full object-cover hover:scale-105 transition-all duration-700"
-              />
+              {/* Left Half - Glitched Offset - FLIES LEFT ON HOVER (Extreme) */}
+              <div
+                className="absolute top-0 left-0 w-full h-full overflow-hidden rounded-3xl border border-white/20 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:-translate-x-32 group-hover:-translate-y-16 group-hover:rotate-[-12deg] group-hover:scale-90 group-hover:opacity-80 grayscale hover:grayscale-0 rotate-0 z-10 bg-black opacity-0 group-hover:opacity-100"
+              >
+                <img key={heroImage} src={heroImage} className="w-full h-full object-cover opacity-60 mix-blend-luminosity animate-fade-in" alt="Work Glitch" />
+                <div className="absolute inset-0 bg-brand-accent/30 mix-blend-overlay"></div>
+              </div>
 
-              {/* Floating UI Elements on top of image - Only show if latestProject exists */}
-              {latestProject && (
-                <div
-                  className="absolute bottom-6 left-6 z-30 transition-transform duration-500 ease-out"
-                  style={{ transform: `translate(${mousePosition.x * -8}px, ${mousePosition.y * -8}px)` }}
-                >
-                  <div className="glass-panel px-4 py-3 rounded-xl border border-white/10 flex items-center gap-3 animate-float delay-100">
-                    <div className="bg-white/10 p-2 rounded-lg">
-                      <Sparkles size={16} className="text-yellow-400" />
-                    </div>
-                    <div>
-                      <p className="text-xs text-gray-400 font-mono">{t.hero.latest_work}</p>
-                      <p className="text-sm text-white font-bold">{latestProject.title}</p>
-                    </div>
-                  </div>
+              {/* Main Center Card - Clear - LIFTS & ROTATES */}
+              <div
+                className="absolute inset-0 overflow-hidden rounded-3xl border-2 border-white/10 shadow-2xl z-20 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:scale-110 group-hover:-translate-y-6 group-hover:rotate-3 group-hover:shadow-[0_20px_50px_rgba(168,85,247,0.4)]"
+                style={{
+                  transform: `rotateY(${mousePosition.x * 5}deg) rotateX(${mousePosition.y * -5}deg)`
+                }}
+              >
+                <img key={heroImage} src={heroImage} className="w-full h-full object-cover animate-fade-in" alt="Focus" />
+
+                {/* Glass Overlay with Noise */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
+                <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"></div>
+
+                {/* Floating Badge inside Image */}
+                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-auto glass-panel px-5 py-2.5 rounded-full border border-white/20 flex items-center gap-2 backdrop-blur-xl animate-float">
+                  <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse shadow-[0_0_8px_#4ade80]"></div>
+                  <p className="text-[11px] text-gray-200 font-mono uppercase tracking-[0.15em] font-medium">{t.hero.latest_work}</p>
                 </div>
-              )}
+              </div>
+
+              {/* Right Accent - Wireframe - FLIES RIGHT ON HOVER (Extreme) */}
+              <div
+                className="absolute inset-0 w-full h-full rounded-3xl border border-brand-accent/30 z-0 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:translate-x-32 group-hover:translate-y-16 group-hover:rotate-[12deg] group-hover:scale-90 opacity-0 group-hover:opacity-60"
+                style={{ backgroundImage: 'radial-gradient(circle, rgba(168,85,247,0.2) 1px, transparent 1px)', backgroundSize: '10px 10px' }}
+              ></div>
+
             </div>
           </div>
 

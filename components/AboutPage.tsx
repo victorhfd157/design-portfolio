@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Timeline from './Timeline';
 import AlchemistLab from './AlchemistLab';
+import AlchemistProfileCard from './AlchemistProfileCard';
 import Grimoire from './Grimoire';
 import { Download, Cpu, GraduationCap, Award, Users, Briefcase, Code } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -125,43 +126,7 @@ const AboutPage: React.FC = () => {
                   variants={revealVariants.fadeInLeft}
                   transition={{ duration: 0.8 }}
                >
-                  <div
-                     ref={photoRef}
-                     className="aspect-[3/4] rounded-2xl overflow-hidden border border-white/10 relative shadow-2xl cursor-pointer"
-                     style={{
-                        transform: `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`,
-                        transition: 'transform 0.1s ease-out',
-                     }}
-                  >
-                     {/* Glow effect */}
-                     <div
-                        className="absolute -inset-[2px] opacity-0 hover:opacity-100 transition-opacity duration-500 blur-xl pointer-events-none"
-                        style={{
-                           background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(99, 102, 241, 0.4), transparent 60%)`,
-                        }}
-                     />
-
-                     <img
-                        src="/avatar.jpg"
-                        alt="Victor Duarte"
-                        className="w-full h-full object-cover transition-all duration-700 hover:scale-105"
-                     />
-                     <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-transparent opacity-60"></div>
-
-                     {/* Floating Badge */}
-                     <motion.div
-                        className="absolute bottom-6 left-6 glass-panel px-4 py-3 rounded-xl border border-white/10 flex items-center gap-3"
-                        whileHover={{ scale: 1.05 }}
-                     >
-                        <div className="bg-[#76b900]/20 p-2 rounded-lg">
-                           <Cpu size={20} className="text-[#76b900]" />
-                        </div>
-                        <div>
-                           <p className="text-[10px] text-gray-400 uppercase tracking-widest">{t.about_page.certification_label}</p>
-                           <p className="text-xs text-white font-bold">Nvidia AI & Diffusion Models</p>
-                        </div>
-                     </motion.div>
-                  </div>
+                  <AlchemistProfileCard />
                </motion.div>
 
                <motion.div

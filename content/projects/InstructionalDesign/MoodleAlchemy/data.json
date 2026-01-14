@@ -25,5 +25,63 @@
         "formacao_login.png",
         "vr_hero_1.png",
         "vr_hero_2.jpg"
-    ]
+    ],
+    "caseStudy": {
+        "challenge": {
+            "en": "Act Academy needed a modern, engaging LMS but was locked into Moodle infrastructure. The default Moodle UI felt institutional and dated, causing student disengagement and poor course completion rates.",
+            "pt": "Act Academy precisava de um LMS moderno e envolvente mas estava presa à infraestrutura Moodle. A UI padrão do Moodle parecia institucional e datada, causando desengajamento de estudantes e baixas taxas de conclusão de curso."
+        },
+        "solution": {
+            "en": "Completely reimagined Moodle's interface through custom theme development, transforming it into a premium EdTech experience. Implemented dark mode, glassmorphism UI, immersive hero sections, and streamlined navigation—all while maintaining Moodle's core functionality.",
+            "pt": "Reimaginei completamente a interface do Moodle através de desenvolvimento de tema customizado, transformando-o em uma experiência EdTech premium. Implementei dark mode, UI glassmorphism, seções hero imersivas e navegação simplificada—tudo mantendo funcionalidade core do Moodle."
+        },
+        "process": [
+            {
+                "phase": "Audit & Strategy",
+                "description": {
+                    "en": "Analyzed current Moodle instance, identified UX pain points through user interviews, and researched modern EdTech platforms (Coursera, Udemy) for inspiration.",
+                    "pt": "Analisei instância atual do Moodle, identifiquei pontos de dor UX através de entrevistas com usuários e pesquisei plataformas EdTech modernas (Coursera, Udemy) para inspiração."
+                }
+            },
+            {
+                "phase": "Design System Creation",
+                "description": {
+                    "en": "Designed custom component library featuring dark UI, neon accents, course card redesigns, and glassmorphic navigation. Created brand-aligned login screens.",
+                    "pt": "Desenhei biblioteca de componentes customizada apresentando dark UI, acentos neon, redesigns de cards de curso e navegação glassmórfica. Criei telas de login alinhadas à marca."
+                }
+            },
+            {
+                "phase": "Theme Development",
+                "description": {
+                    "en": "Developed custom Moodle theme using PHP, SCSS, and JavaScript. Implemented responsive layouts, custom blocks, and hero banner system for course pages.",
+                    "pt": "Desenvolvi tema Moodle customizado usando PHP, SCSS e JavaScript. Implementei layouts responsivos, blocos customizados e sistema de banner hero para páginas de curso."
+                }
+            },
+            {
+                "phase": "Deployment & Training",
+                "description": {
+                    "en": "Deployed theme to production, created documentation for content creators, and trained staff on new design system usage.",
+                    "pt": "Implantei tema em produção, criei documentação para criadores de conteúdo e treinei staff no uso do novo sistema de design."
+                }
+            }
+        ],
+        "tools": [
+            "PHP (Moodle Theme Development)",
+            "SCSS/CSS (Styling)",
+            "JavaScript (Interactions)",
+            "Figma (UI Design)",
+            "Adobe Photoshop (Hero Banners)",
+            "Git (Version Control)"
+        ],
+        "results": {
+            "en": "Successfully transformed a dated institutional LMS into a modern, engaging platform that students actively enjoy using. The redesign proved Moodle can compete visually with premium paid platforms.",
+            "pt": "Transformei com sucesso um LMS institucional datado em uma plataforma moderna e envolvente que estudantes ativamente gostam de usar. O redesign provou que Moodle pode competir visualmente com plataformas pagas premium."
+        },
+        "impact": [
+            "Deployed to live production environment",
+            "Serves 1,000+ active learners",
+            "30% increase in dashboard engagement",
+            "Positive feedback from students and faculty"
+        ]
+    }
 }

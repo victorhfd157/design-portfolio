@@ -1,23 +1,25 @@
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useDragControls } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Calendar, Layers, Monitor, Image as ImageIcon } from 'lucide-react';
 import { Project } from '../types';
 import { getCategoryColor } from '../utils/categoryHelpers';
 import EmbedViewer from './EmbedViewer';
+import CaseStudySection from './CaseStudy';
 
 interface MobileModalProps {
     project: Project;
     currentImageIndex: number;
+    setCurrentImageIndex: (index: number) => void;
     galleryImages: string[];
     currentImageUrl: string;
     showDetails: boolean;
     setShowDetails: (show: boolean) => void;
     nextImage: () => void;
     prevImage: () => void;
-    setCurrentImageIndex: (index: number) => void;
+    onClose: () => void;
     viewMode: 'prototype' | 'gallery';
     setViewMode: (mode: 'prototype' | 'gallery') => void;
-    language: string;
+    language: 'en' | 'pt';
 }
 
 const MobileProjectModal: React.FC<MobileModalProps> = ({
@@ -34,10 +36,12 @@ const MobileProjectModal: React.FC<MobileModalProps> = ({
     setViewMode,
     language,
 }) => {
+    const dragControls = useDragControls();
+
     return (
         <div className="flex flex-col h-full relative">
             {/* Full Image Section */}
-            <div className={`relative bg-black overflow-hidden transition-all duration-300 ${showDetails ? 'h-[45vh]' : 'h-[calc(100%-60px)]'}`}>
+            <div className={`relative bg-black overflow-hidden transition-all duration-300 ${showDetails ? 'h-[45svh]' : 'h-[calc(100%-60px)]'}`}>
                 {viewMode === 'prototype' && project.embedUrl ? (
                     <EmbedViewer
                         embedUrl={project.embedUrl}
@@ -166,7 +170,7 @@ const MobileProjectModal: React.FC<MobileModalProps> = ({
             {/* Details Toggle Button - Premium Design */}
             <motion.button
                 onClick={() => setShowDetails(!showDetails)}
-                className="relative sticky bottom-0 w-full py-5 bg-gradient-to-r from-brand-accent via-purple-600 to-brand-accent bg-size-200 bg-pos-0 hover:bg-pos-100 text-white font-black uppercase tracking-widest text-sm flex items-center justify-center gap-3 z-50 overflow-hidden group transition-all duration-500"
+                className="absolute bottom-0 left-0 right-0 w-full py-5 bg-gradient-to-r from-brand-accent via-purple-600 to-brand-accent bg-size-200 bg-pos-0 hover:bg-pos-100 text-white font-black uppercase tracking-widest text-sm flex items-center justify-center gap-3 z-50 overflow-hidden group transition-all duration-500"
                 whileTap={{ scale: 0.98 }}
             >
                 {/* Animated Background Glow */}
@@ -206,6 +210,8 @@ const MobileProjectModal: React.FC<MobileModalProps> = ({
                         exit={{ y: '100%' }}
                         transition={{ type: 'spring', damping: 30, stiffness: 300 }}
                         drag="y"
+                        dragListener={false}
+                        dragControls={dragControls}
                         dragConstraints={{ top: 0, bottom: 0 }}
                         dragElastic={{ top: 0, bottom: 0.5 }}
                         onDragEnd={(e, { offset, velocity }) => {
@@ -213,15 +219,18 @@ const MobileProjectModal: React.FC<MobileModalProps> = ({
                                 setShowDetails(false);
                             }
                         }}
-                        className="absolute bottom-12 left-0 right-0 bg-gradient-to-b from-[#0f0f0f] to-[#0a0a0a] border-t-2 border-brand-accent/30 max-h-[50vh] overflow-y-auto z-40 shadow-[0_-10px_60px_rgba(99,102,241,0.3)]"
+                        className="absolute bottom-[4rem] left-0 right-0 bg-gradient-to-b from-[#0f0f0f] to-[#0a0a0a] border-t-2 border-brand-accent/30 h-[55svh] flex flex-col z-40 shadow-[0_-10px_60px_rgba(99,102,241,0.3)] rounded-t-[2rem]"
                     >
-                        {/* Enhanced Drag Handle */}
-                        <div className="sticky top-0 bg-gradient-to-b from-[#0f0f0f] to-transparent pt-4 pb-6 flex flex-col items-center z-50">
-                            <div className="w-16 h-1.5 bg-gradient-to-r from-brand-accent/50 via-brand-accent to-brand-accent/50 rounded-full shadow-[0_0_20px_rgba(99,102,241,0.5)] mb-2"></div>
-                            <span className="text-xs text-gray-500 uppercase tracking-widest font-mono">Arraste para fechar</span>
+                        {/* Enhanced Drag Handle - Active Area */}
+                        <div
+                            onPointerDown={(e) => dragControls.start(e)}
+                            className="shrink-0 bg-gradient-to-b from-[#1a1a1a] to-[#0f0f0f] pt-4 pb-4 flex flex-col items-center z-50 cursor-grab active:cursor-grabbing touch-none rounded-t-[2rem] border-b border-white/5"
+                        >
+                            <div className="w-16 h-1.5 bg-gray-600 rounded-full mb-2"></div>
+                            <span className="text-[10px] text-gray-500 uppercase tracking-widest font-mono">Arraste para fechar</span>
                         </div>
 
-                        <div className="px-6 pb-8">
+                        <div className="flex-1 overflow-y-auto custom-scrollbar px-6 pb-24">
                             {/* Categories with Enhanced Styling */}
                             <div className="flex items-center gap-2 mb-6 flex-wrap">
                                 {project.categories.map((cat, idx) => (
@@ -256,6 +265,16 @@ const MobileProjectModal: React.FC<MobileModalProps> = ({
                             <p className="text-gray-300 text-base leading-relaxed mb-6 whitespace-pre-line">
                                 {project.description[language]}
                             </p>
+
+
+                            {/* Case Study Section */}
+                            {project.caseStudy && (
+                                <CaseStudySection
+                                    caseStudy={project.caseStudy}
+                                    language={language}
+                                    isMobile={true}
+                                />
+                            )}
 
                             {/* Tags */}
                             {project.tags && project.tags.length > 0 && (

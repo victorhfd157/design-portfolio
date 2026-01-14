@@ -25,5 +25,63 @@
         "/defenders_action.png",
         "/defenders_menu.png",
         "/defenders_boss.png"
-    ]
+    ],
+    "caseStudy": {
+        "challenge": {
+            "en": "Math practice is often seen as boring and repetitive by students. Traditional drill exercises lack engagement and fail to motivate consistent practice.",
+            "pt": "Prática de matemática é frequentemente vista como chata e repetitiva por estudantes. Exercícios tradicionais carecem de engajamento e falham em motivar prática consistente."
+        },
+        "solution": {
+            "en": "Developed an arcade-style space shooter that transforms math drills into an exciting gaming experience. Players must solve problems quickly to survive increasingly difficult waves of asteroids.",
+            "pt": "Desenvolvi um shooter espacial estilo arcade que transforma exercícios de matemática em uma experiência de jogo emocionante. Jogadores devem resolver problemas rapidamente para sobreviver ondas cada vez mais difíceis de asteroides."
+        },
+        "process": [
+            {
+                "phase": "Concept & Game Design",
+                "description": {
+                    "en": "Researched educational game theory and classic arcade mechanics. Designed progression system balancing difficulty with learning objectives.",
+                    "pt": "Pesquisei teoria de jogos educacionais e mecânicas arcade clássicas. Desenhei sistema de progressão equilibrando dificuldade com objetivos de aprendizado."
+                }
+            },
+            {
+                "phase": "Technical Development",
+                "description": {
+                    "en": "Built custom game engine using Canvas API for 60fps rendering. Implemented collision detection, particle systems, and procedural audio synthesis.",
+                    "pt": "Construí motor de jogo customizado usando Canvas API para renderização a 60fps. Implementei detecção de colisão, sistemas de partículas e síntese de áudio procedural."
+                }
+            },
+            {
+                "phase": "UX & Accessibility",
+                "description": {
+                    "en": "Added touch controls for mobile, keyboard support for desktop, and visual feedback for every interaction. Ensured color-blind friendly palette.",
+                    "pt": "Adicionei controles touch para mobile, suporte a teclado para desktop e feedback visual para cada interação. Garanti paleta amigável para daltônicos."
+                }
+            },
+            {
+                "phase": "Balancing & Polish",
+                "description": {
+                    "en": "Playtested with students to tune difficulty curve. Added boss battles, power-ups, and achievement system for long-term engagement.",
+                    "pt": "Testei com estudantes para ajustar curva de dificuldade. Adicionei batalhas de chefes, power-ups e sistema de conquistas para engajamento de longo prazo."
+                }
+            }
+        ],
+        "tools": [
+            "React + TypeScript",
+            "Canvas API (Rendering)",
+            "Web Audio API (Sound)",
+            "Vite (Build Tool)",
+            "Figma (UI Design)",
+            "Aseprite (Sprites)"
+        ],
+        "results": {
+            "en": "Created an addictive learning tool that disguises math practice as entertainment. Students voluntarily spend more time practicing compared to traditional methods.",
+            "pt": "Criei uma ferramenta de aprendizado viciante que disfarça prática de matemática como entretenimento. Estudantes voluntariamente gastam mais tempo praticando comparado a métodos tradicionais."
+        },
+        "impact": [
+            "60fps smooth gameplay on mobile",
+            "Average 15min play sessions",
+            "Procedurally generated difficulty",
+            "Touch + Keyboard support"
+        ]
+    }
 }

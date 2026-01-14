@@ -16,5 +16,62 @@
         "Technology",
         "Innovation",
         "Web Design"
-    ]
+    ],
+    "caseStudy": {
+        "challenge": {
+            "en": "Demystify AI for potential students who find the subject intimidating. Create an accessible landing page that explains AI education opportunities without overwhelming technical jargon.",
+            "pt": "Desmistificar IA para potenciais estudantes que acham o assunto intimidador. Criar uma landing page acessível que explica oportunidades educacionais em IA sem jargão técnico sobrecarregador."
+        },
+        "solution": {
+            "en": "Designed an approachable, visually engaging website that breaks down AI education into clear pathways. Used friendly illustrations and progressive disclosure to introduce concepts gradually.",
+            "pt": "Desenhei um website acessível e visualmente envolvente que divide educação em IA em caminhos claros. Usei ilustrações amigáveis e revelação progressiva para introduzir conceitos gradualmente."
+        },
+        "process": [
+            {
+                "phase": "Content Strategy",
+                "description": {
+                    "en": "Interviewed potential students to understand AI perception barriers. Structured content around practical applications (career paths, real-world projects) rather than abstract theory.",
+                    "pt": "Entrevistei potenciais estudantes para entender barreiras de percepção de IA. Estruturei conteúdo em torno de aplicações práticas (caminhos de carreira, projetos do mundo real) ao invés de teoria abstrata."
+                }
+            },
+            {
+                "phase": "Information Architecture",
+                "description": {
+                    "en": "Organized programs by student level (beginner, intermediate, advanced), created clear CTAs for each audience segment, and designed course finder tool.",
+                    "pt": "Organizei programas por nível de estudante (iniciante, intermediário, avançado), criei CTAs claros para cada segmento de audiência e desenhei ferramenta de busca de curso."
+                }
+            },
+            {
+                "phase": "Web Design & Development",
+                "description": {
+                    "en": "Designed modern, tech-forward aesthetic using gradients and clean typography. Built responsive website with smooth scrolling and section reveals for engaging experience.",
+                    "pt": "Desenhei estética moderna e tech-forward usando gradientes e tipografia limpa. Construí website responsivo com scrolling suave e revelações de seção para experiência envolvente."
+                }
+            },
+            {
+                "phase": "Launch & Optimization",
+                "description": {
+                    "en": "Deployed to institutounicenter.com/ia/, set up conversion tracking for course inquiries, and gathered analytics to optimize student journey.",
+                    "pt": "Implantei em institutounicenter.com/ia/, configurei rastreamento de conversão para consultas de curso e coletei analytics para otimizar jornada do estudante."
+                }
+            }
+        ],
+        "tools": [
+            "Figma (Design)",
+            "HTML/CSS/JavaScript",
+            "Adobe Illustrator (Graphics)",
+            "Google Analytics",
+            "WordPress (CMS)"
+        ],
+        "results": {
+            "en": "Successfully positioned Instituto Unicenter as an accessible entry point into AI education. The approachable design increased course inquiry rates compared to previous technical-heavy marketing.",
+            "pt": "Posicionei com sucesso Instituto Unicenter como ponto de entrada acessível em educação IA. O design acessível aumentou taxas de consulta de curso comparado a marketing anterior focado em aspectos técnicos."
+        },
+        "impact": [
+            "Live at institutounicenter.com/ia/",
+            "Clear course pathways",
+            "Non-intimidating AI introduction",
+            "Increased student inquiries"
+        ]
+    }
 }

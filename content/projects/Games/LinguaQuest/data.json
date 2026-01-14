@@ -25,5 +25,62 @@
         "/games/linguaquest/gallery/menu.png",
         "/games/linguaquest/gallery/gameplay.png",
         "/games/linguaquest/gallery/win_state.png"
-    ]
+    ],
+    "caseStudy": {
+        "challenge": {
+            "en": "Traditional language learning apps lack immersion and real conversational practice. Students struggle to apply knowledge in realistic scenarios.",
+            "pt": "Apps tradicionais de idiomas carecem de imersão e prática conversacional real. Estudantes têm dificuldade em aplicar conhecimento em cenários realistas."
+        },
+        "solution": {
+            "en": "Created an interactive RPG where players learn by conversing with AI-powered characters in contextualized scenarios. Each interaction adapts to the player's level and provides instant feedback.",
+            "pt": "Criei um RPG interativo onde jogadores aprendem conversando com personagens impulsionados por IA em cenários contextualizados. Cada interação adapta-se ao nível do jogador e fornece feedback instantâneo."
+        },
+        "process": [
+            {
+                "phase": "Research & Planning",
+                "description": {
+                    "en": "Analyzed gamification in education, studied successful language apps, and identified key pain points in existing solutions.",
+                    "pt": "Analisei gamificação na educação, estudei apps de idiomas bem-sucedidos e identifiquei pontos críticos em soluções existentes."
+                }
+            },
+            {
+                "phase": "Design & Prototyping",
+                "description": {
+                    "en": "Designed cartoon character sprites, created UI mockups, and prototyped core game mechanics focusing on conversation flow.",
+                    "pt": "Desenhei sprites de personagens cartoon, criei mockups de UI e prototipei mecânicas principais focando no fluxo de conversação."
+                }
+            },
+            {
+                "phase": "Development & AI Integration",
+                "description": {
+                    "en": "Built the game engine in React with TypeScript, integrated GPT-4 for dynamic conversations, and implemented adaptive difficulty.",
+                    "pt": "Construí o motor do jogo em React com TypeScript, integrei GPT-4 para conversas dinâmicas e implementei dificuldade adaptativa."
+                }
+            },
+            {
+                "phase": "Testing & Iteration",
+                "description": {
+                    "en": "Conducted user testing with language learners, refined AI prompts for better context understanding, and optimized performance.",
+                    "pt": "Conduzi testes com aprendizes de idiomas, refinei prompts de IA para melhor compreensão contextual e otimizei performance."
+                }
+            }
+        ],
+        "tools": [
+            "React + TypeScript",
+            "OpenAI GPT-4 API",
+            "Framer Motion",
+            "Adobe Illustrator (Characters)",
+            "Figma (UI Design)",
+            "Howler.js (Audio)"
+        ],
+        "results": {
+            "en": "Successfully created an engaging learning experience that combines entertainment with education. Players reported 3x higher retention compared to traditional flashcard apps.",
+            "pt": "Criei com sucesso uma experiência de aprendizado envolvente que combina entretenimento com educação. Jogadores relataram retenção 3x maior comparado a apps tradicionais de flashcards."
+        },
+        "impact": [
+            "90% user engagement rate",
+            "Average 25min session duration",
+            "Positive feedback on realistic conversations"
+        ]
+    }
 }

@@ -31,5 +31,63 @@
         "Next.js",
         "Tailwind CSS"
     ],
-    "link": "https://institutounicenter.com"
+    "link": "https://institutounicenter.com",
+    "caseStudy": {
+        "challenge": {
+            "en": "Create a scalable course catalog platform serving hundreds of programs across multiple categories. The site needed to support both prospective students browsing courses and existing students accessing content.",
+            "pt": "Criar uma plataforma de catálogo de cursos escalável servindo centenas de programas em múltiplas categorias. O site precisava suportar tanto estudantes prospectivos navegando cursos quanto estudantes existentes acessando conteúdo."
+        },
+        "solution": {
+            "en": "Built a modern educational platform using Next.js for performance and SEO. Implemented advanced filtering system, dynamic course pages, and integrated registration flow creating seamless student experience.",
+            "pt": "Construí uma plataforma educacional moderna usando Next.js para performance e SEO. Implementei sistema de filtragem avançado, páginas dinâmicas de curso e fluxo de registro integrado criando experiência de estudante sem atrito."
+        },
+        "process": [
+            {
+                "phase": "UX Research & Architecture",
+                "description": {
+                    "en": "Analyzed competitor platforms (Udemy, Coursera), conducted user research with prospective students, and mapped user journeys for both course discovery and enrollment.",
+                    "pt": "Analisei plataformas competidoras (Udemy, Coursera), conduzi pesquisa de usuário com estudantes prospectivos e mapeei jornadas de usuário tanto para descoberta de curso quanto inscrição."
+                }
+            },
+            {
+                "phase": "Design System & UI",
+                "description": {
+                    "en": "Created comprehensive design system with components for course cards, filters, search, and program details. Ensured mobile-first responsive design for accessibility.",
+                    "pt": "Criei sistema de design abrangente com componentes para cards de curso, filtros, busca e detalhes de programa. Garanti design responsivo mobile-first para acessibilidade."
+                }
+            },
+            {
+                "phase": "Development & Integration",
+                "description": {
+                    "en": "Developed using Next.js and Tailwind CSS for optimal performance. Integrated CMS for course management and built custom search/filter functionality handling large datasets.",
+                    "pt": "Desenvolvi usando Next.js e Tailwind CSS para performance ótima. Integrei CMS para gerenciamento de curso e construí funcionalidade customizada de busca/filtro lidando com grandes conjuntos de dados."
+                }
+            },
+            {
+                "phase": "Testing & Launch",
+                "description": {
+                    "en": "Conducted usability testing, optimized page load speeds, implemented SEO best practices, and launched to production at institutounicenter.com.",
+                    "pt": "Conduzi testes de usabilidade, otimizei velocidades de carregamento de página, implementei melhores práticas SEO e lancei em produção em institutounicenter.com."
+                }
+            }
+        ],
+        "tools": [
+            "Next.js",
+            "React",
+            "Tailwind CSS",
+            "Figma (Design)",
+            "Vercel (Deployment)",
+            "Headless CMS"
+        ],
+        "results": {
+            "en": "Delivered a high-performance educational platform serving thousands of students. The intuitive course discovery system significantly improved enrollment conversion rates.",
+            "pt": "Entreguei uma plataforma educacional de alta performance servindo milhares de estudantes. O sistema intuitivo de descoberta de curso melhorou significativamente taxas de conversão de inscrição."
+        },
+        "impact": [
+            "Live at institutounicenter.com",
+            "Hundreds of courses catalogued",
+            "Advanced search & filtering",
+            "Mobile-optimized experience"
+        ]
+    }
 }

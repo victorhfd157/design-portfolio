@@ -29,7 +29,7 @@ const Contact: React.FC = () => {
   return (
     <div
       id="contact"
-      className={`relative pt-32 pb-20 bg-brand-dark min-h-screen overflow-hidden transition-all duration-1000 ease-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+      className={`relative pt-32 pb-32 md:pb-20 bg-brand-dark min-h-screen overflow-hidden transition-all duration-1000 ease-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
         }`}
     >
       {/* Background Ambience */}
@@ -117,6 +117,12 @@ const Contact: React.FC = () => {
           &copy; 2024 VICTOR DUARTE. {t.contact.rights}
         </p>
         <div className="flex gap-8 mt-4 md:mt-0 font-mono text-[10px] tracking-[0.2em] uppercase">
+          <button
+            onClick={() => window.dispatchEvent(new Event('openOnboarding'))}
+            className="hover:text-white transition-colors uppercase tracking-[0.2em]"
+          >
+            Como navegar
+          </button>
           <a href="#" className="hover:text-white transition-colors">
             {t.contact.privacy}
           </a>

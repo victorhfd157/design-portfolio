@@ -4,6 +4,7 @@ import ScrollProgress from './components/ScrollProgress';
 import Home from './components/Home';
 import AboutPage from './components/AboutPage';
 import SEO from './components/SEO';
+import OnboardingModal from './components/OnboardingModal';
 
 import { LanguageProvider } from './contexts/LanguageContext';
 import { ThemeProvider } from './contexts/ThemeContext';
@@ -38,6 +39,7 @@ function App() {
             <SEO />
             <ScrollToTop />
             <ScrollProgress />
+            <OnboardingModal />
             <Layout>
               <Suspense fallback={
                 <div className="h-screen w-full flex items-center justify-center bg-[#0a0a0a] text-white font-mono">

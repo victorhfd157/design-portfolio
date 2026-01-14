@@ -5,7 +5,7 @@
     "description": {
         "en": "Advance Station is a Portuguese educational holding company. The website reflects its strategic positioning, integrating various specialized hubs in education and professional training into a cohesive digital ecosystem.",
         "pt": "A Advance Station é uma holding educativa portuguesa. O website reflete o seu posicionamento estratégico, integrando vários hubs especializados em educação e formação profissional num ecossistema digital coeso.",
-        "es": "Advance Station es un holding educativo portugués. El sitio web refleja su posicionamiento estratégico, integrando varios centros especializados en educación y formación profesional en un ecosistema digital cohesivo."
+        "es": "Advance Station é um holding educativo portugués. El sitio web refleja su posicionamiento estratégico, integrando varios centros especializados en educación y formación profesional en un ecosistema digital cohesivo."
     },
     "imageUrl": "mockup_advance_station.png",
     "gallery": [
@@ -29,5 +29,63 @@
         "Tailwind CSS",
         "Corporate Identity"
     ],
-    "link": "https://advancestation.pt"
+    "link": "https://advancestation.pt",
+    "caseStudy": {
+        "challenge": {
+            "en": "Communicate a complex organizational structure (holding company with multiple education hubs) in a clear, compelling way. The website needed to work for both potential partners and individual students seeking courses.",
+            "pt": "Comunicar uma estrutura organizacional complexa (holding com múltiplos hubs educacionais) de forma clara e convincente. O website precisava funcionar tanto para potenciais parceiros quanto estudantes individuais buscando cursos."
+        },
+        "solution": {
+            "en": "Designed a strategic website architecture using an 'ecosystem' metaphor to visualize hub relationships. Created distinct visual language for each hub while maintaining cohesive corporate identity.",
+            "pt": "Desenhei uma arquitetura de website estratégica usando metáfora de 'ecossistema' para visualizar relações entre hubs. Criei linguagem visual distinta para cada hub mantendo identidade corporativa coesa."
+        },
+        "process": [
+            {
+                "phase": "Information Architecture",
+                "description": {
+                    "en": "Mapped organizational structure, defined user flows for different audiences (B2B partners vs. B2C students), and created sitemap balancing business goals with user needs.",
+                    "pt": "Mapei estrutura organizacional, defini fluxos de usuário para diferentes audiências (parceiros B2B vs. estudantes B2C) e criei sitemap equilibrando objetivos de negócio com necessidades de usuário."
+                }
+            },
+            {
+                "phase": "Web Design & Branding",
+                "description": {
+                    "en": "Designed homepage introducing the ecosystem concept, created individual hub pages with unique color coding, and established corporate design system using clean typography and whitespace.",
+                    "pt": "Desenhei homepage introduzindo conceito de ecossistema, criei páginas individuais de hub com codificação de cores única e estabeleci sistema de design corporativo usando tipografia limpa e espaço em branco."
+                }
+            },
+            {
+                "phase": "Development & Responsive Design",
+                "description": {
+                    "en": "Built website using React and Tailwind CSS ensuring fast load times and mobile responsiveness. Implemented smooth scrolling and section reveals for engaging experience.",
+                    "pt": "Construí website usando React e Tailwind CSS garantindo tempos de carregamento rápidos e responsividade mobile. Implementei scrolling suave e revelações de seção para experiência envolvente."
+                }
+            },
+            {
+                "phase": "Launch & Iteration",
+                "description": {
+                    "en": "Deployed to production at advancestation.pt, set up analytics tracking, and gathered user feedback for post-launch refinements.",
+                    "pt": "Implantei em produção em advancestation.pt, configurei rastreamento de analytics e coletei feedback de usuário para refinamentos pós-lançamento."
+                }
+            }
+        ],
+        "tools": [
+            "Figma (Design)",
+            "React",
+            "Tailwind CSS",
+            "Vite",
+            "Adobe Illustrator (Graphics)",
+            "Git & GitHub"
+        ],
+        "results": {
+            "en": "Successfully launched a professional website that clearly communicates a complex business structure. The ecosystem visualization helps stakeholders understand the holding company's strategic vision.",
+            "pt": "Lancei com sucesso um website profissional que comunica claramente uma estrutura de negócio complexa. A visualização de ecossistema ajuda stakeholders a entender a visão estratégica da holding."
+        },
+        "impact": [
+            "Live at advancestation.pt",
+            "Serves B2B and B2C audiences",
+            "Multi-language support (EN/PT/ES)",
+            "Fast, responsive performance"
+        ]
+    }
 }

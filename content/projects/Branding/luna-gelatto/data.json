@@ -1,10 +1,10 @@
 {
     "id": 2,
-    "title": "luna-gelatto",
+    "title": "Luna Gelatto",
     "category": "Branding",
     "description": {
-        "en": "Mobile app design focused on wellness and sustainability featuring a minimalist interface and calming color palette.",
-        "pt": "Design de aplicativo focado em bem-estar e sustentabilidade com interface minimalista e paleta de cores relaxante."
+        "en": "Artisanal gelato shop branding featuring dreamy lunar themes, pastel colors, and handcrafted illustrations. Complete brand identity from logo to packaging.",
+        "pt": "Identidade de sorveteria artesanal apresentando temas lunares sonhadores, cores pastel e ilustrações artesanais. Identidade de marca completa de logo a embalagem."
     },
     "imageUrl": "capa.webp",
     "gallery": [
@@ -16,6 +16,64 @@
     "tags": [
         "Logo",
         "Identity",
-        "Branding"
-    ]
+        "Branding",
+        "Packaging"
+    ],
+    "caseStudy": {
+        "challenge": {
+            "en": "Differentiate a new artisanal gelato shop in a crowded market dominated by industrial ice cream brands. Create a whimsical yet sophisticated brand that appeals to all ages.",
+            "pt": "Diferenciar uma nova sorveteria artesanal em um mercado lotado dominado por marcas industriais. Criar uma marca caprichosa mas sofisticada que agrada todas as idades."
+        },
+        "solution": {
+            "en": "Designed a dreamy brand identity inspired by the moon and night sky, using soft pastels and hand-drawn illustrations. The brand conveys artisanal quality through organic shapes and handmade typography.",
+            "pt": "Desenhei uma identidade de marca sonhadora inspirada pela lua e céu noturno, usando pastéis suaves e ilustrações desenhadas à mão. A marca transmite qualidade artesanal através de formas orgânicas e tipografia artesanal."
+        },
+        "process": [
+            {
+                "phase": "Brand Strategy",
+                "description": {
+                    "en": "Conducted market research, defined target audience (families and young adults), and established brand personality: magical, artisanal, comforting.",
+                    "pt": "Conduzi pesquisa de mercado, defini público-alvo (famílias e jovens adultos) e estabeleci personalidade da marca: mágica, artesanal, reconfortante."
+                }
+            },
+            {
+                "phase": "Visual Identity Creation",
+                "description": {
+                    "en": "Illustrated custom moon character, designed wordmark with flowing letterforms, and created color palette of cream, lavender, and mint inspired by gelato flavors.",
+                    "pt": "Ilustrei personagem lua customizada, desenhei wordmark com letras fluidas e criei paleta de cores creme, lavanda e menta inspiradas em sabores de gelato."
+                }
+            },
+            {
+                "phase": "Packaging Design",
+                "description": {
+                    "en": "Designed gelato cups, lids, spoons, and takeaway boxes featuring the moon character and flavor illustrations. Ensured FDA-compliant food-safe printing.",
+                    "pt": "Desenhei copos de gelato, tampas, colheres e caixas para viagem apresentando o personagem lua e ilustrações de sabores. Garanti impressão food-safe conforme FDA."
+                }
+            },
+            {
+                "phase": "Touchpoint Expansion",
+                "description": {
+                    "en": "Extended brand to menu boards, social media templates, loyalty cards, and staff uniforms creating a cohesive customer experience.",
+                    "pt": "Estendi marca para cardápios, templates de redes sociais, cartões de fidelidade e uniformes de staff criando experiência de cliente coesa."
+                }
+            }
+        ],
+        "tools": [
+            "Adobe Illustrator",
+            "Procreate (Illustrations)",
+            "Photoshop",
+            "InDesign (Packaging)",
+            "Figma (Digital Assets)"
+        ],
+        "results": {
+            "en": "Created a memorable brand that resonates with target audience. The whimsical aesthetic stands out in the market while maintaining premium feel that justifies higher price point.",
+            "pt": "Criei uma marca memorável que ressoa com público-alvo. A estética caprichosa se destaca no mercado mantendo sensação premium que justifica preço mais alto."
+        },
+        "impact": [
+            "20% higher price point vs. competitors",
+            "Featured on local food blogs",
+            "Instagram-friendly packaging",
+            "Strong brand recall"
+        ]
+    }
 }

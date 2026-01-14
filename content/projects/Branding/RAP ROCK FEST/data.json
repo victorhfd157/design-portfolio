@@ -3,8 +3,8 @@
     "title": "RAP ROCK FESTIVAL",
     "category": "Branding",
     "description": {
-        "en": "Mobile app design focused on wellness and sustainability featuring a minimalist interface and calming color palette.",
-        "pt": "Design de aplicativo focado em bem-estar e sustentabilidade com interface minimalista e paleta de cores relaxante."
+        "en": "Bold festival branding merging rap and rock cultures through aggressive typography and urban aesthetics. Complete visual identity for Brazil's first hybrid music festival.",
+        "pt": "Identidade festival ousada mesclando culturas rap e rock através de tipografia agressiva e estética urbana. Identidade visual completa para o primeiro festival híbrido de música do Brasil."
     },
     "imageUrl": "capa.webp",
     "gallery": [
@@ -20,5 +20,62 @@
         "Logo",
         "Identity",
         "Branding"
-    ]
+    ],
+    "caseStudy": {
+        "challenge": {
+            "en": "Create a visual identity that authentically represents both rap and rock cultures without alienating either fanbase. The brand needed to feel rebellious yet professional enough for corporate sponsors.",
+            "pt": "Criar uma identidade visual que represente autenticamente culturas rap e rock sem alienar nenhuma base de fãs. A marca precisava parecer rebelde mas profissional o suficiente para patrocinadores corporativos."
+        },
+        "solution": {
+            "en": "Developed a gritty, urban-inspired brand featuring distressed typography, graffiti elements, and a monochromatic palette with red accents. The logo combines vinyl record aesthetics with street art texture.",
+            "pt": "Desenvolvi uma marca urbana e crua apresentando tipografia desgastada, elementos de graffiti e paleta monocromática com acentos vermelhos. O logo combina estética de vinil com textura de arte de rua."
+        },
+        "process": [
+            {
+                "phase": "Cultural Research",
+                "description": {
+                    "en": "Studied both music genres' visual languages, interviewed artists, and analyzed successful festival brands worldwide.",
+                    "pt": "Estudei as linguagens visuais de ambos gêneros musicais, entrevistei artistas e analisei marcas de festivais bem-sucedidos mundialmente."
+                }
+            },
+            {
+                "phase": "Concept Development",
+                "description": {
+                    "en": "Sketched multiple logo concepts exploring vinyl records, microphones, guitars, and urban textures. Created mood boards merging street art with concert photography.",
+                    "pt": "Esboçei múltiplos conceitos de logo explorando vinis, microfones, guitarras e texturas urbanas. Criei painéis de mood mesclando arte de rua com fotografia de shows."
+                }
+            },
+            {
+                "phase": "Brand System Design",
+                "description": {
+                    "en": "Designed complete brand toolkit including posters, tickets, merchandise, social media templates, and stage backdrops. Ensured scalability from billboard to Instagram post.",
+                    "pt": "Desenhei toolkit de marca completo incluindo pôsteres, ingressos, merchandising, templates de redes sociais e backdrops de palco. Garanti escalabilidade de outdoor a post do Instagram."
+                }
+            },
+            {
+                "phase": "Implementation & Rollout",
+                "description": {
+                    "en": "Delivered brand guidelines, print-ready files, and digital assets. Collaborated with print vendors and event producers for consistent application.",
+                    "pt": "Entreguei guidelines de marca, arquivos prontos para impressão e assets digitais. Colaborei com fornecedores de impressão e produtores de eventos para aplicação consistente."
+                }
+            }
+        ],
+        "tools": [
+            "Adobe Illustrator",
+            "Photoshop",
+            "InDesign (Guidelines)",
+            "Procreate (Sketching)",
+            "Figma (Digital Mockups)"
+        ],
+        "results": {
+            "en": "Created a distinctive brand that became instantly recognizable in Brazil's festival circuit. The identity successfully bridged two seemingly opposite music cultures while maintaining street credibility.",
+            "pt": "Criei uma marca distinta que se tornou instantaneamente reconhecível no circuito de festivais do Brasil. A identidade conectou com sucesso duas culturas musicais aparentemente opostas mantendo credibilidade de rua."
+        },
+        "impact": [
+            "Used across 50+ touchpoints",
+            "3,000+ merchandise items sold",
+            "Featured in Brazilian design blogs",
+            "Consistent brand recognition"
+        ]
+    }
 }

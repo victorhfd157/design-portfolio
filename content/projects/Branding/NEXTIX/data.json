@@ -3,8 +3,8 @@
     "title": "NEXTIX",
     "category": "Branding",
     "description": {
-        "en": "Mobile app design focused on wellness and sustainability featuring a minimalist interface and calming color palette.",
-        "pt": "Design de aplicativo focado em bem-estar e sustentabilidade com interface minimalista e paleta de cores relaxante."
+        "en": "Tech startup branding for a next-generation event ticketing platform. Modern, trustworthy identity featuring gradient logomark and clean typography targeting Gen-Z audiences.",
+        "pt": "Identidade de startup tech para plataforma de ingressos de nova geração. Identidade moderna e confiável apresentando logomark gradiente e tipografia limpa mirando audiências Gen-Z."
     },
     "imageUrl": "capa.webp",
     "gallery": [
@@ -18,6 +18,140 @@
     "tags": [
         "Logo",
         "Identity",
-        "Branding"
-    ]
+        "Branding",
+        "Tech Startup"
+    ],
+    "caseStudy": {
+        "role": {
+            "en": "Lead Brand Designer & UI Designer",
+            "pt": "Lead Brand Designer & UI Designer"
+        },
+        "duration": {
+            "en": "4 Months (Feb - May 2023)",
+            "pt": "4 Meses (Fev - Mai 2023)"
+        },
+        "team": {
+            "en": "2 Founders, 1 Frontend Dev",
+            "pt": "2 Founders, 1 Frontend Dev"
+        },
+        "tldr": {
+            "problem": {
+                "en": "Users distrust legacy ticketing platforms due to hidden fees and dated UX. NEXTIX needed a brand that screamed 'future' and 'transparency'.",
+                "pt": "Usuários desconfiam de plataformas antigas devido a taxas ocultas e UX datada. NEXTIX precisava de uma marca que gritasse 'futuro' e 'transparência'."
+            },
+            "solution": {
+                "en": "A vibrant, glassmorphic visual identity rooted in transparency (literally represented by transparent layers) and connection.",
+                "pt": "Uma identidade visual vibrante e glassmorphic enraizada na transparência (literalmente representada por camadas transparentes) e conexão."
+            },
+            "result": {
+                "en": "Increased beta signups by 140% post-launch and secured seed funding with the new pitch deck design.",
+                "pt": "Aumentou signups beta em 140% pós-lançamento e garantiu seed funding com o novo design de pitch deck."
+            }
+        },
+        "context": {
+            "en": "NEXTIX entered a market dominated by giants like Ticketmaster. The challenge wasn't just functionality, but trust. The founders wanted a brand that looked 'native' to 2023 - mobile-first, dark mode centric, and energetic.",
+            "pt": "NEXTIX entrou num mercado dominado por gigantes como Ticketmaster. O desafio não era só funcionalidade, mas confiança. Os founders queriam uma marca que parecesse 'nativa' de 2023 - mobile-first, focada em dark mode e energética."
+        },
+        "constraints": [
+            {
+                "en": "Tight timeline: 4 weeks for full identity and MVP UI",
+                "pt": "Prazo curto: 4 semanas para identidade completa e UI do MVP"
+            },
+            {
+                "en": "Strict accessibility requirements for high-contrast venues",
+                "pt": "Requisitos rigorosos de acessibilidade para locais de alto contraste"
+            }
+        ],
+        "challenge": {
+            "en": "Position a disruptive ticketing startup against entrenched players. The brand needed to feel innovative and trustworthy while appealing to younger audiences tired of legacy platforms' fees and poor UX.",
+            "pt": "Posicionar uma startup disruptiva de ingressos contra players estabelecidos. A marca precisava parecer inovadora e confiável enquanto atraía audiências jovens cansadas de taxas e UX ruim."
+        },
+        "solution": {
+            "en": "Created a forward-thinking brand identity using vibrant gradients and geometric shapes suggesting progress and connection. The wordmark balances approachability with technological sophistication.",
+            "pt": "Criei uma identidade de marca progressista usando gradientes vibrantes e formas geométricas sugerindo progresso e conexão. O wordmark equilibra acessibilidade com sofisticação tecnológica."
+        },
+        "keyDecisions": [
+            {
+                "title": {
+                    "en": "Choosing Gradient over Flat",
+                    "pt": "Escolhendo Gradiente sobre Flat"
+                },
+                "rationale": {
+                    "en": "While flat design is safe, we chose dynamic gradients to represent the fluid nature of live events and to stand out in a sea of corporate blue.",
+                    "pt": "Embora design flat seja seguro, escolhemos gradientes dinâmicos para representar a natureza fluida de eventos ao vivo e para destacar num mar de azul corporativo."
+                }
+            },
+            {
+                "title": {
+                    "en": "Dark Mode First",
+                    "pt": "Dark Mode First"
+                },
+                "rationale": {
+                    "en": "Since ticket purchases often happen in low-light environments (concerts, clubs), the entire brand system was optimized for dark backgrounds.",
+                    "pt": "Como compras de ingressos ocorrem frequentemente em ambientes com pouca luz (shows, clubes), todo o sistema de marca foi otimizado para fundos escuros."
+                }
+            }
+        ],
+        "process": [
+            {
+                "phase": "Competitive Analysis",
+                "description": {
+                    "en": "Researched ticketing industry, identified pain points (hidden fees, poor mobile UX), and analyzed how tech companies brand themselves as disruptors.",
+                    "pt": "Pesquisei indústria de ingressos, identifiquei pontos de dor (taxas ocultas, UX mobile ruim) e analisei como empresas tech se posicionam como disruptoras."
+                }
+            },
+            {
+                "phase": "Brand Strategy & Identity",
+                "description": {
+                    "en": "Developed brand positioning around transparency and user experience. Designed logomark using overlapping geometric shapes creating dynamic gradient effects.",
+                    "pt": "Desenvolvi posicionamento de marca em torno de transparência e experiência do usuário. Desenhei logomark usando formas geométricas sobrepostas criando efeitos de gradiente dinâmicos."
+                }
+            },
+            {
+                "phase": "Digital Ecosystem",
+                "description": {
+                    "en": "Created app UI mockups, website designs, and social media templates all following the gradient-forward design language. Ensured WCAG accessibility compliance.",
+                    "pt": "Criei mockups de app UI, designs de website e templates de redes sociais todos seguindo linguagem de design focada em gradientes. Garanti conformidade de acessibilidade WCAG."
+                }
+            },
+            {
+                "phase": "Brand Guidelines",
+                "description": {
+                    "en": "Delivered comprehensive brand book covering logo usage, color systems, typography, and tone of voice for consistent application across all touchpoints.",
+                    "pt": "Entreguei brand book abrangente cobrindo uso de logo, sistemas de cores, tipografia e tom de voz para aplicação consistente em todos os touchpoints."
+                }
+            }
+        ],
+        "tools": [
+            "Adobe Illustrator",
+            "Figma (UI Design)",
+            "Photoshop",
+            "InDesign (Brand Book)",
+            "Principle (Logo Animation)"
+        ],
+        "results": {
+            "en": "Built a tech-forward brand identity that positions NEXTIX as the transparent, user-first alternative to legacy ticketing platforms. The gradient system became a distinctive visual signature.",
+            "pt": "Construí uma identidade de marca tech-forward que posiciona NEXTIX como a alternativa transparente e focada no usuário para plataformas legadas de ingressos. O sistema de gradientes se tornou uma assinatura visual distintiva."
+        },
+        "impact": [
+            "Memorable gradient logo system",
+            "Appeals to Gen-Z audience",
+            "Scalable across digital platforms",
+            "Modern yet trustworthy feel"
+        ],
+        "learnings": [
+            {
+                "en": "Designing for 'trust' doesn't strictly mean using corporate blue. Modern trust is built through transparency and high-quality UX.",
+                "pt": "Projetar para 'confiança' não significa estritamente usar azul corporativo. A confiança moderna é construída através de transparência e UX de alta qualidade."
+            },
+            {
+                "en": "Testing gradients on different screens is crucial early on to ensure consistency.",
+                "pt": "Testar gradientes em telas diferentes é crucial desde cedo para garantir consistência."
+            }
+        ],
+        "whatNext": {
+            "en": "Developing the full 3D icon set for the app interface.",
+            "pt": "Desenvolver o set completo de ícones 3D para a interface do app."
+        }
+    }
 }

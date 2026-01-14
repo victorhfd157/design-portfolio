@@ -19,5 +19,62 @@
         "E-Learning",
         "Education",
         "Interactive"
-    ]
+    ],
+    "caseStudy": {
+        "challenge": {
+            "en": "Quizzes are universally disliked by students. Create a quiz format that feels like an adventure game rather than a test, improving knowledge retention through intrinsic motivation.",
+            "pt": "Quizzes são universalmente não gostados por estudantes. Criar um formato de quiz que pareça um jogo de aventura ao invés de teste, melhorando retenção de conhecimento através de motivação intrínseca."
+        },
+        "solution": {
+            "en": "Designed a dungeon-crawler game where answering questions correctly allows progress through rooms. Each correct answer unlocks new areas, creating a sense of discovery and accomplishment.",
+            "pt": "Desenhei um jogo dungeon-crawler onde responder perguntas corretamente permite progresso através de salas. Cada resposta correta desbloqueia novas áreas, criando senso de descoberta e realização."
+        },
+        "process": [
+            {
+                "phase": "Game Design & Mechanics",
+                "description": {
+                    "en": "Designed dungeon map structure with progressive difficulty. Created reward system (unlocking rooms) that provides immediate gratification for correct answers.",
+                    "pt": "Desenhei estrutura de mapa de masmorra com dificuldade progressiva. Criei sistema de recompensa (desbloqueio de salas) que fornece gratificação imediata para respostas corretas."
+                }
+            },
+            {
+                "phase": "Visual Design & Assets",
+                "description": {
+                    "en": "Illustrated pixelart dungeon tiles, treasure chests, and character sprites. Used dark fantasy aesthetic to appeal to gaming culture.",
+                    "pt": "Ilustrei tiles pixelart de masmorra, baús de tesouro e sprites de personagens. Usei estética dark fantasy para apelar à cultura de jogos."
+                }
+            },
+            {
+                "phase": "Development",
+                "description": {
+                    "en": "Built with React and Vite for fast performance. Implemented state management for tracking progress, randomized question pools, and unlockable content system.",
+                    "pt": "Construí com React e Vite para performance rápida. Implementei gerenciamento de estado para rastrear progresso, pools de perguntas randomizadas e sistema de conteúdo desbloqueável."
+                }
+            },
+            {
+                "phase": "Content Integration & Testing",
+                "description": {
+                    "en": "Created question bank with varying difficulty levels. Tested with students to ensure game didn't feel too punishing for wrong answers.",
+                    "pt": "Criei banco de perguntas com níveis variados de dificuldade. Testei com estudantes para garantir que jogo não parecesse muito punitivo para respostas erradas."
+                }
+            }
+        ],
+        "tools": [
+            "React + Vite",
+            "TypeScript",
+            "Aseprite (Pixel Art)",
+            "Adobe Illustrator",
+            "Figma (UI Design)"
+        ],
+        "results": {
+            "en": "Successfully gamified assessment into an engaging experience. Students spend significantly more time reviewing material when it's framed as dungeon exploration rather than studying.",
+            "pt": "Gamifiquei com sucesso avaliação em experiência envolvente. Estudantes gastam significativamente mais tempo revisando material quando é apresentado como exploração de masmorra ao invés de estudo."
+        },
+        "impact": [
+            "Built with modern React stack",
+            "Randomized question pools",
+            "Progressive difficulty system",
+            "Pixelart aesthetic"
+        ]
+    }
 }

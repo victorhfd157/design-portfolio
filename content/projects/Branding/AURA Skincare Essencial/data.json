@@ -1,10 +1,10 @@
 {
     "id": 3,
-    "title": "AURA Skinkcare",
+    "title": "AURA Skincare",
     "category": "Branding",
     "description": {
-        "en": "Mobile app design focused on wellness and sustainability featuring a minimalist interface and calming color palette.",
-        "pt": "Design de aplicativo focado em bem-estar e sustentabilidade com interface minimalista e paleta de cores relaxante."
+        "en": "Wellness and sustainability-focused skincare brand featuring minimalist design, calming colors, and eco-conscious messaging. Complete brand system emphasizing natural ingredients.",
+        "pt": "Marca de cuidados com a pele focada em bem-estar e sustentabilidade apresentando design minimalista, cores calmantes e mensagens eco-conscientes. Sistema de marca completo enfatizando ingredientes naturais."
     },
     "imageUrl": "capa.webp",
     "gallery": [
@@ -17,6 +17,64 @@
     "tags": [
         "Logo",
         "Identity",
-        "Branding"
-    ]
+        "Branding",
+        "Sustainability"
+    ],
+    "caseStudy": {
+        "challenge": {
+            "en": "Stand out in the saturated natural skincare market where every brand claims to be 'clean' and 'eco-friendly'. Communicate authenticity and transparency in a visually appealing way.",
+            "pt": "Destacar-se no mercado saturado de skincare natural onde toda marca alega ser 'limpa' e 'eco-friendly'. Comunicar autenticidade e transparência de forma visualmente atraente."
+        },
+        "solution": {
+            "en": "Created a serene, minimalist brand identity using soft earth tones and clean typography. Emphasized transparency through ingredient-focused design and honest messaging, avoiding greenwashing clichés.",
+            "pt": "Criei uma identidade de marca serena e minimalista usando tons de terra suaves e tipografia limpa. Enfatizei transparência através de design focado em ingredientes e mensagens honestas, evitando clichês de greenwashing."
+        },
+        "process": [
+            {
+                "phase": "Market Analysis",
+                "description": {
+                    "en": "Analyzed 30+ skincare brands, identified overused visual tropes (leaves, botanicals), and researched target audience preferences for transparency over perfection.",
+                    "pt": "Analisei 30+ marcas de skincare, identifiquei tropos visuais muito usados (folhas, botânicos) e pesquisei preferências do público-alvo por transparência ao invés de perfeição."
+                }
+            },
+            {
+                "phase": "Brand Identity Design",
+                "description": {
+                    "en": "Designed minimalist logo using geometric shapes suggesting wellness and balance. Created muted color palette of sage, cream, and terracotta inspired by natural ingredients.",
+                    "pt": "Desenhei logo minimalista usando formas geométricas sugerindo bem-estar e equilíbrio. Criei paleta de cores suavizadas de sage, creme e terracotta inspiradas em ingredientes naturais."
+                }
+            },
+            {
+                "phase": "Packaging & Collateral",
+                "description": {
+                    "en": "Designed recyclable packaging with ingredient transparency panels, created product photography style guide, and developed social media templates emphasizing education over selling.",
+                    "pt": "Desenhei embalagens recicláveis com painéis de transparência de ingredientes, criei guia de estilo de fotografia de produto e desenvolvi templates de redes sociais enfatizando educação ao invés de venda."
+                }
+            },
+            {
+                "phase": "Brand Guidelines",
+                "description": {
+                    "en": "Compiled comprehensive guidelines covering tone of voice, visual hierarchy, do's and don'ts, and sustainability messaging framework.",
+                    "pt": "Compilei guidelines abrangentes cobrindo tom de voz, hierarquia visual, faça e não faça, e framework de mensagens de sustentabilidade."
+                }
+            }
+        ],
+        "tools": [
+            "Adobe Illustrator",
+            "Photoshop",
+            "InDesign (Guidelines)",
+            "Figma (Digital Mockups)",
+            "Blender (3D Package Renders)"
+        ],
+        "results": {
+            "en": "Developed a calming, trustworthy brand that communicates quality and sustainability without preaching. The minimalist aesthetic allows ingredients to be the hero while maintaining premium positioning.",
+            "pt": "Desenvolvi uma marca calmante e confiável que comunica qualidade e sustentabilidade sem pregar. A estética minimalista permite que ingredientes sejam o herói mantendo posicionamento premium."
+        },
+        "impact": [
+            "100% recyclable packaging",
+            "Clear ingredient storytelling",
+            "Premium but approachable feel",
+            "Strong female audience connection"
+        ]
+    }
 }

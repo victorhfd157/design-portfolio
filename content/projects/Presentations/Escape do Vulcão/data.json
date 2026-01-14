@@ -16,5 +16,61 @@
         "Interactive",
         "Education",
         "Google Slides"
-    ]
+    ],
+    "caseStudy": {
+        "challenge": {
+            "en": "Make geology and emergency preparedness engaging for students who find science presentations boring. Traditional slides fail to create urgency or emotional investment in learning outcomes.",
+            "pt": "Tornar geologia e preparação para emergências envolvente para estudantes que acham apresentações de ciência chatas. Slides tradicionais falham em criar urgência ou investimento emocional em resultados de aprendizado."
+        },
+        "solution": {
+            "en": "Transformed a standard presentation into an interactive game using Google Slides' branching features. Players face time-sensitive decisions during a volcanic eruption, learning geology concepts through survival scenarios.",
+            "pt": "Transformei uma apresentação padrão em um jogo interativo usando recursos de ramificação do Google Slides. Jogadores enfrentam decisões com limite de tempo durante erupção vulcânica, aprendendo conceitos de geologia através de cenários de sobrevivência."
+        },
+        "process": [
+            {
+                "phase": "Learning Objectives & Narrative Design",
+                "description": {
+                    "en": "Identified key geology concepts (lava vs. pyroclastic flow, eruption signs, safety protocols). Crafted branching narrative with multiple endings based on player choices.",
+                    "pt": "Identifiquei conceitos chave de geologia (lava vs. fluxo piroclástico, sinais de erupção, protocolos de segurança). Criei narrativa ramificada com múltiplos finais baseados em escolhas do jogador."
+                }
+            },
+            {
+                "phase": "Visual Design & Illustrations",
+                "description": {
+                    "en": "Designed dramatic volcano illustrations, character sprites, and decision point graphics. Used intense color palette (oranges, reds, blacks) to create urgency.",
+                    "pt": "Desenhei ilustrações dramáticas de vulcão, sprites de personagens e gráficos de pontos de decisão. Usei paleta de cores intensa (laranjas, vermelhos,pretos) para criar urgência."
+                }
+            },
+            {
+                "phase": "Interactivity Implementation",
+                "description": {
+                    "en": "Used Google Slides hyperlink features to create branching paths. Designed consequence slides showing immediate feedback for each decision (success, injury, game over).",
+                    "pt": "Usei recursos de hyperlink do Google Slides para criar caminhos ramificados. Desenhei slides de consequência mostrando feedback imediato para cada decisão (sucesso, ferimento, game over)."
+                }
+            },
+            {
+                "phase": "Playtesting & Refinement",
+                "description": {
+                    "en": "Tested with students to ensure learning objectives were clear, adjusted difficulty to prevent frustration, and added hint system for stuck players.",
+                    "pt": "Testei com estudantes para garantir que objetivos de aprendizado estavam claros, ajustei dificuldade para prevenir frustração e adicionei sistema de dicas para jogadores presos."
+                }
+            }
+        ],
+        "tools": [
+            "Google Slides (Platform)",
+            "Adobe Illustrator (Illustrations)",
+            "Procreate (Character Design)",
+            "Canva (Additional Graphics)"
+        ],
+        "results": {
+            "en": "Created an engaging educational experience that students voluntarily replay. The game successfully teaches geology concepts through emotional narrative investment rather than dry facts.",
+            "pt": "Criei uma experiência educacional envolvente que estudantes voluntariamente rejoguem. O jogo ensina com sucesso conceitos de geologia através de investimento narrativo emocional ao invés de fatos secos."
+        },
+        "impact": [
+            "Branching narrative with 5 endings",
+            "Embedded learning within gameplay",
+            "High replay value",
+            "Mobile-compatible (Google Slides)"
+        ]
+    }
 }

@@ -16,5 +16,61 @@
         "Strategy",
         "Training",
         "Methodology"
-    ]
+    ],
+    "caseStudy": {
+        "challenge": {
+            "en": "Sales teams struggle with inconsistent processes and lack of structured methodology. Needed to create comprehensive training material that's engaging enough to retain attention during long sessions.",
+            "pt": "Equipes de vendas lutam com processos inconsistentes e falta de metodologia estruturada. Precisava criar material de treinamento abrangente que fosse envolvente o suficiente para reter atenção durante sessões longas."
+        },
+        "solution": {
+            "en": "Designed a visually compelling presentation deck that breaks down the sales cycle into clear stages with actionable frameworks, real-world examples, and decision trees for different scenarios.",
+            "pt": "Desenhei um deck de apresentação visualmente convincente que divide o ciclo de vendas em estágios claros com frameworks acionáveis, exemplos do mundo real e árvores de decisão para diferentes cenários."
+        },
+        "process": [
+            {
+                "phase": "Content Strategy & Research",
+                "description": {
+                    "en": "Interviewed top-performing sales reps, analyzed successful sales methodologies (SPIN, Challenger, MEDDIC), and identified common pain points across the sales cycle.",
+                    "pt": "Entrevistei representantes de vendas de alto desempenho, analisei metodologias de vendas bem-sucedidas (SPIN, Challenger, MEDDIC) e identifiquei pontos de dor comuns ao longo do ciclo de vendas."
+                }
+            },
+            {
+                "phase": "Information Architecture",
+                "description": {
+                    "en": "Organized content into clear stages: Prospecting, Qualifying, Discovery, Presentation, Objection Handling, Closing. Created frameworks and checklists for each stage.",
+                    "pt": "Organizei conteúdo em estágios claros: Prospecção, Qualificação, Descoberta, Apresentação, Tratamento de Objeções, Fechamento. Criei frameworks e checklists para cada estágio."
+                }
+            },
+            {
+                "phase": "Visual Design",
+                "description": {
+                    "en": "Designed professional corporate deck with consistent visual language, data visualizations for sales funnels, and iconography representing each sales stage.",
+                    "pt": "Desenhei deck corporativo profissional com linguagem visual consistente, visualizações de dados para funis de vendas e iconografia representando cada estágio de vendas."
+                }
+            },
+            {
+                "phase": "Iteration & Refinement",
+                "description": {
+                    "en": "Presented to sales leadership, incorporated feedback, added real case studies, and created companion workbook for hands-on exercises.",
+                    "pt": "Apresentei para liderança de vendas, incorporei feedback, adicionei estudos de caso reais e criei workbook complementar para exercícios práticos."
+                }
+            }
+        ],
+        "tools": [
+            "Google Slides",
+            "Adobe Illustrator (Icons)",
+            "Canva (Data Viz)",
+            "Excel (Sales Data)"
+        ],
+        "results": {
+            "en": "Created a comprehensive sales training resource that standardized processes across the team. The visual frameworks became reference materials that reps consult regularly.",
+            "pt": "Criei um recurso de treinamento de vendas abrangente que padronizou processos pela equipe. Os frameworks visuais se tornaram materiais de referência que representantes consultam regularmente."
+        },
+        "impact": [
+            "Comprehensive sales cycle coverage",
+            "Actionable frameworks per stage",
+            "Real-world case examples",
+            "Reusable training resource"
+        ]
+    }
 }

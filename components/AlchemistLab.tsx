@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../contexts/LanguageContext';
-import { FlaskConical, Palette, Bot, BarChart3, Sparkles, Code, Layers, Zap, X } from 'lucide-react';
+import { FlaskConical, Sparkles, X, GraduationCap, Palette, Brain, TrendingUp, Zap, Layers } from 'lucide-react';
 
 type StationKey = 'elearning' | 'design' | 'ai' | 'data';
 
@@ -12,12 +12,13 @@ const AlchemistLab: React.FC = () => {
     const stations = [
         {
             key: 'elearning' as StationKey,
-            icon: Code,
+            icon: GraduationCap,
             title: 'E-Learning',
             subtitle: 'Digital Education',
-            color: 'from-blue-500 to-cyan-500',
-            borderColor: 'border-blue-500',
+            color: 'from-blue-500 via-indigo-500 to-purple-600',
+            borderColor: 'border-blue-400',
             bgColor: 'bg-blue-500/20',
+            glowColor: 'rgba(59, 130, 246, 0.5)',
             skills: [
                 { name: 'Moodle Architecture', level: 95 },
                 { name: 'SCORM Engineering', level: 90 },
@@ -30,9 +31,10 @@ const AlchemistLab: React.FC = () => {
             icon: Palette,
             title: 'Design',
             subtitle: 'Visual Alchemy',
-            color: 'from-pink-500 to-purple-500',
-            borderColor: 'border-pink-500',
+            color: 'from-pink-500 via-rose-500 to-orange-500',
+            borderColor: 'border-pink-400',
             bgColor: 'bg-pink-500/20',
+            glowColor: 'rgba(236, 72, 153, 0.5)',
             skills: [
                 { name: 'Figma Wizardry', level: 95 },
                 { name: 'Adobe Creative Suite', level: 92 },
@@ -42,12 +44,13 @@ const AlchemistLab: React.FC = () => {
         },
         {
             key: 'ai' as StationKey,
-            icon: Bot,
+            icon: Brain,
             title: 'Artificial Intelligence',
             subtitle: 'Neural Synthesis',
-            color: 'from-cyan-500 to-teal-500',
-            borderColor: 'border-cyan-500',
+            color: 'from-cyan-500 via-teal-500 to-emerald-600',
+            borderColor: 'border-cyan-400',
             bgColor: 'bg-cyan-500/20',
+            glowColor: 'rgba(6, 182, 212, 0.5)',
             skills: [
                 { name: 'LLM Integration', level: 95 },
                 { name: 'Image Generation', level: 92 },
@@ -57,12 +60,13 @@ const AlchemistLab: React.FC = () => {
         },
         {
             key: 'data' as StationKey,
-            icon: BarChart3,
+            icon: TrendingUp,
             title: 'Data & Analytics',
             subtitle: 'Insight Engine',
-            color: 'from-emerald-500 to-green-500',
-            borderColor: 'border-emerald-500',
+            color: 'from-emerald-500 via-green-500 to-lime-600',
+            borderColor: 'border-emerald-400',
             bgColor: 'bg-emerald-500/20',
+            glowColor: 'rgba(16, 185, 129, 0.5)',
             skills: [
                 { name: 'Data Visualization', level: 88 },
                 { name: 'Analytics', level: 85 },
@@ -296,19 +300,34 @@ const AlchemistLab: React.FC = () => {
 
                                     {/* Content */}
                                     <div className="relative z-10 flex flex-col h-full items-center text-center">
-                                        {/* IMPROVED ICON: Floating Glass Sphere */}
-                                        <div className={`
-                                            w-20 h-20 rounded-2xl mb-6 flex items-center justify-center
-                                            bg-white/5 border border-white/10 backdrop-blur-md
-                                            shadow-[0_8px_32px_rgba(0,0,0,0.3)]
-                                            group-hover:border-${station.borderColor}
-                                            group-hover:shadow-[0_0_20px_rgba(99,102,241,0.4)]
-                                            transition-all duration-500
-                                        `}>
-                                            <station.icon
-                                                size={36}
-                                                className={`text-gray-400 group-hover:text-white transition-colors duration-300 drop-shadow-lg`}
-                                            />
+                                        {/* PREMIUM ICON: Gradient Orb with Glow */}
+                                        <div className="relative mb-6 group/icon">
+                                            {/* Outer Glow Ring */}
+                                            <div className={`
+                                                absolute -inset-4 rounded-full blur-xl opacity-0 group-hover:opacity-60 transition-all duration-700
+                                                bg-gradient-to-br ${station.color}
+                                            `} />
+
+                                            {/* Main Icon Container */}
+                                            <div className={`
+                                                relative w-20 h-20 rounded-2xl flex items-center justify-center
+                                                bg-gradient-to-br ${station.color}
+                                                shadow-[0_20px_50px_rgba(0,0,0,0.5)]
+                                                transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-500
+                                                before:absolute before:inset-0 before:rounded-2xl before:bg-white/20 before:opacity-0 group-hover:before:opacity-100 before:transition-opacity
+                                            `}>
+                                                {/* Icon */}
+                                                <station.icon
+                                                    size={40}
+                                                    className="text-white drop-shadow-2xl relative z-10 group-hover/icon:scale-110 transition-transform duration-300"
+                                                    strokeWidth={2.5}
+                                                />
+
+                                                {/* Shimmer Effect */}
+                                                <div className="absolute inset-0 rounded-2xl overflow-hidden">
+                                                    <div className="absolute -inset-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12 animate-shimmer" />
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <h3 className="text-xl font-bold text-white mb-2 group-hover:scale-105 transition-transform">

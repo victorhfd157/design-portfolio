@@ -17,5 +17,63 @@
         "Corporate Training",
         "Interactive",
         "Crisis Management"
-    ]
+    ],
+    "caseStudy": {
+        "challenge": {
+            "en": "Traditional crisis management training relies on static case studies that feel outdated and disconnected from real workplace pressures. Learners need realistic practice without risking actual business consequences.",
+            "pt": "Treinamento tradicional de gestão de crises depende de casos de estudo estáticos que parecem desatualizados e desconectados de pressões reais do local de trabalho. Aprendizes precisam de prática realista sem arriscar consequências de negócio reais."
+        },
+        "solution": {
+            "en": "Built an AI-powered interactive simulator where leaders face branching crisis scenarios. Decisions create cascading consequences across multiple KPIs (morale, profit, reputation), teaching systems thinking in crisis management.",
+            "pt": "Construí um simulador interativo impulsionado por IA onde líderes enfrentam cenários de crise ramificados. Decisões criam consequências em cascata em múltiplos KPIs (moral, lucro, reputação), ensinando pensamento sistêmico em gestão de crises."
+        },
+        "process": [
+            {
+                "phase": "Learning Design",
+                "description": {
+                    "en": "Researched real corporate crisis case studies (data breaches, PR disasters, internal conflicts), identified key decision patterns, and designed branching narrative structure.",
+                    "pt": "Pesquisei casos de estudo reais de crises corporativas (vazamentos de dados, desastres de PR, conflitos internos), identifiquei padrões chave de decisão e desenhei estrutura narrativa ramificada."
+                }
+            },
+            {
+                "phase": "Game Mechanics Design",
+                "description": {
+                    "en": "Designed decision impact system tracking morale, profitability, and reputation. Created feedback loops showing how short-term fixes often create long-term problems.",
+                    "pt": "Desenhei sistema de impacto de decisões rastreando moral, lucratividade e reputação. Criei loops de feedback mostrando como soluções de curto prazo frequentemente criam problemas de longo prazo."
+                }
+            },
+            {
+                "phase": "AI Integration & Development",
+                "description": {
+                    "en": "Integrated GPT-4 to generate contextual NPC responses and dynamic scenario variations. Built using React with state management tracking all player choices and consequences.",
+                    "pt": "Integrei GPT-4 para gerar respostas contextuais de NPCs e variações dinâmicas de cenário. Construí usando React com gerenciamento de estado rastreando todas escolhas e consequências do jogador."
+                }
+            },
+            {
+                "phase": "Testing & Refinement",
+                "description": {
+                    "en": "Playtested with managers and HR professionals, refined difficulty curve, and added debriefing system explaining optimal crisis management principles.",
+                    "pt": "Testei com gerentes e profissionais de RH, refinei curva de dificuldade e adicionei sistema de debriefing explicando princípios ótimos de gestão de crises."
+                }
+            }
+        ],
+        "tools": [
+            "React + TypeScript",
+            "OpenAI GPT-4 API",
+            "Framer Motion (Animations)",
+            "Recharts (Data Visualization)",
+            "Figma (UI Design)",
+            "Miro (Narrative Mapping)"
+        ],
+        "results": {
+            "en": "Created an engaging simulation that teaches crisis management through experiential learning. The AI-powered scenarios feel authentic and unpredictable, forcing learners to think on their feet.",
+            "pt": "Criei uma simulação envolvente que ensina gestão de crises através de aprendizado experiencial. Os cenários impulsionados por IA parecem autênticos e imprevisíveis, forçando aprendizes a pensar rapidamente."
+        },
+        "impact": [
+            "AI-generated dynamic scenarios",
+            "Multi-KPI consequence system",
+            "Realistic corporate pressure simulation",
+            "Safe space for leadership practice"
+        ]
+    }
 }

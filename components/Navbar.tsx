@@ -139,14 +139,14 @@ const Navbar: React.FC = () => {
             );
           })}
 
-          {/* Theme Toggle */}
-          <button
+          {/* Theme Toggle - Disabled */}
+          {/* <button
             onClick={toggleTheme}
-            className="p-2 text-gray-400 hover:text-white transition-colors border border-white/10 rounded-full hover:border-brand-accent"
+            className="hidden p-2 text-gray-400 hover:text-white transition-colors border border-white/10 rounded-full hover:border-brand-accent"
             aria-label="Toggle theme"
           >
             {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
-          </button>
+          </button> */}
 
           {/* Language Toggle */}
           <button

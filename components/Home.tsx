@@ -1,5 +1,5 @@
 import React from 'react';
-import Hero from './Hero';
+import HeroLab from './HeroLab';
 import Gallery from './Gallery';
 import About from './About';
 import Contact from './Contact';
@@ -7,7 +7,7 @@ import Contact from './Contact';
 const Home: React.FC = () => {
   return (
     <>
-      <Hero />
+      <HeroLab />
       <Gallery />
       <About />
       <Contact />

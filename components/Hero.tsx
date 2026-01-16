@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useInView, animate } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { MoveRight, Sparkles, Circle, Zap, Hexagon, TrendingUp, Award, Users } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { PROJECTS } from '../constants';
@@ -71,27 +71,34 @@ const Hero: React.FC = () => {
 
 
 
-  // Animated stat counters (Optimized with Framer Motion)
+  // Animated stat counters
   const Counter: React.FC<{ end: number; suffix?: string; duration?: number }> = ({ end, suffix = '', duration = 2 }) => {
-    const nodeRef = useRef<HTMLSpanElement>(null);
-    const inView = useInView(nodeRef, { once: true, margin: "-10px" });
+    const [count, setCount] = useState(0);
+    const countRef = useRef(0);
 
     useEffect(() => {
-      const node = nodeRef.current;
-      if (!node || !inView) return;
+      const startTime = Date.now();
+      const endTime = startTime + duration * 1000;
 
-      const controls = animate(0, end, {
-        duration: duration,
-        ease: "easeOut",
-        onUpdate(value) {
-          node.textContent = `${Math.floor(value)}${suffix}`;
+      const updateCount = () => {
+        const now = Date.now();
+        const progress = Math.min((now - startTime) / (duration * 1000), 1);
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        countRef.current = Math.floor(easeOutQuart * end);
+        setCount(countRef.current);
+
+        if (now < endTime) {
+          requestAnimationFrame(updateCount);
+        } else {
+          setCount(end);
         }
-      });
+      };
 
-      return () => controls.stop();
-    }, [end, suffix, duration, inView]);
+      const timer = setTimeout(updateCount, 500); // Start after 500ms
+      return () => clearTimeout(timer);
+    }, [end, duration]);
 
-    return <span ref={nodeRef}>0{suffix}</span>;
+    return <>{count}{suffix}</>;
   };
 
   return (
@@ -256,58 +263,57 @@ const Hero: React.FC = () => {
             </MagneticButton>
           </div>
 
-          {/* Animated Stats - Premium Alchemist HUD Style */}
+          {/* Animated Stats - Bottom */}
           <motion.div
-            className="hidden sm:flex flex-wrap gap-6 mt-12 mb-8 justify-center lg:justify-start"
+            className="hidden sm:flex gap-6 sm:gap-8 justify-center lg:justify-start mt-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.6 }}
           >
-            {[
-              {
-                icon: <TrendingUp size={24} className="text-brand-accent" />,
-                value: 10,
-                label: t.hero.years_xp,
-                color: "from-brand-accent/20 to-brand-accent/5",
-                border: "group-hover:border-brand-accent/50"
-              },
-              {
-                icon: <Award size={24} className="text-purple-400" />,
-                value: 50,
-                label: "Projects",
-                color: "from-purple-500/20 to-purple-500/5",
-                border: "group-hover:border-purple-500/50"
-              },
-              {
-                icon: <Users size={24} className="text-cyan-400" />,
-                value: 30,
-                label: "Clients",
-                color: "from-cyan-500/20 to-cyan-500/5",
-                border: "group-hover:border-cyan-500/50"
-              }
-            ].map((stat, index) => (
-              <div
-                key={index}
-                className={`relative group min-w-[140px] px-6 py-5 rounded-2xl border border-white/10 backdrop-blur-xl transition-all duration-500 hover:transform hover:-translate-y-1 hover:shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] ${stat.border} overflow-hidden`}
-              >
-                {/* Hover Gradient Background */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
-
-                <div className="relative z-10 flex flex-col items-center lg:items-start text-center lg:text-left gap-3">
-                  <div className="p-3 rounded-xl bg-white/5 border border-white/5 group-hover:scale-110 transition-transform duration-500 shadow-lg">
-                    {stat.icon}
-                  </div>
-                  <div>
-                    <h4 className="text-4xl font-black font-sans text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 flex items-baseline gap-1 group-hover:to-white transition-all">
-                      <Counter end={stat.value} suffix="+" />
-                    </h4>
-                    <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 group-hover:text-brand-accent transition-colors">
-                      {stat.label}
-                    </p>
-                  </div>
+            {/* Years of Experience */}
+            <div className="glass-panel px-6 py-4 rounded-2xl border border-white/10 backdrop-blur-md group hover:border-brand-accent/50 transition-all duration-300">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-brand-accent/20 rounded-lg group-hover:bg-brand-accent/30 transition-colors">
+                  <TrendingUp size={20} className="text-brand-accent" />
+                </div>
+                <div>
+                  <p className="text-3xl font-bold font-gothic text-white">
+                    <Counter end={10} suffix="+" />
+                  </p>
+                  <p className="text-xs text-gray-400 uppercase tracking-wider">{t.hero.years_xp}</p>
                 </div>
               </div>
-            ))}
+            </div>
+
+            {/* Projects Completed */}
+            <div className="glass-panel px-6 py-4 rounded-2xl border border-white/10 backdrop-blur-md group hover:border-purple-500/50 transition-all duration-300">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-purple-500/20 rounded-lg group-hover:bg-purple-500/30 transition-colors">
+                  <Award size={20} className="text-purple-400" />
+                </div>
+                <div>
+                  <p className="text-3xl font-bold font-gothic text-white">
+                    <Counter end={50} suffix="+" />
+                  </p>
+                  <p className="text-xs text-gray-400 uppercase tracking-wider">Projects</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Happy Clients */}
+            <div className="glass-panel px-6 py-4 rounded-2xl border border-white/10 backdrop-blur-md group hover:border-cyan-500/50 transition-all duration-300">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-cyan-500/20 rounded-lg group-hover:bg-cyan-500/30 transition-colors">
+                  <Users size={20} className="text-cyan-400" />
+                </div>
+                <div>
+                  <p className="text-3xl font-bold font-gothic text-white">
+                    <Counter end={30} suffix="+" />
+                  </p>
+                  <p className="text-xs text-gray-400 uppercase tracking-wider">Clients</p>
+                </div>
+              </div>
+            </div>
           </motion.div>
         </div>
 

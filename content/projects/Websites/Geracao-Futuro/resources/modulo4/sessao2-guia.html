@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>🤖 Sessão 2 – Programar um Robô Virtual: Sensores e Condições | Geração Futuro</title> <script src="https://cdn.tailwindcss.com"></script> <style> * { scroll-behavior: smooth; } body { background-color: #020617; color: white; font-family: 'Outfit', sans-serif; overflow-x: hidden; } /* Glassmorphism Premium */ .glass-premium { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.125); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37), inset 0 1px 0 rgba(255, 255, 255, 0.1); } /* Header Premium */ .header-premium { background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid rgba(168, 85, 247, 0.2); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); } /* Sidebar Melhorada */ .sidebar { background: linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.85) 100%); backdrop-filter: blur(20px); border-right: 1px solid rgba(168, 85, 247, 0.3); box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4); } .sidebar-header { background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(34, 211, 238, 0.2)); border-bottom: 2px solid rgba(168, 85, 247, 0.3); padding: 1.25rem; margin-bottom: 1rem; border-radius: 0.75rem; } .sidebar-link { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border-left: 3px solid transparent; position: relative; padding-left: 1rem; } .sidebar-link::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 6px; height: 0; background: linear-gradient(180deg, #a855f7, #22d3ee); border-radius: 0 3px 3px 0; transition: height 0.3s ease; } .sidebar-link:hover { background: linear-gradient(90deg, rgba(168, 85, 247, 0.15), transparent); border-left-color: transparent; transform: translateX(4px); color: white; } .sidebar-link:hover::before { height: 100%; } .sidebar-link.active { background: linear-gradient(90deg, rgba(168, 85, 247, 0.25), rgba(34, 211, 238, 0.1)); border-left-color: transparent; color: #22d3ee; font-weight: 600; } .sidebar-link.active::before { height: 100%; box-shadow: 0 0 12px rgba(168, 85, 247, 0.6); } .sidebar-link-icon { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: rgba(168, 85, 247, 0.15); border-radius: 6px; margin-right: 0.75rem; font-size: 0.875rem; transition: all 0.3s ease; } .sidebar-link:hover .sidebar-link-icon { background: rgba(168, 85, 247, 0.3); transform: scale(1.1); } .sidebar-link.active .sidebar-link-icon { background: linear-gradient(135deg, #a855f7, #22d3ee); box-shadow: 0 2px 8px rgba(168, 85, 247, 0.4); } .nav-section { margin-bottom: 1.5rem; } .nav-section-title { color: #a855f7; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.5rem 1rem; margin-bottom: 0.5rem; opacity: 0.7; } .sidebar-progress { margin-top: 1.5rem; padding: 1rem; background: rgba(168, 85, 247, 0.1); border-radius: 0.75rem; border: 1px solid rgba(168, 85, 247, 0.2); } .progress-bar { width: 100%; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 3px; overflow: hidden; margin-top: 0.5rem; } .progress-fill { height: 100%; background: linear-gradient(90deg, #a855f7, #22d3ee); border-radius: 3px; transition: width 0.3s ease; box-shadow: 0 0 8px rgba(168, 85, 247, 0.6); } /* Typography */ .gradient-text { background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #22d3ee 100%); background-size: 200% 200%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 8s ease infinite; } @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } } .content-section h2 { color: #a855f7; margin-top: 3.5rem; margin-bottom: 1.75rem; font-size: 2rem; font-weight: 900; border-bottom: 3px solid rgba(168, 85, 247, 0.3); padding-bottom: 0.75rem; position: relative; } .content-section h2::before { content: ''; position: absolute; bottom: -3px; left: 0; width: 80px; height: 3px; background: linear-gradient(90deg, #a855f7, #22d3ee); border-radius: 2px; } .content-section h3 { color: #22d3ee; margin-top: 2.5rem; margin-bottom: 1.25rem; font-size: 1.5rem; font-weight: 700; } .content-section p { margin-bottom: 1.5rem; line-height: 2; color: #cbd5e1; font-size: 1.0625rem; } .content-section ul, .content-section ol { margin-left: 2.5rem; margin-bottom: 2rem; color: #cbd5e1; } .content-section li { margin-bottom: 1rem; line-height: 1.8; } .content-section li::marker { color: #a855f7; font-weight: 700; } /* Ultra Premium Additions */ body { background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%); font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; } .animated-bg-overlay { position: fixed; inset: 0; z-index: -1; background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(139, 92, 246, 0.15), transparent), radial-gradient(ellipse 60% 50% at 50% 120%, rgba(6, 182, 212, 0.12), transparent); animation: bgPulse 15s ease-in-out infinite; } @keyframes bgPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } } .title-ultra { background: linear-gradient(135deg, #A78BFA 0%, #EC4899 50%, #22D3EE 100%); background-size: 200% 200%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 8s ease infinite; } @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } } .content-card-ultra { background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.6)); backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(139, 92, 246, 0.2); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05) inset; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); } .content-card-ultra:hover { transform: translateY(-4px); box-shadow: 0 30px 80px rgba(139, 92, 246, 0.3), 0 0 0 1px rgba(139, 92, 246, 0.3) inset; } /* Dividers */ .section-divider { height: 2px; background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.5), transparent); margin: 4rem 0; } /* Time badge */ .time-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(34, 211, 238, 0.2); color: #22d3ee; padding: 0.4rem 1rem; border-radius: 2rem; font-size: 0.875rem; font-weight: 600; margin-left: 1rem; } /* Category label */ .category-label { background: rgba(168, 85, 247, 0.25); color: #ddd6fe; padding: 0.25rem 0.75rem; border-radius: 0.5rem; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 0.75rem; } /* Activity Box Premium */ .activity-box { background: linear-gradient(135deg, rgba(168, 85, 247, 0.18) 0%, rgba(34, 211, 238, 0.12) 100%); border-left: 5px solid #a855f7; padding: 2.5rem; margin: 2.5rem 0; border-radius: 1.25rem; box-shadow: 0 10px 40px rgba(168, 85, 247, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1); position: relative; overflow: hidden; } .activity-box::before { content: ''; position: absolute; top: 0; right: 0; width: 200px; height: 200px; background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%); border-radius: 50%; transform: translate(50%, -50%); } /* Info Box */ .info-box { background: rgba(34, 211, 238, 0.12); border-left: 4px solid #22d3ee; padding: 2rem; margin: 2rem 0; border-radius: 1rem; box-shadow: 0 4px 16px rgba(34, 211, 238, 0.15); } /* Animations */ @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } } .fade-in-up { animation: fadeInUp 0.6s ease-out forwards; } /* Scroll Progress */ .scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, #a855f7, #22d3ee); z-index: 9999; transition: width 0.1s ease; } /* Hover Effects */ .hover-lift { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); } .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 12px 48px rgba(168, 85, 247, 0.3); } /* Responsive */ @media (max-width: 1024px) { .sidebar { display: none; } } /* ========== MELHORIAS FINAIS UI/UX ========== */ /* Melhor legibilidade */ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; } /* Scrollbar customizada */ ::-webkit-scrollbar { width: 12px; } ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.5); } ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #8B5CF6, #06B6D4); border-radius: 6px; border: 2px solid rgba(15, 23, 42, 0.5); } ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #A78BFA, #22D3EE); } /* Focus states para acessibilidade */ a:focus, button:focus { outline: 2px solid #22D3EE; outline-offset: 4px; } /* Melhor contraste em textos */ p, li { color: #E2E8F0; font-weight: 400; } /* Links melhorados */ a { color: #22D3EE; text-decoration: none; transition: all 0.2s ease; } a:hover { color: #67E8F9; text-decoration: underline; } /* Cards com melhor hierarquia visual */ .content-card, .content-card-ultra { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); } .content-card:hover, .content-card-ultra:hover { border-color: rgba(139, 92, 246, 0.4); } /* Espaçamento consistente */ h2 + p, h3 + p { margin-top: 0; } p + h2, p + h3 { margin-top: 3rem; } /* Listas mais legíveis */ ul li, ol li { padding-left: 1rem; position: relative; } ul li::before { content: ''; position: absolute; left: -1rem; top: 0.75em; width: 6px; height: 6px; background: #8B5CF6; border-radius: 50%; } /* Botões melhorados */ button, .btn, a[class*="btn"] { cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; } /* Loading states */ @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } } /* Responsividade aprimorada */ @media (max-width: 768px) { h1 { font-size: 3rem !important; } h2 { font-size: 1.75rem !important; } h3 { font-size: 1.35rem !important; } p { font-size: 1rem !important; } .content-card, .content-card-ultra { padding: 2rem !important; } } /* Melhor feedback visual */ .nav-item:active { transform: scale(0.98); } /* Transições suaves em todos os interativos */ * { transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform; transition-duration: 200ms; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); } /* Previne transições em animações de scroll */ html.smooth-scroll * { transition: none !important; } /* Print styles */ @media print { .premium-header, .ultra-sidebar, footer { display: none !important; } body { background: white !important; color: black !important; } } /* ========== TIPOGRAFIA PREMIUM ========== */ /* Melhores fontes web */ @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap'); body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 17px; line-height: 1.7; letter-spacing: -0.011em; font-weight: 400; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; } /* Títulos com fonte premium */ h1, h2, h3, h4, h5, h6 { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; font-weight: 800; line-height: 1.2; letter-spacing: -0.03em; } /* H1 - Título Principal */ h1 { font-size: clamp(2.5rem, 8vw, 5rem) !important; line-height: 1.1 !important; margin-bottom: 1.5rem !important; font-weight: 900 !important; } /* H2 - Seções Principais */ h2 { font-size: clamp(1.75rem, 4vw, 2.5rem) !important; line-height: 1.3 !important; margin-top: 4rem !important; margin-bottom: 1.5rem !important; font-weight: 800 !important; color: #C4B5FD !important; } /* H3 - Subseções */ h3 { font-size: clamp(1.35rem, 3vw, 1.875rem) !important; line-height: 1.4 !important; margin-top: 2.5rem !important; margin-bottom: 1.25rem !important; font-weight: 700 !important; color: #67E8F9 !important; } /* H4 - Subtítulos */ h4 { font-size: 1.25rem !important; line-height: 1.5 !important; margin-top: 2rem !important; margin-bottom: 1rem !important; font-weight: 600 !important; color: #CBD5E1 !important; } /* Parágrafos otimizados */ p { font-size: 1.0625rem !important; line-height: 1.8 !important; margin-bottom: 1.5rem !important; color: #E2E8F0 !important; max-width: 70ch; font-weight: 400 !important; } /* Strong e Bold */ strong, b { font-weight: 600; color: #F1F5F9; } /* Listas melhoradas */ ul, ol { font-size: 1.0625rem; line-height: 1.75; color: #E2E8F0; padding-left: 1.5rem; } li { margin-bottom: 0.75rem !important; line-height: 1.75 !important; color: #E2E8F0 !important; } li p { margin-bottom: 0.5rem !important; } /* Código e Mono */ code, pre { font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 0.9em; background: rgba(139, 92, 246, 0.1); padding: 0.2em 0.4em; border-radius: 0.25rem; } /* Links melhorados */ a { color: #67E8F9; font-weight: 500; text-decoration: none; transition: all 0.2s; } a:hover { color: #A5F3FC; text-decoration: underline; } /* Blockquotes */ blockquote { border-left: 4px solid #8B5CF6; padding-left: 1.5rem; margin: 2rem 0; font-style: italic; color: #CBD5E1; } /* Melhor contraste */ .content-section { color: #E2E8F0; } /* Espaçamento vertical otimizado */ * + h2 { margin-top: 4rem !important; } * + h3 { margin-top: 3rem !important; } h2 + h3, h3 + h4 { margin-top: 1.5rem !important; } /* Mobile responsivo */ @media (max-width: 768px) { body { font-size: 16px; } h1 { font-size: 2.25rem !important; } h2 { font-size: 1.75rem !important; } h3 { font-size: 1.35rem !important; } p, li { font-size: 1rem !important; } } 
+        /* ========== FORMATAÇÃO DE TEXTO MELHORADA ========== */
+        
+        /* Parágrafos */
+        .text-paragraph {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+        }
+        
+        .text-paragraph:first-of-type::first-letter {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #A78BFA;
+            float: left;
+            line-height: 1;
+            margin-right: 0.1em;
+        }
+        
+        /* Listas melhoradas */
+        .enhanced-list {
+            margin: 2rem 0;
+            padding: 2rem 2.5rem;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(6, 182, 212, 0.03));
+            border-left: 4px solid #8B5CF6;
+            border-radius: 0.75rem;
+        }
+        
+        .enhanced-list li {
+            margin: 1rem 0;
+            padding-left: 0.5rem;
+            position: relative;
+        }
+        
+        .numbered-item::marker {
+            font-weight: 700;
+            color: #22D3EE;
+        }
+        
+        /* Bold destacado */
+        .text-bold {
+            color: #F1F5F9;
+            font-weight: 600;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), transparent);
+            padding: 0.1em 0.3em;
+            border-radius: 0.25em;
+        }
+        
+        /* Espaçadores */
+        .spacer {
+            height: 2rem;
+        }
+        
+        /* Citações */
+        blockquote {
+            border-left: 4px solid #8B5CF6;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            background: rgba(139, 92, 246, 0.05);
+            border-radius: 0.5rem;
+            font-style: italic;
+            color: #CBD5E1;
+        }
+        
+        blockquote p {
+            margin-bottom: 0;
+        }
+        
+        /* Destaque de informação importante */
+        .highlight-info {
+            background: linear-gradient(90deg, rgba(6, 182, 212, 0.15), transparent);
+            border-left: 4px solid #06B6D4;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0.5rem;
+        }
+        
+        /* Notas e avisos */
+        .note-box {
+            background: linear-gradient(90deg, rgba(245, 158, 11, 0.15), transparent);
+            border-left: 4px solid #F59E0B;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0.5rem;
+        }
+        
+        .note-box::before {
+            content: '💡';
+            margin-right: 0.5rem;
+            font-size: 1.25em;
+        }
+        
+        /* Tabelas (se houver) */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 0.75rem;
+            overflow: hidden;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #8B5CF6, #06B6D4);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+    </style>
+</head>
+<body class="antialiased"> <!-- Scroll Progress --> <div class="scroll-progress" id="scrollProgress"></div> <!-- Background --> <div class="fixed inset-0 -z-10"> <div class="absolute inset-0 bg-gradient-to-br from-purple-950/20 via-slate-950 to-cyan-950/20"></div> <div class="absolute inset-0" style="background-image: radial-gradient(1px 1px at 50px 50px, rgba(255,255,255,0.3) 50%, transparent 100%); background-size: 500px 500px; opacity: 0.3;"></div> </div> <!-- Header --> <nav class="sticky top-0 z-50 header-premium py-4 px-6"> <div class="max-w-7xl mx-auto flex items-center justify-between"> <a aria-label="Voltar para o hub principal"<a href="../../index.html" class="flex items-center gap-3 text-white hover:text-purple-300 transition-all hover:scale-105"> <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/> </svg> <span class="font-medium">Voltar ao Hub</span> </a> <div class="flex items-center gap-3"> <span class="text-xs uppercase tracking-widest text-cyan-400 font-bold">Módulo 4</span> <a href="../../modulo4/sessao2/" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white text-sm font-medium transition-all hover:scale-105 shadow-lg hover:shadow-xl"> Ver Apresentação </a> </div> </div> </nav> <!-- Main Layout --> <div class="flex max-w-7xl mx-auto px-6 py-12 gap-8"> <!-- Sidebar --> <aside class="hidden lg:block w-80 flex-shrink-0"> <div class="sidebar rounded-2xl p-6 sticky top-24 max-h- overflow-y-auto"> <h3 class="text-white font-bold text-lg mb-6 flex items-center gap-2"> <svg class="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/> </svg> Navegação </h3> <nav class="space-y-2">
+<a href="#section-3" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🎯</span><span class="flex-1">Objetivos e Competências</span></a>
+<a href="#section-60" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">📦</span><span class="flex-1">Materiais e Recursos</span></a>
+<a href="#section-4" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🔧</span><span class="flex-1">Preparação</span></a>
+<a href="#section-1" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🎮</span><span class="flex-1">Atividade Teasing</span></a>
+<a href="#section-25" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🚀</span><span class="flex-1">Atividades Práticas</span></a>
+<a href="#section-12" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🎬</span><span class="flex-1">Slides</span></a>
+<a href="#section-9" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">💭</span><span class="flex-1">Reflexão</span></a>
+<a href="#section-0" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">📝</span><span class="flex-1">Outros Conteúdos</span></a>
+</nav> </div> </aside> <!-- Content --> <main class="flex-1 min-w-0"> <!-- Title --> <div class="mb-12 fade-in-up"> <div class="flex items-center gap-3 mb-4"> <span class="px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/30 to-cyan-500/30 text-purple-200 text-xs font-bold uppercase tracking-wider border border-purple-500/30"> Guia do Formador </span> </div> <h1 class="text-6xl lg:text-7xl title-ultra" style="background: linear-gradient(135deg, #C4B5FD 0%, #EC4899 50%, #67E8F9 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;"> 🤖 Sessão 2 – Programar um Robô Virtual: Sensores e Condições </h1> <p class="text-xl text-slate-300">Guia completo para conduzir esta sessão com sucesso</p> </div> <!-- Content --> <div class="content-card-ultra glass-premium rounded-2xl p-8 lg:p-12 content-section hover-lift"> <h3>📝 🤖 Sessão 2 – Programar um Robô Virtual: Sensores e Condições</h3>
+<h2 id="section-0">📝 Conteúdo</h2>
+<p class="text-paragraph">🧠 Guião do Formador (90 min)</p>
+<p class="text-paragraph">🎬 CONTEÚDO DOS SLIDES – Sessão 2</p>
+<p class="text-paragraph">🧩 FICHA DE ATIVIDADE – Sessão 2</p>
+<p class="text-paragraph">🎮 Teasing da Sessão 2 (30 min antes)</p>
+<p class="text-paragraph">🌍 Atividade Assíncrona – Sessão 2</p>
+<p class="text-paragraph">🌟 Recursos adicionais para a Sessão 2</p>
+<h3>📝 🎮 Resumo da Sessão 2</h3>
+<div class="section-divider"></div>
+<h2 id="section-1">📝 Teasing (30 min): Miniquiz sobre sensores e atuadores: questões simples de escolha múltipla para rever a sessão anterior.</h2>
+<h3>📝 Sessão síncrona (90 min): Explorar simuladores de robótica (Tinkercad Circuits ou mBlock); programar um robô virtual que se move e reage a sensores. Introdução à lógica condicional e ciclos.</h3>
+<div class="section-divider"></div>
+<h2 id="section-2">📝 Pós‑sessão (90 min): Modificar o robô criado, adicionando mais condições (ex.: parar se houver obstáculo, mudar de direção) e partilhar o projeto virtual com descrição.</h2>
+<div class="section-divider"></div>
+<h2 id="section-3"><span class="category-label">Objetivos</span>🎯 Competências: Programação com sensores, lógica condicional, experimentação, trabalho em pares.</h2>
+<div class="section-divider"></div>
+<h2 id="section-4">📝 🧠 Guião do Formador (90 min)</h2>
+<h3>🚀 Sessão 2 – Programar um Robô Virtual: Sensores e Condições
+⏱️ Duração: 90 minutos (sessão síncrona)
+📎 Atividades complementares:</h3>
+<p class="text-paragraph">Teasing assíncrono (30 min)</p>
+<p class="text-paragraph">Atividade de enriquecimento (90 min assíncrono)</p>
+<h3>🎯 🎯 Objetivos da Sessão</h3>
+<p class="text-paragraph">Simular um robô digital com comportamento inteligente, aplicando lógica condicional, sensores e ciclos.</p>
+<p class="text-paragraph">Compreender a ligação entre programação e comportamento reativo em ambiente virtual.</p>
+<p class="text-paragraph">Utilizar um simulador amigável para construir e testar códigos sem precisar de hardware físico.</p>
+<p class="text-paragraph">Estimular o trabalho em pares e o feedback contínuo.</p>
+<div class="section-divider"></div>
+<h2 id="section-5"><span class="category-label">Objetivos</span>🎯 💡 Competências a Desenvolver</h2>
+<h3>📝 🧩 Estrutura da Sessão (90 minutos)</h3>
+<div class="section-divider"></div>
+<h2 id="section-6">📝 🧠 Conceitos‑Chave a Reforçar</h2>
+<div class="section-divider"></div>
+<h2 id="section-7">📝 ⚙️ Diferenciação Pedagógica</h2>
+<div class="section-divider"></div>
+<h2 id="section-8">📝 🧰 Materiais Necessários</h2>
+<p class="text-paragraph">Acesso a computador com internet</p>
+<p class="text-paragraph">Conta nos simuladores (Tinkercad Circuits ou mBlock) ou alternativa livre</p>
+<p class="text-paragraph">Microfone para comunicação em pares</p>
+<p class="text-paragraph">Slides de apoio com instruções</p>
+<div class="section-divider"></div>
+<h2 id="section-9">📝 🗨️ Perguntas de Reflexão Final</h2>
+<p class="text-paragraph">O que aprendeste sobre a importância dos sensores na tomada de decisão de um robô?</p>
+<p class="text-paragraph">Que dificuldades surgiram ao programar no simulador e como as superaste?</p>
+<p class="text-paragraph">De que forma podes usar a lógica condicional noutras situações fora da robótica?</p>
+<p class="text-paragraph">Preferes experimentar primeiro no virtual ou no físico? Porquê?</p>
+<h3>📝 🎬 CONTEÚDO DOS SLIDES – Sessão 2</h3>
+<div class="section-divider"></div>
+<h2 id="section-10"><span class="category-label">Objetivos</span>🎯 🎞️ SLIDE 1 – Revisão e Objetivos</h2>
+<div class="section-divider"></div>
+<h2 id="section-11">📝 Título: “Dar Vida ao Nosso Robô Virtual!”</h2>
+<div class="section-divider"></div>
+<h2 id="section-12">📝 Conteúdo no slide:</h2>
+<div class="section-divider"></div>
+<h2 id="section-13">📝 Revisão rápida: o que é um sensor, um atuador e um processador.</h2>
+<p class="text-paragraph">“Hoje vamos usar tudo isto para programar o nosso robô inteligente.”</p>
+<p class="text-paragraph">Objetivos da sessão:</p>
+<p class="text-paragraph">Explorar o simulador de robótica virtual;</p>
+<p class="text-paragraph">Aplicar lógica condicional (“se. então. senão”);</p>
+<p class="text-paragraph">Criar e personalizar um robô explorador.</p>
+<div class="section-divider"></div>
+<h2 id="section-14"><span class="category-label">Objetivos</span>🎯 🧠 Sugestão visual:
+Fundo colorido em gradiente azul-turquesa com ícones:
+🤖 (robô) ⚙️ (processador) 🌈 (sensor de luz) 🎯 (objetivo).</h2>
+<div class="section-divider"></div>
+<h2 id="section-15"><span class="category-label">Objetivos</span>🎯 🎨 Animação:
+Cada objetivo aparece com um som suave de “pop”.</h2>
+<div class="section-divider"></div>
+<h2 id="section-16">📝 Notas do formador:</h2>
+<p class="text-paragraph">(2 min) Começa com um mini quiz verbal:
+👉 “Quem se lembra o que faz um sensor? E um atuador?”</p>
+<p class="text-paragraph">(3 min) Resume os conceitos no quadro digital (Miro/Jamboard).</p>
+<p class="text-paragraph">Frase de motivação: “Hoje, vamos dar vida digital ao vosso robô!”</p>
+<div class="section-divider"></div>
+<h2 id="section-17">📝 🎮 Gamificação:
+Entrega “Pontos de Engrenagem” (1 ponto) a quem responder corretamente à revisão inicial.</h2>
+<div class="section-divider"></div>
+<h2 id="section-18">📝 🧰 SLIDE 2 – Introdução ao Simulador</h2>
+<div class="section-divider"></div>
+<h2 id="section-19">📝 Título: “Primeiros Passos no Simulador”</h2>
+<div class="section-divider"></div>
+<h2 id="section-20">📝 Conteúdo no slide:</h2>
+<p class="text-paragraph">Passos:</p>
+<p class="text-paragraph">Criar conta no Tinkercad</p>
+<p class="text-paragraph">Clicar em “Circuits” → “Create New Circuit”</p>
+<p class="text-paragraph">Explorar o painel: sensores, motores, LEDs</p>
+<p class="text-paragraph">Testar o código (sem instalar nada!)</p>
+<div class="section-divider"></div>
+<h2 id="section-21">📝 🧠 Dica rápida: “Tudo é online — só precisas de curiosidade!”</h2>
+<div class="section-divider"></div>
+<h2 id="section-22">📝 🧩 Sugestão visual:
+Capturas de ecrã do simulador com setas coloridas (usar estilo “cartoon tech”).
+Inserir QR Code para o Tinkercad e mBlock.</h2>
+<div class="section-divider"></div>
+<h2 id="section-23">📝 🎨 Animação:
+Cada passo aparece com ícones animados (🖥️, ⚡, 💡, 🤖).</h2>
+<div class="section-divider"></div>
+<h2 id="section-24">📝 Notas do formador:</h2>
+<p class="text-paragraph">(5 min) Mostrar ao vivo a criação do projeto.</p>
+<p class="text-paragraph">(3 min) Deixar os formandos fazerem o mesmo.</p>
+<p class="text-paragraph">Reforçar que o simulador é um “laboratório digital seguro”.</p>
+<p class="text-paragraph">Se possível, mostrar rapidamente como ligar e desligar um LED.</p>
+<div class="section-divider"></div>
+<h2 id="section-25">📝 🎮 Mini-desafio:
+“Consegues acender o LED verde no simulador em menos de 2 minutos?”</h2>
+<div class="section-divider"></div>
+<h2 id="section-26">📝 🔄 SLIDE 3 – Lógica Condicional</h2>
+<div class="section-divider"></div>
+<h2 id="section-27">📝 Título: “Se. Então. Senão: O Cérebro do Robô”</h2>
+<div class="section-divider"></div>
+<h2 id="section-28">📝 Conteúdo no slide:</h2>
+<p class="text-paragraph">O bloco mágico: if / else</p>
+<p class="text-paragraph">Significa: “Se acontecer algo → então faz isto. senão → faz aquilo.”</p>
+<p class="text-paragraph">Exemplo:</p>
+<p>Se o sensor de distância < 10 → parar</p>
+<p class="text-paragraph">Senão → avançar</p>
+<div class="section-divider"></div>
+<h2 id="section-29">📝 🧠 Analogia:
+💬 “Se chover, levo guarda-chuva; se não chover, não levo!”</h2>
+<div class="section-divider"></div>
+<h2 id="section-30">📝 🧩 Sugestão visual:
+Diagrama de fluxo colorido com setas verdes e vermelhas:
+Sensor → Decisão → Ação.
+Usar ícones de chuva e sol para a analogia humana.</h2>
+<div class="section-divider"></div>
+<h2 id="section-31">📝 🎨 Animação:
+O diagrama aparece gradualmente para visualizar o fluxo lógico.</h2>
+<div class="section-divider"></div>
+<h2 id="section-32">📝 Notas do formador:</h2>
+<p class="text-paragraph">(4 min) Pedir exemplos da vida real dos formandos.
+👉 “Se o telemóvel está sem bateria, o que fazes?”</p>
+<p class="text-paragraph">(5 min) Mostrar o bloco “if/else” no simulador e o que acontece quando a condição muda.</p>
+<div class="section-divider"></div>
+<h2 id="section-33">📝 Introduzir o termo condicional: “É assim que o robô pensa.”</h2>
+<div class="section-divider"></div>
+<h2 id="section-34">📝 🎮 Mini-desafio:
+Os formandos devem criar uma condição nova no código — por exemplo, “Se o sensor de luz < 100 → ligar o LED.”</h2>
+<div class="section-divider"></div>
+<h2 id="section-35">📝 🚗 SLIDE 4 – Construir o Robô Explorador</h2>
+<div class="section-divider"></div>
+<h2 id="section-36">📝 Título: “Vamos Dar Movimento ao Nosso Robô!”</h2>
+<div class="section-divider"></div>
+<h2 id="section-37">📝 Conteúdo no slide:</h2>
+<p class="text-paragraph">Passos da Atividade Guiada:</p>
+<p class="text-paragraph">Inserir sensor de distância;</p>
+<p class="text-paragraph">Adicionar motor (atuador);</p>
+<p>Criar condição if sensor < 15 cm → virar à direita;</p>
+<p class="text-paragraph">Testar e ajustar o comportamento.</p>
+<div class="section-divider"></div>
+<h2 id="section-38"><span class="category-label">Objetivos</span>🎯 Objetivo: robô que evita obstáculos automaticamente!</h2>
+<div class="section-divider"></div>
+<h2 id="section-39">📝 🧠 Sugestão visual:
+Layout tipo “instruções LEGO” com ícones grandes: sensor → motor → condição → ação.
+Imagem de um robô virtual a contornar um bloco.</h2>
+<div class="section-divider"></div>
+<h2 id="section-40">📝 🎨 Animação:
+Cada passo aparece com uma seta animada (➡️).</h2>
+<div class="section-divider"></div>
+<h2 id="section-41">📝 Notas do formador:</h2>
+<p class="text-paragraph">(15-20 min) Guie o grupo passo a passo.</p>
+<p class="text-paragraph">Pausar entre cada etapa, verificando se todos acompanham.</p>
+<div class="section-divider"></div>
+<h2 id="section-42">📝 Frisar a importância de testar e observar o comportamento.</h2>
+<p class="text-paragraph">Incentivar a colaboração em duplas: “Programador” + “Observador”.</p>
+<div class="section-divider"></div>
+<h2 id="section-43">📝 🎮 Desafio Bónus:
+“Consegues fazer o robô dar um bip quando encontra um obstáculo?”</h2>
+<div class="section-divider"></div>
+<h2 id="section-44">📝 🎨 SLIDE 5 – Personalização e Desafio</h2>
+<div class="section-divider"></div>
+<h2 id="section-45">📝 Título: “Torna o Teu Robô Único!”</h2>
+<div class="section-divider"></div>
+<h2 id="section-46">📝 Conteúdo no slide:</h2>
+<p class="text-paragraph">Personaliza o teu robô:</p>
+<p class="text-paragraph">🏎️ Velocidade variável</p>
+<p class="highlight-text"><strong class="text-bold">💡 LED que muda de cor</strong></p>
+<p class="text-paragraph">🔊 Sons personalizados</p>
+<p class="text-paragraph">🎵 Movimento criativo</p>
+<p class="text-paragraph">Pergunta: “Que funcionalidade gostarias de testar?”</p>
+<div class="section-divider"></div>
+<h2 id="section-47">📝 🧠 Sugestão visual:
+Fundo em estilo “oficina digital” com engrenagens coloridas e faíscas.
+Balões de fala dos robôs: “Eu sou o Explorador 3000!”</h2>
+<div class="section-divider"></div>
+<h2 id="section-48">📝 🎨 Animação:
+Cada ideia aparece em forma de “balão” saltitante.</h2>
+<div class="section-divider"></div>
+<h2 id="section-49">📝 Notas do formador:</h2>
+<p class="text-paragraph">(10-15 min) Incentivar a exploração livre.</p>
+<p class="text-paragraph">Frisar: “Errar faz parte da aprendizagem — um erro é só uma hipótese diferente!”</p>
+<p class="text-paragraph">Dar apoio rápido a quem ficar bloqueado.</p>
+<div class="section-divider"></div>
+<h2 id="section-50">📝 🎮 Gamificação:
+Entregar “Selos Digitais” (ex.: Criativo, Persistente, Colaborador).
+Os alunos podem “colecionar” até 3 selos por sessão.</h2>
+<div class="section-divider"></div>
+<h2 id="section-51">📝 🌍 SLIDE 6 – Reflexão e Teaser</h2>
+<div class="section-divider"></div>
+<h2 id="section-52">📝 Título: “De Robôs Virtuais a Robôs Reais”</h2>
+<div class="section-divider"></div>
+<h2 id="section-53">📝 Conteúdo no slide:</h2>
+<p class="text-paragraph">O que aprendemos hoje:</p>
+<p class="text-paragraph">Programar sensores e condições;</p>
+<p class="text-paragraph">Testar e adaptar comportamentos;</p>
+<p class="text-paragraph">Criar lógica inteligente.</p>
+<div class="section-divider"></div>
+<h2 id="section-54">📝 🧩 Conclusão: Simular é o primeiro passo para construir!</h2>
+<div class="section-divider"></div>
+<h2 id="section-55">📝 👀 Teaser: Próxima sessão – “O Robô Seguidor de Linha!”</h2>
+<div class="section-divider"></div>
+<h2 id="section-56">📝 🧠 Sugestão visual:
+Imagem de um robô a seguir uma linha branca num fundo preto.
+Texto em estilo “neon azul”.</h2>
+<div class="section-divider"></div>
+<h2 id="section-57">📝 🎨 Animação:
+A linha aparece em movimento, ligando “virtual” a “real”.</h2>
+<div class="section-divider"></div>
+<h2 id="section-58">📝 Notas do formador:</h2>
+<p class="text-paragraph">(5 min) Fazer mini-rodada de partilha:
+👉 “Qual foi a parte mais divertida?”
+👉 “Que nome darias ao teu robô?”</p>
+<p class="text-paragraph">(3 min) Mostrar teaser visual da próxima sessão (vídeo curto ou GIF).</p>
+<p class="text-paragraph">(2 min) Agradecer e dar preview: “Na próxima, o robô vai aprender a seguir pistas sozinho!”</p>
+<div class="section-divider"></div>
+<h2 id="section-59">📝 🎮 Fecho com energia:
+Mostrar quadro de pontuações e selos do dia.</h2>
+<div class="section-divider"></div>
+<h2 id="section-60">📦 🔗 Recursos complementares</h2>
+<div class="section-divider"></div>
+<h2 id="section-61">📝 🌐 Simuladores recomendados:</h2>
+<p class="text-paragraph">Tinkercad Circuits</p>
+<p class="text-paragraph">mBlock Online</p>
+<div class="section-divider"></div>
+<h2 id="section-62">📝 📘 Leitura sugerida:</h2>
+<p class="text-paragraph">Artigo: “IA simples vs IA avançada: qual a diferença?” (TechHQ, traduzido)</p>
+<div class="section-divider"></div>
+<h2 id="section-63">📝 🎥 Vídeo extra:</h2>
+<p class="text-paragraph">“Como programar um robô seguidor de linha” (YouTube – legendado em português)</p>
+<h3>🚀 🧩 FICHA DE ATIVIDADE – Sessão 2</h3>
+<div class="section-divider"></div>
+<h2 id="section-64">📝 Título: “Robô Explorador Virtual”</h2>
+<div class="section-divider"></div>
+<h2 id="section-65"><span class="category-label">Objetivos</span>🎯 Objetivo: Programar um robô virtual que se move e reage a um sensor de distância, utilizando lógica condicional e ciclos.</h2>
+<div class="section-divider"></div>
+<h2 id="section-66">📝 Passos resumidos:</h2>
+<div class="section-divider"></div>
+<h2 id="section-67">📝 Criar projeto no simulador: Acede a Tinkercad Circuits ou mBlock e abre um projeto novo com um microcontrolador virtual (ex.: Arduino Uno).</h2>
+<div class="section-divider"></div>
+<h2 id="section-68">📝 Adicionar componentes: Arrasta para a área de trabalho: um motor ou servo, um sensor de distância (ultrassom) e, opcionalmente, um LED.</h2>
+<div class="section-divider"></div>
+<h2 id="section-69">📝 Ligar os componentes: Usa fios virtuais para ligar o sensor e o motor às portas corretas (seguir um diagrama fornecido pelo formador). Se tiver LED, ligar também.</h2>
+<div class="section-divider"></div>
+<h2 id="section-70">📝 Programar o comportamento:</h2>
+<p class="text-paragraph">Inicia o motor para mover o robô (pode usar código por blocos ou texto).</p>
+<div class="section-divider"></div>
+<h2 id="section-71">📝 Cria uma variável para guardar a leitura do sensor (por exemplo, distancia). Isto permite comparar o valor e ajustá-lo mais tarde.</h2>
+<p class="text-paragraph">Adiciona condição: se a distância for menor que X cm → parar o motor e virar (podes simular a viragem com LED ou alterar a direção do motor); senão continua a avançar.</p>
+<p class="text-paragraph">Utiliza diferentes tipos de sensores: experimenta ler um sensor digital (ex.: botão) e um sensor analógico (ex.: potenciómetro ou sensor de luz) e observa as diferenças nos valores.</p>
+<p class="text-paragraph">Usa um ciclo “para sempre” para repetir esta leitura e ação, garantindo que o robô reage continuamente ao ambiente.</p>
+<div class="section-divider"></div>
+<h2 id="section-72">📝 Testar: Executa a simulação e aproxima um objeto ao sensor. Observa se o motor para e se acende o LED. Ajusta o valor de X para melhorar.</h2>
+<div class="section-divider"></div>
+<h2 id="section-73">📝 Personalizar: Troca o tipo de sensor (por exemplo, de distância para luz) ou adiciona sons ao virar. Tenta programar uma mensagem de alerta (“Obstáculo!”) no monitor.</h2>
+<div class="section-divider"></div>
+<h2 id="section-74">📝 Documentar: Anota as dificuldades encontradas e as soluções. Tira uma captura de ecrã do circuito e do código.</h2>
+<p class="text-paragraph">📌 Dica: Procura nos tutoriais do simulador como ligar corretamente um sensor de ultrassom. Se houver erros, verifica as ligações ou a polaridade dos componentes virtuais.</p>
+<h3>🔧 🎮 Teasing da Sessão 2 (30 min antes)</h3>
+<div class="section-divider"></div>
+<h2 id="section-75"><span class="category-label">Prática</span>🚀 Atividade “Miniquiz Sensorial”</h2>
+<p class="text-paragraph">O formador envia um link para um miniquiz online com 5 perguntas simples sobre sensores e atuadores (ex.: “Qual destes mede distância? A) LED B) Motor C) Ultrassom”).</p>
+<p class="text-paragraph">Os/As formandos/as têm 10 minutos para completar. Podem pesquisar rapidamente se necessário.</p>
+<p class="text-paragraph">Ao terminar, recebem uma pontuação e uma pequena explicação de cada resposta.</p>
+<p class="text-paragraph">Anotam a pergunta que mais os/as surpreendeu e preparam-se para partilhar na sessão.</p>
+<p class="highlight-text"><strong class="text-bold">🎯 Objetivo do Teasing: recordar conceitos básicos de hardware antes de programar e criar expectativa para usar sensores no simulador.</strong></p>
+<h3>🚀 🌍 Atividade Assíncrona – Sessão 2</h3>
+<div class="section-divider"></div>
+<h2 id="section-76"><span class="category-label">Objetivos</span>🎯 Tema: “Melhora o Robô Explorador”
+🕓 Duração: 90 minutos (atividade de continuidade)
+🎯 Objetivo: Modificar o robô virtual criado na aula, explorando diferentes condições e sensores para tornar o comportamento mais complexo.</h2>
+<div class="section-divider"></div>
+<h2 id="section-77">📝 👩‍🏫 Guia para o Formador</h2>
+<div class="section-divider"></div>
+<h2 id="section-78"><span class="category-label">Objetivos</span>🎯 Objetivo pedagógico: Reforçar a aplicação de lógica condicional e ciclos; incentivar a experimentação autónoma; promover partilha de resultados.</h2>
+<div class="section-divider"></div>
+<h2 id="section-79">📝 Quando propor: Após a sessão síncrona, idealmente em pares ou grupos pequenos via chat.</h2>
+<div class="section-divider"></div>
+<h2 id="section-80">📝 Entrega esperada: Link do projeto virtual com descrição das modificações e uma pequena reflexão (3–4 linhas) sobre o que melhoraram.</h2>
+<div class="section-divider"></div>
+<h2 id="section-81">📝 🎮 Instruções para o/​a Formando/a</h2>
+<div class="section-divider"></div>
+<h2 id="section-82">📝 Reabre o teu projecto “Robô Explorador Virtual” no simulador utilizado.</h2>
+<div class="section-divider"></div>
+<h2 id="section-83">📝 Escolhe uma melhoria:</h2>
+<p class="text-paragraph">Adicionar um segundo sensor de distância para detetar obstáculos de ambos os lados;</p>
+<p class="text-paragraph">Modificar o valor de distância que dispara a paragem, experimentando diferentes limites;</p>
+<p class="text-paragraph">Adicionar um LED e programar que pisque quando detetar um obstáculo;</p>
+<p class="text-paragraph">Substituir o sensor de distância por um sensor de luz para que o robô reaja à luminosidade.</p>
+<div class="section-divider"></div>
+<h2 id="section-84">📝 Atualiza o código: Implementa as mudanças com blocos “se… então… senão” e loops.</h2>
+<div class="section-divider"></div>
+<h2 id="section-85">📝 Testa: Experimenta a simulação com diferentes cenários. Observa se o comportamento é consistente e ajusta se necessário.</h2>
+<div class="section-divider"></div>
+<h2 id="section-86">📝 Documenta: Tira capturas de ecrã e escreve um parágrafo explicando as alterações, o que funcionou melhor e o que ainda gostarias de melhorar.</h2>
+<div class="section-divider"></div>
+<h2 id="section-87">📝 Partilha: Envia o link do teu projeto no Padlet/Teams da turma e comenta a melhoria de pelo menos um/a colega.</h2>
+<div class="section-divider"></div>
+<h2 id="section-88">📝 🌟</h2>
+<h3>📦 Recursos adicionais para a Sessão 2</h3>
+<div class="section-divider"></div>
+<h2 id="section-89">📝 🔧 Tutoriais oficiais sobre sensores de distância</h2>
+<div class="section-divider"></div>
+<h2 id="section-90">📝 Tinkercad Circuits (Arduino + sensor ultrassónico HC-SR04):</h2>
+<p class="text-paragraph">Tutorial oficial Autodesk:
+🔗 https://www.tinkercad.com/learn/circuits
+(Selecionar “Simular sensores com Arduino” — inclui exemplo com o sensor de distância HC-SR04)</p>
+<p class="text-paragraph">Exemplo direto (HC-SR04 + LED):
+🔗 https://www.tinkercad.com/things/1YvQjzQd4xO-ultrasonic-sensor-example</p>
+<div class="section-divider"></div>
+<h2 id="section-91">📝 mBlock (baseado no Scratch + robótica Makeblock):</h2>
+<p class="text-paragraph">Guia oficial de sensores:
+🔗 https://www.mblock.cc/doc/en/ → procurar “Ultrasonic Sensor Tutorial”
+(Explica como ligar e programar o sensor com blocos “if. then.”)</p>
+<p class="text-paragraph">Versão em português (Makeblock Education PT):
+🔗 https://education.makeblock.com/pt/resources/</p>
+<div class="section-divider"></div>
+<h2 id="section-92">📝 🎥 Vídeos “Como funciona um sensor ultrassónico”</h2>
+<div class="section-divider"></div>
+<h2 id="section-93">📝 Em português (PT-BR, compreensível e visual):
+🔗 https://www.youtube.com/watch?v=H-kx2AX7fNQ — Canal Brincando com Ideias
+(Explica o princípio do eco e mostra o HC-SR04 em simulação)</h2>
+<div class="section-divider"></div>
+<h2 id="section-94">📝 Em inglês com legendas automáticas (curto e visual):
+🔗 https://www.youtube.com/watch?v=Dy-F9ZWcUks — How Ultrasonic Sensors Work – DroneBot Workshop</h2>
+<div class="section-divider"></div>
+<h2 id="section-95">📝 🌐 Fóruns e comunidades de partilha de projetos</h2>
+<div class="section-divider"></div>
+<h2 id="section-96">📝 Tinkercad Community Projects (oficial):
+🔗 https://www.tinkercad.com/projects
+(Pesquisar por “ultrasonic sensor” ou “robot car” para ver simulações partilhadas)</h2>
+<div class="section-divider"></div>
+<h2 id="section-97">📝 Makeblock Forum (mBlock + robótica educativa):
+🔗 https://forum.makeblock.com/
+(Secções “Education” e “mBlock 5” com projetos e dúvidas sobre sensores)</h2>
+<div class="section-divider"></div>
+<h2 id="section-98">📝 Instructables (Autodesk – comunidade de makers):
+🔗 https://www.instructables.com/howto/ultrasonic+sensor/
+(Projetos com passo a passo em inglês, incluindo medições de distância e robôs seguidores)</h2>
+<div class="section-divider"></div>
+<h2 id="section-99">🔧 🧠 Dicas de lógica condicional para iniciantes</h2>
+<div class="section-divider"></div>
+<h2 id="section-100">📝 Começar simples:
+“Se a distância < 10 cm → parar o robô; senão → continuar a andar.”</h2>
+<div class="section-divider"></div>
+<h2 id="section-101">📝 Usar analogias:
+“Se estiver escuro → acender a luz; senão → deixar apagada.”</h2>
+<div class="section-divider"></div>
+<h2 id="section-102">📝 Blocos básicos (mBlock/Scratch):</h2>
+<p class="text-paragraph">Se condição então . senão .</p>
+<p>Combinar com operadores: <, >, =, e, ou, não</p>
+<div class="section-divider"></div>
+<h2 id="section-103">📝 Sugestão de prática:
+Criar pequenas situações do quotidiano com “se. então. senão.” (ex.: Se temperatura > 30 → mostrar “Está calor!”).</h2>
+<div class="section-divider"></div>
+<h2 id="section-104">📦 Recurso interativo:
+🔗 https://scratch.mit.edu/projects/editor
+(Criar lógica condicional visual sem código textual)</h2> </div> <!-- Download --> <div class="mt-8 glass-premium rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 hover-lift"> <div> <h3 class="text-white font-bold mb-1">Documento Original</h3> <p class="text-slate-400 text-sm">Faça download do ficheiro Word completo</p> </div> <a href="./modulo4/Sessão 2.docx" download class="px-6 py-3 rounded-full bg-gradient-to-r from-white/10 to-white/5 hover:from-white/20 hover:to-white/10 border border-white/20 hover:border-white/30 transition-all flex items-center gap-2 text-white font-medium shadow-lg hover:scale-105"> <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/> </svg> Download Word </a> </div> </main> </div> <!-- Footer --> <footer class="mt-20 border-t border-white/10 py-8 bg-black/30"> <div class="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm"> <p class="text-paragraph">act.academy | Geração Futuro © 2026</p> </div> </footer> <!-- Scripts --> <script> // Scroll Progress // Scroll Progress const updateProgress = () => { const winScroll = document.documentElement.scrollTop; const height = document.documentElement.scrollHeight - document.documentElement.clientHeight; const scrolled = (winScroll / height) * 100; document.getElementById('scrollProgress').style.width = scrolled + '%'; const readProg = document.getElementById('readProgress'); const progText = document.getElementById('progressText'); if (readProg) { readProg.style.width = scrolled.toFixed(0) + '%'; } if (progText) { progText.textContent = scrolled.toFixed(0) + '% lido'; } }; window.addEventListener('scroll', updateProgress); // Active Section Highlight const sections = document.querySelectorAll('.content-section h2'); const navLinks = document.querySelectorAll('.sidebar-link'); window.addEventListener('scroll', () => { let current = ''; sections.forEach(section => { const sectionTop = section.offsetTop; if (window.pageYOffset >= sectionTop - 100) { current = section.getAttribute('id'); } }); navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + current) { link.classList.add('active'); } }); }); </script>
+</body>
+</html>

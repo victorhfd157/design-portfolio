@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Sessão 3 – Tipos de IA: Fraca vs Forte | Geração Futuro</title> <script src="https://cdn.tailwindcss.com"></script> <style> * { scroll-behavior: smooth; } body { background-color: #020617; color: white; font-family: 'Outfit', sans-serif; overflow-x: hidden; } /* Glassmorphism Premium */ .glass-premium { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.125); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37), inset 0 1px 0 rgba(255, 255, 255, 0.1); } /* Header Premium */ .header-premium { background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid rgba(168, 85, 247, 0.2); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); } /* Sidebar Melhorada */ .sidebar { background: linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.85) 100%); backdrop-filter: blur(20px); border-right: 1px solid rgba(168, 85, 247, 0.3); box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4); } .sidebar-header { background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(34, 211, 238, 0.2)); border-bottom: 2px solid rgba(168, 85, 247, 0.3); padding: 1.25rem; margin-bottom: 1rem; border-radius: 0.75rem; } .sidebar-link { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border-left: 3px solid transparent; position: relative; padding-left: 1rem; } .sidebar-link::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 6px; height: 0; background: linear-gradient(180deg, #a855f7, #22d3ee); border-radius: 0 3px 3px 0; transition: height 0.3s ease; } .sidebar-link:hover { background: linear-gradient(90deg, rgba(168, 85, 247, 0.15), transparent); border-left-color: transparent; transform: translateX(4px); color: white; } .sidebar-link:hover::before { height: 100%; } .sidebar-link.active { background: linear-gradient(90deg, rgba(168, 85, 247, 0.25), rgba(34, 211, 238, 0.1)); border-left-color: transparent; color: #22d3ee; font-weight: 600; } .sidebar-link.active::before { height: 100%; box-shadow: 0 0 12px rgba(168, 85, 247, 0.6); } .sidebar-link-icon { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: rgba(168, 85, 247, 0.15); border-radius: 6px; margin-right: 0.75rem; font-size: 0.875rem; transition: all 0.3s ease; } .sidebar-link:hover .sidebar-link-icon { background: rgba(168, 85, 247, 0.3); transform: scale(1.1); } .sidebar-link.active .sidebar-link-icon { background: linear-gradient(135deg, #a855f7, #22d3ee); box-shadow: 0 2px 8px rgba(168, 85, 247, 0.4); } .nav-section { margin-bottom: 1.5rem; } .nav-section-title { color: #a855f7; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.5rem 1rem; margin-bottom: 0.5rem; opacity: 0.7; } .sidebar-progress { margin-top: 1.5rem; padding: 1rem; background: rgba(168, 85, 247, 0.1); border-radius: 0.75rem; border: 1px solid rgba(168, 85, 247, 0.2); } .progress-bar { width: 100%; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 3px; overflow: hidden; margin-top: 0.5rem; } .progress-fill { height: 100%; background: linear-gradient(90deg, #a855f7, #22d3ee); border-radius: 3px; transition: width 0.3s ease; box-shadow: 0 0 8px rgba(168, 85, 247, 0.6); } /* Typography */ .gradient-text { background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #22d3ee 100%); background-size: 200% 200%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 8s ease infinite; } @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } } .content-section h2 { color: #a855f7; margin-top: 3.5rem; margin-bottom: 1.75rem; font-size: 2rem; font-weight: 900; border-bottom: 3px solid rgba(168, 85, 247, 0.3); padding-bottom: 0.75rem; position: relative; } .content-section h2::before { content: ''; position: absolute; bottom: -3px; left: 0; width: 80px; height: 3px; background: linear-gradient(90deg, #a855f7, #22d3ee); border-radius: 2px; } .content-section h3 { color: #22d3ee; margin-top: 2.5rem; margin-bottom: 1.25rem; font-size: 1.5rem; font-weight: 700; } .content-section p { margin-bottom: 1.5rem; line-height: 2; color: #cbd5e1; font-size: 1.0625rem; } .content-section ul, .content-section ol { margin-left: 2.5rem; margin-bottom: 2rem; color: #cbd5e1; } .content-section li { margin-bottom: 1rem; line-height: 1.8; } .content-section li::marker { color: #a855f7; font-weight: 700; } /* Ultra Premium Additions */ body { background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%); font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; } .animated-bg-overlay { position: fixed; inset: 0; z-index: -1; background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(139, 92, 246, 0.15), transparent), radial-gradient(ellipse 60% 50% at 50% 120%, rgba(6, 182, 212, 0.12), transparent); animation: bgPulse 15s ease-in-out infinite; } @keyframes bgPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } } .title-ultra { background: linear-gradient(135deg, #A78BFA 0%, #EC4899 50%, #22D3EE 100%); background-size: 200% 200%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 8s ease infinite; } @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } } .content-card-ultra { background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.6)); backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(139, 92, 246, 0.2); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05) inset; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); } .content-card-ultra:hover { transform: translateY(-4px); box-shadow: 0 30px 80px rgba(139, 92, 246, 0.3), 0 0 0 1px rgba(139, 92, 246, 0.3) inset; } /* Dividers */ .section-divider { height: 2px; background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.5), transparent); margin: 4rem 0; } /* Time badge */ .time-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(34, 211, 238, 0.2); color: #22d3ee; padding: 0.4rem 1rem; border-radius: 2rem; font-size: 0.875rem; font-weight: 600; margin-left: 1rem; } /* Category label */ .category-label { background: rgba(168, 85, 247, 0.25); color: #ddd6fe; padding: 0.25rem 0.75rem; border-radius: 0.5rem; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 0.75rem; } /* Activity Box Premium */ .activity-box { background: linear-gradient(135deg, rgba(168, 85, 247, 0.18) 0%, rgba(34, 211, 238, 0.12) 100%); border-left: 5px solid #a855f7; padding: 2.5rem; margin: 2.5rem 0; border-radius: 1.25rem; box-shadow: 0 10px 40px rgba(168, 85, 247, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1); position: relative; overflow: hidden; } .activity-box::before { content: ''; position: absolute; top: 0; right: 0; width: 200px; height: 200px; background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%); border-radius: 50%; transform: translate(50%, -50%); } /* Info Box */ .info-box { background: rgba(34, 211, 238, 0.12); border-left: 4px solid #22d3ee; padding: 2rem; margin: 2rem 0; border-radius: 1rem; box-shadow: 0 4px 16px rgba(34, 211, 238, 0.15); } /* Animations */ @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } } .fade-in-up { animation: fadeInUp 0.6s ease-out forwards; } /* Scroll Progress */ .scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, #a855f7, #22d3ee); z-index: 9999; transition: width 0.1s ease; } /* Hover Effects */ .hover-lift { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); } .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 12px 48px rgba(168, 85, 247, 0.3); } /* Responsive */ @media (max-width: 1024px) { .sidebar { display: none; } } /* ========== MELHORIAS FINAIS UI/UX ========== */ /* Melhor legibilidade */ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; } /* Scrollbar customizada */ ::-webkit-scrollbar { width: 12px; } ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.5); } ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #8B5CF6, #06B6D4); border-radius: 6px; border: 2px solid rgba(15, 23, 42, 0.5); } ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #A78BFA, #22D3EE); } /* Focus states para acessibilidade */ a:focus, button:focus { outline: 2px solid #22D3EE; outline-offset: 4px; } /* Melhor contraste em textos */ p, li { color: #E2E8F0; font-weight: 400; } /* Links melhorados */ a { color: #22D3EE; text-decoration: none; transition: all 0.2s ease; } a:hover { color: #67E8F9; text-decoration: underline; } /* Cards com melhor hierarquia visual */ .content-card, .content-card-ultra { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); } .content-card:hover, .content-card-ultra:hover { border-color: rgba(139, 92, 246, 0.4); } /* Espaçamento consistente */ h2 + p, h3 + p { margin-top: 0; } p + h2, p + h3 { margin-top: 3rem; } /* Listas mais legíveis */ ul li, ol li { padding-left: 1rem; position: relative; } ul li::before { content: ''; position: absolute; left: -1rem; top: 0.75em; width: 6px; height: 6px; background: #8B5CF6; border-radius: 50%; } /* Botões melhorados */ button, .btn, a[class*="btn"] { cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; } /* Loading states */ @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } } /* Responsividade aprimorada */ @media (max-width: 768px) { h1 { font-size: 3rem !important; } h2 { font-size: 1.75rem !important; } h3 { font-size: 1.35rem !important; } p { font-size: 1rem !important; } .content-card, .content-card-ultra { padding: 2rem !important; } } /* Melhor feedback visual */ .nav-item:active { transform: scale(0.98); } /* Transições suaves em todos os interativos */ * { transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform; transition-duration: 200ms; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); } /* Previne transições em animações de scroll */ html.smooth-scroll * { transition: none !important; } /* Print styles */ @media print { .premium-header, .ultra-sidebar, footer { display: none !important; } body { background: white !important; color: black !important; } } /* ========== TIPOGRAFIA PREMIUM ========== */ /* Melhores fontes web */ @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap'); body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 17px; line-height: 1.7; letter-spacing: -0.011em; font-weight: 400; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; } /* Títulos com fonte premium */ h1, h2, h3, h4, h5, h6 { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; font-weight: 800; line-height: 1.2; letter-spacing: -0.03em; } /* H1 - Título Principal */ h1 { font-size: clamp(2.5rem, 8vw, 5rem) !important; line-height: 1.1 !important; margin-bottom: 1.5rem !important; font-weight: 900 !important; } /* H2 - Seções Principais */ h2 { font-size: clamp(1.75rem, 4vw, 2.5rem) !important; line-height: 1.3 !important; margin-top: 4rem !important; margin-bottom: 1.5rem !important; font-weight: 800 !important; color: #C4B5FD !important; } /* H3 - Subseções */ h3 { font-size: clamp(1.35rem, 3vw, 1.875rem) !important; line-height: 1.4 !important; margin-top: 2.5rem !important; margin-bottom: 1.25rem !important; font-weight: 700 !important; color: #67E8F9 !important; } /* H4 - Subtítulos */ h4 { font-size: 1.25rem !important; line-height: 1.5 !important; margin-top: 2rem !important; margin-bottom: 1rem !important; font-weight: 600 !important; color: #CBD5E1 !important; } /* Parágrafos otimizados */ p { font-size: 1.0625rem !important; line-height: 1.8 !important; margin-bottom: 1.5rem !important; color: #E2E8F0 !important; max-width: 70ch; font-weight: 400 !important; } /* Strong e Bold */ strong, b { font-weight: 600; color: #F1F5F9; } /* Listas melhoradas */ ul, ol { font-size: 1.0625rem; line-height: 1.75; color: #E2E8F0; padding-left: 1.5rem; } li { margin-bottom: 0.75rem !important; line-height: 1.75 !important; color: #E2E8F0 !important; } li p { margin-bottom: 0.5rem !important; } /* Código e Mono */ code, pre { font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 0.9em; background: rgba(139, 92, 246, 0.1); padding: 0.2em 0.4em; border-radius: 0.25rem; } /* Links melhorados */ a { color: #67E8F9; font-weight: 500; text-decoration: none; transition: all 0.2s; } a:hover { color: #A5F3FC; text-decoration: underline; } /* Blockquotes */ blockquote { border-left: 4px solid #8B5CF6; padding-left: 1.5rem; margin: 2rem 0; font-style: italic; color: #CBD5E1; } /* Melhor contraste */ .content-section { color: #E2E8F0; } /* Espaçamento vertical otimizado */ * + h2 { margin-top: 4rem !important; } * + h3 { margin-top: 3rem !important; } h2 + h3, h3 + h4 { margin-top: 1.5rem !important; } /* Mobile responsivo */ @media (max-width: 768px) { body { font-size: 16px; } h1 { font-size: 2.25rem !important; } h2 { font-size: 1.75rem !important; } h3 { font-size: 1.35rem !important; } p, li { font-size: 1rem !important; } } 
+        /* ========== FORMATAÇÃO DE TEXTO MELHORADA ========== */
+        
+        /* Parágrafos */
+        .text-paragraph {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+        }
+        
+        .text-paragraph:first-of-type::first-letter {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #A78BFA;
+            float: left;
+            line-height: 1;
+            margin-right: 0.1em;
+        }
+        
+        /* Listas melhoradas */
+        .enhanced-list {
+            margin: 2rem 0;
+            padding: 2rem 2.5rem;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(6, 182, 212, 0.03));
+            border-left: 4px solid #8B5CF6;
+            border-radius: 0.75rem;
+        }
+        
+        .enhanced-list li {
+            margin: 1rem 0;
+            padding-left: 0.5rem;
+            position: relative;
+        }
+        
+        .numbered-item::marker {
+            font-weight: 700;
+            color: #22D3EE;
+        }
+        
+        /* Bold destacado */
+        .text-bold {
+            color: #F1F5F9;
+            font-weight: 600;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), transparent);
+            padding: 0.1em 0.3em;
+            border-radius: 0.25em;
+        }
+        
+        /* Espaçadores */
+        .spacer {
+            height: 2rem;
+        }
+        
+        /* Citações */
+        blockquote {
+            border-left: 4px solid #8B5CF6;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            background: rgba(139, 92, 246, 0.05);
+            border-radius: 0.5rem;
+            font-style: italic;
+            color: #CBD5E1;
+        }
+        
+        blockquote p {
+            margin-bottom: 0;
+        }
+        
+        /* Destaque de informação importante */
+        .highlight-info {
+            background: linear-gradient(90deg, rgba(6, 182, 212, 0.15), transparent);
+            border-left: 4px solid #06B6D4;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0.5rem;
+        }
+        
+        /* Notas e avisos */
+        .note-box {
+            background: linear-gradient(90deg, rgba(245, 158, 11, 0.15), transparent);
+            border-left: 4px solid #F59E0B;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0.5rem;
+        }
+        
+        .note-box::before {
+            content: '💡';
+            margin-right: 0.5rem;
+            font-size: 1.25em;
+        }
+        
+        /* Tabelas (se houver) */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 0.75rem;
+            overflow: hidden;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #8B5CF6, #06B6D4);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+    </style>
+</head>
+<body class="antialiased"> <!-- Scroll Progress --> <div class="scroll-progress" id="scrollProgress"></div> <!-- Background --> <div class="fixed inset-0 -z-10"> <div class="absolute inset-0 bg-gradient-to-br from-purple-950/20 via-slate-950 to-cyan-950/20"></div> <div class="absolute inset-0" style="background-image: radial-gradient(1px 1px at 50px 50px, rgba(255,255,255,0.3) 50%, transparent 100%); background-size: 500px 500px; opacity: 0.3;"></div> </div> <!-- Header --> <nav class="sticky top-0 z-50 header-premium py-4 px-6"> <div class="max-w-7xl mx-auto flex items-center justify-between"> <a aria-label="Voltar para o hub principal"<a href="../../index.html" class="flex items-center gap-3 text-white hover:text-purple-300 transition-all hover:scale-105"> <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/> </svg> <span class="font-medium">Voltar ao Hub</span> </a> <div class="flex items-center gap-3"> <span class="text-xs uppercase tracking-widest text-cyan-400 font-bold">Módulo 1</span> <a href="../../modulo1/sessao3/" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white text-sm font-medium transition-all hover:scale-105 shadow-lg hover:shadow-xl"> Ver Apresentação </a> </div> </div> </nav> <!-- Main Layout --> <div class="flex max-w-7xl mx-auto px-6 py-12 gap-8"> <!-- Sidebar --> <aside class="hidden lg:block w-80 flex-shrink-0"> <div class="sidebar rounded-2xl p-6 sticky top-24 max-h- overflow-y-auto"> <h3 class="text-white font-bold text-lg mb-6 flex items-center gap-2"> <svg class="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/> </svg> Navegação </h3> <nav class="space-y-2">
+<a href="#section-21" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🎯</span><span class="flex-1">Objetivos e Competências</span></a>
+<a href="#section-31" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">📦</span><span class="flex-1">Materiais e Recursos</span></a>
+<a href="#section-3" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🔧</span><span class="flex-1">Preparação</span></a>
+<a href="#section-0" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🎮</span><span class="flex-1">Atividade Teasing</span></a>
+<a href="#section-19" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🚀</span><span class="flex-1">Atividades Práticas</span></a>
+<a href="#section-18" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🎬</span><span class="flex-1">Slides</span></a>
+<a href="#section-36" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">📊</span><span class="flex-1">Avaliação</span></a>
+<a href="#section-27" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">💭</span><span class="flex-1">Reflexão</span></a>
+<a href="#section-2" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🌟</span><span class="flex-1">Enriquecimento</span></a>
+<a href="#section-1" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">📝</span><span class="flex-1">Outros Conteúdos</span></a>
+</nav> </div> </aside> <!-- Content --> <main class="flex-1 min-w-0"> <!-- Title --> <div class="mb-12 fade-in-up"> <div class="flex items-center gap-3 mb-4"> <span class="px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/30 to-cyan-500/30 text-purple-200 text-xs font-bold uppercase tracking-wider border border-purple-500/30"> Guia do Formador </span> </div> <h1 class="text-6xl lg:text-7xl title-ultra" style="background: linear-gradient(135deg, #C4B5FD 0%, #EC4899 50%, #67E8F9 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;"> Sessão 3 – Tipos de IA: Fraca vs Forte </h1> <p class="text-xl text-slate-300">Guia completo para conduzir esta sessão com sucesso</p> </div> <!-- Content --> <div class="content-card-ultra glass-premium rounded-2xl p-8 lg:p-12 content-section hover-lift"> <h3>📝 Sessão 3 – Tipos de IA: Fraca vs Forte</h3>
+<h3>📝 Sessão 3 – Tipos de IA: Fraca vs Forte</h3>
+<h2 id="section-0">📝 Teasing (30 min): Enviar meme ou cena de filme com IA (Wall-E, Matrix, Iron Man) para classificar como realista ou ficcional.</h2>
+<div class="section-divider"></div>
+<h2 id="section-1">📝 Síncrona (90 min):</h2>
+<p class="text-paragraph">Vídeo de ficção científica + debate.</p>
+<p class="text-paragraph">Criação de tabela comparativa IA Fraca vs Forte.</p>
+<p class="text-paragraph">Jogo classificativo “Real ou Ficção?” com exemplos.</p>
+<p class="text-paragraph">Debate ético: IA deve ter direitos?</p>
+<div class="section-divider"></div>
+<h2 id="section-2">📝 Enriquecimento (90 min): Criar um poster digital (Canva/Genially) sobre “A IA do Futuro” (imaginar IA em 2050).</h2>
+<div class="section-divider"></div>
+<h2 id="section-3">📝 Guião do Formador (90 min)</h2>
+<h3>🎯 Objetivos da Sessão</h3>
+<p class="text-paragraph">No final da sessão, os formandos deverão ser capazes de:</p>
+<p class="text-paragraph">Distinguir IA Fraca (ou estreita) de IA Forte (ou geral).</p>
+<p class="text-paragraph">Identificar exemplos reais e ficcionais de Inteligência Artificial.</p>
+<p class="text-paragraph">Refletir criticamente sobre o papel e os limites da IA atual.</p>
+<p class="text-paragraph">Expressar opiniões fundamentadas sobre o futuro ético da IA.</p>
+<div class="section-divider"></div>
+<h2 id="section-4">📝 Estrutura temporal</h2>
+<div class="section-divider"></div>
+<h2 id="section-5">📝 1. Aquecimento – Real ou Ficção? (0–10 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-6">🔧 Preparação prévia:</h2>
+<div class="section-divider"></div>
+<h2 id="section-7">📝 No Padlet/Jamboard, adiciona imagens e cenas de filmes, séries e tecnologias reais.
+Ex.: Wall-E, Ex Machina, Iron Man (Jarvis), ChatGPT, Alexa, Siri, Boston Dynamics Robot.</h2>
+<div class="section-divider"></div>
+<h2 id="section-8">📝 Instruções:</h2>
+<p class="text-paragraph">Pede aos formandos que respondam à pergunta:</p>
+<p class="text-paragraph">“Isto é IA real ou ficção científica?”</p>
+<p class="text-paragraph">Discutem rapidamente as respostas.</p>
+<div class="section-divider"></div>
+<h2 id="section-9">📝 Perguntas para guiar:</h2>
+<p class="text-paragraph">“O que faz esta IA?”</p>
+<p class="text-paragraph">“Parece mais humana ou mais programada?”</p>
+<p class="text-paragraph">“Acham que esta IA existe hoje?”</p>
+<p class="highlight-text"><strong class="text-bold">💡 Dica: reforça a ideia de que muitas vezes o que chamamos “IA” é só automatização — e nem sempre é “inteligente”.</strong></p>
+<div class="section-divider"></div>
+<h2 id="section-10">📝 🎬 2. Vídeo de Ficção Científica + Debate (10–25 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-11">📝 Sugestão de vídeo:
+🎥 TED-Ed – “Will robots take over the world?” (5 min)
+ou
+🎥 Cena curta de Ex Machina (interação humano-IA, cerca de 3 min).</h2>
+<div class="section-divider"></div>
+<h2 id="section-12">📝 Instruções:</h2>
+<p class="text-paragraph">Mostra o vídeo e pausa em 2 momentos:</p>
+<p class="text-paragraph">Min 1:30 → “Isto é possível hoje?”</p>
+<p class="text-paragraph">Min 3:00 → “O que diferencia esta IA de uma pessoa?”</p>
+<p class="text-paragraph">Debate coletivo (10 min).</p>
+<div class="section-divider"></div>
+<h2 id="section-13">📝 Perguntas orientadoras:</h2>
+<p class="text-paragraph">“O que distingue uma IA que imita de uma que compreende?”</p>
+<p class="text-paragraph">“Uma máquina pode ser consciente?”</p>
+<div class="section-divider"></div>
+<h2 id="section-14">📝 📚 3. Exposição Dialogada – IA Fraca vs IA Forte (25–40 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-15">📝 Conteúdos principais:</h2>
+<div class="section-divider"></div>
+<h2 id="section-16">📝 IA Fraca (ou estreita):</h2>
+<p class="text-paragraph">Focada numa tarefa específica (ex.: Siri, ChatGPT, Google Maps, filtros de spam).</p>
+<p class="text-paragraph">Aprende padrões com dados, mas não tem consciência.</p>
+<div class="section-divider"></div>
+<h2 id="section-17">📝 IA Forte (ou geral):</h2>
+<p class="text-paragraph">Capaz de raciocinar, aprender e adaptar-se em qualquer área.</p>
+<p class="text-paragraph">Ainda não existe.</p>
+<div class="section-divider"></div>
+<h2 id="section-18">📝 Exemplo comparativo (usar slides):</h2>
+<div class="section-divider"></div>
+<h2 id="section-19"><span class="category-label">Prática</span>🚀 💬 Interatividade:
+Pergunta aos formandos:</h2>
+<p class="text-paragraph">“Acham que o ChatGPT é IA fraca ou forte?”</p>
+<p class="text-paragraph">“E um robô que sente emoções?”</p>
+<div class="section-divider"></div>
+<h2 id="section-20"><span class="category-label">Prática</span>🚀 🧠 4. Atividade Prática – IA Real vs IA Imaginada (40–70 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-21"><span class="category-label">Objetivos</span>🎯 Objetivo: distinguir exemplos reais e ficcionais, aplicando conceitos.</h2>
+<div class="section-divider"></div>
+<h2 id="section-22">📝 Passos:</h2>
+<p class="text-paragraph">Divide os formandos em pequenos grupos (3-4).</p>
+<div class="section-divider"></div>
+<h2 id="section-23">📝 Cada grupo cria uma tabela com duas colunas:</h2>
+<div class="section-divider"></div>
+<h2 id="section-24">📝 IA Real (existente)</h2>
+<div class="section-divider"></div>
+<h2 id="section-25">📝 IA Imaginada (ficcional)</h2>
+<p class="text-paragraph">Usam o Jamboard/Miro para preencher (15 min).</p>
+<p class="text-paragraph">Cada grupo apresenta 2 exemplos à turma (10 min).</p>
+<div class="section-divider"></div>
+<h2 id="section-26">📝 Exemplos para inspirar:</h2>
+<p class="text-paragraph">IA Real → ChatGPT, Spotify, Tesla Autopilot, DeepMind.</p>
+<p class="text-paragraph">IA Imaginada → C-3PO (Star Wars), HAL 9000 (2001), Jarvis (Iron Man).</p>
+<div class="section-divider"></div>
+<h2 id="section-27">📝 💭 5. Reflexão Final em Breakout Rooms (70–90 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-28">📝 Configuração:</h2>
+<p class="text-paragraph">Divide a turma em 3-4 salas (grupos pequenos).</p>
+<p class="text-paragraph">Cada grupo discute durante 10 min:</p>
+<p class="text-paragraph">A IA vai substituir-nos?</p>
+<p class="text-paragraph">A IA deve ter direitos?</p>
+<p class="text-paragraph">O que significa ser inteligente?</p>
+<div class="section-divider"></div>
+<h2 id="section-29">📝 Fecho coletivo (últimos 10 min):</h2>
+<p class="text-paragraph">Regressam à sala principal.</p>
+<div class="section-divider"></div>
+<h2 id="section-30">📝 Cada grupo partilha uma frase resumo.</h2>
+<p class="text-paragraph">O formador encerra reforçando a ideia:</p>
+<p class="text-paragraph">“A IA que temos hoje é poderosa, mas ainda limitada — é o uso humano que decide o impacto que terá.”</p>
+<div class="section-divider"></div>
+<h2 id="section-31">📦 📎 Recursos Sugeridos</h2>
+<div class="section-divider"></div>
+<h2 id="section-32">📝 Jamboard ou Miro: para o brainstorming e a tabela colaborativa.</h2>
+<div class="section-divider"></div>
+<h2 id="section-33"><span class="category-label">Prática</span>🚀 Padlet: para a atividade “Real ou Ficção”.</h2>
+<div class="section-divider"></div>
+<h2 id="section-34">📝 TED-Ed vídeo: Will robots take over the world?</h2>
+<p class="text-paragraph">Canva: para futuras atividades criativas (poster da IA 2050).</p>
+<div class="section-divider"></div>
+<h2 id="section-35">📝 Mentimeter/Kahoot: para sondagens rápidas ou quizzes de revisão.</h2>
+<div class="section-divider"></div>
+<h2 id="section-36">📊 🧩 Sugestão de Avaliação Formativa</h2>
+<p class="text-paragraph">Participação no debate e no mural digital.</p>
+<p class="text-paragraph">Clareza na distinção entre IA fraca e forte.</p>
+<p class="text-paragraph">Reflexão crítica demonstrada na discussão</p>
+<p class="text-paragraph">🎮 Teasing da Sessão 3 (30 min antes)</p>
+<div class="section-divider"></div>
+<h2 id="section-37">📝 “Real ou Ficção? Descobre as IAs escondidas!”</h2>
+<div class="section-divider"></div>
+<h2 id="section-38"><span class="category-label">Objetivos</span>🎯 Duração: 30 minutos (atividade assíncrona prévia)
+Objetivo: despertar curiosidade e reflexão sobre o que é “real” e o que é “ficção” no mundo da Inteligência Artificial.
+Ferramenta sugerida: Padlet, Jamboard, Miro ou Google Slides colaborativo.
+Idade-alvo: 11–18 anos</h2>
+<div class="section-divider"></div>
+<h2 id="section-39">🔧 🧩 1. Preparação pelo Formador</h2>
+<div class="section-divider"></div>
+<h2 id="section-40">📝 Cria um mural digital com o título:</h2>
+<p class="text-paragraph">“REAL ou FICÇÃO? – O que achas que já existe mesmo?”</p>
+<div class="section-divider"></div>
+<h2 id="section-41">📝 Divide o mural em duas colunas:</h2>
+<div class="section-divider"></div>
+<h2 id="section-42">📝 💡 IA REAL (existe hoje)</h2>
+<div class="section-divider"></div>
+<h2 id="section-43">📝 🎬 IA FICCIONAL (ainda é fantasia)</h2>
+<div class="section-divider"></div>
+<h2 id="section-44">📝 Adiciona 6 a 8 imagens ou pequenos clips de IA (misturando exemplos reais e fictícios):</h2>
+<p class="text-paragraph">🤖 Siri / Alexa (real)</p>
+<p class="text-paragraph">🧠 Jarvis (Iron Man) (ficção)</p>
+<p class="text-paragraph">🚗 Tesla Autopilot (real)</p>
+<p class="text-paragraph">🪓 Exterminador T-800 (ficção)</p>
+<p class="text-paragraph">💬 ChatGPT (real)</p>
+<p class="text-paragraph">🦾 Robot humanoide de Boston Dynamics (real)</p>
+<p class="text-paragraph">👁️ HAL 9000 (2001: Odisseia no Espaço) (ficção)</p>
+<p class="text-paragraph">(Podes inserir imagens diretamente no Padlet ou links curtos de vídeos do YouTube.)</p>
+<div class="section-divider"></div>
+<h2 id="section-45">📝 🧠 2. Instruções para os formandos</h2>
+<div class="section-divider"></div>
+<h2 id="section-46">🔧 Mensagem enviada antes da sessão (exemplo):</h2>
+<p class="highlight-text"><strong class="text-bold">🎯 Desafio rápido antes da próxima sessão!</strong></p>
+<div class="section-divider"></div>
+<h2 id="section-47">📝 Vais ver várias imagens e vídeos com IAs — algumas são reais e outras só existem em filmes.
+A tua missão:
+1️⃣ Arrasta (ou comenta) cada imagem na coluna onde achas que pertence: REAL ou FICÇÃO.
+2️⃣ Escreve uma frase curta a justificar a tua escolha.</h2>
+<p class="text-paragraph">Exemplo: “Jarvis – ficção, porque é um assistente que pensa sozinho.”</p>
+<p class="text-paragraph">💬 No início da sessão vamos descobrir quem acertou mais!</p>
+<div class="section-divider"></div>
+<h2 id="section-48">📝 ⏱️ 3. Tempo sugerido</h2>
+<p class="text-paragraph">10 min → Explorar as imagens/vídeos.</p>
+<p class="text-paragraph">10 min → Classificar e justificar as escolhas.</p>
+<p class="text-paragraph">10 min → Ler respostas de colegas e votar nas mais criativas ou engraçadas.</p>
+<p class="text-paragraph">(Podes ativar a função de “gostos” no Padlet para votação.)</p>
+<div class="section-divider"></div>
+<h2 id="section-49">📝 🧩 4. Extensão opcional (gamificação)</h2>
+<div class="section-divider"></div>
+<h2 id="section-50">📝 No final, o formador publica um ranking divertido durante a sessão síncrona:</h2>
+<p class="text-paragraph">🥇 “Detetive de IA” → quem acertou mais.</p>
+<p class="text-paragraph">🧠 “Futurista” → resposta mais criativa.</p>
+<p class="text-paragraph">😂 “Filme de Ficção Favorito” → menção honrosa pela imaginação.</p>
+<h3>📝 💬 5. Ligação à Sessão Síncrona</h3>
+<p class="text-paragraph">Na abertura da sessão 3 (primeiros 10 minutos), o formador:</p>
+<p class="text-paragraph">Mostra o mural de respostas.</p>
+<p class="text-paragraph">Pergunta:</p>
+<p class="text-paragraph">“O que vos fez pensar que algo era real ou ficcional?”</p>
+<p class="text-paragraph">“Algum exemplo vos surpreendeu?”</p>
+<p class="text-paragraph">Introduz o tema com a frase:</p>
+<p class="text-paragraph">“Hoje vamos descobrir o que é mesmo possível com a IA e o que ainda vive apenas nos filmes.”</p>
+<h3>📝 📑 Conteúdo dos Slides – Sessão 3</h3>
+<h3>📝 Excelente 👏 Aqui está o conteúdo completo e detalhado dos slides da Sessão 3 – Tipos de Inteligência Artificial: Fraca vs Forte, preparado para PowerPoint (versão divertida, visual e pedagógica, adaptada a jovens entre os 11 e os 18 anos).</h3>
+<h3>📝 🧠 Sessão 3 – Tipos de Inteligência Artificial: Fraca vs Forte</h3>
+<div class="section-divider"></div>
+<h2 id="section-51">📝 Duração: 90 minutos | Modalidade: Live Training</h2>
+<div class="section-divider"></div>
+<h2 id="section-52">📝 🎬 Slide 1 – Título</h2>
+<h3>📝 Título: Sessão 3 – Tipos de Inteligência Artificial: Fraca vs Forte
+Subtítulo: “Do ChatGPT ao Exterminador — qual é a diferença?”
+Imagem: robô e humano frente a frente ou ícones de cérebro digital.
+Frase de impacto:</h3>
+<p class="text-paragraph">“Nem toda a IA é igual — algumas pensam, outras só imitam.”</p>
+<h3>🎯 🎯 Slide 2 – Objetivos da Sessão</h3>
+<div class="section-divider"></div>
+<h2 id="section-53">📝 Compreender o que é IA Fraca e IA Forte.</h2>
+<p class="text-paragraph">Identificar exemplos reais e ficcionais de Inteligência Artificial.</p>
+<p class="text-paragraph">Refletir sobre os limites e o futuro da IA.</p>
+<p class="text-paragraph">Discutir se as máquinas podem realmente ser “inteligentes”.</p>
+<div class="section-divider"></div>
+<h2 id="section-54">📝 🤖 Slide 3 – Retomar o Teasing</h2>
+<div class="section-divider"></div>
+<h2 id="section-55">📝 Título: “Real ou Ficção?”</h2>
+<p class="text-paragraph">Mostrar algumas imagens do mural do teaser (Padlet ou Jamboard).</p>
+<p class="text-paragraph">Perguntas para abrir o diálogo:</p>
+<p class="text-paragraph">“Qual destes exemplos é mais realista?”</p>
+<div class="section-divider"></div>
+<h2 id="section-56"><span class="category-label">Objetivos</span>🎯 “Acham que alguma destas IAs poderia existir hoje?”
+Objetivo: ligar o teaser à sessão e preparar o debate.</h2>
+<div class="section-divider"></div>
+<h2 id="section-57">📝 🎥 Slide 4 – Vídeo de Abertura</h2>
+<div class="section-divider"></div>
+<h2 id="section-58">📝 Título: “Será que os robôs vão dominar o mundo?”</h2>
+<p class="text-paragraph">Inserir vídeo TED-Ed:
+🎥 “Will robots take over the world?” – TED-Ed</p>
+<div class="section-divider"></div>
+<h2 id="section-59">📝 Instrução:</h2>
+<p class="text-paragraph">Ver com pausas para debate:</p>
+<p class="text-paragraph">Min 1: “O que é inteligência?”</p>
+<p class="text-paragraph">Min 3: “O que diferencia humanos de máquinas?”</p>
+<div class="section-divider"></div>
+<h2 id="section-60">📝 💡 Slide 5 – O que é a IA Fraca?</h2>
+<div class="section-divider"></div>
+<h2 id="section-61">📝 Definição:</h2>
+<div class="section-divider"></div>
+<h2 id="section-62">📝 “É uma IA criada para executar uma tarefa específica, sem consciência nem compreensão.”
+Características:</h2>
+<p class="text-paragraph">Aprende com dados e padrões.</p>
+<p class="text-paragraph">Faz uma coisa (ou poucas) muito bem.</p>
+<div class="section-divider"></div>
+<h2 id="section-63">📝 Não pensa, apenas reage.
+Exemplos:</h2>
+<div class="section-divider"></div>
+<h2 id="section-64">📝 Siri, Alexa, ChatGPT, Google Maps, filtros de spam, Netflix.
+Imagem: ícones de apps ou um robô simpático.</h2>
+<div class="section-divider"></div>
+<h2 id="section-65">📝 ⚙️ Slide 6 – O que é a IA Forte?</h2>
+<div class="section-divider"></div>
+<h2 id="section-66">📝 Definição:</h2>
+<div class="section-divider"></div>
+<h2 id="section-67">📝 “Uma IA com capacidade de aprender qualquer coisa, raciocinar, planear e até ter consciência.”
+Características:</h2>
+<p class="text-paragraph">Aprende sozinha (não só com dados).</p>
+<p class="text-paragraph">Adapta-se a novas situações.</p>
+<div class="section-divider"></div>
+<h2 id="section-68"><span class="category-label">Prática</span>🚀 Pode ter emoções e criatividade (hipotético).
+Exemplos (ficção):</h2>
+<div class="section-divider"></div>
+<h2 id="section-69">📝 HAL 9000, Jarvis, Wall-E, Data (Star Trek).
+Imagem: robô humanóide pensativo.</h2>
+<div class="section-divider"></div>
+<h2 id="section-70">📝 🧩 Slide 7 – Comparação lado a lado</h2>
+<div class="section-divider"></div>
+<h2 id="section-71">📝 🎮 Slide 8 – Jogo: Verdadeiro ou Falso</h2>
+<div class="section-divider"></div>
+<h2 id="section-72">📝 Título: “Será que esta IA é forte ou fraca?”
+(Pode ser jogado em Kahoot ou Mentimeter)
+Perguntas sugeridas:</h2>
+<p class="text-paragraph">O ChatGPT é uma IA Forte. → ❌ Falso</p>
+<p class="text-paragraph">A Siri é uma IA Fraca. → ✅ Verdadeiro</p>
+<p class="text-paragraph">Uma IA que cria arte original é uma IA Forte. → ❌ Ainda não</p>
+<p class="text-paragraph">O DeepMind que vence humanos no xadrez é IA Fraca. → ✅ Verdadeiro</p>
+<p class="text-paragraph">A IA que “sente emoções” já existe. → ❌ Falso</p>
+<div class="section-divider"></div>
+<h2 id="section-73"><span class="category-label">Prática</span>🚀 🧠 Slide 9 – Atividade em Grupo: IA Real vs IA Imaginada</h2>
+<div class="section-divider"></div>
+<h2 id="section-74">📝 Instruções:</h2>
+<div class="section-divider"></div>
+<h2 id="section-75">📝 Em grupos, criem uma tabela com duas colunas:</h2>
+<p class="highlight-text"><strong class="text-bold">💡 IA Real (existe hoje)</strong></p>
+<p class="text-paragraph">🎬 IA Imaginada (ficção)</p>
+<p class="text-paragraph">Exemplos de partida:</p>
+<p class="text-paragraph">IA Real → ChatGPT, Spotify, Tesla, Recomendação Netflix</p>
+<p class="text-paragraph">IA Imaginada → Jarvis, C-3PO, Wall-E, HAL 9000</p>
+<p class="text-paragraph">Partilhem o vosso mural no Jamboard/Miro.</p>
+<div class="section-divider"></div>
+<h2 id="section-76">📝 💬 Slide 10 – Debate: Mitos e Realidade</h2>
+<div class="section-divider"></div>
+<h2 id="section-77">📝 Perguntas para o grupo:</h2>
+<p class="text-paragraph">“Acham que a IA vai ultrapassar a inteligência humana?”</p>
+<p class="text-paragraph">“O que uma máquina nunca vai conseguir fazer?”</p>
+<p class="text-paragraph">“É ético criar uma IA com emoções?”
+Dica: usa o Mentimeter para recolher palavras-chave e gerar uma nuvem de ideias.</p>
+<div class="section-divider"></div>
+<h2 id="section-78">📝 🌐 Slide 11 – Reflexão Final (Breakout Rooms)</h2>
+<div class="section-divider"></div>
+<h2 id="section-79">📝 Título: “O que significa ser inteligente?”</h2>
+<p class="text-paragraph">Grupos de 3-4 alunos.</p>
+<p class="text-paragraph">Questões para debate (10 min):</p>
+<p class="text-paragraph">A IA vai substituir-nos?</p>
+<p class="text-paragraph">A IA deve ter direitos?</p>
+<p class="text-paragraph">Pode uma máquina ser criativa?</p>
+<p class="text-paragraph">Cada grupo partilha uma frase resumo no chat principal.</p>
+<h3>📝 💭 Slide 12 – Fecho da Sessão</h3>
+<div class="section-divider"></div>
+<h2 id="section-80">📝 Resumo visual:</h2>
+<p class="text-paragraph">IA Fraca = tarefas específicas.</p>
+<div class="section-divider"></div>
+<h2 id="section-81">📝 IA Forte = sonho (ainda ficção).
+Frase de encerramento:</h2>
+<div class="section-divider"></div>
+<h2 id="section-82">📝 “A IA de hoje é poderosa, mas ainda precisa da inteligência humana para fazer sentido.”
+Anúncio para a próxima sessão:
+“Na próxima sessão, vamos descobrir como a IA aprende — os segredos dos algoritmos e dos dados!”</h2>
+<div class="section-divider"></div>
+<h2 id="section-83">📝 🎨 Sugestão de design visual:</h2>
+<p class="text-paragraph">Fundo azul escuro com circuitos ou padrões digitais.</p>
+<p class="text-paragraph">Ícones coloridos (💡🤖🧠🎬).</p>
+<p class="text-paragraph">Frases curtas e imagens fortes, sem texto excessivo.</p>
+<p class="text-paragraph">Momentos de interação a cada 10 minutos (Kahoot, Jamboard, nuvem de palavras).</p>
+<h3>🚀 Ficha de Atividade – Sessão 3</h3>
+<div class="section-divider"></div>
+<h2 id="section-84">📝 IA Real vs IA Imaginada</h2>
+<div class="section-divider"></div>
+<h2 id="section-85">📝 Duração: 30 minutos (durante a sessão síncrona)
+Modalidade: Trabalho em grupo
+Ferramentas: Jamboard / Miro / Padlet / PowerPoint colaborativo</h2>
+<div class="section-divider"></div>
+<h2 id="section-86"><span class="category-label">Objetivos</span>🎯 🎯 Objetivo da Atividade</h2>
+<div class="section-divider"></div>
+<h2 id="section-87">📝 Compreender a diferença entre IA Fraca (ou estreita) e IA Forte (ou geral), através da identificação de exemplos reais e ficcionais de Inteligência Artificial.</h2>
+<div class="section-divider"></div>
+<h2 id="section-88">📝 🧩 PARTE 1 – Vamos observar o mundo à nossa volta (10 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-89">📝 Pensem nas IAs que já usaram hoje:</h2>
+<p class="text-paragraph">Quando pesquisaram algo, ouviram música, jogaram ou viram vídeos — será que havia IA envolvida?</p>
+<p class="text-paragraph">Listem rapidamente 5 exemplos no vosso grupo.</p>
+<p class="highlight-text"><strong class="text-bold">💡 Dica: usem emojis ou imagens para representar as ideias.</strong></p>
+<p class="text-paragraph">Podem pesquisar online se não tiverem a certeza!</p>
+<div class="section-divider"></div>
+<h2 id="section-90">📝 🎬 PARTE 2 – Criar a Tabela “IA Real vs IA Imaginada” (15 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-91">📝 Instruções:</h2>
+<div class="section-divider"></div>
+<h2 id="section-92">📝 Abram um mural digital (Jamboard, Miro ou PowerPoint partilhado).</h2>
+<p class="text-paragraph">Dividam o ecrã em duas colunas:</p>
+<div class="section-divider"></div>
+<h2 id="section-93">📝 Acrescentem imagens, nomes ou emojis.</h2>
+<div class="section-divider"></div>
+<h2 id="section-94">📝 No final, escolham um exemplo favorito em cada coluna e justifiquem porquê.</h2>
+<div class="section-divider"></div>
+<h2 id="section-95">📝 💬 Exemplo de resposta:</h2>
+<p class="text-paragraph">“Escolhemos o ChatGPT como IA real porque consegue responder a perguntas e aprender com exemplos.
+Escolhemos o Wall-E como IA imaginada porque tem emoções e curiosidade, o que as máquinas ainda não têm.”</p>
+<div class="section-divider"></div>
+<h2 id="section-96">📝 💭 PARTE 3 – Debate Rápido no Grupo (5 min)</h2>
+<p class="text-paragraph">Discutam e respondam em conjunto:</p>
+<p class="text-paragraph">O que torna uma IA “forte”?</p>
+<p class="text-paragraph">Acham que algum dia teremos uma IA igual às dos filmes?</p>
+<p class="text-paragraph">Se tivessem de criar uma IA perfeita, o que ela deveria (ou não deveria) fazer?</p>
+<div class="section-divider"></div>
+<h2 id="section-97">📝 🗣️ PARTE 4 – Partilha com a Turma</h2>
+<p class="text-paragraph">Cada grupo mostra o seu mural em 1 minuto.</p>
+<p class="text-paragraph">Os colegas podem reagir com 👍 ou 💬 no chat.</p>
+<p class="text-paragraph">O formador reforça as ideias principais:</p>
+<div class="section-divider"></div>
+<h2 id="section-98">📝 A IA Fraca existe e está presente no quotidiano.</h2>
+<div class="section-divider"></div>
+<h2 id="section-99">📝 A IA Forte ainda é um ideal — um “sonho” que levanta questões éticas.</h2>
+<div class="section-divider"></div>
+<h2 id="section-100">📝 ✨ REFLEXÃO INDIVIDUAL (opcional)</h2>
+<p class="text-paragraph">Responde no teu caderno digital ou documento Word:</p>
+<p class="text-paragraph">Qual foi o exemplo de IA que mais te surpreendeu?</p>
+<p class="text-paragraph">Achas que uma IA pode um dia sentir emoções?</p>
+<p class="text-paragraph">Que perigo ou benefício vês em criar uma IA “forte”?</p>
+<div class="section-divider"></div>
+<h2 id="section-101">📝 🧠 RESULTADOS ESPERADOS</h2>
+<p class="text-paragraph">Saber distinguir IA Fraca (real) de IA Forte (ficcional).</p>
+<p class="text-paragraph">Reconhecer mitos e exageros mediáticos sobre a IA.</p>
+<p class="text-paragraph">Demonstrar pensamento crítico e ético sobre o uso da tecnologia.</p>
+<div class="section-divider"></div>
+<h2 id="section-102">📦 🧰 Recursos e Dicas para o Formador</h2>
+<div class="section-divider"></div>
+<h2 id="section-103">📝 Usar Jamboard ou Miro com modelo pré-criado (duas colunas).</h2>
+<div class="section-divider"></div>
+<h2 id="section-104">📝 Incentivar o uso de imagens, ícones e emojis — torna o trabalho mais envolvente.</h2>
+<p class="text-paragraph">Mostrar 1 ou 2 exemplos criados em direto como modelo.</p>
+<p class="text-paragraph">Partilhar no fim uma frase de encerramento:</p>
+<p class="text-paragraph">“A IA atual é poderosa, mas ainda não é consciente — o poder real está em quem a usa.”</p>
+<h3>🚀 🌍 Atividade Assíncrona – Sessão 3</h3>
+<div class="section-divider"></div>
+<h2 id="section-105">📝 “A IA do Futuro: 2050”</h2>
+<div class="section-divider"></div>
+<h2 id="section-106"><span class="category-label">Objetivos</span>🎯 Duração total: 90 minutos
+Modalidade: Assíncrona (trabalho individual ou em pares)
+Objetivo geral: Imaginar e representar criativamente o futuro da Inteligência Artificial, aplicando os conceitos de IA Fraca e IA Forte aprendidos na sessão.</h2>
+<div class="section-divider"></div>
+<h2 id="section-107"><span class="category-label">Objetivos</span>🎯 🎯 Objetivos Específicos</h2>
+<p class="text-paragraph">Ao final da atividade, o participante deverá ser capaz de:</p>
+<div class="section-divider"></div>
+<h2 id="section-108">📝 Distinguir tarefas possíveis para uma IA Fraca e para uma IA Forte.</h2>
+<p class="text-paragraph">Demonstrar criatividade na projeção do papel da IA no futuro.</p>
+<p class="text-paragraph">Refletir sobre implicações éticas, sociais e humanas do avanço da IA.</p>
+<div class="section-divider"></div>
+<h2 id="section-109">📝 ⏱️ Estrutura Temporal Sugerida</h2>
+<div class="section-divider"></div>
+<h2 id="section-110">📝 🧠 Parte 1 – Observa e imagina (15 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-111">📝 Instruções:</h2>
+<p class="text-paragraph">Relembra o que aprendeste na sessão:</p>
+<p class="text-paragraph">IA Fraca → tarefas específicas (ChatGPT, Google Maps, Tesla).</p>
+<p class="text-paragraph">IA Forte → consciência, criatividade e empatia (ainda ficção).</p>
+<p class="text-paragraph">Inspira-te com vídeos curtos ou imagens sobre o futuro da IA:</p>
+<p class="text-paragraph">🎥 TED-Ed – “The incredible inventions of intuitive AI”</p>
+<p class="text-paragraph">🎥 BBC Ideas – “What if AI became conscious?”</p>
+<div class="section-divider"></div>
+<h2 id="section-112">📝 Faz uma lista rápida de 3 ideias sobre como a IA poderá ser em 2050.</h2>
+<p class="text-paragraph">Exemplos:</p>
+<p class="text-paragraph">IA que ajuda a proteger o ambiente 🌱</p>
+<p class="text-paragraph">Professores-IA personalizados 🎓</p>
+<p class="text-paragraph">Companheiros robóticos com emoções 💬</p>
+<div class="section-divider"></div>
+<h2 id="section-113">📝 🎨 Parte 2 – Cria o teu poster digital (45 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-114">📝 Ferramentas sugeridas:
+Canva | Genially | PowerPoint | Google Slides | até papel e fotografia</h2>
+<div class="section-divider"></div>
+<h2 id="section-115">📝 Título do trabalho: A Inteligência Artificial em 2050 – Sonho ou Realidade?</h2>
+<div class="section-divider"></div>
+<h2 id="section-116">📝 Instruções:</h2>
+<p class="text-paragraph">Imagina o mundo em 2050:</p>
+<p class="text-paragraph">Que tipo de IAs existirão?</p>
+<p class="text-paragraph">Como serão usadas no trabalho, na escola, na saúde, no lazer?</p>
+<div class="section-divider"></div>
+<h2 id="section-117">📝 Cria um poster digital com:</h2>
+<p class="text-paragraph">Título criativo.</p>
+<p class="text-paragraph">2 secções distintas:</p>
+<p class="highlight-text"><strong class="text-bold">💡 IA Fraca em 2050 (tarefas e limitações).</strong></p>
+<p class="text-paragraph">🤖 IA Forte em 2050 (novas capacidades e riscos).</p>
+<p class="text-paragraph">1 frase de alerta ou esperança.</p>
+<p class="text-paragraph">Imagens, ícones e emojis para o tornar apelativo.</p>
+<div class="section-divider"></div>
+<h2 id="section-118">📝 (Opcional) Acrescenta uma citação inventada de um “cientista do futuro” ou de ti mesmo.</h2>
+<div class="section-divider"></div>
+<h2 id="section-119">📝 💬 Exemplo de citação:</h2>
+<p class="text-paragraph">“Em 2050, as IAs serão os nossos parceiros — se aprendermos a ensiná-las bem.”</p>
+<div class="section-divider"></div>
+<h2 id="section-120">📝 💭 Parte 3 – Reflexão final e partilha (30 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-121">📝 Responde num pequeno texto (ou grava um áudio/vídeo curto):</h2>
+<p class="text-paragraph">A tua IA do futuro é mais forte ou fraca?</p>
+<div class="section-divider"></div>
+<h2 id="section-122">📝 É uma ajuda, uma ameaça ou um parceiro?</h2>
+<p class="text-paragraph">O que deveríamos fazer, hoje, para garantir que o futuro da IA é positivo?</p>
+<div class="section-divider"></div>
+<h2 id="section-123">📝 Entrega:</h2>
+<p class="text-paragraph">Submeter o poster + reflexão no Teams / Google Classroom.</p>
+<p class="text-paragraph">Título do ficheiro: Nome_AIAdoFuturo2050.pdf ou Nome_AIAdoFuturo2050.pptx.</p>
+<div class="section-divider"></div>
+<h2 id="section-124">📦 🧰 Recursos de apoio (opcionais para o formador)</h2>
+<div class="section-divider"></div>
+<h2 id="section-125">📝 Criar um mural de exposição digital (Padlet ou Wakelet) com todos os posters.</h2>
+<div class="section-divider"></div>
+<h2 id="section-126">📝 Permitir votação entre colegas nas categorias:</h2>
+<p class="text-paragraph">🥇 Mais criativo</p>
+<p class="text-paragraph">🧠 Mais realista</p>
+<p class="text-paragraph">🌍 Mais ético ou responsável</p>
+<div class="section-divider"></div>
+<h2 id="section-127">📊 🧾 Critérios de Avaliação Formativa</h2>
+<div class="section-divider"></div>
+<h2 id="section-128">📝 Total: 20 pontos</h2>
+<div class="section-divider"></div>
+<h2 id="section-129">📝 🪐 Sugestão de Encerramento (formador)</h2>
+<p class="text-paragraph">“A IA de 2050 começa nas escolhas que fazemos hoje.
+Cada nova ideia pode tornar o futuro mais ético, inteligente e humano.”</p>
+<h3>📦 🌟 Recursos adicionais para a Sessão 3</h3>
+<div class="section-divider"></div>
+<h2 id="section-130">📝 Tema: Tipos de Inteligência Artificial – IA Fraca vs IA Forte</h2>
+<div class="section-divider"></div>
+<h2 id="section-131">📝 🧠 1. Brainstorming Inicial no Jamboard (10 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-132"><span class="category-label">Objetivos</span>🎯 Objetivo: perceber as ideias e perceções iniciais dos jovens sobre o que torna uma máquina “inteligente”.</h2>
+<div class="section-divider"></div>
+<h2 id="section-133">📝 Configuração:
+Cria um Jamboard ou Miro com 3 colunas:
+1️⃣ Exemplos de IA que conheço
+2️⃣ O que torna algo inteligente?
+3️⃣ Dúvidas ou curiosidades que tenho sobre IA</h2>
+<div class="section-divider"></div>
+<h2 id="section-134">📝 Instruções:</h2>
+<p class="text-paragraph">Cada participante adiciona 2 a 3 post-its.</p>
+<p class="text-paragraph">Pode usar emojis, palavras ou pequenas frases.</p>
+<p class="text-paragraph">O formador comenta algumas respostas em direto, reforçando a distinção entre “automatização” e “inteligência real”.</p>
+<div class="section-divider"></div>
+<h2 id="section-135">📝 💬 Perguntas para estimular:</h2>
+<p class="text-paragraph">“O que é ser inteligente — pensar, aprender ou sentir?”</p>
+<p class="text-paragraph">“As máquinas que usam regras simples são inteligentes?”</p>
+<p class="text-paragraph">“Uma calculadora é uma forma de IA?”</p>
+<div class="section-divider"></div>
+<h2 id="section-136">📝 🎥 2. Vídeo TED-Ed com Pausas para Debate (15 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-137">📝 Vídeo sugerido:
+🎬 Will robots take over the world? – TED-Ed (5 min)
+(legendado em português disponível no YouTube)</h2>
+<div class="section-divider"></div>
+<h2 id="section-138">📝 Estratégia:
+Reproduzir o vídeo em três blocos, fazendo pequenas pausas para discussão.</h2>
+<p class="text-paragraph">Dica: Podes criar um poll rápido no Mentimeter com as opções “A IA vai dominar o mundo” vs “A IA vai ajudar-nos”.</p>
+<div class="section-divider"></div>
+<h2 id="section-139"><span class="category-label">Prática</span>🚀 ⚙️ 3. Atividade Principal – IA Real vs IA Imaginada (30 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-140"><span class="category-label">Objetivos</span>🎯 Objetivo: distinguir exemplos de IAs reais e ficcionais, aplicando o que foi aprendido.</h2>
+<div class="section-divider"></div>
+<h2 id="section-141">📝 Ferramenta: Jamboard, Miro ou Padlet.</h2>
+<div class="section-divider"></div>
+<h2 id="section-142">📝 Instruções para os grupos (3–4 formandos):</h2>
+<div class="section-divider"></div>
+<h2 id="section-143">📝 Criem uma tabela com duas colunas:</h2>
+<p class="highlight-text"><strong class="text-bold">💡 IA Real (existe hoje)</strong></p>
+<p class="text-paragraph">🎬 IA Imaginada (ficção)</p>
+<p class="text-paragraph">Pesquisem ou recordem exemplos de cada tipo.</p>
+<p class="text-paragraph">Usem imagens, nomes e emojis para ilustrar.</p>
+<p class="text-paragraph">Escolham um exemplo de cada tipo para apresentar em 1 minuto.</p>
+<div class="section-divider"></div>
+<h2 id="section-144">📝 Exemplos orientadores:</h2>
+<div class="section-divider"></div>
+<h2 id="section-145">📝 💬 Questões orientadoras:</h2>
+<p class="text-paragraph">“Como percebem que uma IA é real e não apenas ficção?”</p>
+<p class="text-paragraph">“Acham que estamos perto de criar uma IA forte?”</p>
+<div class="section-divider"></div>
+<h2 id="section-146">📝 🧩 4. Debate “Mitos vs Realidade” (15 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-147"><span class="category-label">Objetivos</span>🎯 Objetivo: desconstruir ideias erradas e reforçar pensamento crítico.</h2>
+<div class="section-divider"></div>
+<h2 id="section-148">📝 Estrutura:</h2>
+<p class="text-paragraph">Mostra uma lista de afirmações no ecrã (PowerPoint ou Mentimeter).</p>
+<p class="text-paragraph">Os formandos votam Verdadeiro ou Falso e justificam.</p>
+<div class="section-divider"></div>
+<h2 id="section-149">📝 Exemplos de afirmações:</h2>
+<p class="text-paragraph">“O ChatGPT é uma IA Forte.” → ❌ Falso</p>
+<p class="text-paragraph">“As IAs atuais têm emoções.” → ❌ Falso</p>
+<p class="text-paragraph">“A IA consegue aprender sem dados.” → ❌ Falso</p>
+<p class="text-paragraph">“O carro da Tesla é uma IA Fraca.” → ✅ Verdadeiro</p>
+<p class="text-paragraph">“A IA pode ser criativa.” → ✅ (dependendo do ponto de vista)</p>
+<div class="section-divider"></div>
+<h2 id="section-150">📝 💬 Debrief rápido:</h2>
+<p class="text-paragraph">“As IAs de hoje são poderosas, mas ainda precisam de humanos para compreender o contexto. A inteligência humana continua essencial.”</p>
+<div class="section-divider"></div>
+<h2 id="section-151">📝 💭 5. Reflexão Final em Breakout Rooms (20 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-152">📝 Configuração:
+Dividir a turma em pequenos grupos (3–4 pessoas).
+Duração: 10 min para debate + 10 min para partilha geral.</h2>
+<div class="section-divider"></div>
+<h2 id="section-153">📝 Questões para discussão:</h2>
+<p class="text-paragraph">Acham que a IA pode, um dia, tornar-se “forte”?</p>
+<p class="text-paragraph">A IA deve ter direitos se algum dia tiver consciência?</p>
+<p class="text-paragraph">Que tarefas nunca deveriam ser entregues a uma IA?</p>
+<div class="section-divider"></div>
+<h2 id="section-154">📝 Após o regresso à sala principal:</h2>
+<p class="text-paragraph">Cada grupo partilha uma frase-resumo.</p>
+<p class="text-paragraph">O formador destaca as ideias-chave e encerra com:</p>
+<p class="text-paragraph">“Hoje percebemos que há muitos mitos sobre a IA. A tecnologia é incrível, mas a inteligência — essa — continua humana.”</p>
+<div class="section-divider"></div>
+<h2 id="section-155">📦 🧾 Recursos de Apoio para o Formador</h2>
+<div class="section-divider"></div>
+<h2 id="section-156">📝 🧩 Sugestão de Encerramento Inspirador</h2>
+<p class="text-paragraph">“A IA fraca está em todo o lado.
+A IA forte ainda é apenas uma ideia.
+Mas o que realmente faz a diferença… é a forma como nós escolhemos usá-la.”</p> </div> <!-- Download --> <div class="mt-8 glass-premium rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 hover-lift"> <div> <h3 class="text-white font-bold mb-1">Documento Original</h3> <p class="text-slate-400 text-sm">Faça download do ficheiro Word completo</p> </div> <a href="./modulo1/Sessão 3.docx" download class="px-6 py-3 rounded-full bg-gradient-to-r from-white/10 to-white/5 hover:from-white/20 hover:to-white/10 border border-white/20 hover:border-white/30 transition-all flex items-center gap-2 text-white font-medium shadow-lg hover:scale-105"> <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/> </svg> Download Word </a> </div> </main> </div> <!-- Footer --> <footer class="mt-20 border-t border-white/10 py-8 bg-black/30"> <div class="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm"> <p class="text-paragraph">act.academy | Geração Futuro © 2026</p> </div> </footer> <!-- Scripts --> <script> // Scroll Progress // Scroll Progress const updateProgress = () => { const winScroll = document.documentElement.scrollTop; const height = document.documentElement.scrollHeight - document.documentElement.clientHeight; const scrolled = (winScroll / height) * 100; document.getElementById('scrollProgress').style.width = scrolled + '%'; const readProg = document.getElementById('readProgress'); const progText = document.getElementById('progressText'); if (readProg) { readProg.style.width = scrolled.toFixed(0) + '%'; } if (progText) { progText.textContent = scrolled.toFixed(0) + '% lido'; } }; window.addEventListener('scroll', updateProgress); // Active Section Highlight const sections = document.querySelectorAll('.content-section h2'); const navLinks = document.querySelectorAll('.sidebar-link'); window.addEventListener('scroll', () => { let current = ''; sections.forEach(section => { const sectionTop = section.offsetTop; if (window.pageYOffset >= sectionTop - 100) { current = section.getAttribute('id'); } }); navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + current) { link.classList.add('active'); } }); }); </script>
+</body>
+</html>

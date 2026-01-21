@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>🧠 Sessão 5 — Atividade de Síntese: Criar um Algoritmo Completo | Geração Futuro</title> <script src="https://cdn.tailwindcss.com"></script> <style> * { scroll-behavior: smooth; } body { background-color: #020617; color: white; font-family: 'Outfit', sans-serif; overflow-x: hidden; } /* Glassmorphism Premium */ .glass-premium { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.125); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37), inset 0 1px 0 rgba(255, 255, 255, 0.1); } /* Header Premium */ .header-premium { background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid rgba(168, 85, 247, 0.2); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); } /* Sidebar Melhorada */ .sidebar { background: linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.85) 100%); backdrop-filter: blur(20px); border-right: 1px solid rgba(168, 85, 247, 0.3); box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4); } .sidebar-header { background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(34, 211, 238, 0.2)); border-bottom: 2px solid rgba(168, 85, 247, 0.3); padding: 1.25rem; margin-bottom: 1rem; border-radius: 0.75rem; } .sidebar-link { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border-left: 3px solid transparent; position: relative; padding-left: 1rem; } .sidebar-link::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 6px; height: 0; background: linear-gradient(180deg, #a855f7, #22d3ee); border-radius: 0 3px 3px 0; transition: height 0.3s ease; } .sidebar-link:hover { background: linear-gradient(90deg, rgba(168, 85, 247, 0.15), transparent); border-left-color: transparent; transform: translateX(4px); color: white; } .sidebar-link:hover::before { height: 100%; } .sidebar-link.active { background: linear-gradient(90deg, rgba(168, 85, 247, 0.25), rgba(34, 211, 238, 0.1)); border-left-color: transparent; color: #22d3ee; font-weight: 600; } .sidebar-link.active::before { height: 100%; box-shadow: 0 0 12px rgba(168, 85, 247, 0.6); } .sidebar-link-icon { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: rgba(168, 85, 247, 0.15); border-radius: 6px; margin-right: 0.75rem; font-size: 0.875rem; transition: all 0.3s ease; } .sidebar-link:hover .sidebar-link-icon { background: rgba(168, 85, 247, 0.3); transform: scale(1.1); } .sidebar-link.active .sidebar-link-icon { background: linear-gradient(135deg, #a855f7, #22d3ee); box-shadow: 0 2px 8px rgba(168, 85, 247, 0.4); } .nav-section { margin-bottom: 1.5rem; } .nav-section-title { color: #a855f7; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.5rem 1rem; margin-bottom: 0.5rem; opacity: 0.7; } .sidebar-progress { margin-top: 1.5rem; padding: 1rem; background: rgba(168, 85, 247, 0.1); border-radius: 0.75rem; border: 1px solid rgba(168, 85, 247, 0.2); } .progress-bar { width: 100%; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 3px; overflow: hidden; margin-top: 0.5rem; } .progress-fill { height: 100%; background: linear-gradient(90deg, #a855f7, #22d3ee); border-radius: 3px; transition: width 0.3s ease; box-shadow: 0 0 8px rgba(168, 85, 247, 0.6); } /* Typography */ .gradient-text { background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #22d3ee 100%); background-size: 200% 200%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 8s ease infinite; } @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } } .content-section h2 { color: #a855f7; margin-top: 3.5rem; margin-bottom: 1.75rem; font-size: 2rem; font-weight: 900; border-bottom: 3px solid rgba(168, 85, 247, 0.3); padding-bottom: 0.75rem; position: relative; } .content-section h2::before { content: ''; position: absolute; bottom: -3px; left: 0; width: 80px; height: 3px; background: linear-gradient(90deg, #a855f7, #22d3ee); border-radius: 2px; } .content-section h3 { color: #22d3ee; margin-top: 2.5rem; margin-bottom: 1.25rem; font-size: 1.5rem; font-weight: 700; } .content-section p { margin-bottom: 1.5rem; line-height: 2; color: #cbd5e1; font-size: 1.0625rem; } .content-section ul, .content-section ol { margin-left: 2.5rem; margin-bottom: 2rem; color: #cbd5e1; } .content-section li { margin-bottom: 1rem; line-height: 1.8; } .content-section li::marker { color: #a855f7; font-weight: 700; } /* Ultra Premium Additions */ body { background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%); font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; } .animated-bg-overlay { position: fixed; inset: 0; z-index: -1; background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(139, 92, 246, 0.15), transparent), radial-gradient(ellipse 60% 50% at 50% 120%, rgba(6, 182, 212, 0.12), transparent); animation: bgPulse 15s ease-in-out infinite; } @keyframes bgPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } } .title-ultra { background: linear-gradient(135deg, #A78BFA 0%, #EC4899 50%, #22D3EE 100%); background-size: 200% 200%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 8s ease infinite; } @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } } .content-card-ultra { background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.6)); backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(139, 92, 246, 0.2); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05) inset; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); } .content-card-ultra:hover { transform: translateY(-4px); box-shadow: 0 30px 80px rgba(139, 92, 246, 0.3), 0 0 0 1px rgba(139, 92, 246, 0.3) inset; } /* Dividers */ .section-divider { height: 2px; background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.5), transparent); margin: 4rem 0; } /* Time badge */ .time-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(34, 211, 238, 0.2); color: #22d3ee; padding: 0.4rem 1rem; border-radius: 2rem; font-size: 0.875rem; font-weight: 600; margin-left: 1rem; } /* Category label */ .category-label { background: rgba(168, 85, 247, 0.25); color: #ddd6fe; padding: 0.25rem 0.75rem; border-radius: 0.5rem; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 0.75rem; } /* Activity Box Premium */ .activity-box { background: linear-gradient(135deg, rgba(168, 85, 247, 0.18) 0%, rgba(34, 211, 238, 0.12) 100%); border-left: 5px solid #a855f7; padding: 2.5rem; margin: 2.5rem 0; border-radius: 1.25rem; box-shadow: 0 10px 40px rgba(168, 85, 247, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1); position: relative; overflow: hidden; } .activity-box::before { content: ''; position: absolute; top: 0; right: 0; width: 200px; height: 200px; background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%); border-radius: 50%; transform: translate(50%, -50%); } /* Info Box */ .info-box { background: rgba(34, 211, 238, 0.12); border-left: 4px solid #22d3ee; padding: 2rem; margin: 2rem 0; border-radius: 1rem; box-shadow: 0 4px 16px rgba(34, 211, 238, 0.15); } /* Animations */ @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } } .fade-in-up { animation: fadeInUp 0.6s ease-out forwards; } /* Scroll Progress */ .scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, #a855f7, #22d3ee); z-index: 9999; transition: width 0.1s ease; } /* Hover Effects */ .hover-lift { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); } .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 12px 48px rgba(168, 85, 247, 0.3); } /* Responsive */ @media (max-width: 1024px) { .sidebar { display: none; } } /* ========== MELHORIAS FINAIS UI/UX ========== */ /* Melhor legibilidade */ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; } /* Scrollbar customizada */ ::-webkit-scrollbar { width: 12px; } ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.5); } ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #8B5CF6, #06B6D4); border-radius: 6px; border: 2px solid rgba(15, 23, 42, 0.5); } ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #A78BFA, #22D3EE); } /* Focus states para acessibilidade */ a:focus, button:focus { outline: 2px solid #22D3EE; outline-offset: 4px; } /* Melhor contraste em textos */ p, li { color: #E2E8F0; font-weight: 400; } /* Links melhorados */ a { color: #22D3EE; text-decoration: none; transition: all 0.2s ease; } a:hover { color: #67E8F9; text-decoration: underline; } /* Cards com melhor hierarquia visual */ .content-card, .content-card-ultra { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); } .content-card:hover, .content-card-ultra:hover { border-color: rgba(139, 92, 246, 0.4); } /* Espaçamento consistente */ h2 + p, h3 + p { margin-top: 0; } p + h2, p + h3 { margin-top: 3rem; } /* Listas mais legíveis */ ul li, ol li { padding-left: 1rem; position: relative; } ul li::before { content: ''; position: absolute; left: -1rem; top: 0.75em; width: 6px; height: 6px; background: #8B5CF6; border-radius: 50%; } /* Botões melhorados */ button, .btn, a[class*="btn"] { cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; } /* Loading states */ @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } } /* Responsividade aprimorada */ @media (max-width: 768px) { h1 { font-size: 3rem !important; } h2 { font-size: 1.75rem !important; } h3 { font-size: 1.35rem !important; } p { font-size: 1rem !important; } .content-card, .content-card-ultra { padding: 2rem !important; } } /* Melhor feedback visual */ .nav-item:active { transform: scale(0.98); } /* Transições suaves em todos os interativos */ * { transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform; transition-duration: 200ms; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); } /* Previne transições em animações de scroll */ html.smooth-scroll * { transition: none !important; } /* Print styles */ @media print { .premium-header, .ultra-sidebar, footer { display: none !important; } body { background: white !important; color: black !important; } } /* ========== TIPOGRAFIA PREMIUM ========== */ /* Melhores fontes web */ @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap'); body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 17px; line-height: 1.7; letter-spacing: -0.011em; font-weight: 400; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; } /* Títulos com fonte premium */ h1, h2, h3, h4, h5, h6 { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; font-weight: 800; line-height: 1.2; letter-spacing: -0.03em; } /* H1 - Título Principal */ h1 { font-size: clamp(2.5rem, 8vw, 5rem) !important; line-height: 1.1 !important; margin-bottom: 1.5rem !important; font-weight: 900 !important; } /* H2 - Seções Principais */ h2 { font-size: clamp(1.75rem, 4vw, 2.5rem) !important; line-height: 1.3 !important; margin-top: 4rem !important; margin-bottom: 1.5rem !important; font-weight: 800 !important; color: #C4B5FD !important; } /* H3 - Subseções */ h3 { font-size: clamp(1.35rem, 3vw, 1.875rem) !important; line-height: 1.4 !important; margin-top: 2.5rem !important; margin-bottom: 1.25rem !important; font-weight: 700 !important; color: #67E8F9 !important; } /* H4 - Subtítulos */ h4 { font-size: 1.25rem !important; line-height: 1.5 !important; margin-top: 2rem !important; margin-bottom: 1rem !important; font-weight: 600 !important; color: #CBD5E1 !important; } /* Parágrafos otimizados */ p { font-size: 1.0625rem !important; line-height: 1.8 !important; margin-bottom: 1.5rem !important; color: #E2E8F0 !important; max-width: 70ch; font-weight: 400 !important; } /* Strong e Bold */ strong, b { font-weight: 600; color: #F1F5F9; } /* Listas melhoradas */ ul, ol { font-size: 1.0625rem; line-height: 1.75; color: #E2E8F0; padding-left: 1.5rem; } li { margin-bottom: 0.75rem !important; line-height: 1.75 !important; color: #E2E8F0 !important; } li p { margin-bottom: 0.5rem !important; } /* Código e Mono */ code, pre { font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 0.9em; background: rgba(139, 92, 246, 0.1); padding: 0.2em 0.4em; border-radius: 0.25rem; } /* Links melhorados */ a { color: #67E8F9; font-weight: 500; text-decoration: none; transition: all 0.2s; } a:hover { color: #A5F3FC; text-decoration: underline; } /* Blockquotes */ blockquote { border-left: 4px solid #8B5CF6; padding-left: 1.5rem; margin: 2rem 0; font-style: italic; color: #CBD5E1; } /* Melhor contraste */ .content-section { color: #E2E8F0; } /* Espaçamento vertical otimizado */ * + h2 { margin-top: 4rem !important; } * + h3 { margin-top: 3rem !important; } h2 + h3, h3 + h4 { margin-top: 1.5rem !important; } /* Mobile responsivo */ @media (max-width: 768px) { body { font-size: 16px; } h1 { font-size: 2.25rem !important; } h2 { font-size: 1.75rem !important; } h3 { font-size: 1.35rem !important; } p, li { font-size: 1rem !important; } } 
+        /* ========== FORMATAÇÃO DE TEXTO MELHORADA ========== */
+        
+        /* Parágrafos */
+        .text-paragraph {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+        }
+        
+        .text-paragraph:first-of-type::first-letter {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #A78BFA;
+            float: left;
+            line-height: 1;
+            margin-right: 0.1em;
+        }
+        
+        /* Listas melhoradas */
+        .enhanced-list {
+            margin: 2rem 0;
+            padding: 2rem 2.5rem;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(6, 182, 212, 0.03));
+            border-left: 4px solid #8B5CF6;
+            border-radius: 0.75rem;
+        }
+        
+        .enhanced-list li {
+            margin: 1rem 0;
+            padding-left: 0.5rem;
+            position: relative;
+        }
+        
+        .numbered-item::marker {
+            font-weight: 700;
+            color: #22D3EE;
+        }
+        
+        /* Bold destacado */
+        .text-bold {
+            color: #F1F5F9;
+            font-weight: 600;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), transparent);
+            padding: 0.1em 0.3em;
+            border-radius: 0.25em;
+        }
+        
+        /* Espaçadores */
+        .spacer {
+            height: 2rem;
+        }
+        
+        /* Citações */
+        blockquote {
+            border-left: 4px solid #8B5CF6;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            background: rgba(139, 92, 246, 0.05);
+            border-radius: 0.5rem;
+            font-style: italic;
+            color: #CBD5E1;
+        }
+        
+        blockquote p {
+            margin-bottom: 0;
+        }
+        
+        /* Destaque de informação importante */
+        .highlight-info {
+            background: linear-gradient(90deg, rgba(6, 182, 212, 0.15), transparent);
+            border-left: 4px solid #06B6D4;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0.5rem;
+        }
+        
+        /* Notas e avisos */
+        .note-box {
+            background: linear-gradient(90deg, rgba(245, 158, 11, 0.15), transparent);
+            border-left: 4px solid #F59E0B;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0.5rem;
+        }
+        
+        .note-box::before {
+            content: '💡';
+            margin-right: 0.5rem;
+            font-size: 1.25em;
+        }
+        
+        /* Tabelas (se houver) */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 0.75rem;
+            overflow: hidden;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #8B5CF6, #06B6D4);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+    </style>
+</head>
+<body class="antialiased"> <!-- Scroll Progress --> <div class="scroll-progress" id="scrollProgress"></div> <!-- Background --> <div class="fixed inset-0 -z-10"> <div class="absolute inset-0 bg-gradient-to-br from-purple-950/20 via-slate-950 to-cyan-950/20"></div> <div class="absolute inset-0" style="background-image: radial-gradient(1px 1px at 50px 50px, rgba(255,255,255,0.3) 50%, transparent 100%); background-size: 500px 500px; opacity: 0.3;"></div> </div> <!-- Header --> <nav class="sticky top-0 z-50 header-premium py-4 px-6"> <div class="max-w-7xl mx-auto flex items-center justify-between"> <a aria-label="Voltar para o hub principal"<a href="../../index.html" class="flex items-center gap-3 text-white hover:text-purple-300 transition-all hover:scale-105"> <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/> </svg> <span class="font-medium">Voltar ao Hub</span> </a> <div class="flex items-center gap-3"> <span class="text-xs uppercase tracking-widest text-cyan-400 font-bold">Módulo 2</span> <a href="../../modulo2/sessao5/" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white text-sm font-medium transition-all hover:scale-105 shadow-lg hover:shadow-xl"> Ver Apresentação </a> </div> </div> </nav> <!-- Main Layout --> <div class="flex max-w-7xl mx-auto px-6 py-12 gap-8"> <!-- Sidebar --> <aside class="hidden lg:block w-80 flex-shrink-0"> <div class="sidebar rounded-2xl p-6 sticky top-24 max-h- overflow-y-auto"> <h3 class="text-white font-bold text-lg mb-6 flex items-center gap-2"> <svg class="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/> </svg> Navegação </h3> <nav class="space-y-2">
+<a href="#section-11" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🎯</span><span class="flex-1">Objetivos e Competências</span></a>
+<a href="#section-147" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">📦</span><span class="flex-1">Materiais e Recursos</span></a>
+<a href="#section-4" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🔧</span><span class="flex-1">Preparação</span></a>
+<a href="#section-1" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🎮</span><span class="flex-1">Atividade Teasing</span></a>
+<a href="#section-3" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🚀</span><span class="flex-1">Atividades Práticas</span></a>
+<a href="#section-35" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🎬</span><span class="flex-1">Slides</span></a>
+<a href="#section-125" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">📊</span><span class="flex-1">Avaliação</span></a>
+<a href="#section-2" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">💭</span><span class="flex-1">Reflexão</span></a>
+<a href="#section-0" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">📝</span><span class="flex-1">Outros Conteúdos</span></a>
+</nav> </div> </aside> <!-- Content --> <main class="flex-1 min-w-0"> <!-- Title --> <div class="mb-12 fade-in-up"> <div class="flex items-center gap-3 mb-4"> <span class="px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/30 to-cyan-500/30 text-purple-200 text-xs font-bold uppercase tracking-wider border border-purple-500/30"> Guia do Formador </span> </div> <h1 class="text-6xl lg:text-7xl title-ultra" style="background: linear-gradient(135deg, #C4B5FD 0%, #EC4899 50%, #67E8F9 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;"> 🧠 Sessão 5 — Atividade de Síntese: Criar um Algoritmo Completo </h1> <p class="text-xl text-slate-300">Guia completo para conduzir esta sessão com sucesso</p> </div> <!-- Content --> <div class="content-card-ultra glass-premium rounded-2xl p-8 lg:p-12 content-section hover-lift"> <h2 id="section-0">📝 Módulo 2 – Pensamento Computacional Criativo</h2>
+<h3>🚀 🧠 Sessão 5 — Atividade de Síntese: Criar um Algoritmo Completo</h3>
+<h3>🚀 Sessão 5 - Atividade de Síntese: Criar um Algoritmo Completo</h3>
+<div class="section-divider"></div>
+<h2 id="section-1">📝 Teasing (30 min):
+Quiz “Os 4 Pilares do Pensamento Computacional” (Kahoot ou Quizizz) → revisão divertida e colaborativa.</h2>
+<div class="section-divider"></div>
+<h2 id="section-2">📝 Síncrona (90 min):
+• Escolha de um problema real (ex.: “como chegar a horas”, “como estudar sem distrações”).
+• Grupos aplicam os 4 pilares: decompor, procurar padrões, abstrair e criar algoritmo.
+• Apresentação dos algoritmos com feedback coletivo.
+• Diferenciação: 🌱 seguir modelo → 🌿 criar solução → 🌳 implementar decisão e repetição.
+• Reflexão: “O que aprendi sobre a forma como penso?”.</h2>
+<div class="section-divider"></div>
+<h2 id="section-3">📝 Enriquecimento (90 min):
+Desafio “Missão Final” → transformar o algoritmo em produto digital (fluxograma interativo, vídeo, história ou Scratch).
+Integração no portefólio individual com comentários entre colegas.</h2>
+<div class="section-divider"></div>
+<h2 id="section-4">📝 🧠Guião do Formador (90 min)</h2>
+<h3>📝 Sessão 5 – “Do Algoritmo ao Projeto: Criar, Testar e Melhorar”</h3>
+<div class="section-divider"></div>
+<h2 id="section-5">📝 Duração: 90 minutos
+Modalidade: Online síncrona (Zoom, Teams ou plataforma equivalente)
+Público: Jovens dos 11 aos 18 anos</h2>
+<h3>🎯 🎯 Objetivos da Sessão</h3>
+<div class="section-divider"></div>
+<h2 id="section-6">📝 Consolidar os conceitos de sequência, condição e repetição (loop).</h2>
+<div class="section-divider"></div>
+<h2 id="section-7">📝 Aplicar o pensamento computacional para criar um algoritmo completo.</h2>
+<div class="section-divider"></div>
+<h2 id="section-8">📝 Trabalhar o processo de design iterativo: criar → testar → corrigir → melhorar.</h2>
+<div class="section-divider"></div>
+<h2 id="section-9"><span class="category-label">Prática</span>🚀 Promover a colaboração, criatividade e apresentação de ideias.</h2>
+<h3>📝 🧩 Estrutura Geral da Sessão</h3>
+<div class="section-divider"></div>
+<h2 id="section-10">📝 1. Quebra-gelo – “O Algoritmo Falhado” (10 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-11"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Relembrar o papel da sequência, condição e repetição de forma divertida.</h2>
+<div class="section-divider"></div>
+<h2 id="section-12">📝 Instruções:</h2>
+<p class="text-paragraph">O formador partilha um “algoritmo errado” (em texto ou mímica).
+Exemplo:</p>
+<p class="text-paragraph">“1. Colocar pasta na escova
+2. Bochechar
+3. Escovar dentes
+4. Abrir a torneira”</p>
+<div class="section-divider"></div>
+<h2 id="section-13">📝 Os formandos tentam identificar o erro lógico ou de ordem.</h2>
+<p class="text-paragraph">Depois, corrigem juntos o algoritmo.</p>
+<div class="section-divider"></div>
+<h2 id="section-14">📝 💬 Mensagem de fecho:</h2>
+<p class="text-paragraph">“Na programação (e na vida), errar é parte do processo — o segredo está em testar, corrigir e repetir até funcionar.”</p>
+<p class="highlight-text"><strong class="text-bold">💡 Versão alternativa:
+Criar 3 mini-algoritmos com erros e desafiar os grupos a “debugar” (corrigir o código).</strong></p>
+<div class="section-divider"></div>
+<h2 id="section-15">📝 2. Exploração – “Dos Blocos às Ideias” (15 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-16"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Revisar os conceitos anteriores e preparar o grupo para o projeto final.</h2>
+<div class="section-divider"></div>
+<h2 id="section-17"><span class="category-label">Prática</span>🚀 Atividade:
+Mostra um slide com três blocos coloridos:</h2>
+<div class="section-divider"></div>
+<h2 id="section-18">📝 🔵 Sequência: passos ordenados</h2>
+<div class="section-divider"></div>
+<h2 id="section-19">📝 🟢 Condição: “Se. então.”</h2>
+<p class="text-paragraph">🟣 Loop: repetição até uma condição</p>
+<div class="section-divider"></div>
+<h2 id="section-20">📝 Pergunta ao grupo:</h2>
+<p class="text-paragraph">“Como podemos combinar estes três blocos para criar algo novo?”</p>
+<div class="section-divider"></div>
+<h2 id="section-21">📝 💬 Discussão guiada:</h2>
+<p class="text-paragraph">“Que tarefas do dia-a-dia têm sequência, decisão e repetição?”</p>
+<p class="text-paragraph">“Como podemos transformar isso num algoritmo criativo?”</p>
+<p class="highlight-text"><strong class="text-bold">🎯 Mensagem-chave:</strong></p>
+<p class="text-paragraph">“O pensamento computacional é como construir LEGO: cada bloco tem a sua função — mas juntos formam algo incrível.”</p>
+<div class="section-divider"></div>
+<h2 id="section-22"><span class="category-label">Prática</span>🚀 3. Atividade Principal – “Cria o Teu Projeto de Algoritmo” (50 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-23"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Aplicar todos os conceitos num algoritmo completo, com sequência, decisão e repetição.</h2>
+<div class="section-divider"></div>
+<h2 id="section-24">📝 Organização:</h2>
+<p class="text-paragraph">Grupos de 3 a 4 elementos (breakout rooms).</p>
+<div class="section-divider"></div>
+<h2 id="section-25">📝 Cada grupo cria um projeto final, com tema livre mas estrutura obrigatória:</h2>
+<p class="text-paragraph">Passos ordenados (sequência)</p>
+<p class="text-paragraph">Pelo menos uma condição “Se. então.”</p>
+<p class="text-paragraph">Um loop (repetição)</p>
+<p class="text-paragraph">Uma condição de fim</p>
+<div class="section-divider"></div>
+<h2 id="section-26">📝 Etapas de trabalho:</h2>
+<div class="section-divider"></div>
+<h2 id="section-27">📝 🧠 1. Escolher o tema do projeto</h2>
+<p class="text-paragraph">Sugestões:</p>
+<p class="text-paragraph">Rotina do dia-a-dia (ex.: “Amanhã Perfeito”) ☀️</p>
+<p class="text-paragraph">Jogo digital (ex.: “O Herói e o Monstro”) 🎮</p>
+<p class="text-paragraph">Receita interativa 🍕</p>
+<p class="text-paragraph">Robô ajudante 🤖</p>
+<p class="text-paragraph">“Missão Marte” 🚀</p>
+<p class="highlight-text"><strong class="text-bold">💡 Encoraja a mistura entre real e imaginário!</strong></p>
+<div class="section-divider"></div>
+<h2 id="section-28">📝 ⚙️ 2. Planear o algoritmo</h2>
+<div class="section-divider"></div>
+<h2 id="section-29">📝 Cada grupo usa uma grelha base:</h2>
+<p class="text-paragraph">💬 Dica:
+Incentiva-os a colorir cada tipo de bloco (azul = sequência, verde = condição, roxo = loop).</p>
+<div class="section-divider"></div>
+<h2 id="section-30">📝 💻 3. Representar o algoritmo</h2>
+<div class="section-divider"></div>
+<h2 id="section-31">📝 Em pseudocódigo, fluxograma ou animação visual (Canva, Scratch, PowerPoint).</h2>
+<p class="text-paragraph">O formador circula pelos grupos (ou entra nas breakout rooms) para apoiar o raciocínio.</p>
+<div class="section-divider"></div>
+<h2 id="section-32">📝 Exemplo de pseudocódigo:</h2>
+<p class="text-paragraph">Início</p>
+<p class="text-paragraph">Enquanto (não for hora de dormir)</p>
+<p class="text-paragraph">Se estiver cansado → descansar</p>
+<p class="text-paragraph">Senão → continuar a estudar</p>
+<p class="text-paragraph">Fim</p>
+<div class="section-divider"></div>
+<h2 id="section-33">📝 🧪 4. Testar e melhorar</h2>
+<p class="text-paragraph">Cada grupo “testa” o seu algoritmo:</p>
+<p class="text-paragraph">Um aluno lê as instruções, outro simula.</p>
+<p class="text-paragraph">Identificam falhas ou confusões.</p>
+<p class="text-paragraph">Corrigem e simplificam.</p>
+<p class="text-paragraph">💬 Mensagem:</p>
+<p class="text-paragraph">“Programar é como cozinhar — o segredo está em testar, provar e ajustar!” 🍲</p>
+<div class="section-divider"></div>
+<h2 id="section-34">📝 🗣️ 5. Preparar a apresentação</h2>
+<div class="section-divider"></div>
+<h2 id="section-35">📝 Cada grupo cria um slide ou cartaz com:</h2>
+<p class="text-paragraph">Título do projeto</p>
+<p class="text-paragraph">3 ícones: 🔵 Sequência, 🟢 Condição, 🟣 Loop</p>
+<p class="text-paragraph">Uma frase final: “O nosso algoritmo serve para…”</p>
+<div class="section-divider"></div>
+<h2 id="section-36">📝 4. Apresentações e Reflexão Final (15 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-37"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Valorizar o trabalho dos grupos e reforçar a aprendizagem colaborativa.</h2>
+<div class="section-divider"></div>
+<h2 id="section-38"><span class="category-label">Prática</span>🚀 Atividade:</h2>
+<p class="text-paragraph">Cada grupo tem 2–3 minutos para apresentar o seu projeto.</p>
+<p class="text-paragraph">Os colegas podem reagir com emojis (👍 😂 🤖 💡).</p>
+<div class="section-divider"></div>
+<h2 id="section-39">📝 💬 Perguntas de reflexão:</h2>
+<p class="text-paragraph">O que tornou o teu algoritmo eficaz?</p>
+<p class="text-paragraph">Que erros corrigiste?</p>
+<p class="text-paragraph">Que parte te pareceu mais divertida ou desafiante?</p>
+<div class="section-divider"></div>
+<h2 id="section-40">📝 🧩 Síntese Final (slide de fecho)</h2>
+<div class="section-divider"></div>
+<h2 id="section-41">📝 “Um algoritmo é mais do que um conjunto de passos —
+é uma forma de pensar, criar e melhorar continuamente.”</h2>
+<div class="section-divider"></div>
+<h2 id="section-42">📝 💡 Mostra o diagrama final com os três blocos integrados:
+Sequência → Condição → Loop → Resultado</h2>
+<div class="section-divider"></div>
+<h2 id="section-43"><span class="category-label">Objetivos</span>🎯 🧠 Competências Desenvolvidas</h2>
+<p class="text-paragraph">✅ Pensamento lógico e computacional
+✅ Planeamento e resolução de problemas
+✅ Colaboração e comunicação criativa
+✅ Autoavaliação e melhoria contínua</p>
+<div class="section-divider"></div>
+<h2 id="section-44">📝 🧰 Materiais Necessários</h2>
+<p class="text-paragraph">Apresentação visual (slides).</p>
+<p class="text-paragraph">Grelha de grupo (Word, Canva ou Jamboard).</p>
+<p class="text-paragraph">Ferramenta de colaboração (Padlet, Miro, Teams).</p>
+<p class="text-paragraph">Quiz de recapitulação (Kahoot ou Mentimeter).</p>
+<div class="section-divider"></div>
+<h2 id="section-45">📝 💬 Feedback Formativo (5 min finais)</h2>
+<div class="section-divider"></div>
+<h2 id="section-46">📝 Perguntas rápidas:</h2>
+<p class="text-paragraph">Que parte do algoritmo foi mais difícil?</p>
+<p class="text-paragraph">Onde aplicarias o que aprendeste hoje?</p>
+<p class="text-paragraph">O que farias diferente se repetisses o projeto?</p>
+<p class="highlight-text"><strong class="text-bold">💡 Podes usar Forms, Mentimeter ou recolher respostas no chat.</strong></p>
+<h3>📝 🧭 Resumo Temporal da Sessão</h3>
+<div class="section-divider"></div>
+<h2 id="section-47">📝 ✨ Frase de Fecho</h2>
+<p class="text-paragraph">“Pensar como um programador é simples:
+planeia, testa, repete e melhora.</p>
+<div class="section-divider"></div>
+<h2 id="section-48">📝 E tu, hoje, criaste o teu primeiro projeto inteligente!” 💡🤖</h2>
+<h3>📝 🎬 CONTEÚDO DOS SLIDES – Sessão 5</h3>
+<div class="section-divider"></div>
+<h2 id="section-49">📝 Tema: Do Algoritmo ao Projeto – Criar, Testar e Melhorar</h2>
+<div class="section-divider"></div>
+<h2 id="section-50">📝 Duração: 90 minutos</h2>
+<div class="section-divider"></div>
+<h2 id="section-51">📝 🧠 Slide 1 – Boas-vindas</h2>
+<h3>📝 Título:
+🤖 Sessão 5 – Do Algoritmo ao Projeto</h3>
+<div class="section-divider"></div>
+<h2 id="section-52">📝 Conteúdo:</h2>
+<p class="text-paragraph">“Bem-vindos, jovens criadores de ideias inteligentes!” 👋</p>
+<div class="section-divider"></div>
+<h2 id="section-53">📝 “Hoje é o dia de juntar tudo o que aprendemos: sequência, condição e repetição.”</h2>
+<div class="section-divider"></div>
+<h2 id="section-54">📝 “Vamos transformar o vosso pensamento lógico num projeto criativo – pronto a testar e melhorar.”</h2>
+<div class="section-divider"></div>
+<h2 id="section-55">📝 Visual sugerido:</h2>
+<p class="text-paragraph">Fundo colorido (azul, verde e roxo).</p>
+<p class="text-paragraph">Ícones dos três blocos: 📘 Sequência | 🧩 Condição | 🔁 Loop.</p>
+<div class="section-divider"></div>
+<h2 id="section-56">📝 🎮 Slide 2 – Quebra-gelo: “O Algoritmo Falhado”</h2>
+<div class="section-divider"></div>
+<h2 id="section-57">📝 Título:
+💥 Descobre o erro!</h2>
+<div class="section-divider"></div>
+<h2 id="section-58">📝 Conteúdo:</h2>
+<p class="text-paragraph">“1. Colocar pasta na escova
+2. Bochechar
+3. Escovar dentes
+4. Abrir a torneira”</p>
+<div class="section-divider"></div>
+<h2 id="section-59">📝 Pergunta ao grupo:</h2>
+<p class="text-paragraph">“O que está errado neste algoritmo?”</p>
+<p class="text-paragraph">“Qual seria a ordem correta?”</p>
+<div class="section-divider"></div>
+<h2 id="section-60">📝 💬 Mensagem:</h2>
+<p class="text-paragraph">“Programar é testar, errar, corrigir e melhorar – o verdadeiro poder está na repetição inteligente.”</p>
+<div class="section-divider"></div>
+<h2 id="section-61">📝 Visual:</h2>
+<p class="text-paragraph">Ícone de escova de dentes + robô confuso 🤖💭.</p>
+<div class="section-divider"></div>
+<h2 id="section-62">📝 🧩 Slide 3 – Relembrar: As 3 Peças do Pensamento Computacional</h2>
+<div class="section-divider"></div>
+<h2 id="section-63">📝 Título:
+🧠 Sequência → Condição → Loop</h2>
+<div class="section-divider"></div>
+<h2 id="section-64">📝 💬 Mensagem:</h2>
+<p class="text-paragraph">“Estes três blocos são os ingredientes de qualquer programa — e do teu projeto final.”</p>
+<h3>📝 💡 Slide 4 – Missão da Sessão</h3>
+<div class="section-divider"></div>
+<h2 id="section-65">📝 Título:
+🚀 O Desafio de Hoje</h2>
+<div class="section-divider"></div>
+<h2 id="section-66">📝 Conteúdo:</h2>
+<div class="section-divider"></div>
+<h2 id="section-67">📝 “Cria um algoritmo completo, que: Tenha sequência Use pelo menos uma condição Inclua repetição (loop) E tenha uma condição de fim.”</h2>
+<p class="text-paragraph">“Tema: livre e criativo!” 🎨</p>
+<div class="section-divider"></div>
+<h2 id="section-68">📝 💬 Exemplos:</h2>
+<p class="text-paragraph">“Robô que prepara o pequeno-almoço” 🥣</p>
+<p class="text-paragraph">“Jogo que reage às decisões do jogador” 🎮</p>
+<p class="text-paragraph">“Missão Espacial para Marte” 🚀</p>
+<div class="section-divider"></div>
+<h2 id="section-69">📝 🧠 Slide 5 – Passo 1: Escolher o Tema</h2>
+<div class="section-divider"></div>
+<h2 id="section-70">📝 Título:
+🎯 Que tipo de algoritmo vais criar?</h2>
+<div class="section-divider"></div>
+<h2 id="section-71">📝 Sugestões:</h2>
+<p class="text-paragraph">🏠 Rotina do dia (acordar → escola → jantar)</p>
+<p class="text-paragraph">🧁 Receita de bolo inteligente</p>
+<p class="text-paragraph">🧩 Jogo interativo (Se… então…)</p>
+<p class="text-paragraph">🤖 Robô ajudante com loops</p>
+<p class="text-paragraph">🌌 Missão no espaço – Missão Marte!</p>
+<div class="section-divider"></div>
+<h2 id="section-72">📝 💬 Mensagem:</h2>
+<div class="section-divider"></div>
+<h2 id="section-73">📝 “O melhor projeto é aquele que mistura imaginação e lógica.”</h2>
+<div class="section-divider"></div>
+<h2 id="section-74">📝 Visual:</h2>
+<p class="text-paragraph">Fundo colorido com planetas, robôs e ícones de tarefas.</p>
+<div class="section-divider"></div>
+<h2 id="section-75">📝 ⚙️ Slide 6 – Passo 2: Planear o Algoritmo</h2>
+<div class="section-divider"></div>
+<h2 id="section-76">📝 Título:
+🧱 Constrói o teu plano passo a passo</h2>
+<div class="section-divider"></div>
+<h2 id="section-77">📝 Grelha base:</h2>
+<p class="text-paragraph">💬 Dica:
+Colorir os blocos → Azul (Sequência) 💙 | Verde (Condição) 💚 | Roxo (Loop) 💜</p>
+<div class="section-divider"></div>
+<h2 id="section-78">📝 Visual:</h2>
+<p class="text-paragraph">Fundo branco com blocos coloridos (tipo LEGO).</p>
+<div class="section-divider"></div>
+<h2 id="section-79">📝 💻 Slide 7 – Passo 3: Representar o Algoritmo</h2>
+<div class="section-divider"></div>
+<h2 id="section-80">📝 Título:
+💡 Transforma o teu plano em ação!</h2>
+<div class="section-divider"></div>
+<h2 id="section-81">📝 Escolhe como queres representar o teu projeto:</h2>
+<p class="text-paragraph">✏️ Pseudocódigo</p>
+<p class="text-paragraph">🧩 Fluxograma visual</p>
+<p class="text-paragraph">💻 Scratch ou Canva interativo</p>
+<div class="section-divider"></div>
+<h2 id="section-82">📝 Exemplo em pseudocódigo:</h2>
+<p class="text-paragraph">Início</p>
+<p class="text-paragraph">Enquanto (não for hora de dormir)</p>
+<p class="text-paragraph">Se estiver cansado → descansar</p>
+<p class="text-paragraph">Senão → continuar a estudar</p>
+<p class="text-paragraph">Fim</p>
+<div class="section-divider"></div>
+<h2 id="section-83">📝 💬 Mensagem:</h2>
+<p class="text-paragraph">“Os computadores só funcionam bem quando as nossas instruções são claras e ordenadas.”</p>
+<div class="section-divider"></div>
+<h2 id="section-84">📝 🔁 Slide 8 – Passo 4: Testar e Melhorar</h2>
+<div class="section-divider"></div>
+<h2 id="section-85">📝 Título:
+🧪 Debug time!</h2>
+<div class="section-divider"></div>
+<h2 id="section-86">📝 Instruções:</h2>
+<p class="text-paragraph">Um colega lê o teu algoritmo.</p>
+<p class="text-paragraph">Outro tenta executá-lo passo a passo.</p>
+<p class="text-paragraph">Descobre onde algo não faz sentido ou falha.</p>
+<p class="text-paragraph">Corrige e simplifica!</p>
+<div class="section-divider"></div>
+<h2 id="section-87">📝 💬 Perguntas para guiar o teste:</h2>
+<p class="text-paragraph">“O que acontece se mudar a condição?”</p>
+<p class="text-paragraph">“O loop termina quando deve?”</p>
+<p class="text-paragraph">“Há passos repetidos?”</p>
+<div class="section-divider"></div>
+<h2 id="section-88">📝 Mensagem:</h2>
+<p class="text-paragraph">“Testar é pensar duas vezes — e melhorar é o verdadeiro superpoder da programação.” ⚡</p>
+<div class="section-divider"></div>
+<h2 id="section-89">📝 🧩 Slide 9 – Passo 5: Apresentar o Projeto</h2>
+<div class="section-divider"></div>
+<h2 id="section-90">📝 Título:
+🎤 Mostra o teu algoritmo ao mundo!</h2>
+<div class="section-divider"></div>
+<h2 id="section-91">📝 Conteúdo:
+Cada grupo apresenta: Nome do projeto O problema que resolve Uma frase que o resume Os blocos usados (Sequência 🟦 / Condição 🟩 / Loop 🟪)</h2>
+<p class="text-paragraph">💬 Dica:
+Mostra o algoritmo com humor ou criatividade – vale cantar, dramatizar ou animar! 😄</p>
+<div class="section-divider"></div>
+<h2 id="section-92">📝 Visual:</h2>
+<p class="text-paragraph">Fundo colorido com palco e robôs animados.</p>
+<div class="section-divider"></div>
+<h2 id="section-93">📝 💬 Slide 10 – Reflexão Final</h2>
+<div class="section-divider"></div>
+<h2 id="section-94">📝 Título:
+🧠 O que aprendi hoje?</h2>
+<div class="section-divider"></div>
+<h2 id="section-95">📝 Perguntas:</h2>
+<p class="text-paragraph">Que parte do meu algoritmo foi mais difícil de criar?</p>
+<p class="text-paragraph">Onde precisei de testar e corrigir?</p>
+<p class="text-paragraph">Como posso aplicar esta forma de pensar noutros contextos?</p>
+<div class="section-divider"></div>
+<h2 id="section-96">📝 💬 Mensagem:</h2>
+<p class="text-paragraph">“Os melhores programadores não fazem tudo certo à primeira —
+fazem, testam e melhoram!” 💪</p>
+<h3>📝 📚 Slide 11 – Resumo da Sessão</h3>
+<div class="section-divider"></div>
+<h2 id="section-97">📝 Título:
+📘 Hoje aprendemos que…</h2>
+<div class="section-divider"></div>
+<h2 id="section-98">📝 ✅ Um algoritmo é uma combinação de blocos lógicos.
+✅ Testar e corrigir é parte do processo criativo.
+✅ As ideias ganham forma quando pensamos como programadores.
+✅ Trabalhar em equipa faz as soluções crescerem.</h2>
+<div class="section-divider"></div>
+<h2 id="section-99">📝 Visual:</h2>
+<p class="text-paragraph">Fundo azul com ícones de robôs, engrenagens e lâmpadas 💡.</p>
+<div class="section-divider"></div>
+<h2 id="section-100">📝 🗣️ Slide 12 – Feedback e Partilha</h2>
+<div class="section-divider"></div>
+<h2 id="section-101">📝 Título:
+💬 O que levas desta sessão?</h2>
+<div class="section-divider"></div>
+<h2 id="section-102">📝 Perguntas rápidas (via Mentimeter, Forms ou Chat):</h2>
+<p class="text-paragraph">O que te fez sorrir hoje? 😄</p>
+<p class="text-paragraph">Que bloco gostaste mais de usar?</p>
+<p class="text-paragraph">O que queres aprender a seguir? 🚀</p>
+<div class="section-divider"></div>
+<h2 id="section-103">📝 💬 Mensagem:</h2>
+<div class="section-divider"></div>
+<h2 id="section-104">📝 “O pensamento computacional não é sobre computadores — é sobre pensar melhor.”</h2>
+<div class="section-divider"></div>
+<h2 id="section-105">📝 🌈 Slide 13 – Encerramento</h2>
+<div class="section-divider"></div>
+<h2 id="section-106">📝 Título:
+🎉 Parabéns, Criador(a) de Algoritmos!</h2>
+<div class="section-divider"></div>
+<h2 id="section-107">📝 Conteúdo:</h2>
+<p class="text-paragraph">“Combinaste lógica, imaginação e repetição.”</p>
+<p class="text-paragraph">“Agora o teu cérebro é o melhor processador do mundo!” 🧠💡</p>
+<p class="text-paragraph">“Na próxima etapa do curso, vais usar tudo isto para criar projetos ainda mais inteligentes com IA.”</p>
+<div class="section-divider"></div>
+<h2 id="section-108">📝 Visual:</h2>
+<p class="text-paragraph">Fundo festivo com confetis e robôs a celebrar.</p>
+<p class="text-paragraph">Frase final animada:</p>
+<p class="text-paragraph">“Pensa. Cria. Testa. Melhora. Repete.” 🔁</p>
+<div class="section-divider"></div>
+<h2 id="section-109"><span class="category-label">Objetivos</span>🎯 🧩 Competências Reforçadas</h2>
+<p class="text-paragraph">✅ Pensamento lógico e computacional
+✅ Planeamento e resolução criativa de problemas
+✅ Colaboração e comunicação em grupo
+✅ Capacidade de autoavaliação e melhoria contínua</p>
+<h3>🚀 🧩 FICHA DE ATIVIDADE – Sessão 5</h3>
+<h3>📝 Sessão 5 – “Do Algoritmo ao Projeto: Criar, Testar e Melhorar”</h3>
+<div class="section-divider"></div>
+<h2 id="section-110"><span class="category-label">Prática</span>🚀 Ficha de Atividade</h2>
+<div class="section-divider"></div>
+<h2 id="section-111"><span class="category-label">Objetivos</span>🎯 🎯 Objetivo da Atividade</h2>
+<div class="section-divider"></div>
+<h2 id="section-112"><span class="category-label">Objetivos</span>🎯 Aplicar os conhecimentos sobre sequência, condição e repetição (loop) para criar um algoritmo completo, com um objetivo real ou imaginário.
+No final, testar, corrigir e melhorar o resultado.</h2>
+<div class="section-divider"></div>
+<h2 id="section-113">📝 🧩 PARTE 1 – RELEMBRAR OS BLOCOS</h2>
+<div class="section-divider"></div>
+<h2 id="section-114">📝 💡 Pensa: Como podes usar estes três blocos juntos no teu projeto?</h2>
+<div class="section-divider"></div>
+<h2 id="section-115">📝 💡 PARTE 2 – MISSÃO FINAL: CRIA O TEU PROJETO DE ALGORITMO</h2>
+<div class="section-divider"></div>
+<h2 id="section-116">📝 Imagina que és programador(a) de uma missão especial.
+A tua tarefa é criar um algoritmo inteligente que funcione sozinho, resolvendo um problema simples ou divertido.</h2>
+<div class="section-divider"></div>
+<h2 id="section-117">📝 🎯 O teu algoritmo deve ter:
+Uma sequência (passos ordenados)
+2️⃣ Pelo menos uma condição “Se. então.”
+3️⃣ Um loop (repetição)
+4️⃣ Uma condição de fim</h2>
+<div class="section-divider"></div>
+<h2 id="section-118">📝 ✏️ 1. Escolhe o tema do teu projeto</h2>
+<p class="text-paragraph">💬 Ideias inspiradoras:</p>
+<p class="text-paragraph">“O Robô da Manhã Perfeita” ☀️</p>
+<p class="text-paragraph">“O Jogo da Decisão Inteligente” 🎮</p>
+<p class="text-paragraph">“O Chef Automático” 🍳</p>
+<p class="text-paragraph">“O Treino do Futuro” 💪</p>
+<p class="text-paragraph">“Missão Marte” 🚀</p>
+<p class="text-paragraph">✍️ Tema escolhido:</p>
+<div class="section-divider"></div>
+<h2 id="section-119">📝 🧱 2. Planeia o teu algoritmo</h2>
+<p class="text-paragraph">💬 Dica: usa cores ou símbolos para cada tipo de bloco!
+🔵 Sequência | 🟢 Condição | 🟣 Loop</p>
+<div class="section-divider"></div>
+<h2 id="section-120">📝 💻 3. Escreve o teu algoritmo (em pseudocódigo)</h2>
+<p class="text-paragraph">Início</p>
+<p class="text-paragraph">__________________________________________</p>
+<p class="text-paragraph">__________________________________________</p>
+<p class="text-paragraph">__________________________________________</p>
+<p class="text-paragraph">__________________________________________</p>
+<p class="text-paragraph">Fim</p>
+<p class="text-paragraph">💬 Verifica se incluíste pelo menos uma condição e um loop!</p>
+<div class="section-divider"></div>
+<h2 id="section-121">📝 🔁 4. Testa o teu algoritmo</h2>
+<p class="text-paragraph">Troca o teu algoritmo com um colega.
+2️⃣ Pede-lhe que “execute” os passos (simula o robô).
+3️⃣ Observa se algo falha ou fica confuso.
+4️⃣ Faz as correções necessárias.</p>
+<div class="section-divider"></div>
+<h2 id="section-122">📝 💬 O que tiveste de alterar?
+✍️ ____________________________________________________________</h2>
+<div class="section-divider"></div>
+<h2 id="section-123">📝 🌿 5. Diferenciação por Nível</h2>
+<p class="highlight-text"><strong class="text-bold">💡 Podes ilustrar o teu algoritmo com um desenho, fluxograma ou animação.</strong></p>
+<div class="section-divider"></div>
+<h2 id="section-124">📝 💬 PARTE 6 – REFLEXÃO FINAL</h2>
+<p class="text-paragraph">Que parte do teu algoritmo funcionou melhor?
+✍️ ____________________________________________________________</p>
+<p class="text-paragraph">2️⃣ Onde precisaste de testar e corrigir?
+✍️ ____________________________________________________________</p>
+<p class="text-paragraph">3️⃣ O que aprendeste sobre o processo de criar, testar e melhorar?
+✍️ ____________________________________________________________</p>
+<div class="section-divider"></div>
+<h2 id="section-125">📊 🧠 PARTE 7 – AUTOAVALIAÇÃO</h2>
+<div class="section-divider"></div>
+<h2 id="section-126">📝 🧩 PARTE 8 – DESAFIO EXTRA (Opcional)</h2>
+<div class="section-divider"></div>
+<h2 id="section-127">📝 🎨 “O Algoritmo Vivo”
+Transforma o teu algoritmo num cartaz ou mini-história visual:</h2>
+<div class="section-divider"></div>
+<h2 id="section-128">📝 Usa blocos coloridos (azul, verde, roxo).</h2>
+<p class="text-paragraph">Desenha o teu robô, jogo ou cenário.</p>
+<div class="section-divider"></div>
+<h2 id="section-129">📝 Mostra como ele decide, repete e termina.</h2>
+<p class="highlight-text"><strong class="text-bold">💡 Ferramentas sugeridas: Canva, Miro, PowerPoint, papel e marcadores.</strong></p>
+<div class="section-divider"></div>
+<h2 id="section-130"><span class="category-label">Objetivos</span>🎯 🌈 PARTE 9 – COMPETÊNCIAS DESENVOLVIDAS</h2>
+<p class="text-paragraph">✅ Pensamento lógico e computacional
+✅ Planeamento e resolução criativa de problemas
+✅ Colaboração e comunicação
+✅ Capacidade de testar, corrigir e melhorar</p>
+<div class="section-divider"></div>
+<h2 id="section-131">📝 ✨ Mensagem Final</h2>
+<p class="text-paragraph">“Um bom algoritmo é como um bom plano:
+funciona, mas pode sempre ser melhorado!” 💡</p>
+<p class="text-paragraph">“Hoje programaste o teu próprio raciocínio — e isso é o início de toda a inovação.” 🤖✨</p>
+<h3>🔧 🎮 Teasing da Sessão 5 (30 min antes)</h3>
+<div class="section-divider"></div>
+<h2 id="section-132">📝 “Missão: O Algoritmo Perfeito!”</h2>
+<div class="section-divider"></div>
+<h2 id="section-133"><span class="category-label">Objetivos</span>🎯 Duração: 30 minutos
+Modalidade: Individual (atividade online curta)
+Objetivo: Despertar a curiosidade e motivar para a criação de um algoritmo completo, mostrando que todos os problemas têm soluções passo a passo — se soubermos planear, testar e melhorar.</h2>
+<div class="section-divider"></div>
+<h2 id="section-134">📝 🎬 1. Introdução – A Mensagem Misteriosa</h2>
+<p class="text-paragraph">“🚨 Atenção, jovem programador(a)!</p>
+<p class="text-paragraph">A central de IA Geração Futuro enviou-te uma missão secreta:</p>
+<div class="section-divider"></div>
+<h2 id="section-135">📝 Criar o algoritmo perfeito, capaz de resolver qualquer problema.</h2>
+<p class="text-paragraph">Mas há um obstáculo: o teu código atual… está cheio de erros! 😱</p>
+<p class="text-paragraph">Tens 30 minutos para descobrir onde estão as falhas e preparar-te para a grande missão da próxima sessão.”</p>
+<p class="highlight-text"><strong class="text-bold">💡 Apresenta a missão com um pequeno vídeo (Canva ou Genially)
+Um robô com voz digital diz:</strong></p>
+<p class="text-paragraph">“Erro 404: lógica incompleta.
+Necessário: sequência + decisão + repetição.
+Podes ajudar-me a corrigir?” 🤖</p>
+<div class="section-divider"></div>
+<h2 id="section-136">📝 🧩 2. O Desafio – “Corrige o Código!”</h2>
+<p class="text-paragraph">O robô LÓGICO-5 está a tentar preparar um pequeno-almoço, mas o seu algoritmo está completamente desorganizado!</p>
+<div class="section-divider"></div>
+<h2 id="section-137">📝 💥 Algoritmo com Erros:</h2>
+<ol class='list-disc' class="space-y-3">
+<li>. Se estiver com fome → comer</li>
+<li>. Enquanto o leite não estiver frio → pôr na taça</li>
+<li>. Beber o leite</li>
+<li>. Pegar na tigela</li>
+<li>. Colocar os cereais</li>
+</ol>
+<div class="section-divider"></div>
+<h2 id="section-138">📝 💬 A tua missão: Reorganiza as etapas pela ordem correta. Acrescenta uma condição (“Se. então.”) e um loop (“Enquanto.”). Escreve o teu algoritmo corrigido.</h2>
+<p class="text-paragraph">✏️ Exemplo (revisto):</p>
+<p class="text-paragraph">Início</p>
+<p class="text-paragraph">Pegar na tigela</p>
+<p class="text-paragraph">Colocar os cereais</p>
+<p class="text-paragraph">Colocar o leite</p>
+<p class="text-paragraph">Enquanto o leite estiver quente → esperar</p>
+<p class="text-paragraph">Se estiver com fome → comer</p>
+<p class="text-paragraph">Fim</p>
+<div class="section-divider"></div>
+<h2 id="section-139"><span class="category-label">Objetivos</span>🎯 🎯 Objetivo:
+Perceber que um algoritmo pode ser simples, mas precisa de ordem, lógica e condições bem definidas.</h2>
+<div class="section-divider"></div>
+<h2 id="section-140">📝 🔁 3. “Caça aos Algoritmos” – Mini Missão</h2>
+<div class="section-divider"></div>
+<h2 id="section-141">📝 Olha à tua volta e identifica 3 exemplos de algoritmos reais (situações com sequência, decisão e repetição).</h2>
+<div class="section-divider"></div>
+<h2 id="section-142">📝 💡 Exemplos:</h2>
+<p class="text-paragraph">“O semáforo muda de cor em loop.” 🚦</p>
+<p class="text-paragraph">“O elevador decide se sobe ou desce.” 🛗</p>
+<p class="text-paragraph">“A máquina de lavar repete ciclos.” 🧺</p>
+<p class="text-paragraph">✍️ Escreve os teus três exemplos: __________________________________________ __________________________________________ __________________________________________</p>
+<div class="section-divider"></div>
+<h2 id="section-143">📝 ⚙️ 4. Diferenciação por Nível</h2>
+<p class="highlight-text"><strong class="text-bold">💡 Dica: partilha o teu algoritmo no mural digital da turma com emojis ou ícones de robô.</strong></p>
+<div class="section-divider"></div>
+<h2 id="section-144">📝 💬 5. Partilha e Feedback</h2>
+<p class="text-paragraph">Publica o teu algoritmo corrigido no mural (Padlet, Jamboard ou Teams). Escolhe um colega e comenta o trabalho dele com emojis e feedback:</p>
+<p class="highlight-text"><strong class="text-bold">💡 “Boa lógica!”</strong></p>
+<p class="text-paragraph">⚙️ “Faltou uma condição.”</p>
+<p class="text-paragraph">😂 “O teu robô ficou preso num loop!”</p>
+<p class="text-paragraph">💬 Mensagem:</p>
+<p class="text-paragraph">“Melhorar um algoritmo é como treinar um músculo — quanto mais o fazes, mais forte ele fica.” 💪</p>
+<div class="section-divider"></div>
+<h2 id="section-145">📝 💭 6. Reflexão Final</h2>
+<p class="text-paragraph">Responde rapidamente no mural ou formulário (Forms):</p>
+<p class="text-paragraph">O que é mais importante num algoritmo?</p>
+<p class="text-paragraph">O que acontece se a ordem estiver errada?</p>
+<p class="text-paragraph">Onde na vida real aplicas esta forma de pensar?</p>
+<div class="section-divider"></div>
+<h2 id="section-146">📝 ⏱️ 7. Estrutura Temporal (30 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-147">📦 🧰 8. Recursos Sugeridos</h2>
+<div class="section-divider"></div>
+<h2 id="section-148">📝 Genially / Canva: vídeo introdutório animado.</h2>
+<div class="section-divider"></div>
+<h2 id="section-149">📝 Padlet / Jamboard: mural de partilhas e feedback.</h2>
+<div class="section-divider"></div>
+<h2 id="section-150">📝 Google Forms / Mentimeter: perguntas de reflexão.</h2>
+<div class="section-divider"></div>
+<h2 id="section-151">🔧 Emojis ou autocolantes digitais: para tornar a interação divertida.</h2>
+<div class="section-divider"></div>
+<h2 id="section-152"><span class="category-label">Objetivos</span>🎯 🌈 9. Competências Desenvolvidas</h2>
+<p class="text-paragraph">✅ Pensamento lógico e crítico
+✅ Capacidade de correção e melhoria
+✅ Reconhecimento de padrões e estruturas lógicas
+✅ Comunicação e partilha digital</p>
+<div class="section-divider"></div>
+<h2 id="section-153">📝 ✨ 10. Mensagem Final</h2>
+<p class="text-paragraph">“O algoritmo perfeito não existe —
+mas cada tentativa aproxima-te da melhor versão possível.” 💡</p>
+<div class="section-divider"></div>
+<h2 id="section-154">📝 “Na próxima sessão vais pôr tudo em prática,
+e criar o teu projeto final: um algoritmo inteligente feito por ti!” 🚀</h2>
+<h3>🚀 🌍 Atividade Assíncrona – Sessão 5</h3>
+<div class="section-divider"></div>
+<h2 id="section-155">📝 “O Desafio do Algoritmo Perfeito”</h2>
+<div class="section-divider"></div>
+<h2 id="section-156"><span class="category-label">Objetivos</span>🎯 Duração: 90 minutos
+Modalidade: Individual ou em pares
+Objetivo: Criar, testar e melhorar um algoritmo completo, que una os três blocos do pensamento computacional:
+🔵 Sequência → 🟢 Condição → 🟣 Repetição (loop)</h2>
+<div class="section-divider"></div>
+<h2 id="section-157"><span class="category-label">Objetivos</span>🎯 🎯 Competências a Desenvolver</h2>
+<p class="text-paragraph">✅ Pensamento lógico e criativo
+✅ Planeamento e resolução de problemas
+✅ Capacidade de teste e autoavaliação
+✅ Comunicação e representação visual de ideias</p>
+<div class="section-divider"></div>
+<h2 id="section-158">📝 🧠 1. Introdução à Missão</h2>
+<p class="text-paragraph">“Chegou o momento de te tornares o verdadeiro arquiteto da lógica!</p>
+<div class="section-divider"></div>
+<h2 id="section-159">📝 A missão desta semana é criar o teu próprio algoritmo completo, capaz de resolver um desafio, representar uma rotina ou contar uma história interativa.</h2>
+<div class="section-divider"></div>
+<h2 id="section-160">📝 A tua tarefa não é apenas criar — é testar, corrigir e melhorar até que funcione de forma perfeita.”</h2>
+<div class="section-divider"></div>
+<h2 id="section-161"><span class="category-label">Prática</span>🚀 🎬 Opcional: introduz a atividade com um vídeo curto em Genially ou Canva, onde um robô “aprendiz” diz:</h2>
+<p class="text-paragraph">“Erro encontrado no meu algoritmo! 😵
+Podes ensinar-me a pensar passo a passo, a decidir e a repetir?”</p>
+<div class="section-divider"></div>
+<h2 id="section-162">📝 🕒 2. Estrutura de Tempo (90 min totais)</h2>
+<div class="section-divider"></div>
+<h2 id="section-163">📝 ⚙️ 3. Escolhe o Teu Desafio</h2>
+<div class="section-divider"></div>
+<h2 id="section-164">📝 Escolhe um tema (real ou imaginário) e transforma-o num algoritmo.</h2>
+<div class="section-divider"></div>
+<h2 id="section-165">📝 💡 Sugestões:</h2>
+<p class="text-paragraph">🤖 O Robô da Escola → faz as tarefas diárias com lógica.</p>
+<p class="text-paragraph">🏠 O Algoritmo da Casa Inteligente → decide quando abrir luzes, janelas e portas.</p>
+<p class="text-paragraph">🧁 O Chef Cibernético → escolhe receitas, prepara e repete passos.</p>
+<p class="text-paragraph">🎮 O Jogo das Decisões → reage às escolhas do jogador.</p>
+<p class="highlight-text"><strong class="text-bold">🚀 A Missão Espacial → repete tarefas até regressar em segurança!</strong></p>
+<div class="section-divider"></div>
+<h2 id="section-166">📝 🧩 4. Planeia o Teu Algoritmo</h2>
+<p class="text-paragraph">Antes de começar, organiza as tuas ideias.
+Usa esta grelha (ou cria-a digitalmente):</p>
+<p class="text-paragraph">💬 Dica:
+Tenta incluir pelo menos:</p>
+<div class="section-divider"></div>
+<h2 id="section-167">📝 1 sequência (passos ordenados)</h2>
+<div class="section-divider"></div>
+<h2 id="section-168">📝 1 condição (“Se. então.”)</h2>
+<div class="section-divider"></div>
+<h2 id="section-169">📝 1 loop (“Enquanto.”)</h2>
+<div class="section-divider"></div>
+<h2 id="section-170">📝 1 condição de paragem</h2>
+<div class="section-divider"></div>
+<h2 id="section-171">📝 💻 5. Cria o Teu Projeto Final</h2>
+<div class="section-divider"></div>
+<h2 id="section-172">📝 Escolhe como queres apresentar o teu algoritmo 👇</h2>
+<div class="section-divider"></div>
+<h2 id="section-173">📝 💡 Exemplo em pseudocódigo:</h2>
+<p class="text-paragraph">Início</p>
+<p class="text-paragraph">Enquanto (o despertador não tocar)</p>
+<p class="text-paragraph">Dormir</p>
+<p class="text-paragraph">Fim do ciclo</p>
+<p class="text-paragraph">Se for de manhã</p>
+<p class="text-paragraph">Então levantar</p>
+<p class="text-paragraph">Senão voltar a dormir</p>
+<p class="text-paragraph">Repetir a rotina até estar pronto para sair</p>
+<p class="text-paragraph">Fim</p>
+<p class="highlight-text"><strong class="text-bold">🎯 Dica:
+Sê criativo — mas mantém a lógica clara.
+O melhor algoritmo é o que qualquer pessoa (ou robô!) consegue entender.</strong></p>
+<div class="section-divider"></div>
+<h2 id="section-174">📝 🧪 6. Testa e Melhora o Teu Algoritmo</h2>
+<p class="text-paragraph">Segue o método dos programadores:</p>
+<div class="section-divider"></div>
+<h2 id="section-175">📝 Testa: lê o teu algoritmo em voz alta e tenta “executá-lo”.
+Erros? Se algo não fizer sentido, corrige!
+Feedback: pede a um colega ou familiar para testar também.
+Melhora: simplifica e torna o algoritmo mais eficiente.</h2>
+<div class="section-divider"></div>
+<h2 id="section-176">📝 💬 Pergunta-te:</h2>
+<p class="text-paragraph">Preciso de repetir algo?</p>
+<p class="text-paragraph">Falta uma condição?</p>
+<p class="text-paragraph">Há passos desnecessários?</p>
+<div class="section-divider"></div>
+<h2 id="section-177">📝 🌿 7. Diferenciação por Nível</h2>
+<div class="section-divider"></div>
+<h2 id="section-178">📝 💬 8. Partilha e Feedback</h2>
+<div class="section-divider"></div>
+<h2 id="section-179">📝 Publica o teu trabalho no mural digital da turma (Padlet, Miro ou Teams). Vê o trabalho de dois colegas e comenta com feedback construtivo:</h2>
+<p class="highlight-text"><strong class="text-bold">💡 “Gostei da tua condição, é clara!”</strong></p>
+<p class="text-paragraph">🤔 “Acho que o loop não tem fim, cuidado!”</p>
+<p class="text-paragraph">🔁 “Boa repetição — o teu algoritmo é eficiente!”</p>
+<p class="text-paragraph">💬 Dica:
+Podes também reagir com emojis: 😄 💻 🤖 💡 🔁</p>
+<div class="section-divider"></div>
+<h2 id="section-180">📝 💭 9. Reflexão Final</h2>
+<p class="text-paragraph">O que aprendeste sobre criar e testar algoritmos?
+✍️ ____________________________________________________________</p>
+<p class="text-paragraph">Que parte foi mais difícil de acertar (sequência, condição ou loop)?
+✍️ ____________________________________________________________</p>
+<p class="text-paragraph">O que tornaria o teu algoritmo ainda mais inteligente?
+✍️ ____________________________________________________________</p>
+<div class="section-divider"></div>
+<h2 id="section-181">📊 🧱 10. Autoavaliação</h2>
+<div class="section-divider"></div>
+<h2 id="section-182">📊 🧩 11. Critérios de Avaliação (10 pontos)</h2>
+<div class="section-divider"></div>
+<h2 id="section-183">📦 🧰 12. Recursos Sugeridos</h2>
+<div class="section-divider"></div>
+<h2 id="section-184">📝 Canva / PowerPoint / Miro: fluxogramas visuais.</h2>
+<div class="section-divider"></div>
+<h2 id="section-185">📝 Scratch / Genially: histórias e simulações interativas.</h2>
+<div class="section-divider"></div>
+<h2 id="section-186">📝 Padlet / Jamboard: mural de partilhas.</h2>
+<div class="section-divider"></div>
+<h2 id="section-187">📊 Forms / Mentimeter: autoavaliação e feedback.</h2>
+<div class="section-divider"></div>
+<h2 id="section-188">📝 🌈 13. Mensagem Final</h2>
+<p class="text-paragraph">“O pensamento computacional não é sobre computadores.
+É sobre criar soluções, passo a passo, que melhoram o mundo.” 💡</p>
+<p class="text-paragraph">“Hoje, criaste o teu primeiro projeto de lógica completa —
+e provaste que a criatividade também pode ser programada.” 🤖✨</p>
+<h3>📦 🌟 Recursos adicionais para a Sessão 5</h3>
+<div class="section-divider"></div>
+<h2 id="section-189">📝 Tema: “Do Algoritmo ao Projeto – Criar, Testar e Melhorar”</h2>
+<div class="section-divider"></div>
+<h2 id="section-190"><span class="category-label">Objetivos</span>🎯 Objetivo Geral: Consolidar os conceitos de sequência, condição e repetição, aplicando-os na criação de um algoritmo completo e criativo.</h2>
+<div class="section-divider"></div>
+<h2 id="section-191">📝 🎮 1. Jogo de Abertura – “O Algoritmo Falhado”</h2>
+<div class="section-divider"></div>
+<h2 id="section-192"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Introduzir o conceito de erro e correção (debug) de forma divertida.</h2>
+<div class="section-divider"></div>
+<h2 id="section-193">📝 Tempo: 5–10 minutos
+Modalidade: Plenário ou breakout rooms</h2>
+<div class="section-divider"></div>
+<h2 id="section-194">📝 Instruções:</h2>
+<div class="section-divider"></div>
+<h2 id="section-195">📝 O formador apresenta três mini-algoritmos com erros de lógica.</h2>
+<p class="text-paragraph">Os formandos tentam identificar o erro e “corrigir o código”.</p>
+<div class="section-divider"></div>
+<h2 id="section-196">📝 💥 Exemplos:</h2>
+<ol class='list-disc' class="space-y-3">
+<li>. Colocar pasta na escova</li>
+<li>. Bochechar</li>
+<li>. Escovar dentes</li>
+<li>. Abrir a torneira</li>
+</ol>
+<p class="text-paragraph">→ Correção: abrir a torneira antes de bochechar.</p>
+<ol class='list-disc' class="space-y-3">
+<li>. Se estiver a chover → abrir o guarda-chuva</li>
+<li>. Enquanto o sol brilhar → continuar aberto</li>
+</ol>
+<p class="text-paragraph">→ Erro: o loop não tem sentido — inverter a condição.</p>
+<div class="section-divider"></div>
+<h2 id="section-197">📝 💬 Mensagem:</h2>
+<p class="text-paragraph">“Errar é parte do processo — o importante é testar e melhorar.”</p>
+<div class="section-divider"></div>
+<h2 id="section-198">📦 Recursos: slides com ícones animados (erro ❌ → correção ✅).</h2>
+<div class="section-divider"></div>
+<h2 id="section-199">📝 🧠 2. Cartões dos Blocos Lógicos</h2>
+<div class="section-divider"></div>
+<h2 id="section-200"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Reforçar visualmente os três pilares do pensamento computacional.</h2>
+<div class="section-divider"></div>
+<h2 id="section-201"><span class="category-label">Prática</span>🚀 💡 Atividade associada:
+Distribui cartões (físicos ou digitais no Jamboard).
+Os alunos constroem algoritmos reais com as peças.
+Versão digital: arrastar blocos coloridos em Canva ou Miro.</h2>
+<div class="section-divider"></div>
+<h2 id="section-202">📝 💬 3. Mural “O Meu Algoritmo na Vida Real”</h2>
+<div class="section-divider"></div>
+<h2 id="section-203"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Promover a ligação entre o raciocínio lógico e o quotidiano.</h2>
+<div class="section-divider"></div>
+<h2 id="section-204">📝 Plataforma: Padlet / Jamboard / Miro</h2>
+<div class="section-divider"></div>
+<h2 id="section-205">📝 Instruções:
+Cada aluno publica um exemplo pessoal de algoritmo:</h2>
+<p class="text-paragraph">“Se o despertador tocar → levantar.”
+“Enquanto tiver fome → comer.”
+“Se acabar a bateria → carregar o telemóvel.”</p>
+<div class="section-divider"></div>
+<h2 id="section-206">📝 🎯 Desafio extra:
+Adicionar emojis e pequenos desenhos para representar os blocos lógicos.</h2>
+<div class="section-divider"></div>
+<h2 id="section-207">📝 🧱 4. Grelha “Cria o Teu Projeto de Algoritmo”</h2>
+<div class="section-divider"></div>
+<h2 id="section-208"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Apoiar os grupos na estruturação do projeto final.</h2>
+<div class="section-divider"></div>
+<h2 id="section-209">📝 💡 Dica para o formador:
+Distribuir uma cópia digital (Word ou Canva colaborativo).
+Os formandos preenchem, testam e partilham com o grupo.</h2>
+<div class="section-divider"></div>
+<h2 id="section-210">📝 🧩 5. Modelo de Fluxograma Visual</h2>
+<div class="section-divider"></div>
+<h2 id="section-211"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Ajudar os formandos a representar o algoritmo graficamente.</h2>
+<div class="section-divider"></div>
+<h2 id="section-212">📝 Estrutura base:</h2>
+<p class="text-paragraph">Início</p>
+<p class="text-paragraph">↓</p> <p class="text-paragraph">↓</p>
+<p class="text-paragraph">Se (condição verdadeira?)</p>
+<p class="text-paragraph">→ Sim → ação A</p>
+<p class="text-paragraph">→ Não → ação B</p>
+<p class="text-paragraph">↓</p>
+<p class="text-paragraph">Enquanto (condição)</p>
+<p class="text-paragraph">→ repetir ação</p>
+<p class="text-paragraph">↓</p>
+<p class="text-paragraph">Fim</p>
+<div class="section-divider"></div>
+<h2 id="section-213">📝 💡 Aplicação prática:
+Usar no Canva, PowerPoint ou Miro, com blocos coloridos e setas.
+Pode ser reutilizado para a criação dos projetos visuais finais.</h2>
+<div class="section-divider"></div>
+<h2 id="section-214">📝 🔍 6. Cartões “Erros Comuns de Algoritmo”</h2>
+<div class="section-divider"></div>
+<h2 id="section-215"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Reforçar a importância da revisão e do “debugging”.</h2>
+<div class="section-divider"></div>
+<h2 id="section-216"><span class="category-label">Prática</span>🚀 💡 Atividade:
+Mostrar cartões durante a revisão dos projetos e desafiar os grupos a verificar se cometeram algum desses erros.</h2>
+<div class="section-divider"></div>
+<h2 id="section-217">📝 💬 7. Jogo “Debug Challenge”</h2>
+<div class="section-divider"></div>
+<h2 id="section-218"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Transformar o processo de correção em jogo colaborativo.</h2>
+<div class="section-divider"></div>
+<h2 id="section-219">📝 Formato: digital (Padlet, Jamboard, Quizizz) ou físico.</h2>
+<div class="section-divider"></div>
+<h2 id="section-220">📝 Instruções:</h2>
+<div class="section-divider"></div>
+<h2 id="section-221">📝 O formador mostra um algoritmo com erros escondidos.</h2>
+<p class="text-paragraph">Cada grupo marca onde acredita que está o erro e propõe uma solução.</p>
+<p class="text-paragraph">Cada correção válida vale 1 ponto.</p>
+<div class="section-divider"></div>
+<h2 id="section-222">📝 💡 Exemplo:</h2>
+<p class="text-paragraph">“Enquanto o bolo não estiver frio → cortar” ❌
+Correto: Esperar até o bolo estar frio → cortar. ✅</p>
+<div class="section-divider"></div>
+<h2 id="section-223">📝 🎯 Mensagem:</h2>
+<p class="text-paragraph">“Os programadores não têm medo dos erros — transformam-nos em soluções.”</p>
+<div class="section-divider"></div>
+<h2 id="section-224">📝 🧠 8. Cartaz Motivacional – “Cria. Testa. Melhora. Repete.”</h2>
+<div class="section-divider"></div>
+<h2 id="section-225"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Reforçar o espírito de melhoria contínua e pensamento criativo.</h2>
+<div class="section-divider"></div>
+<h2 id="section-226">📝 Texto sugerido para o cartaz (slide ou imagem):</h2>
+<p class="text-paragraph">🧩 Cria. → uma ideia clara.
+🧠 Testa. → descobre se funciona.
+🔍 Melhora. → corrige o que falha.
+🔁 Repete. → até ficares orgulhoso.</p>
+<div class="section-divider"></div>
+<h2 id="section-227">📝 💬 Mensagem final:</h2>
+<p class="text-paragraph">“A programação e a vida têm o mesmo segredo: aprender com a repetição.”</p>
+<div class="section-divider"></div>
+<h2 id="section-228">📝 🎨 Design:</h2>
+<p class="text-paragraph">Fundo azul e verde, com ícones de setas circulares, robôs e lâmpadas 💡.</p>
+<p class="text-paragraph">Pode ser usado como slide final ou impresso para o mural da turma.</p>
+<div class="section-divider"></div>
+<h2 id="section-229">📊 📊 9. Quadro de Avaliação Formativa</h2>
+<div class="section-divider"></div>
+<h2 id="section-230"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Apoiar o formador na observação dos grupos durante a sessão.</h2>
+<p class="highlight-text"><strong class="text-bold">💡 Pode ser adaptado para autoavaliação em Forms ou papel.</strong></p>
+<div class="section-divider"></div>
+<h2 id="section-231">📝 📚 10. Quiz “O Melhor Algoritmo”</h2>
+<div class="section-divider"></div>
+<h2 id="section-232"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Revisar o módulo e reforçar conceitos-chave de forma leve e divertida.</h2>
+<div class="section-divider"></div>
+<h2 id="section-233">📝 Plataforma: Kahoot / Mentimeter / Quizizz</h2>
+<div class="section-divider"></div>
+<h2 id="section-234">📝 Exemplos de perguntas:
+Um algoritmo sem condição pode tomar decisões?</h2>
+<p class="text-paragraph">❌ Não</p>
+<p class="text-paragraph">✅ Sim, mas só segue a sequência.
+Se um loop não tiver condição de paragem, ele…</p>
+<p class="text-paragraph">A. Pára sozinho</p>
+<p class="text-paragraph">B. Continua para sempre ♾️ ✅
+O que é mais importante ao testar um algoritmo?</p>
+<p class="text-paragraph">A. Decorar o código</p>
+<p class="text-paragraph">B. Encontrar e corrigir erros ✅</p>
+<div class="section-divider"></div>
+<h2 id="section-235">📝 🎯 Bónus:
+Última pergunta aberta:</h2>
+<p class="text-paragraph">“O que mais gostaste de criar neste módulo?”</p>
+<div class="section-divider"></div>
+<h2 id="section-236">📝 🧭 11. Checklist do Formador</h2>
+<div class="section-divider"></div>
+<h2 id="section-237">📝 🌿 12. Estratégias de Diferenciação Pedagógica</h2>
+<div class="section-divider"></div>
+<h2 id="section-238"><span class="category-label">Objetivos</span>🎯 🎯 13. Competências Reforçadas</h2>
+<p class="text-paragraph">✅ Pensamento lógico e sistemático
+✅ Planeamento e criação de algoritmos
+✅ Identificação e correção de erros
+✅ Comunicação e colaboração digital
+✅ Reflexão e melhoria contínua</p>
+<div class="section-divider"></div>
+<h2 id="section-239">📝 🌈 14. Sugestão de Continuidade</h2>
+<div class="section-divider"></div>
+<h2 id="section-240">📝 ➡️ No módulo seguinte, aplicar os algoritmos criados em ambientes de programação visuais (Scratch, Power Automate ou Python).
+➡️ Criar um portefólio digital de projetos, mostrando a evolução lógica de cada aluno.</h2>
+<div class="section-divider"></div>
+<h2 id="section-241">📝 ✨ Mensagem Final</h2>
+<p class="text-paragraph">“Um algoritmo não nasce perfeito — torna-se perfeito quando é testado, corrigido e recriado.” 💡</p>
+<p class="text-paragraph">“Hoje, o teu raciocínio é o verdadeiro código inteligente do futuro.” 🤖✨</p> </div> <!-- Download --> <div class="mt-8 glass-premium rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 hover-lift"> <div> <h3 class="text-white font-bold mb-1">Documento Original</h3> <p class="text-slate-400 text-sm">Faça download do ficheiro Word completo</p> </div> <a href="./modulo2/Sessão 5.docx" download class="px-6 py-3 rounded-full bg-gradient-to-r from-white/10 to-white/5 hover:from-white/20 hover:to-white/10 border border-white/20 hover:border-white/30 transition-all flex items-center gap-2 text-white font-medium shadow-lg hover:scale-105"> <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/> </svg> Download Word </a> </div> </main> </div> <!-- Footer --> <footer class="mt-20 border-t border-white/10 py-8 bg-black/30"> <div class="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm"> <p class="text-paragraph">act.academy | Geração Futuro © 2026</p> </div> </footer> <!-- Scripts --> <script> // Scroll Progress // Scroll Progress const updateProgress = () => { const winScroll = document.documentElement.scrollTop; const height = document.documentElement.scrollHeight - document.documentElement.clientHeight; const scrolled = (winScroll / height) * 100; document.getElementById('scrollProgress').style.width = scrolled + '%'; const readProg = document.getElementById('readProgress'); const progText = document.getElementById('progressText'); if (readProg) { readProg.style.width = scrolled.toFixed(0) + '%'; } if (progText) { progText.textContent = scrolled.toFixed(0) + '% lido'; } }; window.addEventListener('scroll', updateProgress); // Active Section Highlight const sections = document.querySelectorAll('.content-section h2'); const navLinks = document.querySelectorAll('.sidebar-link'); window.addEventListener('scroll', () => { let current = ''; sections.forEach(section => { const sectionTop = section.offsetTop; if (window.pageYOffset >= sectionTop - 100) { current = section.getAttribute('id'); } }); navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + current) { link.classList.add('active'); } }); }); </script>
+</body>
+</html>

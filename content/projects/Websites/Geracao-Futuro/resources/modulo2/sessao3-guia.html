@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>🧠 Sessão 3 - Tomar Decisões com “Se. então.” (Lógica Condicional) | Geração Futuro</title> <script src="https://cdn.tailwindcss.com"></script> <style> * { scroll-behavior: smooth; } body { background-color: #020617; color: white; font-family: 'Outfit', sans-serif; overflow-x: hidden; } /* Glassmorphism Premium */ .glass-premium { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.125); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37), inset 0 1px 0 rgba(255, 255, 255, 0.1); } /* Header Premium */ .header-premium { background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid rgba(168, 85, 247, 0.2); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); } /* Sidebar Melhorada */ .sidebar { background: linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.85) 100%); backdrop-filter: blur(20px); border-right: 1px solid rgba(168, 85, 247, 0.3); box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4); } .sidebar-header { background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(34, 211, 238, 0.2)); border-bottom: 2px solid rgba(168, 85, 247, 0.3); padding: 1.25rem; margin-bottom: 1rem; border-radius: 0.75rem; } .sidebar-link { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border-left: 3px solid transparent; position: relative; padding-left: 1rem; } .sidebar-link::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 6px; height: 0; background: linear-gradient(180deg, #a855f7, #22d3ee); border-radius: 0 3px 3px 0; transition: height 0.3s ease; } .sidebar-link:hover { background: linear-gradient(90deg, rgba(168, 85, 247, 0.15), transparent); border-left-color: transparent; transform: translateX(4px); color: white; } .sidebar-link:hover::before { height: 100%; } .sidebar-link.active { background: linear-gradient(90deg, rgba(168, 85, 247, 0.25), rgba(34, 211, 238, 0.1)); border-left-color: transparent; color: #22d3ee; font-weight: 600; } .sidebar-link.active::before { height: 100%; box-shadow: 0 0 12px rgba(168, 85, 247, 0.6); } .sidebar-link-icon { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: rgba(168, 85, 247, 0.15); border-radius: 6px; margin-right: 0.75rem; font-size: 0.875rem; transition: all 0.3s ease; } .sidebar-link:hover .sidebar-link-icon { background: rgba(168, 85, 247, 0.3); transform: scale(1.1); } .sidebar-link.active .sidebar-link-icon { background: linear-gradient(135deg, #a855f7, #22d3ee); box-shadow: 0 2px 8px rgba(168, 85, 247, 0.4); } .nav-section { margin-bottom: 1.5rem; } .nav-section-title { color: #a855f7; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.5rem 1rem; margin-bottom: 0.5rem; opacity: 0.7; } .sidebar-progress { margin-top: 1.5rem; padding: 1rem; background: rgba(168, 85, 247, 0.1); border-radius: 0.75rem; border: 1px solid rgba(168, 85, 247, 0.2); } .progress-bar { width: 100%; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 3px; overflow: hidden; margin-top: 0.5rem; } .progress-fill { height: 100%; background: linear-gradient(90deg, #a855f7, #22d3ee); border-radius: 3px; transition: width 0.3s ease; box-shadow: 0 0 8px rgba(168, 85, 247, 0.6); } /* Typography */ .gradient-text { background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #22d3ee 100%); background-size: 200% 200%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 8s ease infinite; } @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } } .content-section h2 { color: #a855f7; margin-top: 3.5rem; margin-bottom: 1.75rem; font-size: 2rem; font-weight: 900; border-bottom: 3px solid rgba(168, 85, 247, 0.3); padding-bottom: 0.75rem; position: relative; } .content-section h2::before { content: ''; position: absolute; bottom: -3px; left: 0; width: 80px; height: 3px; background: linear-gradient(90deg, #a855f7, #22d3ee); border-radius: 2px; } .content-section h3 { color: #22d3ee; margin-top: 2.5rem; margin-bottom: 1.25rem; font-size: 1.5rem; font-weight: 700; } .content-section p { margin-bottom: 1.5rem; line-height: 2; color: #cbd5e1; font-size: 1.0625rem; } .content-section ul, .content-section ol { margin-left: 2.5rem; margin-bottom: 2rem; color: #cbd5e1; } .content-section li { margin-bottom: 1rem; line-height: 1.8; } .content-section li::marker { color: #a855f7; font-weight: 700; } /* Ultra Premium Additions */ body { background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%); font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; } .animated-bg-overlay { position: fixed; inset: 0; z-index: -1; background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(139, 92, 246, 0.15), transparent), radial-gradient(ellipse 60% 50% at 50% 120%, rgba(6, 182, 212, 0.12), transparent); animation: bgPulse 15s ease-in-out infinite; } @keyframes bgPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } } .title-ultra { background: linear-gradient(135deg, #A78BFA 0%, #EC4899 50%, #22D3EE 100%); background-size: 200% 200%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 8s ease infinite; } @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } } .content-card-ultra { background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.6)); backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(139, 92, 246, 0.2); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05) inset; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); } .content-card-ultra:hover { transform: translateY(-4px); box-shadow: 0 30px 80px rgba(139, 92, 246, 0.3), 0 0 0 1px rgba(139, 92, 246, 0.3) inset; } /* Dividers */ .section-divider { height: 2px; background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.5), transparent); margin: 4rem 0; } /* Time badge */ .time-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(34, 211, 238, 0.2); color: #22d3ee; padding: 0.4rem 1rem; border-radius: 2rem; font-size: 0.875rem; font-weight: 600; margin-left: 1rem; } /* Category label */ .category-label { background: rgba(168, 85, 247, 0.25); color: #ddd6fe; padding: 0.25rem 0.75rem; border-radius: 0.5rem; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 0.75rem; } /* Activity Box Premium */ .activity-box { background: linear-gradient(135deg, rgba(168, 85, 247, 0.18) 0%, rgba(34, 211, 238, 0.12) 100%); border-left: 5px solid #a855f7; padding: 2.5rem; margin: 2.5rem 0; border-radius: 1.25rem; box-shadow: 0 10px 40px rgba(168, 85, 247, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1); position: relative; overflow: hidden; } .activity-box::before { content: ''; position: absolute; top: 0; right: 0; width: 200px; height: 200px; background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%); border-radius: 50%; transform: translate(50%, -50%); } /* Info Box */ .info-box { background: rgba(34, 211, 238, 0.12); border-left: 4px solid #22d3ee; padding: 2rem; margin: 2rem 0; border-radius: 1rem; box-shadow: 0 4px 16px rgba(34, 211, 238, 0.15); } /* Animations */ @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } } .fade-in-up { animation: fadeInUp 0.6s ease-out forwards; } /* Scroll Progress */ .scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, #a855f7, #22d3ee); z-index: 9999; transition: width 0.1s ease; } /* Hover Effects */ .hover-lift { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); } .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 12px 48px rgba(168, 85, 247, 0.3); } /* Responsive */ @media (max-width: 1024px) { .sidebar { display: none; } } /* ========== MELHORIAS FINAIS UI/UX ========== */ /* Melhor legibilidade */ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; } /* Scrollbar customizada */ ::-webkit-scrollbar { width: 12px; } ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.5); } ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #8B5CF6, #06B6D4); border-radius: 6px; border: 2px solid rgba(15, 23, 42, 0.5); } ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #A78BFA, #22D3EE); } /* Focus states para acessibilidade */ a:focus, button:focus { outline: 2px solid #22D3EE; outline-offset: 4px; } /* Melhor contraste em textos */ p, li { color: #E2E8F0; font-weight: 400; } /* Links melhorados */ a { color: #22D3EE; text-decoration: none; transition: all 0.2s ease; } a:hover { color: #67E8F9; text-decoration: underline; } /* Cards com melhor hierarquia visual */ .content-card, .content-card-ultra { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); } .content-card:hover, .content-card-ultra:hover { border-color: rgba(139, 92, 246, 0.4); } /* Espaçamento consistente */ h2 + p, h3 + p { margin-top: 0; } p + h2, p + h3 { margin-top: 3rem; } /* Listas mais legíveis */ ul li, ol li { padding-left: 1rem; position: relative; } ul li::before { content: ''; position: absolute; left: -1rem; top: 0.75em; width: 6px; height: 6px; background: #8B5CF6; border-radius: 50%; } /* Botões melhorados */ button, .btn, a[class*="btn"] { cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; } /* Loading states */ @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } } /* Responsividade aprimorada */ @media (max-width: 768px) { h1 { font-size: 3rem !important; } h2 { font-size: 1.75rem !important; } h3 { font-size: 1.35rem !important; } p { font-size: 1rem !important; } .content-card, .content-card-ultra { padding: 2rem !important; } } /* Melhor feedback visual */ .nav-item:active { transform: scale(0.98); } /* Transições suaves em todos os interativos */ * { transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform; transition-duration: 200ms; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); } /* Previne transições em animações de scroll */ html.smooth-scroll * { transition: none !important; } /* Print styles */ @media print { .premium-header, .ultra-sidebar, footer { display: none !important; } body { background: white !important; color: black !important; } } /* ========== TIPOGRAFIA PREMIUM ========== */ /* Melhores fontes web */ @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap'); body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 17px; line-height: 1.7; letter-spacing: -0.011em; font-weight: 400; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; } /* Títulos com fonte premium */ h1, h2, h3, h4, h5, h6 { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; font-weight: 800; line-height: 1.2; letter-spacing: -0.03em; } /* H1 - Título Principal */ h1 { font-size: clamp(2.5rem, 8vw, 5rem) !important; line-height: 1.1 !important; margin-bottom: 1.5rem !important; font-weight: 900 !important; } /* H2 - Seções Principais */ h2 { font-size: clamp(1.75rem, 4vw, 2.5rem) !important; line-height: 1.3 !important; margin-top: 4rem !important; margin-bottom: 1.5rem !important; font-weight: 800 !important; color: #C4B5FD !important; } /* H3 - Subseções */ h3 { font-size: clamp(1.35rem, 3vw, 1.875rem) !important; line-height: 1.4 !important; margin-top: 2.5rem !important; margin-bottom: 1.25rem !important; font-weight: 700 !important; color: #67E8F9 !important; } /* H4 - Subtítulos */ h4 { font-size: 1.25rem !important; line-height: 1.5 !important; margin-top: 2rem !important; margin-bottom: 1rem !important; font-weight: 600 !important; color: #CBD5E1 !important; } /* Parágrafos otimizados */ p { font-size: 1.0625rem !important; line-height: 1.8 !important; margin-bottom: 1.5rem !important; color: #E2E8F0 !important; max-width: 70ch; font-weight: 400 !important; } /* Strong e Bold */ strong, b { font-weight: 600; color: #F1F5F9; } /* Listas melhoradas */ ul, ol { font-size: 1.0625rem; line-height: 1.75; color: #E2E8F0; padding-left: 1.5rem; } li { margin-bottom: 0.75rem !important; line-height: 1.75 !important; color: #E2E8F0 !important; } li p { margin-bottom: 0.5rem !important; } /* Código e Mono */ code, pre { font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 0.9em; background: rgba(139, 92, 246, 0.1); padding: 0.2em 0.4em; border-radius: 0.25rem; } /* Links melhorados */ a { color: #67E8F9; font-weight: 500; text-decoration: none; transition: all 0.2s; } a:hover { color: #A5F3FC; text-decoration: underline; } /* Blockquotes */ blockquote { border-left: 4px solid #8B5CF6; padding-left: 1.5rem; margin: 2rem 0; font-style: italic; color: #CBD5E1; } /* Melhor contraste */ .content-section { color: #E2E8F0; } /* Espaçamento vertical otimizado */ * + h2 { margin-top: 4rem !important; } * + h3 { margin-top: 3rem !important; } h2 + h3, h3 + h4 { margin-top: 1.5rem !important; } /* Mobile responsivo */ @media (max-width: 768px) { body { font-size: 16px; } h1 { font-size: 2.25rem !important; } h2 { font-size: 1.75rem !important; } h3 { font-size: 1.35rem !important; } p, li { font-size: 1rem !important; } } 
+        /* ========== FORMATAÇÃO DE TEXTO MELHORADA ========== */
+        
+        /* Parágrafos */
+        .text-paragraph {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+        }
+        
+        .text-paragraph:first-of-type::first-letter {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #A78BFA;
+            float: left;
+            line-height: 1;
+            margin-right: 0.1em;
+        }
+        
+        /* Listas melhoradas */
+        .enhanced-list {
+            margin: 2rem 0;
+            padding: 2rem 2.5rem;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(6, 182, 212, 0.03));
+            border-left: 4px solid #8B5CF6;
+            border-radius: 0.75rem;
+        }
+        
+        .enhanced-list li {
+            margin: 1rem 0;
+            padding-left: 0.5rem;
+            position: relative;
+        }
+        
+        .numbered-item::marker {
+            font-weight: 700;
+            color: #22D3EE;
+        }
+        
+        /* Bold destacado */
+        .text-bold {
+            color: #F1F5F9;
+            font-weight: 600;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), transparent);
+            padding: 0.1em 0.3em;
+            border-radius: 0.25em;
+        }
+        
+        /* Espaçadores */
+        .spacer {
+            height: 2rem;
+        }
+        
+        /* Citações */
+        blockquote {
+            border-left: 4px solid #8B5CF6;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            background: rgba(139, 92, 246, 0.05);
+            border-radius: 0.5rem;
+            font-style: italic;
+            color: #CBD5E1;
+        }
+        
+        blockquote p {
+            margin-bottom: 0;
+        }
+        
+        /* Destaque de informação importante */
+        .highlight-info {
+            background: linear-gradient(90deg, rgba(6, 182, 212, 0.15), transparent);
+            border-left: 4px solid #06B6D4;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0.5rem;
+        }
+        
+        /* Notas e avisos */
+        .note-box {
+            background: linear-gradient(90deg, rgba(245, 158, 11, 0.15), transparent);
+            border-left: 4px solid #F59E0B;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0.5rem;
+        }
+        
+        .note-box::before {
+            content: '💡';
+            margin-right: 0.5rem;
+            font-size: 1.25em;
+        }
+        
+        /* Tabelas (se houver) */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 0.75rem;
+            overflow: hidden;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #8B5CF6, #06B6D4);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+    </style>
+</head>
+<body class="antialiased"> <!-- Scroll Progress --> <div class="scroll-progress" id="scrollProgress"></div> <!-- Background --> <div class="fixed inset-0 -z-10"> <div class="absolute inset-0 bg-gradient-to-br from-purple-950/20 via-slate-950 to-cyan-950/20"></div> <div class="absolute inset-0" style="background-image: radial-gradient(1px 1px at 50px 50px, rgba(255,255,255,0.3) 50%, transparent 100%); background-size: 500px 500px; opacity: 0.3;"></div> </div> <!-- Header --> <nav class="sticky top-0 z-50 header-premium py-4 px-6"> <div class="max-w-7xl mx-auto flex items-center justify-between"> <a aria-label="Voltar para o hub principal"<a href="../../index.html" class="flex items-center gap-3 text-white hover:text-purple-300 transition-all hover:scale-105"> <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/> </svg> <span class="font-medium">Voltar ao Hub</span> </a> <div class="flex items-center gap-3"> <span class="text-xs uppercase tracking-widest text-cyan-400 font-bold">Módulo 2</span> <a href="../../modulo2/sessao3/" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white text-sm font-medium transition-all hover:scale-105 shadow-lg hover:shadow-xl"> Ver Apresentação </a> </div> </div> </nav> <!-- Main Layout --> <div class="flex max-w-7xl mx-auto px-6 py-12 gap-8"> <!-- Sidebar --> <aside class="hidden lg:block w-80 flex-shrink-0"> <div class="sidebar rounded-2xl p-6 sticky top-24 max-h- overflow-y-auto"> <h3 class="text-white font-bold text-lg mb-6 flex items-center gap-2"> <svg class="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/> </svg> Navegação </h3> <nav class="space-y-2">
+<a href="#section-10" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🎯</span><span class="flex-1">Objetivos e Competências</span></a>
+<a href="#section-154" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">📦</span><span class="flex-1">Materiais e Recursos</span></a>
+<a href="#section-4" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🔧</span><span class="flex-1">Preparação</span></a>
+<a href="#section-1" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🎮</span><span class="flex-1">Atividade Teasing</span></a>
+<a href="#section-2" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🚀</span><span class="flex-1">Atividades Práticas</span></a>
+<a href="#section-15" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🎬</span><span class="flex-1">Slides</span></a>
+<a href="#section-136" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">📄</span><span class="flex-1">Fichas de Trabalho</span></a>
+<a href="#section-129" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">📊</span><span class="flex-1">Avaliação</span></a>
+<a href="#section-31" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">💭</span><span class="flex-1">Reflexão</span></a>
+<a href="#section-3" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🌟</span><span class="flex-1">Enriquecimento</span></a>
+<a href="#section-0" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">📝</span><span class="flex-1">Outros Conteúdos</span></a>
+</nav> </div> </aside> <!-- Content --> <main class="flex-1 min-w-0"> <!-- Title --> <div class="mb-12 fade-in-up"> <div class="flex items-center gap-3 mb-4"> <span class="px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/30 to-cyan-500/30 text-purple-200 text-xs font-bold uppercase tracking-wider border border-purple-500/30"> Guia do Formador </span> </div> <h1 class="text-6xl lg:text-7xl title-ultra" style="background: linear-gradient(135deg, #C4B5FD 0%, #EC4899 50%, #67E8F9 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;"> 🧠 Sessão 3 - Tomar Decisões com “Se. então.” (Lógica Condicional) </h1> <p class="text-xl text-slate-300">Guia completo para conduzir esta sessão com sucesso</p> </div> <!-- Content --> <div class="content-card-ultra glass-premium rounded-2xl p-8 lg:p-12 content-section hover-lift"> <h2 id="section-0">📝 Módulo 2 – Pensamento Computacional Criativo</h2>
+<h3>📝 🧠 Sessão 3 - Tomar Decisões com “Se. então.” (Lógica Condicional)</h3>
+<h3>📝 Sessão 3 – Tomar Decisões com “Se. então.” (Lógica Condicional)</h3>
+<div class="section-divider"></div>
+<h2 id="section-1">📝 Teasing (30 min):
+Desafio “Se eu fosse uma IA…” → os alunos completam frases condicionais num Padlet (ex.: “Se eu fosse uma IA de trânsito, então…”).</h2>
+<div class="section-divider"></div>
+<h2 id="section-2">📝 Síncrona (90 min):
+• Introdução à lógica condicional com exemplos reais.
+• Jogo “A Máquina das Decisões” → simular escolhas automáticas.
+• Desafio em grupo “Cria o Teu Robô Decisor” com regras “Se. então. senão.”.
+• Diferenciação: 🌱 decisões simples → 🌿 com duas condições → 🌳 com múltiplas possibilidades.
+• Reflexão: “Como garantir que uma IA decide de forma justa?”.</h2>
+<div class="section-divider"></div>
+<h2 id="section-3">📝 Enriquecimento (90 min):
+Criação de uma “História Condicional” digital (Genially, StoryboardThat ou Scratch) onde as escolhas do leitor alteram o final.</h2>
+<div class="section-divider"></div>
+<h2 id="section-4">📝 🧠Guião do Formador (90 min)</h2>
+<h3>📝 Sessão 3 – “Tomar Decisões com ‘Se. então.’ – Introdução à Lógica Condicional”</h3>
+<div class="section-divider"></div>
+<h2 id="section-5">📝 Duração: 90 minutos
+Modalidade: Online síncrona (Zoom, Teams ou similar)
+Público: Jovens dos 11 aos 18 anos</h2>
+<h3>🎯 🎯 Objetivos da Sessão</h3>
+<div class="section-divider"></div>
+<h2 id="section-6">📝 Compreender o conceito de lógica condicional e como funciona a estrutura “Se. então. senão.”.</h2>
+<p class="text-paragraph">Aplicar esta lógica em situações simples e do quotidiano.</p>
+<div class="section-divider"></div>
+<h2 id="section-7">📝 Traduzir decisões em regras e algoritmos condicionais.</h2>
+<div class="section-divider"></div>
+<h2 id="section-8"><span class="category-label">Prática</span>🚀 Estimular o pensamento crítico, a colaboração e a criatividade.</h2>
+<h3>📝 🧩 Estrutura Geral da Sessão</h3>
+<div class="section-divider"></div>
+<h2 id="section-9">📝 1. Quebra-gelo – “Se eu fosse uma IA.” (10 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-10"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Introduzir o conceito de decisão de forma divertida e criativa.</h2>
+<div class="section-divider"></div>
+<h2 id="section-11">📝 Instruções:</h2>
+<p class="text-paragraph">O formador lança a frase:</p>
+<p class="text-paragraph">“Se eu fosse uma IA, então eu…”
+Exemplo: “Se eu fosse uma IA de trânsito, então eu criava faixas secretas para bicicletas!” 🚲</p>
+<p class="text-paragraph">Cada participante completa a sua frase, por voz ou chat.</p>
+<p class="text-paragraph">O formador reage com humor e comenta:</p>
+<p class="text-paragraph">“Então criarias uma regra para todos!”</p>
+<p class="text-paragraph">“Isso é exatamente o que as IAs fazem: decidem com base em condições.”</p>
+<div class="section-divider"></div>
+<h2 id="section-12">📝 💡 Dica:
+Podes recolher as respostas num Padlet ou Jamboard com o título:
+🧩 “Se eu fosse uma IA, então eu.”</h2>
+<div class="section-divider"></div>
+<h2 id="section-13">📝 2. Exploração – “O que é a Lógica Condicional?” (15 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-14"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Compreender o funcionamento básico das decisões automáticas e a estrutura “Se. então.”.</h2>
+<div class="section-divider"></div>
+<h2 id="section-15">📝 Exemplo de explicação visual (slides):</h2>
+<p class="text-paragraph">“Os computadores tomam decisões com base em condições.”</p>
+<p class="text-paragraph">Estrutura:
+Se algo acontecer → então faz esta ação → (senão) faz outra.</p>
+<div class="section-divider"></div>
+<h2 id="section-16">📝 Exemplos simples e acessíveis:</h2>
+<div class="section-divider"></div>
+<h2 id="section-17"><span class="category-label">Prática</span>🚀 Mini-atividade:
+Pede a 2 ou 3 alunos que inventem novas condições no chat:</h2>
+<p class="text-paragraph">“Se eu estiver com fome, então…”
+“Se o computador não funcionar, então…”</p>
+<p class="text-paragraph">💬 Mensagem-chave:</p>
+<div class="section-divider"></div>
+<h2 id="section-18">📝 “A lógica condicional é o que permite à inteligência artificial e aos programas tomar decisões automáticas.”</h2>
+<div class="section-divider"></div>
+<h2 id="section-19"><span class="category-label">Prática</span>🚀 3. Atividade Principal – “Cria o Teu Robô Decisor” (50 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-20"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Aplicar a lógica condicional na criação de um algoritmo que responda a diferentes situações.</h2>
+<div class="section-divider"></div>
+<h2 id="section-21">📝 Organização:</h2>
+<p class="text-paragraph">Grupos de 3 a 4 elementos (breakout rooms).</p>
+<div class="section-divider"></div>
+<h2 id="section-22">📝 Cada grupo cria um Robô Decisor, ou seja, um conjunto de regras “Se. então. senão.” aplicadas a um tema do quotidiano.</h2>
+<div class="section-divider"></div>
+<h2 id="section-23">📝 Etapas de trabalho:</h2>
+<div class="section-divider"></div>
+<h2 id="section-24">📝 Escolher um tema (o grupo decide qual):</h2>
+<p class="text-paragraph">Robô que ajuda a escolher roupa 👕</p>
+<p class="text-paragraph">Robô que decide o que comer 🍎</p>
+<p class="text-paragraph">Robô que gere o tempo de estudo ⏰</p>
+<p class="text-paragraph">Robô que dá conselhos de humor 😄</p>
+<div class="section-divider"></div>
+<h2 id="section-25">📝 Criar regras condicionais:
+Preencher a grelha base:</h2>
+<div class="section-divider"></div>
+<h2 id="section-26">📝 Transformar em algoritmo lógico:</h2>
+<div class="section-divider"></div>
+<h2 id="section-27">📝 Cada grupo escreve as suas regras como um algoritmo passo a passo, por exemplo:</h2>
+<p class="text-paragraph">Início</p>
+<p class="text-paragraph">Se estiver com fome → comer uma maçã</p>
+<p class="text-paragraph">Se estiver cansado → descansar</p>
+<p class="text-paragraph">Se o relógio marcar 19h → preparar jantar</p>
+<p class="text-paragraph">Fim</p>
+<div class="section-divider"></div>
+<h2 id="section-28">📝 Apresentação dos grupos (5 min cada):</h2>
+<p class="text-paragraph">Cada grupo partilha o seu “Robô Decisor” (pode ser oral, em slide ou desenho).</p>
+<p class="text-paragraph">O formador faz perguntas:</p>
+<p class="text-paragraph">“Que tipo de decisões o vosso robô toma?”</p>
+<p class="text-paragraph">“O que acontece se uma condição for falsa?”</p>
+<div class="section-divider"></div>
+<h2 id="section-29">📝 Diferenciação por níveis:</h2>
+<div class="section-divider"></div>
+<h2 id="section-30">📝 💡 Ferramentas sugeridas:
+Canva, Jamboard, PowerPoint, Miro ou papel digitalizado.</h2>
+<div class="section-divider"></div>
+<h2 id="section-31">📝 4. Reflexão e Síntese (15 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-32"><span class="category-label">Objetivos</span>🎯 Objetivo: Consolidar o conceito de decisão automatizada e promover a autoavaliação.</h2>
+<div class="section-divider"></div>
+<h2 id="section-33">📝 Discussão guiada:</h2>
+<p class="text-paragraph">O que foi mais difícil: inventar a condição ou a ação?</p>
+<p class="text-paragraph">Que erros lógicos o vosso robô cometeu?</p>
+<p class="text-paragraph">Onde vemos este tipo de decisões no nosso dia-a-dia (apps, jogos, sites)?</p>
+<p class="text-paragraph">💬 Mensagem de fecho:</p>
+<div class="section-divider"></div>
+<h2 id="section-34">📝 “A lógica condicional é o coração da programação —
+é o que permite à máquina decidir o que fazer a seguir.”</h2>
+<div class="section-divider"></div>
+<h2 id="section-35"><span class="category-label">Objetivos</span>🎯 🧠 Competências Desenvolvidas</h2>
+<p class="text-paragraph">✅ Pensamento lógico e condicional
+✅ Comunicação e colaboração
+✅ Criatividade e imaginação aplicada à programação
+✅ Capacidade de teste e revisão de ideias</p>
+<div class="section-divider"></div>
+<h2 id="section-36">📝 🧰 Materiais Necessários</h2>
+<p class="text-paragraph">Apresentação visual (slides com exemplos e grelhas).</p>
+<p class="text-paragraph">Ficha digital de grupo “Robô Decisor” (Word/Canva/Jamboard).</p>
+<p class="text-paragraph">Mural colaborativo “Se eu fosse uma IA.” (Padlet/Miro).</p>
+<p class="text-paragraph">Quiz rápido ou formulário de feedback (Forms/Kahoot).</p>
+<div class="section-divider"></div>
+<h2 id="section-37">📝 💬 Feedback Formativo (5 min finais)</h2>
+<div class="section-divider"></div>
+<h2 id="section-38">📝 Perguntas rápidas:</h2>
+<p class="text-paragraph">O que aprendi hoje sobre decisões automáticas?</p>
+<p class="text-paragraph">O que o meu robô faria de forma diferente de mim?</p>
+<p class="text-paragraph">Como posso usar esta lógica em jogos ou apps?</p>
+<p class="highlight-text"><strong class="text-bold">💡 Sugestão: usar Mentimeter ou formulário breve com emojis para manter o ambiente leve.</strong></p>
+<h3>📝 🧭 Resumo Temporal da Sessão</h3>
+<div class="section-divider"></div>
+<h2 id="section-39">📝 ✨ Frase de Fecho</h2>
+<p class="text-paragraph">“A lógica condicional é como um semáforo:
+Se o sinal for verde → avança;
+Se for vermelho → para;
+E tu, agora, já sabes programar o trânsito das tuas ideias!” 🚦💡</p>
+<h3>📝 🎬 CONTEÚDO DOS SLIDES – Sessão 3</h3>
+<div class="section-divider"></div>
+<h2 id="section-40">📝 Tema: Tomar Decisões com “Se. então.” – Introdução à Lógica Condicional</h2>
+<div class="section-divider"></div>
+<h2 id="section-41">📝 Duração: 90 minutos</h2>
+<div class="section-divider"></div>
+<h2 id="section-42">📝 🧠 Slide 1 – Boas-vindas</h2>
+<h3>📝 Título:
+🧩 Sessão 3 – Tomar Decisões com “Se. então.”</h3>
+<div class="section-divider"></div>
+<h2 id="section-43">📝 Conteúdo:</h2>
+<p class="text-paragraph">“Olá, pensadores lógicos! 👋”</p>
+<div class="section-divider"></div>
+<h2 id="section-44"><span class="category-label">Prática</span>🚀 “Hoje vamos aprender a tomar decisões como as máquinas — mas com a nossa criatividade humana.”</h2>
+<p class="text-paragraph">“Vamos descobrir como funciona a lógica condicional: Se isto acontecer → então faz aquilo!”</p>
+<div class="section-divider"></div>
+<h2 id="section-45">📝 Visual sugerido:</h2>
+<p class="text-paragraph">Ícones de robô, semáforo e cérebro com circuitos.</p>
+<p class="text-paragraph">Fundo colorido (verde-lima + azul).</p>
+<div class="section-divider"></div>
+<h2 id="section-46">📝 💬 Slide 2 – Quebrar o Gelo: “Se eu fosse uma IA…”</h2>
+<div class="section-divider"></div>
+<h2 id="section-47"><span class="category-label">Prática</span>🚀 Título:
+🤖 Atividade: Se eu fosse uma IA, então eu…</h2>
+<div class="section-divider"></div>
+<h2 id="section-48">📝 Instruções:</h2>
+<p class="text-paragraph">“Completa a frase: Se eu fosse uma IA, então eu.”</p>
+<p class="text-paragraph">Exemplo:</p>
+<p class="text-paragraph">“.ensinava cães a falar.” 🐶</p>
+<p class="text-paragraph">“.cria um despertador que dá café.” ☕</p>
+<p class="text-paragraph">“.sabia sempre o que os professores iam perguntar.” 😂</p>
+<p class="text-paragraph">“Partilha no chat ou num mural digital (Padlet/Jamboard).”</p>
+<div class="section-divider"></div>
+<h2 id="section-49">📝 Mensagem:</h2>
+<p class="text-paragraph">“As IAs também tomam decisões com base em condições — exatamente como tu acabaste de fazer!”</p>
+<div class="section-divider"></div>
+<h2 id="section-50">📝 Visual:</h2>
+<p class="text-paragraph">Fundo divertido com emojis 🤖💡😂</p>
+<div class="section-divider"></div>
+<h2 id="section-51">📝 🧩 Slide 3 – O que é a Lógica Condicional?</h2>
+<div class="section-divider"></div>
+<h2 id="section-52">📝 Título:
+⚙️ Como as máquinas decidem o que fazer</h2>
+<div class="section-divider"></div>
+<h2 id="section-53">📝 Conteúdo:</h2>
+<div class="section-divider"></div>
+<h2 id="section-54">📝 “A lógica condicional é uma forma de o computador tomar decisões.”</h2>
+<p class="text-paragraph">“Baseia-se em regras simples:
+Se uma condição for verdadeira → Então executa uma ação → (Senão) faz outra.”</p>
+<p class="text-paragraph">“Esta é uma das ideias base da programação e da inteligência artificial.”</p>
+<div class="section-divider"></div>
+<h2 id="section-55">📝 Visual:</h2>
+<p class="text-paragraph">Diagrama colorido:</p>
+<p class="text-paragraph">Se (condição é verdadeira)</p>
+<p class="text-paragraph">→ faz ação 1</p>
+<p class="text-paragraph">Senão</p>
+<p class="text-paragraph">→ faz ação 2</p>
+<p class="text-paragraph">Ícones: setas, blocos, luz verde/vermelha.</p>
+<div class="section-divider"></div>
+<h2 id="section-56">📝 ☀️ Slide 4 – Exemplos do Dia-a-Dia</h2>
+<div class="section-divider"></div>
+<h2 id="section-57">📝 Título:
+🧠 Usamos lógica condicional todos os dias!</h2>
+<div class="section-divider"></div>
+<h2 id="section-58">📝 Conteúdo:</h2>
+<div class="section-divider"></div>
+<h2 id="section-59">📝 Mensagem:</h2>
+<p class="text-paragraph">“Tomar decisões é parte da nossa rotina — só precisamos de aprender a organizar essas decisões como um algoritmo.”</p>
+<div class="section-divider"></div>
+<h2 id="section-60">📝 Visual:</h2>
+<p class="text-paragraph">Fundo branco com ícones de emojis e símbolos de “check” ✅ / “x” ❌.</p>
+<div class="section-divider"></div>
+<h2 id="section-61">📝 💡 Slide 5 – Estrutura Visual da Lógica Condicional</h2>
+<div class="section-divider"></div>
+<h2 id="section-62">📝 Título:
+🔁 Como funciona a condição “Se. então. senão.”</h2>
+<div class="section-divider"></div>
+<h2 id="section-63">📝 Conteúdo:</h2>
+<p class="text-paragraph">Início</p>
+<p class="text-paragraph">Se (condição verdadeira)</p>
+<p class="text-paragraph">→ Executar ação A</p>
+<p class="text-paragraph">Senão</p>
+<p class="text-paragraph">→ Executar ação B</p>
+<p class="text-paragraph">Fim</p>
+<div class="section-divider"></div>
+<h2 id="section-64">📝 Exemplo:</h2>
+<p class="text-paragraph">“Se estiver frio → vestir casaco; senão → sair só com t-shirt.”</p>
+<div class="section-divider"></div>
+<h2 id="section-65">📝 Visual:</h2>
+<p class="text-paragraph">Diagrama de decisão com setas verdes (verdadeiro) e vermelhas (falso).</p>
+<p class="text-paragraph">Ícone de semáforo ou interruptor (ligado/desligado).</p>
+<div class="section-divider"></div>
+<h2 id="section-66">📝 🎮 Slide 6 – Mini-Desafio</h2>
+<div class="section-divider"></div>
+<h2 id="section-67">📝 Título:
+🧩 Completa as tuas próprias condições!</h2>
+<div class="section-divider"></div>
+<h2 id="section-68">📝 Instruções:</h2>
+<p class="text-paragraph">“Pensa em 3 situações do teu dia e cria regras do tipo ‘Se. então.’.”</p>
+<p class="text-paragraph">Exemplo:</p>
+<p class="text-paragraph">“Se tiver sono → deito-me.”</p>
+<p class="text-paragraph">“Se o meu telemóvel estiver sem bateria → ligo o carregador.”</p>
+<p class="text-paragraph">“Se tiver tempo → jogo um bocado no computador.”</p>
+<div class="section-divider"></div>
+<h2 id="section-69">📝 Partilha:</h2>
+<p class="text-paragraph">“Escreve as tuas frases no chat ou no mural digital.”</p>
+<div class="section-divider"></div>
+<h2 id="section-70">📝 Visual:</h2>
+<p class="text-paragraph">Fundo divertido com ícones de energia, telemóvel e relógio.</p>
+<div class="section-divider"></div>
+<h2 id="section-71"><span class="category-label">Prática</span>🚀 ⚙️ Slide 7 – Atividade Principal: “Cria o Teu Robô Decisor”</h2>
+<div class="section-divider"></div>
+<h2 id="section-72">📝 Título:
+🤖 Desafio em grupo – O Robô Decisor!</h2>
+<div class="section-divider"></div>
+<h2 id="section-73">📝 Instruções:</h2>
+<p class="text-paragraph">“Em grupos de 3 a 4, criem um robô que toma decisões com base em condições.”</p>
+<p class="text-paragraph">“Escolham um tema para o vosso robô:”</p>
+<p class="text-paragraph">Robô da roupa 👕</p>
+<p class="text-paragraph">Robô do estudo 📚</p>
+<p class="text-paragraph">Robô do humor 😄</p>
+<p class="text-paragraph">Robô das refeições 🍝</p>
+<div class="section-divider"></div>
+<h2 id="section-74"><span class="category-label">Objetivos</span>🎯 Objetivo:</h2>
+<div class="section-divider"></div>
+<h2 id="section-75">📝 Criar um conjunto de regras lógicas que o robô vai seguir automaticamente.</h2>
+<div class="section-divider"></div>
+<h2 id="section-76">📝 Visual:</h2>
+<p class="text-paragraph">Fundo ilustrado com diferentes tipos de robôs.</p>
+<p class="text-paragraph">Ícones dos temas (roupa, comida, estudo, etc.).</p>
+<div class="section-divider"></div>
+<h2 id="section-77">📝 🧱 Slide 8 – Grelha de Trabalho em Grupo</h2>
+<div class="section-divider"></div>
+<h2 id="section-78">📝 Título:
+📋 Planeia as tuas condições</h2>
+<div class="section-divider"></div>
+<h2 id="section-79">📝 Tabela base (para preencher no Jamboard ou ficheiro de grupo):</h2>
+<p class="highlight-text"><strong class="text-bold">💡 Dica:
+Inclui pelo menos 3 regras.
+Quanto mais criativo o robô, melhor!</strong></p>
+<div class="section-divider"></div>
+<h2 id="section-80">📝 🌿 Slide 9 – Diferenciação por Nível</h2>
+<div class="section-divider"></div>
+<h2 id="section-81">📝 Título:
+⚙️ Escolhe o teu nível de desafio</h2>
+<div class="section-divider"></div>
+<h2 id="section-82">📝 Visual:</h2>
+<p class="text-paragraph">Fundo dividido em 3 cores (verde, azul e roxo).</p>
+<p class="text-paragraph">Ícones de folhas 🌱🌿🌳 a representar progressão.</p>
+<div class="section-divider"></div>
+<h2 id="section-83">📝 🧠 Slide 10 – Exemplo de Algoritmo Completo</h2>
+<div class="section-divider"></div>
+<h2 id="section-84">📝 Título:
+💻 Exemplo: O Robô do Estudo</h2>
+<div class="section-divider"></div>
+<h2 id="section-85">📝 Exemplo em pseudocódigo:</h2>
+<p class="text-paragraph">Início</p>
+<p class="text-paragraph">Se tiver teste amanhã → estudar 30 minutos</p>
+<p class="text-paragraph">Senão → jogar 10 minutos</p>
+<p class="text-paragraph">Se estiver cansado → fazer uma pausa</p>
+<p class="text-paragraph">Fim</p>
+<div class="section-divider"></div>
+<h2 id="section-86">📝 Mensagem:</h2>
+<p class="text-paragraph">“Os melhores algoritmos são aqueles que resolvem problemas reais — de forma lógica e clara!”</p>
+<div class="section-divider"></div>
+<h2 id="section-87">📝 Visual:</h2>
+<p class="text-paragraph">Fundo tipo “blocos de código”.</p>
+<p class="text-paragraph">Ícones: livros, computador, relógio.</p>
+<div class="section-divider"></div>
+<h2 id="section-88">📝 💬 Slide 11 – Partilha e Reflexão</h2>
+<div class="section-divider"></div>
+<h2 id="section-89">📝 Título:
+🗣️ Apresenta o teu Robô Decisor!</h2>
+<div class="section-divider"></div>
+<h2 id="section-90">📝 Instruções:</h2>
+<p class="text-paragraph">“Cada grupo apresenta o seu robô em 2 minutos.”</p>
+<p class="text-paragraph">“Explica uma das decisões e o que acontece se a condição for falsa.”</p>
+<p class="text-paragraph">“O resto da turma pode reagir com emojis ou perguntas.”</p>
+<div class="section-divider"></div>
+<h2 id="section-91">📝 Visual:</h2>
+<p class="text-paragraph">Fundo em branco com moldura colorida.</p>
+<p class="text-paragraph">Ícones: microfone 🎤 + robô 🤖.</p>
+<div class="section-divider"></div>
+<h2 id="section-92">📝 💭 Slide 12 – Reflexão Final</h2>
+<div class="section-divider"></div>
+<h2 id="section-93">📝 Título:
+✨ O que aprendemos com o Robô Decisor?</h2>
+<div class="section-divider"></div>
+<h2 id="section-94">📝 Perguntas orientadoras:</h2>
+<p class="text-paragraph">O que é uma condição?</p>
+<p class="text-paragraph">Por que é importante definir o “senão”?</p>
+<p class="text-paragraph">Onde usamos este tipo de lógica fora da informática?</p>
+<div class="section-divider"></div>
+<h2 id="section-95">📝 💬 Mensagem de síntese:</h2>
+<p class="text-paragraph">“A lógica condicional está em todo o lado —
+nas apps, nos jogos e nas nossas decisões diárias.”</p>
+<div class="section-divider"></div>
+<h2 id="section-96">📝 Visual:</h2>
+<p class="text-paragraph">Fundo branco com ícones de check ✅ e X ❌.</p>
+<h3>📝 🎓 Slide 13 – Resumo da Sessão</h3>
+<div class="section-divider"></div>
+<h2 id="section-97">📝 Título:
+🧠 Hoje aprendemos que…</h2>
+<div class="section-divider"></div>
+<h2 id="section-98">📝 Conteúdo:
+✅ As decisões podem ser representadas por regras lógicas.
+✅ “Se. então. senão.” é a base da programação condicional.
+✅ Criámos e testámos o nosso próprio algoritmo decisor.
+✅ Pensámos como máquinas e criámos soluções criativas.</h2>
+<div class="section-divider"></div>
+<h2 id="section-99">📝 Visual:</h2>
+<p class="text-paragraph">Fundo azul com ícones de robô e cérebro.</p>
+<div class="section-divider"></div>
+<h2 id="section-100">📝 📋 Slide 14 – Feedback Rápido</h2>
+<div class="section-divider"></div>
+<h2 id="section-101">📝 Título:
+💬 Partilha a tua opinião!</h2>
+<div class="section-divider"></div>
+<h2 id="section-102">📝 Perguntas (via Mentimeter, Forms ou chat):</h2>
+<p class="text-paragraph">O que aprendi hoje?</p>
+<p class="text-paragraph">Qual foi a decisão mais engraçada do meu robô?</p>
+<p class="text-paragraph">O que quero melhorar na próxima sessão?</p>
+<div class="section-divider"></div>
+<h2 id="section-103">📝 Visual:</h2>
+<p class="text-paragraph">Fundo suave, emojis coloridos.</p>
+<div class="section-divider"></div>
+<h2 id="section-104">📝 🌈 Slide 15 – Despedida</h2>
+<div class="section-divider"></div>
+<h2 id="section-105">📝 Título:
+🎉 Parabéns, Criador(a) de Regras!</h2>
+<div class="section-divider"></div>
+<h2 id="section-106">📝 Conteúdo:</h2>
+<p class="text-paragraph">“Hoje programaste a tua primeira inteligência condicional!”</p>
+<p class="text-paragraph">“Na próxima sessão vais aprender como repetir ações com lógica — os ciclos e loops!”</p>
+<p class="text-paragraph">“Até lá, continua a pensar em decisões que tornam o mundo mais inteligente!”</p>
+<div class="section-divider"></div>
+<h2 id="section-107">📝 Visual:</h2>
+<p class="text-paragraph">Fundo colorido com confetis e ícones de código.</p>
+<p class="text-paragraph">Frase final animada:</p>
+<p class="text-paragraph">“Pensar é decidir. Programar é transformar decisões em ação.” 💡</p>
+<div class="section-divider"></div>
+<h2 id="section-108"><span class="category-label">Objetivos</span>🎯 💪 Competências Reforçadas</h2>
+<p class="text-paragraph">✅ Pensamento lógico e condicional
+✅ Criatividade e comunicação digital
+✅ Colaboração em grupo
+✅ Capacidade de análise e tomada de decisão</p>
+<h3>🚀 🧩 FICHA DE ATIVIDADE – Sessão 3</h3>
+<h3>🚀 Perfeito 🙌
+Segue a Ficha de Atividade – Sessão 3: “Tomar Decisões com ‘Se. então.’ – Introdução à Lógica Condicional”, do Módulo 2 – Pensamento Computacional Criativo, totalmente alinhada com o estilo Geração Futuro IA: linguagem simples e motivadora, diferenciação por níveis, exemplos concretos, foco no raciocínio lógico e criatividade.</h3>
+<p class="text-paragraph">Podes copiar o conteúdo diretamente ou, se quiseres, posso gerar o ficheiro .docx formatado (com ícones, cores e caixas de resposta).</p>
+<div class="section-divider"></div>
+<h2 id="section-109">📝 🧠 GERAÇÃO FUTURO IA</h2>
+<div class="section-divider"></div>
+<h2 id="section-110">📝 Módulo 2 – Pensamento Computacional Criativo</h2>
+<h3>📝 Sessão 3 – “Tomar Decisões com ‘Se. então.’ – Introdução à Lógica Condicional”</h3>
+<div class="section-divider"></div>
+<h2 id="section-111"><span class="category-label">Prática</span>🚀 Ficha de Atividade</h2>
+<div class="section-divider"></div>
+<h2 id="section-112"><span class="category-label">Objetivos</span>🎯 🎯 Objetivo da atividade</h2>
+<div class="section-divider"></div>
+<h2 id="section-113">📝 Compreender o funcionamento da lógica condicional e aprender a criar regras “Se. então. senão.” para representar decisões em situações reais ou imaginárias.</h2>
+<div class="section-divider"></div>
+<h2 id="section-114">📝 🧩 PARTE 1 – O QUE É A LÓGICA CONDICIONAL?</h2>
+<div class="section-divider"></div>
+<h2 id="section-115">📝 A lógica condicional ajuda-nos a tomar decisões com base em condições.
+É o que os computadores (e nós!) fazemos todos os dias:</h2>
+<div class="section-divider"></div>
+<h2 id="section-116">📝 💡 Exemplos simples:</h2>
+<p class="text-paragraph">Se estiver a chover 🌧️ → levo guarda-chuva ☂️</p>
+<p class="text-paragraph">Se estiver com fome 🍔 → faço um lanche</p>
+<p class="text-paragraph">Se o computador estiver sem bateria 🔋 → ligo o carregador</p>
+<div class="section-divider"></div>
+<h2 id="section-117">📝 💬 Completa estas frases à tua maneira:</h2>
+<p class="text-paragraph">Se __________________________________ então __________________________________</p>
+<p class="text-paragraph">Se __________________________________ então __________________________________</p>
+<p class="text-paragraph">Se __________________________________ então __________________________________</p>
+<div class="section-divider"></div>
+<h2 id="section-118">📝 🤖 PARTE 2 – CRIA O TEU “ROBÔ DECISOR”</h2>
+<div class="section-divider"></div>
+<h2 id="section-119">📝 Imagina que vais programar um robô que toma decisões com base em regras lógicas.
+Ele só faz o que tu disseres — exatamente como um computador!</h2>
+<div class="section-divider"></div>
+<h2 id="section-120">📝 Etapas:</h2>
+<div class="section-divider"></div>
+<h2 id="section-121">📝 Escolhe um tema para o teu robô:</h2>
+<p class="text-paragraph">👕 Escolher roupa</p>
+<p class="text-paragraph">🍽️ Preparar refeições</p>
+<p class="text-paragraph">📚 Organizar o tempo de estudo</p>
+<p class="text-paragraph">🎮 Jogar videojogos</p>
+<p class="text-paragraph">😄 Dar conselhos de humor</p>
+<div class="section-divider"></div>
+<h2 id="section-122">📝 Cria as tuas regras “Se. então.” (e “senão.”) na grelha abaixo:</h2>
+<p class="text-paragraph">💬 Dica: Podes usar emojis ou desenhar o teu robô ao lado! 🤖</p>
+<div class="section-divider"></div>
+<h2 id="section-123">📝 🧱 PARTE 3 – CONSTRÓI O ALGORITMO DO TEU ROBÔ</h2>
+<div class="section-divider"></div>
+<h2 id="section-124">📝 Agora transforma as tuas regras num algoritmo passo a passo, como se fosse um pequeno programa.</h2>
+<div class="section-divider"></div>
+<h2 id="section-125">📝 Exemplo:</h2>
+<p class="text-paragraph">Início</p>
+<p class="text-paragraph">Se estiver a chover → levar guarda-chuva</p>
+<p class="text-paragraph">Se estiver com fome → comer uma sandes</p>
+<p class="text-paragraph">Senão → beber água</p>
+<p class="text-paragraph">Fim</p>
+<div class="section-divider"></div>
+<h2 id="section-126">📝 💬 Agora é a tua vez!</h2>
+<p class="text-paragraph">✏️ Escreve o algoritmo do teu robô aqui:</p>
+<div class="section-divider"></div>
+<h2 id="section-127">📝 🌿 PARTE 4 – DIFERENCIAÇÃO POR NÍVEL</h2>
+<p class="text-paragraph">Escolhe o nível que queres atingir 🚀</p>
+<p class="highlight-text"><strong class="text-bold">💡 Ferramentas sugeridas: Canva, Miro, PowerPoint ou papel com marcadores coloridos.</strong></p>
+<div class="section-divider"></div>
+<h2 id="section-128">📝 💭 PARTE 5 – REFLEXÃO FINAL</h2>
+<p class="text-paragraph">O que aprendi hoje sobre como as máquinas tomam decisões?
+✍️ ____________________________________________________________</p>
+<p class="text-paragraph">Onde posso encontrar esta lógica no meu dia-a-dia?
+(ex.: jogos, aplicações, rotinas, redes sociais.)
+✍️ ____________________________________________________________</p>
+<p class="text-paragraph">Qual das tuas decisões achas mais divertida ou criativa?
+✍️ ____________________________________________________________</p>
+<div class="section-divider"></div>
+<h2 id="section-129">📊 🌈 PARTE 6 – AUTOAVALIAÇÃO</h2>
+<div class="section-divider"></div>
+<h2 id="section-130">📝 🧠 PARTE 7 – DESAFIO EXTRA (Opcional)</h2>
+<div class="section-divider"></div>
+<h2 id="section-131">📝 Cria uma história interativa com decisões diferentes!
+👉 Usa a estrutura “Se. então.” para mudar o final.</h2>
+<div class="section-divider"></div>
+<h2 id="section-132">📝 Exemplo:</h2>
+<p class="text-paragraph">Se o herói abrir a porta → encontra um tesouro.
+Senão → descobre um monstro! 🐉</p>
+<div class="section-divider"></div>
+<h2 id="section-133">📝 💡 Podes fazer no Genially, Canva, PowerPoint animado ou Scratch.</h2>
+<div class="section-divider"></div>
+<h2 id="section-134"><span class="category-label">Objetivos</span>🎯 🧩 PARTE 8 – COMPETÊNCIAS DESENVOLVIDAS</h2>
+<p class="text-paragraph">✅ Pensamento lógico e condicional
+✅ Criatividade e resolução de problemas
+✅ Comunicação e colaboração
+✅ Capacidade de planear e testar decisões</p>
+<div class="section-divider"></div>
+<h2 id="section-135">📝 ✨ Mensagem Final</h2>
+<p class="text-paragraph">“Os computadores seguem regras.
+Tu aprendeste hoje a criá-las.
+Agora és tu quem decide o que acontece a seguir!” 🤖💡</p>
+<div class="section-divider"></div>
+<h2 id="section-136">📝 Queres que te gere agora a versão Word formatada (.docx) desta ficha, com:</h2>
+<p class="text-paragraph">Ícones coloridos (🌱 🌿 🌳 e 🤖),</p>
+<p class="text-paragraph">Caixas de resposta editáveis,</p>
+<div class="section-divider"></div>
+<h2 id="section-137">📝 E cores temáticas do módulo (azul, verde e roxo)?
+Posso também incluir uma segunda página com versão do formador (respostas esperadas e critérios de observação).</h2>
+<p class="text-paragraph">🎮 Teasing da Sessão 3 (30 min antes)</p>
+<div class="section-divider"></div>
+<h2 id="section-138">📝 “O Robô que Tomava Decisões!”</h2>
+<div class="section-divider"></div>
+<h2 id="section-139"><span class="category-label">Objetivos</span>🎯 Duração: 30 minutos
+Modalidade: Individual (atividade digital curta)
+Objetivo: Introduzir o conceito de lógica condicional de forma lúdica — compreender que decisões podem ser representadas por regras simples do tipo “Se. então.”.</h2>
+<div class="section-divider"></div>
+<h2 id="section-140">📝 🎬 1. Introdução – Uma nova missão</h2>
+<p class="text-paragraph">“Olá, jovem programador(a)! 👋</p>
+<div class="section-divider"></div>
+<h2 id="section-141">📝 A tua próxima missão é ajudar um robô curioso chamado LÓGICO-3 a tomar boas decisões.</h2>
+<div class="section-divider"></div>
+<h2 id="section-142">📝 O problema é que o Lógico-3 não entende o que deve fazer em certas situações.
+Ele precisa que tu cries regras claras para o ajudar! 🤖💡”</h2>
+<div class="section-divider"></div>
+<h2 id="section-143">📝 🎧 Sugestão: criar um pequeno vídeo no Canva ou Genially com voz robótica:</h2>
+<p class="text-paragraph">“Sistema em falha. Preciso de instruções.
+Se. então. o quê?” ⚡</p>
+<div class="section-divider"></div>
+<h2 id="section-144">📝 ⚙️ 2. O Desafio – Programa o Lógico-3!</h2>
+<p class="text-paragraph">O Lógico-3 envia-te mensagens confusas como estas:</p>
+<div class="section-divider"></div>
+<h2 id="section-145">📝 💬 A tua missão:
+Completa as respostas do robô criando regras do tipo:</h2>
+<p class="text-paragraph">Se estiver a chover → então leva guarda-chuva! ☂️
+Se tiver fome → então come uma sandes! 🥪</p>
+<div class="section-divider"></div>
+<h2 id="section-146">📝 🧩 3. Partilha as tuas regras</h2>
+<p class="text-paragraph">Escreve 3 a 5 frases com as tuas regras “Se. então.”.</p>
+<div class="section-divider"></div>
+<h2 id="section-147">📝 Publica no mural digital da turma (Padlet, Miro ou Jamboard).</h2>
+<p class="text-paragraph">Dá um título criativo ao teu robô (ex.: Decisórus 3000, CérebroX, IA Super Lógica).</p>
+<p class="highlight-text"><strong class="text-bold">💡 Exemplo divertido:</strong></p>
+<p class="text-paragraph">“Se o alarme tocar → então levantar.
+Se for sábado → então dormir mais 10 minutos!” 😴</p>
+<div class="section-divider"></div>
+<h2 id="section-148">📝 🌿 4. Diferenciação por Nível</h2>
+<div class="section-divider"></div>
+<h2 id="section-149">📝 💬 5. Reflexão rápida</h2>
+<p class="text-paragraph">Responde no final do mural ou formulário (Forms/Google):</p>
+<p class="text-paragraph">Qual foi a tua regra mais divertida? 😄</p>
+<p class="text-paragraph">O que acontece se o robô não tiver uma regra para uma situação?</p>
+<p class="text-paragraph">Achas que as pessoas também seguem regras assim?</p>
+<p class="highlight-text"><strong class="text-bold">💭 Conclusão esperada:</strong></p>
+<p class="text-paragraph">“As máquinas não decidem sozinhas — precisam de regras criadas por nós!”</p>
+<div class="section-divider"></div>
+<h2 id="section-150">📝 🧠 6. Missão Extra (opcional – 5 min)</h2>
+<p class="highlight-text"><strong class="text-bold">🎯 Cria uma mini-história ou meme sobre o Lógico-3.</strong></p>
+<div class="section-divider"></div>
+<h2 id="section-151">📝 Podes desenhar, escrever ou criar no Canva/Genially.</h2>
+<p class="text-paragraph">Inclui pelo menos uma regra condicional “Se. então.”.</p>
+<p class="text-paragraph">Exemplo:</p>
+<p class="text-paragraph">“Se o Lógico-3 vir chocolate → então entra em modo guloso!” 🍫</p>
+<div class="section-divider"></div>
+<h2 id="section-152">📝 Partilha no mural da turma com o título: “As Aventuras do Lógico-3”.</h2>
+<div class="section-divider"></div>
+<h2 id="section-153">📝 ⏱️ 7. Gestão de tempo (30 minutos)</h2>
+<div class="section-divider"></div>
+<h2 id="section-154">📦 🧰 8. Recursos sugeridos</h2>
+<div class="section-divider"></div>
+<h2 id="section-155">📝 Genially / Canva: vídeo ou animação introdutória.</h2>
+<div class="section-divider"></div>
+<h2 id="section-156">📝 Padlet / Miro / Jamboard: mural de partilhas e feedback.</h2>
+<div class="section-divider"></div>
+<h2 id="section-157">📝 Forms / Mentimeter: perguntas rápidas de reflexão.</h2>
+<div class="section-divider"></div>
+<h2 id="section-158"><span class="category-label">Objetivos</span>🎯 🧠 9. Competências desenvolvidas</h2>
+<p class="text-paragraph">✅ Raciocínio lógico e sequencial
+✅ Tomada de decisão estruturada
+✅ Comunicação escrita e criativa
+✅ Colaboração e partilha digital</p>
+<div class="section-divider"></div>
+<h2 id="section-159">📝 ✨ 10. Mensagem Final</h2>
+<p class="text-paragraph">“Hoje ajudaste o Lógico-3 a pensar!</p>
+<p class="text-paragraph">As máquinas só conseguem decidir quando alguém cria as regras.</p>
+<div class="section-divider"></div>
+<h2 id="section-160">📝 Na próxima sessão, vais descobrir como repetir ações automaticamente com os loops e ciclos!” 🔁💡</h2>
+<h3>🚀 🌍 Atividade Assíncrona – Sessão 3</h3>
+<div class="section-divider"></div>
+<h2 id="section-161">📝 “As Aventuras do Meu Robô Decisor”</h2>
+<div class="section-divider"></div>
+<h2 id="section-162"><span class="category-label">Objetivos</span>🎯 Duração: 90 minutos
+Modalidade: Individual (assíncrona, online ou offline)
+Objetivo: Aplicar o raciocínio lógico e a estrutura “Se. então. senão.” para criar uma pequena história interativa ou algoritmo que represente decisões automáticas.</h2>
+<div class="section-divider"></div>
+<h2 id="section-163"><span class="category-label">Objetivos</span>🎯 🎯 Competências a desenvolver</h2>
+<p class="text-paragraph">✅ Pensamento lógico e condicional
+✅ Criatividade narrativa e visual
+✅ Organização de ideias em sequência
+✅ Comunicação digital e reflexão crítica</p>
+<div class="section-divider"></div>
+<h2 id="section-164">📝 🧠 1. Introdução à Missão</h2>
+<p class="text-paragraph">“O teu robô está pronto para ganhar vida! 🤖</p>
+<div class="section-divider"></div>
+<h2 id="section-165">📝 Na sessão anterior, programaste o teu Robô Decisor com algumas regras lógicas.
+Agora vais colocá-lo à prova: cria uma história, jogo ou situação interativa onde o robô tenha de tomar decisões usando ‘Se. então. senão.’.</h2>
+<div class="section-divider"></div>
+<h2 id="section-166">📝 A tua missão é fazer com que o robô pense e aja como uma verdadeira inteligência artificial!”</h2>
+<div class="section-divider"></div>
+<h2 id="section-167">📝 🕒 2. Estrutura de Tempo (90 minutos)</h2>
+<div class="section-divider"></div>
+<h2 id="section-168">📝 ⚙️ 3. Escolhe o teu Cenário</h2>
+<p class="text-paragraph">Podes criar o teu robô em qualquer contexto — realista ou imaginário!</p>
+<div class="section-divider"></div>
+<h2 id="section-169">📝 💡 Exemplos de temas:</h2>
+<p class="text-paragraph">Robô meteorologista 🌦️ (decide o que vestir conforme o tempo)</p>
+<p class="text-paragraph">Robô cozinheiro 🍳 (escolhe receitas consoante os ingredientes)</p>
+<p class="text-paragraph">Robô treinador 🏃 (cria rotinas de treino conforme o tempo livre)</p>
+<p class="text-paragraph">Robô conselheiro de humor 😄 (dá dicas com base nas emoções)</p>
+<p class="text-paragraph">Robô galáctico 👽 (decide o que fazer em diferentes planetas)</p>
+<p class="text-paragraph">🎨 Dica: quanto mais criativo e divertido o robô, mais interessante será o teu projeto!</p>
+<div class="section-divider"></div>
+<h2 id="section-170">📝 🧩 4. Planeia as tuas Regras de Decisão</h2>
+<div class="section-divider"></div>
+<h2 id="section-171">📝 💡 Podes criar quantas regras quiseres, mas começa com 3 ou 4 bem claras.</h2>
+<div class="section-divider"></div>
+<h2 id="section-172">📝 💻 5. Cria o teu Produto Final</h2>
+<div class="section-divider"></div>
+<h2 id="section-173">📝 Escolhe como vais apresentar o teu robô e as suas decisões.
+Podes fazê-lo de 3 formas (níveis de desafio 👇):</h2>
+<div class="section-divider"></div>
+<h2 id="section-174">📝 💬 Exemplo de algoritmo simples:</h2>
+<p class="text-paragraph">Início</p>
+<p class="text-paragraph">Se estiver a chover → o robô leva guarda-chuva</p>
+<p class="text-paragraph">Se estiver sol → o robô põe óculos de sol</p>
+<p class="text-paragraph">Senão → o robô fica a dormir</p>
+<p class="text-paragraph">Fim</p>
+<div class="section-divider"></div>
+<h2 id="section-175">📝 💬 6. Partilha e Colaboração</h2>
+<p class="text-paragraph">Publica o teu trabalho no mural digital da turma (Padlet, Miro ou Teams).</p>
+<div class="section-divider"></div>
+<h2 id="section-176">📝 Dá feedback a pelo menos 2 colegas, usando emojis e comentários curtos:</h2>
+<p class="text-paragraph">🤖 “Gostei da lógica do teu robô!”</p>
+<p class="highlight-text"><strong class="text-bold">💡 “Boa ideia — acrescentava mais uma decisão!”</strong></p>
+<p class="text-paragraph">😂 “O teu robô é super criativo!”</p>
+<div class="section-divider"></div>
+<h2 id="section-177">📝 💭 7. Reflexão Final</h2>
+<p class="text-paragraph">Responde no formulário de aula ou na tua ficha digital:</p>
+<p class="text-paragraph">O que foi mais divertido nesta atividade?</p>
+<p class="text-paragraph">Que decisão do teu robô foi mais inteligente?</p>
+<p class="text-paragraph">Se o teu robô pudesse pensar sozinho, o que faria?</p>
+<div class="section-divider"></div>
+<h2 id="section-178">📊 🧱 8. Autoavaliação</h2>
+<div class="section-divider"></div>
+<h2 id="section-179">📊 🧩 9. Critérios de Avaliação (10 pontos)</h2>
+<div class="section-divider"></div>
+<h2 id="section-180">📦 🧰 10. Recursos Sugeridos</h2>
+<div class="section-divider"></div>
+<h2 id="section-181">📝 Padlet / Jamboard / Miro: mural de partilhas.</h2>
+<div class="section-divider"></div>
+<h2 id="section-182">📝 Canva / PowerPoint / Google Slides: fluxogramas e histórias visuais.</h2>
+<div class="section-divider"></div>
+<h2 id="section-183">📝 Scratch / Genially: histórias ou simulações interativas.</h2>
+<div class="section-divider"></div>
+<h2 id="section-184">📊 Forms / Mentimeter: reflexão e autoavaliação final.</h2>
+<div class="section-divider"></div>
+<h2 id="section-185">📝 🌈 11. Mensagem Final</h2>
+<p class="text-paragraph">“A lógica condicional é o que transforma a tua imaginação em decisões inteligentes.
+Hoje o robô seguiu as tuas regras…
+Amanhã, quem sabe, ele aprende a criar as suas próprias!” 🤖✨</p>
+<h3>📦 🌟 Recursos adicionais para a Sessão 3</h3>
+<div class="section-divider"></div>
+<h2 id="section-186">📝 Tema: “Tomar Decisões com ‘Se. então.’ – Lógica Condicional”</h2>
+<div class="section-divider"></div>
+<h2 id="section-187">📝 🎮 1. Jogo Digital de Abertura – “Se. então. o quê?”</h2>
+<div class="section-divider"></div>
+<h2 id="section-188"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Introduzir o conceito de lógica condicional de forma divertida e interativa.</h2>
+<div class="section-divider"></div>
+<h2 id="section-189">📝 Plataforma sugerida: Kahoot, Mentimeter ou Quizizz</h2>
+<div class="section-divider"></div>
+<h2 id="section-190">📝 Exemplo de perguntas:</h2>
+<p class="text-paragraph">Se estiver a chover, então…</p>
+<p class="text-paragraph">A. Vou à praia 🌊</p>
+<p class="text-paragraph">B. Fico em casa ☂️ ✅</p>
+<p class="text-paragraph">C. Abro um gelado 🍦</p>
+<p class="text-paragraph">Se o telemóvel estiver sem bateria…</p>
+<p class="text-paragraph">A. Choro 😢</p>
+<p class="text-paragraph">B. Ligo o carregador ⚡ ✅</p>
+<p class="text-paragraph">C. Danço</p>
+<p class="text-paragraph">Se eu fosse uma IA, então…</p>
+<p class="text-paragraph">(resposta aberta para humor e criatividade!)</p>
+<p class="text-paragraph">💬 Dica:
+Mostra as respostas mais engraçadas no final e reforça o conceito:</p>
+<p class="text-paragraph">“A lógica condicional é o que faz as máquinas parecerem inteligentes — mas só se as regras forem boas!”</p>
+<div class="section-divider"></div>
+<h2 id="section-191">📝 🧱 2. Cartões “Se. então. senão.”</h2>
+<div class="section-divider"></div>
+<h2 id="section-192"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Ajudar os formandos a visualizar e aplicar a estrutura condicional.</h2>
+<div class="section-divider"></div>
+<h2 id="section-193"><span class="category-label">Prática</span>🚀 Formato: cartões coloridos, com espaço para preencher.
+Uso: atividade de grupo, mural colaborativo ou jogo rápido de correspondência.</h2>
+<div class="section-divider"></div>
+<h2 id="section-194">📝 💡 Sugestão:
+Distribuir os cartões misturados e desafiar os grupos a criar frases completas.
+Versão digital: Jamboard ou Miro com “post-its” virtuais coloridos.</h2>
+<div class="section-divider"></div>
+<h2 id="section-195">📝 🎯 3. Mini-Guia Visual – “Como Funciona a Lógica Condicional”</h2>
+<div class="section-divider"></div>
+<h2 id="section-196"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Oferecer um resumo visual para consulta rápida.</h2>
+<div class="section-divider"></div>
+<h2 id="section-197">📝 Conteúdo:</h2>
+<div class="section-divider"></div>
+<h2 id="section-198">📝 Pensa na situação</h2>
+<p class="text-paragraph">“O que quero que o robô decida?”</p>
+<div class="section-divider"></div>
+<h2 id="section-199">📝 Cria a regra condicional</h2>
+<p class="text-paragraph">“Se acontecer isto → então faz aquilo.”</p>
+<div class="section-divider"></div>
+<h2 id="section-200">📝 Prevê uma alternativa</h2>
+<p class="text-paragraph">“Senão → faz outra coisa.”</p>
+<div class="section-divider"></div>
+<h2 id="section-201">📝 Testa a tua lógica</h2>
+<p class="text-paragraph">“As ações fazem sentido?”</p>
+<div class="section-divider"></div>
+<h2 id="section-202">📝 💡 Exemplo:</h2>
+<p class="text-paragraph">Se o despertador tocar → levanta-te
+Senão → chega atrasado à escola 😴</p>
+<div class="section-divider"></div>
+<h2 id="section-203">📝 Visual:
+Fluxograma simples com ícones de setas, interruptor (on/off) e um robô pensativo.</h2>
+<div class="section-divider"></div>
+<h2 id="section-204">📝 💬 4. Mural Colaborativo – “Se eu fosse uma IA, então eu.”</h2>
+<div class="section-divider"></div>
+<h2 id="section-205"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Despertar a criatividade e introduzir o pensamento condicional em contexto pessoal.</h2>
+<div class="section-divider"></div>
+<h2 id="section-206">📝 Plataforma: Padlet, Miro ou Jamboard</h2>
+<div class="section-divider"></div>
+<h2 id="section-207">📝 Instruções:</h2>
+<p class="text-paragraph">Cada formando escreve uma frase criativa que complete:</p>
+<p class="text-paragraph">“Se eu fosse uma IA, então eu…”</p>
+<p class="text-paragraph">Exemplos inspiradores:</p>
+<p class="text-paragraph">“.fazia os trabalhos de casa em 2 segundos.”</p>
+<p class="text-paragraph">“.ensinava gatos a programar.” 🐱</p>
+<p class="text-paragraph">“.sabia sempre o que ia cair no teste!”</p>
+<div class="section-divider"></div>
+<h2 id="section-208">📝 🎯 Diferenciação:</h2>
+<p class="text-paragraph">11–13 anos → usar emojis ou desenhos.</p>
+<p class="text-paragraph">14–18 anos → escrever frases completas ou mini-histórias.</p>
+<div class="section-divider"></div>
+<h2 id="section-209">📝 🧩 5. Grelha “O Robô Decisor”</h2>
+<div class="section-divider"></div>
+<h2 id="section-210"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Apoiar o trabalho de grupo durante a atividade principal.</h2>
+<div class="section-divider"></div>
+<h2 id="section-211">📝 💡 Dica:
+Pedir a cada grupo que crie pelo menos 3 decisões e que as apresente num fluxograma no Canva, Miro ou PowerPoint.</h2>
+<div class="section-divider"></div>
+<h2 id="section-212">📝 💻 6. Exemplo Visual – Fluxograma de Decisões</h2>
+<div class="section-divider"></div>
+<h2 id="section-213"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Demonstrar visualmente como as condições se ligam às ações.</h2>
+<div class="section-divider"></div>
+<h2 id="section-214">📝 Exemplo:</h2>
+<p class="text-paragraph">Início</p>
+<p class="text-paragraph">Se (Está a chover?)</p>
+<p class="text-paragraph">→ Sim → Levar guarda-chuva</p>
+<p class="text-paragraph">→ Não → Ir sem casaco</p>
+<p class="text-paragraph">Se (Tenho fome?)</p>
+<p class="text-paragraph">→ Sim → Fazer sandes</p>
+<p class="text-paragraph">→ Não → Continuar a brincar</p>
+<p class="text-paragraph">Fim</p>
+<div class="section-divider"></div>
+<h2 id="section-215">📝 🎨 Aplicação:
+Pode ser recriado graficamente com blocos e setas em Canva ou PowerPoint, ou em Scratch (modo condicional).</h2>
+<div class="section-divider"></div>
+<h2 id="section-216">📝 💡 7. Exemplo de “Código Condicional” (em pseudocódigo)</h2>
+<div class="section-divider"></div>
+<h2 id="section-217"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Mostrar como as decisões se transformam em código simples.</h2>
+<p class="text-paragraph">Início</p>
+<p>Se temperatura < 10</p>
+<p class="text-paragraph">então vestir casaco</p>
+<p class="text-paragraph">senão</p>
+<p class="text-paragraph">usar t-shirt</p>
+<p class="text-paragraph">Fim</p>
+<div class="section-divider"></div>
+<h2 id="section-218">📝 💬 Mensagem pedagógica:</h2>
+<div class="section-divider"></div>
+<h2 id="section-219">📝 “Os computadores não pensam — seguem as tuas condições à risca!”</h2>
+<div class="section-divider"></div>
+<h2 id="section-220">📝 🧠 8. Quiz de Consolidação – “Decisões Inteligentes”</h2>
+<div class="section-divider"></div>
+<h2 id="section-221"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Verificar compreensão do conceito “Se. então.”.</h2>
+<div class="section-divider"></div>
+<h2 id="section-222">📝 Plataforma: Kahoot, Quizizz ou Forms.
+Exemplos de perguntas:</h2>
+<p class="text-paragraph">“Se o robô tiver bateria = 0%, o que deve fazer?”
+a) Ignorar o problema ❌
+b) Carregar-se ⚡ ✅</p>
+<p class="text-paragraph">“Se for sábado, então…”
+a) Há escola
+b) Não há aulas ✅</p>
+<div class="section-divider"></div>
+<h2 id="section-223"><span class="category-label">Prática</span>🚀 💡 Bónus:
+Pedir aos alunos que criem uma pergunta nova para o quiz — reforça autonomia e criatividade.</h2>
+<div class="section-divider"></div>
+<h2 id="section-224">📝 🎨 9. Cartaz Final – “Decidir é Programar”</h2>
+<div class="section-divider"></div>
+<h2 id="section-225"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Fechar a sessão com uma mensagem inspiradora e visual.</h2>
+<div class="section-divider"></div>
+<h2 id="section-226">📝 Texto sugerido:</h2>
+<p class="text-paragraph">🧩 “A lógica condicional transforma o pensamento humano em decisões automáticas.”</p>
+<p class="highlight-text"><strong class="text-bold">💡 “Programar é decidir com propósito.”</strong></p>
+<div class="section-divider"></div>
+<h2 id="section-227">📝 Visual:</h2>
+<p class="text-paragraph">Fundo azul com ícones de semáforo, engrenagens e robôs.</p>
+<div class="section-divider"></div>
+<h2 id="section-228">📝 Pode ser exibido como slide de encerramento ou impresso para o mural da turma.</h2>
+<div class="section-divider"></div>
+<h2 id="section-229">📝 🧾 10. Checklist do Formador</h2>
+<div class="section-divider"></div>
+<h2 id="section-230">📦 🧭 11. Recursos para Diferenciação Pedagógica</h2>
+<div class="section-divider"></div>
+<h2 id="section-231"><span class="category-label">Objetivos</span>🎯 🎯 12. Competências Reforçadas com os Recursos</h2>
+<p class="text-paragraph">✅ Pensamento lógico e condicional
+✅ Comunicação e colaboração digital
+✅ Criatividade aplicada à programação
+✅ Capacidade de análise e correção de erros</p>
+<div class="section-divider"></div>
+<h2 id="section-232">📝 🌈 13. Sugestão de Continuidade</h2>
+<h3>📝 ➡️ Usar as decisões criadas nesta sessão como base para o Módulo 2 – Sessão 4 (Repetição e Ciclos).
+➡️ Introduzir a ideia de “loop” com exemplos:</h3>
+<p class="text-paragraph">“Se a condição for verdadeira, repete a ação até deixar de ser.”</p> </div> <!-- Download --> <div class="mt-8 glass-premium rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 hover-lift"> <div> <h3 class="text-white font-bold mb-1">Documento Original</h3> <p class="text-slate-400 text-sm">Faça download do ficheiro Word completo</p> </div> <a href="./modulo2/Sessão 3.docx" download class="px-6 py-3 rounded-full bg-gradient-to-r from-white/10 to-white/5 hover:from-white/20 hover:to-white/10 border border-white/20 hover:border-white/30 transition-all flex items-center gap-2 text-white font-medium shadow-lg hover:scale-105"> <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/> </svg> Download Word </a> </div> </main> </div> <!-- Footer --> <footer class="mt-20 border-t border-white/10 py-8 bg-black/30"> <div class="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm"> <p class="text-paragraph">act.academy | Geração Futuro © 2026</p> </div> </footer> <!-- Scripts --> <script> // Scroll Progress // Scroll Progress const updateProgress = () => { const winScroll = document.documentElement.scrollTop; const height = document.documentElement.scrollHeight - document.documentElement.clientHeight; const scrolled = (winScroll / height) * 100; document.getElementById('scrollProgress').style.width = scrolled + '%'; const readProg = document.getElementById('readProgress'); const progText = document.getElementById('progressText'); if (readProg) { readProg.style.width = scrolled.toFixed(0) + '%'; } if (progText) { progText.textContent = scrolled.toFixed(0) + '% lido'; } }; window.addEventListener('scroll', updateProgress); // Active Section Highlight const sections = document.querySelectorAll('.content-section h2'); const navLinks = document.querySelectorAll('.sidebar-link'); window.addEventListener('scroll', () => { let current = ''; sections.forEach(section => { const sectionTop = section.offsetTop; if (window.pageYOffset >= sectionTop - 100) { current = section.getAttribute('id'); } }); navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + current) { link.classList.add('active'); } }); }); </script>
+</body>
+</html>

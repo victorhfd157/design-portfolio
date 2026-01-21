@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>🧠 Sessão 5 – IA Colaborativa: Criar Jogos em Equipa com Scratch | Geração Futuro</title> <script src="https://cdn.tailwindcss.com"></script> <style> * { scroll-behavior: smooth; } body { background-color: #020617; color: white; font-family: 'Outfit', sans-serif; overflow-x: hidden; } /* Glassmorphism Premium */ .glass-premium { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.125); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37), inset 0 1px 0 rgba(255, 255, 255, 0.1); } /* Header Premium */ .header-premium { background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid rgba(168, 85, 247, 0.2); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); } /* Sidebar Melhorada */ .sidebar { background: linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.85) 100%); backdrop-filter: blur(20px); border-right: 1px solid rgba(168, 85, 247, 0.3); box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4); } .sidebar-header { background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(34, 211, 238, 0.2)); border-bottom: 2px solid rgba(168, 85, 247, 0.3); padding: 1.25rem; margin-bottom: 1rem; border-radius: 0.75rem; } .sidebar-link { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border-left: 3px solid transparent; position: relative; padding-left: 1rem; } .sidebar-link::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 6px; height: 0; background: linear-gradient(180deg, #a855f7, #22d3ee); border-radius: 0 3px 3px 0; transition: height 0.3s ease; } .sidebar-link:hover { background: linear-gradient(90deg, rgba(168, 85, 247, 0.15), transparent); border-left-color: transparent; transform: translateX(4px); color: white; } .sidebar-link:hover::before { height: 100%; } .sidebar-link.active { background: linear-gradient(90deg, rgba(168, 85, 247, 0.25), rgba(34, 211, 238, 0.1)); border-left-color: transparent; color: #22d3ee; font-weight: 600; } .sidebar-link.active::before { height: 100%; box-shadow: 0 0 12px rgba(168, 85, 247, 0.6); } .sidebar-link-icon { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: rgba(168, 85, 247, 0.15); border-radius: 6px; margin-right: 0.75rem; font-size: 0.875rem; transition: all 0.3s ease; } .sidebar-link:hover .sidebar-link-icon { background: rgba(168, 85, 247, 0.3); transform: scale(1.1); } .sidebar-link.active .sidebar-link-icon { background: linear-gradient(135deg, #a855f7, #22d3ee); box-shadow: 0 2px 8px rgba(168, 85, 247, 0.4); } .nav-section { margin-bottom: 1.5rem; } .nav-section-title { color: #a855f7; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.5rem 1rem; margin-bottom: 0.5rem; opacity: 0.7; } .sidebar-progress { margin-top: 1.5rem; padding: 1rem; background: rgba(168, 85, 247, 0.1); border-radius: 0.75rem; border: 1px solid rgba(168, 85, 247, 0.2); } .progress-bar { width: 100%; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 3px; overflow: hidden; margin-top: 0.5rem; } .progress-fill { height: 100%; background: linear-gradient(90deg, #a855f7, #22d3ee); border-radius: 3px; transition: width 0.3s ease; box-shadow: 0 0 8px rgba(168, 85, 247, 0.6); } /* Typography */ .gradient-text { background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #22d3ee 100%); background-size: 200% 200%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 8s ease infinite; } @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } } .content-section h2 { color: #a855f7; margin-top: 3.5rem; margin-bottom: 1.75rem; font-size: 2rem; font-weight: 900; border-bottom: 3px solid rgba(168, 85, 247, 0.3); padding-bottom: 0.75rem; position: relative; } .content-section h2::before { content: ''; position: absolute; bottom: -3px; left: 0; width: 80px; height: 3px; background: linear-gradient(90deg, #a855f7, #22d3ee); border-radius: 2px; } .content-section h3 { color: #22d3ee; margin-top: 2.5rem; margin-bottom: 1.25rem; font-size: 1.5rem; font-weight: 700; } .content-section p { margin-bottom: 1.5rem; line-height: 2; color: #cbd5e1; font-size: 1.0625rem; } .content-section ul, .content-section ol { margin-left: 2.5rem; margin-bottom: 2rem; color: #cbd5e1; } .content-section li { margin-bottom: 1rem; line-height: 1.8; } .content-section li::marker { color: #a855f7; font-weight: 700; } /* Ultra Premium Additions */ body { background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%); font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; } .animated-bg-overlay { position: fixed; inset: 0; z-index: -1; background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(139, 92, 246, 0.15), transparent), radial-gradient(ellipse 60% 50% at 50% 120%, rgba(6, 182, 212, 0.12), transparent); animation: bgPulse 15s ease-in-out infinite; } @keyframes bgPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } } .title-ultra { background: linear-gradient(135deg, #A78BFA 0%, #EC4899 50%, #22D3EE 100%); background-size: 200% 200%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 8s ease infinite; } @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } } .content-card-ultra { background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.6)); backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(139, 92, 246, 0.2); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05) inset; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); } .content-card-ultra:hover { transform: translateY(-4px); box-shadow: 0 30px 80px rgba(139, 92, 246, 0.3), 0 0 0 1px rgba(139, 92, 246, 0.3) inset; } /* Dividers */ .section-divider { height: 2px; background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.5), transparent); margin: 4rem 0; } /* Time badge */ .time-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(34, 211, 238, 0.2); color: #22d3ee; padding: 0.4rem 1rem; border-radius: 2rem; font-size: 0.875rem; font-weight: 600; margin-left: 1rem; } /* Category label */ .category-label { background: rgba(168, 85, 247, 0.25); color: #ddd6fe; padding: 0.25rem 0.75rem; border-radius: 0.5rem; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 0.75rem; } /* Activity Box Premium */ .activity-box { background: linear-gradient(135deg, rgba(168, 85, 247, 0.18) 0%, rgba(34, 211, 238, 0.12) 100%); border-left: 5px solid #a855f7; padding: 2.5rem; margin: 2.5rem 0; border-radius: 1.25rem; box-shadow: 0 10px 40px rgba(168, 85, 247, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1); position: relative; overflow: hidden; } .activity-box::before { content: ''; position: absolute; top: 0; right: 0; width: 200px; height: 200px; background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%); border-radius: 50%; transform: translate(50%, -50%); } /* Info Box */ .info-box { background: rgba(34, 211, 238, 0.12); border-left: 4px solid #22d3ee; padding: 2rem; margin: 2rem 0; border-radius: 1rem; box-shadow: 0 4px 16px rgba(34, 211, 238, 0.15); } /* Animations */ @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } } .fade-in-up { animation: fadeInUp 0.6s ease-out forwards; } /* Scroll Progress */ .scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, #a855f7, #22d3ee); z-index: 9999; transition: width 0.1s ease; } /* Hover Effects */ .hover-lift { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); } .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 12px 48px rgba(168, 85, 247, 0.3); } /* Responsive */ @media (max-width: 1024px) { .sidebar { display: none; } } /* ========== MELHORIAS FINAIS UI/UX ========== */ /* Melhor legibilidade */ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; } /* Scrollbar customizada */ ::-webkit-scrollbar { width: 12px; } ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.5); } ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #8B5CF6, #06B6D4); border-radius: 6px; border: 2px solid rgba(15, 23, 42, 0.5); } ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #A78BFA, #22D3EE); } /* Focus states para acessibilidade */ a:focus, button:focus { outline: 2px solid #22D3EE; outline-offset: 4px; } /* Melhor contraste em textos */ p, li { color: #E2E8F0; font-weight: 400; } /* Links melhorados */ a { color: #22D3EE; text-decoration: none; transition: all 0.2s ease; } a:hover { color: #67E8F9; text-decoration: underline; } /* Cards com melhor hierarquia visual */ .content-card, .content-card-ultra { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); } .content-card:hover, .content-card-ultra:hover { border-color: rgba(139, 92, 246, 0.4); } /* Espaçamento consistente */ h2 + p, h3 + p { margin-top: 0; } p + h2, p + h3 { margin-top: 3rem; } /* Listas mais legíveis */ ul li, ol li { padding-left: 1rem; position: relative; } ul li::before { content: ''; position: absolute; left: -1rem; top: 0.75em; width: 6px; height: 6px; background: #8B5CF6; border-radius: 50%; } /* Botões melhorados */ button, .btn, a[class*="btn"] { cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; } /* Loading states */ @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } } /* Responsividade aprimorada */ @media (max-width: 768px) { h1 { font-size: 3rem !important; } h2 { font-size: 1.75rem !important; } h3 { font-size: 1.35rem !important; } p { font-size: 1rem !important; } .content-card, .content-card-ultra { padding: 2rem !important; } } /* Melhor feedback visual */ .nav-item:active { transform: scale(0.98); } /* Transições suaves em todos os interativos */ * { transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform; transition-duration: 200ms; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); } /* Previne transições em animações de scroll */ html.smooth-scroll * { transition: none !important; } /* Print styles */ @media print { .premium-header, .ultra-sidebar, footer { display: none !important; } body { background: white !important; color: black !important; } } /* ========== TIPOGRAFIA PREMIUM ========== */ /* Melhores fontes web */ @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap'); body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 17px; line-height: 1.7; letter-spacing: -0.011em; font-weight: 400; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; } /* Títulos com fonte premium */ h1, h2, h3, h4, h5, h6 { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; font-weight: 800; line-height: 1.2; letter-spacing: -0.03em; } /* H1 - Título Principal */ h1 { font-size: clamp(2.5rem, 8vw, 5rem) !important; line-height: 1.1 !important; margin-bottom: 1.5rem !important; font-weight: 900 !important; } /* H2 - Seções Principais */ h2 { font-size: clamp(1.75rem, 4vw, 2.5rem) !important; line-height: 1.3 !important; margin-top: 4rem !important; margin-bottom: 1.5rem !important; font-weight: 800 !important; color: #C4B5FD !important; } /* H3 - Subseções */ h3 { font-size: clamp(1.35rem, 3vw, 1.875rem) !important; line-height: 1.4 !important; margin-top: 2.5rem !important; margin-bottom: 1.25rem !important; font-weight: 700 !important; color: #67E8F9 !important; } /* H4 - Subtítulos */ h4 { font-size: 1.25rem !important; line-height: 1.5 !important; margin-top: 2rem !important; margin-bottom: 1rem !important; font-weight: 600 !important; color: #CBD5E1 !important; } /* Parágrafos otimizados */ p { font-size: 1.0625rem !important; line-height: 1.8 !important; margin-bottom: 1.5rem !important; color: #E2E8F0 !important; max-width: 70ch; font-weight: 400 !important; } /* Strong e Bold */ strong, b { font-weight: 600; color: #F1F5F9; } /* Listas melhoradas */ ul, ol { font-size: 1.0625rem; line-height: 1.75; color: #E2E8F0; padding-left: 1.5rem; } li { margin-bottom: 0.75rem !important; line-height: 1.75 !important; color: #E2E8F0 !important; } li p { margin-bottom: 0.5rem !important; } /* Código e Mono */ code, pre { font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 0.9em; background: rgba(139, 92, 246, 0.1); padding: 0.2em 0.4em; border-radius: 0.25rem; } /* Links melhorados */ a { color: #67E8F9; font-weight: 500; text-decoration: none; transition: all 0.2s; } a:hover { color: #A5F3FC; text-decoration: underline; } /* Blockquotes */ blockquote { border-left: 4px solid #8B5CF6; padding-left: 1.5rem; margin: 2rem 0; font-style: italic; color: #CBD5E1; } /* Melhor contraste */ .content-section { color: #E2E8F0; } /* Espaçamento vertical otimizado */ * + h2 { margin-top: 4rem !important; } * + h3 { margin-top: 3rem !important; } h2 + h3, h3 + h4 { margin-top: 1.5rem !important; } /* Mobile responsivo */ @media (max-width: 768px) { body { font-size: 16px; } h1 { font-size: 2.25rem !important; } h2 { font-size: 1.75rem !important; } h3 { font-size: 1.35rem !important; } p, li { font-size: 1rem !important; } } 
+        /* ========== FORMATAÇÃO DE TEXTO MELHORADA ========== */
+        
+        /* Parágrafos */
+        .text-paragraph {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+        }
+        
+        .text-paragraph:first-of-type::first-letter {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #A78BFA;
+            float: left;
+            line-height: 1;
+            margin-right: 0.1em;
+        }
+        
+        /* Listas melhoradas */
+        .enhanced-list {
+            margin: 2rem 0;
+            padding: 2rem 2.5rem;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(6, 182, 212, 0.03));
+            border-left: 4px solid #8B5CF6;
+            border-radius: 0.75rem;
+        }
+        
+        .enhanced-list li {
+            margin: 1rem 0;
+            padding-left: 0.5rem;
+            position: relative;
+        }
+        
+        .numbered-item::marker {
+            font-weight: 700;
+            color: #22D3EE;
+        }
+        
+        /* Bold destacado */
+        .text-bold {
+            color: #F1F5F9;
+            font-weight: 600;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), transparent);
+            padding: 0.1em 0.3em;
+            border-radius: 0.25em;
+        }
+        
+        /* Espaçadores */
+        .spacer {
+            height: 2rem;
+        }
+        
+        /* Citações */
+        blockquote {
+            border-left: 4px solid #8B5CF6;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            background: rgba(139, 92, 246, 0.05);
+            border-radius: 0.5rem;
+            font-style: italic;
+            color: #CBD5E1;
+        }
+        
+        blockquote p {
+            margin-bottom: 0;
+        }
+        
+        /* Destaque de informação importante */
+        .highlight-info {
+            background: linear-gradient(90deg, rgba(6, 182, 212, 0.15), transparent);
+            border-left: 4px solid #06B6D4;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0.5rem;
+        }
+        
+        /* Notas e avisos */
+        .note-box {
+            background: linear-gradient(90deg, rgba(245, 158, 11, 0.15), transparent);
+            border-left: 4px solid #F59E0B;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0.5rem;
+        }
+        
+        .note-box::before {
+            content: '💡';
+            margin-right: 0.5rem;
+            font-size: 1.25em;
+        }
+        
+        /* Tabelas (se houver) */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 0.75rem;
+            overflow: hidden;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #8B5CF6, #06B6D4);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+    </style>
+</head>
+<body class="antialiased"> <!-- Scroll Progress --> <div class="scroll-progress" id="scrollProgress"></div> <!-- Background --> <div class="fixed inset-0 -z-10"> <div class="absolute inset-0 bg-gradient-to-br from-purple-950/20 via-slate-950 to-cyan-950/20"></div> <div class="absolute inset-0" style="background-image: radial-gradient(1px 1px at 50px 50px, rgba(255,255,255,0.3) 50%, transparent 100%); background-size: 500px 500px; opacity: 0.3;"></div> </div> <!-- Header --> <nav class="sticky top-0 z-50 header-premium py-4 px-6"> <div class="max-w-7xl mx-auto flex items-center justify-between"> <a aria-label="Voltar para o hub principal"<a href="../../index.html" class="flex items-center gap-3 text-white hover:text-purple-300 transition-all hover:scale-105"> <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/> </svg> <span class="font-medium">Voltar ao Hub</span> </a> <div class="flex items-center gap-3"> <span class="text-xs uppercase tracking-widest text-cyan-400 font-bold">Módulo 3</span> <a href="../../modulo3/sessao5/" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white text-sm font-medium transition-all hover:scale-105 shadow-lg hover:shadow-xl"> Ver Apresentação </a> </div> </div> </nav> <!-- Main Layout --> <div class="flex max-w-7xl mx-auto px-6 py-12 gap-8"> <!-- Sidebar --> <aside class="hidden lg:block w-80 flex-shrink-0"> <div class="sidebar rounded-2xl p-6 sticky top-24 max-h- overflow-y-auto"> <h3 class="text-white font-bold text-lg mb-6 flex items-center gap-2"> <svg class="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/> </svg> Navegação </h3> <nav class="space-y-2">
+<a href="#section-6" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🎯</span><span class="flex-1">Objetivos e Competências</span></a>
+<a href="#section-133" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">📦</span><span class="flex-1">Materiais e Recursos</span></a>
+<a href="#section-1" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🔧</span><span class="flex-1">Preparação</span></a>
+<a href="#section-0" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🚀</span><span class="flex-1">Atividades Práticas</span></a>
+<a href="#section-27" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🎬</span><span class="flex-1">Slides</span></a>
+<a href="#section-88" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">📊</span><span class="flex-1">Avaliação</span></a>
+<a href="#section-14" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">💭</span><span class="flex-1">Reflexão</span></a>
+<a href="#section-2" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">📝</span><span class="flex-1">Outros Conteúdos</span></a>
+</nav> </div> </aside> <!-- Content --> <main class="flex-1 min-w-0"> <!-- Title --> <div class="mb-12 fade-in-up"> <div class="flex items-center gap-3 mb-4"> <span class="px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/30 to-cyan-500/30 text-purple-200 text-xs font-bold uppercase tracking-wider border border-purple-500/30"> Guia do Formador </span> </div> <h1 class="text-6xl lg:text-7xl title-ultra" style="background: linear-gradient(135deg, #C4B5FD 0%, #EC4899 50%, #67E8F9 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;"> 🧠 Sessão 5 – IA Colaborativa: Criar Jogos em Equipa com Scratch </h1> <p class="text-xl text-slate-300">Guia completo para conduzir esta sessão com sucesso</p> </div> <!-- Content --> <div class="content-card-ultra glass-premium rounded-2xl p-8 lg:p-12 content-section hover-lift"> <h3>📝 🧠 Sessão 5 – IA Colaborativa: Criar Jogos em Equipa com Scratch</h3>
+<p class="text-paragraph">Sessão 5 – IA Colaborativa: Criar Jogos em Equipa com Scratch</p>
+<h2 id="section-0">📝 Tema IA Colaborativa – Criar Jogos em Equipa</h2>
+<p class="text-paragraph">Desenvolver jogos em grupo com múltiplas IAs interativas.</p>
+<p class="text-paragraph">Cooperação digital, múltiplas condições, coordenação de lógicas.</p>
+<p class="text-paragraph">Projeto colaborativo em Scratch com partilha pública.</p>
+<div class="section-divider"></div>
+<h2 id="section-1">📝 🧠Guião do Formador (90 min)</h2>
+<p class="text-paragraph">Sessão 5 – IA Colaborativa: Criar Jogos em Equipa com Scratch
+Duração: 90 minutos (sessão síncrona)
+Atividades complementares:</p>
+<p class="text-paragraph">Teasing (30 min assíncrono)</p>
+<p class="text-paragraph">Atividade de Enriquecimento (90 min assíncrono – publicação e votação criativa)</p>
+<h3>🎯 🎯 Objetivos da Sessão</h3>
+<div class="section-divider"></div>
+<h2 id="section-2">📝 Desenvolver um projeto colaborativo com base nos princípios de IA simulada.</h2>
+<div class="section-divider"></div>
+<h2 id="section-3">📝 Reforçar a integração de lógicas condicionais e adaptativas em contexto de grupo.</h2>
+<div class="section-divider"></div>
+<h2 id="section-4">📝 Estimular a comunicação e divisão de tarefas num projeto criativo conjunto.</h2>
+<div class="section-divider"></div>
+<h2 id="section-5">📝 Valorizar a cooperação, feedback e aprendizagem entre pares.</h2>
+<div class="section-divider"></div>
+<h2 id="section-6"><span class="category-label">Objetivos</span>🎯 💡 Competências a Desenvolver</h2>
+<h3>📝 🧩 Estrutura da Sessão (90 minutos)</h3>
+<div class="section-divider"></div>
+<h2 id="section-7">📝 🧠 Conceitos-Chave a Reforçar</h2>
+<div class="section-divider"></div>
+<h2 id="section-8">📝 💬 Dicas de Facilitação</h2>
+<div class="section-divider"></div>
+<h2 id="section-9">📝 Incentivar a divisão de papéis reais (ex.: programador/a, designer, testador/a, narrador/a).</h2>
+<div class="section-divider"></div>
+<h2 id="section-10">📝 Circular entre grupos ajudando na resolução de conflitos de lógica (“porquê que o código não reage?”).</h2>
+<div class="section-divider"></div>
+<h2 id="section-11">📝 Relembrar boas práticas de colaboração digital: respeito, paciência, escuta ativa.</h2>
+<div class="section-divider"></div>
+<h2 id="section-12"><span class="category-label">Prática</span>🚀 Estimular a criatividade coletiva: o jogo não precisa ser perfeito, mas tem de ser conjunto.</h2>
+<div class="section-divider"></div>
+<h2 id="section-13">📝 🧰 Materiais Necessários</h2>
+<p class="text-paragraph">Acesso ao Scratch com login (partilhado por grupo).</p>
+<p class="text-paragraph">Quadro digital (Miro, Padlet ou Jamboard) para planeamento.</p>
+<p class="text-paragraph">Slides da sessão.</p>
+<p class="text-paragraph">“Canvas do Jogo IA em Equipa” (modelo fornecido).</p>
+<p class="text-paragraph">Auriculares e microfones (para coordenação e som).</p>
+<div class="section-divider"></div>
+<h2 id="section-14">📝 🗨️ Perguntas de Reflexão Final</h2>
+<p class="text-paragraph">Como a vossa IA funcionou em equipa?</p>
+<p class="text-paragraph">Foi fácil combinar ideias diferentes num mesmo jogo?</p>
+<p class="text-paragraph">Que partes do código precisaram de maior colaboração?</p>
+<p class="text-paragraph">O vosso jogo tomou decisões inesperadas?</p>
+<p class="text-paragraph">💬 Dica: registar as respostas num mural digital para comparação entre grupos.</p>
+<div class="section-divider"></div>
+<h2 id="section-15">📝 🎓 Resultados Esperados</h2>
+<p class="text-paragraph">✅ Desenvolvimento de um jogo funcional criado em grupo.
+✅ Integração de múltiplos comportamentos inteligentes (condições + variáveis).
+✅ Aplicação da lógica adaptativa em contexto colaborativo.
+✅ Compreensão da importância do trabalho em equipa na programação e na IA.</p>
+<div class="section-divider"></div>
+<h2 id="section-16">📝 💡 Estratégias de Diferenciação Pedagógica</h2>
+<div class="section-divider"></div>
+<h2 id="section-17">📝 🧩 Extensão Recomendada</h2>
+<div class="section-divider"></div>
+<h2 id="section-18">📝 Mostra de Projetos Colaborativos:
+Organizar uma sessão extra ou mural digital com votação simbólica:
+🏆 “Jogo mais Criativo”
+⚙️ “IA mais Complexa”
+🎨 “Melhor Colaboração de Equipa”</h2>
+<div class="section-divider"></div>
+<h2 id="section-19"><span class="category-label">Prática</span>🚀 💬 Esta atividade pode também servir como ponte para o Módulo 4 – Robótica e IA, introduzindo o conceito de cooperação entre máquinas e pessoas.</h2>
+<div class="section-divider"></div>
+<h2 id="section-20">📝 💬 Mensagem Final para o Formador</h2>
+<p class="text-paragraph">“Criar sozinho é desafiante.
+Criar em equipa é construir inteligência — juntos.” 💛</p>
+<h3>📝 🎬 CONTEÚDO DOS SLIDES – Sessão 5</h3>
+<h3>📝 Sessão 5: IA Colaborativa – Criar Jogos em Equipa com Scratch</h3>
+<div class="section-divider"></div>
+<h2 id="section-21">📝 🟣 Slide 1 – Boas-vindas e desafio do dia</h2>
+<div class="section-divider"></div>
+<h2 id="section-22">📝 Título: “IA Colaborativa: Criar Jogos em Equipa”
+Conteúdo:</h2>
+<div class="section-divider"></div>
+<h2 id="section-23">📝 Hoje vamos juntar forças para criar um jogo inteligente em equipa.</h2>
+<p class="text-paragraph">Cada grupo vai unir ideias, código e criatividade!</p>
+<div class="section-divider"></div>
+<h2 id="section-24">📝 🎯 O desafio: criar duas ou mais personagens com comportamentos automáticos que interagem entre si.</h2>
+<div class="section-divider"></div>
+<h2 id="section-25">📝 Notas do formador:</h2>
+<p class="text-paragraph">Relembrar que as últimas sessões foram focadas em projetos individuais.</p>
+<p class="text-paragraph">Introduzir esta sessão como “o próximo nível” — programar com outras pessoas e fazer a IA cooperar.</p>
+<div class="section-divider"></div>
+<h2 id="section-26">📝 Sugestão visual:
+Duas personagens Scratch com um cérebro partilhado entre elas (“IA em equipa”).</h2>
+<div class="section-divider"></div>
+<h2 id="section-27">📝 🟠 Slide 2 – O que é “IA colaborativa”?</h2>
+<div class="section-divider"></div>
+<h2 id="section-28">📝 Conteúdo:
+💡 IA colaborativa é quando duas inteligências (ou personagens) trabalham juntas ou reagem uma à outra.
+Exemplos:</h2>
+<p class="text-paragraph">Um gato que persegue um rato.</p>
+<p class="text-paragraph">Dois robôs que dançam em sincronia.</p>
+<p class="text-paragraph">Uma personagem que aprende com o jogador.</p>
+<p class="text-paragraph">No Scratch, tu és o cérebro que ensina a IA a colaborar!</p>
+<div class="section-divider"></div>
+<h2 id="section-29">📝 Notas do formador:</h2>
+<p class="text-paragraph">Pedir aos alunos que recordem exemplos de jogos com personagens que interagem automaticamente.</p>
+<p class="text-paragraph">Ligar o conceito à cooperação humana.</p>
+<div class="section-divider"></div>
+<h2 id="section-30">📝 Sugestão visual:
+Robôs ou personagens Scratch a trocar faíscas de energia (“conexão inteligente”).</h2>
+<div class="section-divider"></div>
+<h2 id="section-31">📝 🟡 Slide 3 – Formação das equipas</h2>
+<div class="section-divider"></div>
+<h2 id="section-32">📝 Conteúdo:
+🎮 Cria a tua equipa IA!
+Cada grupo terá:</h2>
+<p class="text-paragraph">3 a 4 formandos.</p>
+<p class="text-paragraph">Um papel para cada membro:</p>
+<p class="text-paragraph">Programador/a principal</p>
+<p class="text-paragraph">Designer visual</p>
+<p class="text-paragraph">Responsável por sons e mensagens</p>
+<p class="text-paragraph">Testador/a (verifica e ajusta)</p>
+<p class="text-paragraph">💬 “Em equipa, o teu jogo pode ser mais complexo, mais criativo e muito mais divertido.”</p>
+<div class="section-divider"></div>
+<h2 id="section-33">📝 Notas do formador:</h2>
+<p class="text-paragraph">Orientar a formação equilibrada de grupos (níveis mistos de experiência).</p>
+<p class="text-paragraph">Atribuir papéis com clareza para evitar sobreposição de tarefas.</p>
+<div class="section-divider"></div>
+<h2 id="section-34">📝 Sugestão visual:
+Gráfico simples com ícones representando cada papel da equipa.</h2>
+<div class="section-divider"></div>
+<h2 id="section-35">📝 🟢 Slide 4 – Canvas do Jogo em Equipa</h2>
+<div class="section-divider"></div>
+<h2 id="section-36">📝 Conteúdo:
+📘 Planeia o vosso jogo colaborativo:</h2>
+<p class="text-paragraph">Nome do jogo: _______________________</p>
+<p class="text-paragraph">Tema / ambiente: ____________________</p>
+<p class="text-paragraph">Objetivo do jogo: _____________________</p>
+<p class="text-paragraph">Quantas personagens inteligentes vão existir?</p>
+<p class="text-paragraph">Que comportamentos terão?</p>
+<p class="text-paragraph">Como cooperam ou competem?</p>
+<p class="highlight-text"><strong class="text-bold">💭 Dica: as melhores ideias nascem de perguntas simples — “E se as duas personagens reagissem uma à outra?”</strong></p>
+<div class="section-divider"></div>
+<h2 id="section-37">📝 Notas do formador:</h2>
+<p class="text-paragraph">Pedir aos grupos que preencham um mini canvas digital (Padlet, Jamboard, Miro).</p>
+<p class="text-paragraph">Estimular brainstorming com exemplos de estilos: corrida, dança, labirinto, desafio.</p>
+<div class="section-divider"></div>
+<h2 id="section-38">📝 Sugestão visual:
+Modelo de canvas com caixas para preencher e ícones de personagens, regras e cenários.</h2>
+<div class="section-divider"></div>
+<h2 id="section-39">📝 🔵 Slide 5 – Blocos úteis para IA colaborativa</h2>
+<div class="section-divider"></div>
+<h2 id="section-40">📝 Conteúdo:
+💡 Blocos que vais precisar:</h2>
+<div class="section-divider"></div>
+<h2 id="section-41">📝 Sensores: tocar em personagem?</h2>
+<div class="section-divider"></div>
+<h2 id="section-42">📝 Movimento: apontar para / mover passos</h2>
+<div class="section-divider"></div>
+<h2 id="section-43">📝 Condições: se. então. senão.</h2>
+<div class="section-divider"></div>
+<h2 id="section-44">📝 Variáveis: para pontuação, tempo ou energia</h2>
+<div class="section-divider"></div>
+<h2 id="section-45">📝 Mensagens: enviar mensagem e quando receber mensagem</h2>
+<div class="section-divider"></div>
+<h2 id="section-46">📝 💬 Estes blocos permitem que duas personagens comuniquem e reajam entre si.</h2>
+<div class="section-divider"></div>
+<h2 id="section-47">📝 Notas do formador:</h2>
+<p class="text-paragraph">Mostrar um exemplo de comunicação entre sprites (um envia “fugir!”, o outro responde).</p>
+<p class="text-paragraph">Demonstrar a diferença entre reagir ao rato e reagir a outra personagem.</p>
+<div class="section-divider"></div>
+<h2 id="section-48">📝 Sugestão visual:
+Captura do editor Scratch com os blocos destacados.</h2>
+<div class="section-divider"></div>
+<h2 id="section-49">📝 🟣 Slide 6 – Começa a criar!</h2>
+<div class="section-divider"></div>
+<h2 id="section-50">📝 Conteúdo:
+🎯 Etapas de trabalho em grupo:</h2>
+<p class="text-paragraph">Montar o cenário e personagens.</p>
+<p class="text-paragraph">Programar os comportamentos individuais.</p>
+<p class="text-paragraph">Integrar as reações entre personagens.</p>
+<p class="text-paragraph">Testar em conjunto e ajustar erros.</p>
+<p class="text-paragraph">Adicionar sons, falas e efeitos criativos.</p>
+<p class="text-paragraph">💬 “Cada bloco é uma conversa entre as tuas personagens!”</p>
+<div class="section-divider"></div>
+<h2 id="section-51">📝 Notas do formador:</h2>
+<p class="text-paragraph">Acompanhar cada grupo, ajudando a dividir tarefas e sincronizar blocos.</p>
+<p class="text-paragraph">Relembrar que cada IA pode ter a sua lógica independente.</p>
+<div class="section-divider"></div>
+<h2 id="section-52">📝 Sugestão visual:
+Fluxograma “ideia → código → teste → correção → partilha”.</h2>
+<div class="section-divider"></div>
+<h2 id="section-53">📝 🟢 Slide 7 – Teste cruzado entre equipas</h2>
+<div class="section-divider"></div>
+<h2 id="section-54">📝 Conteúdo:
+🎮 Troca de jogos entre equipas!
+Joga o projeto de um outro grupo e responde:</h2>
+<p class="text-paragraph">O que funcionou bem?</p>
+<p class="text-paragraph">O que poderia ser melhorado?</p>
+<p class="text-paragraph">O que mais te surpreendeu na IA?</p>
+<p class="text-paragraph">💬 “Ao testar o jogo dos outros, também aprendes sobre o teu.”</p>
+<div class="section-divider"></div>
+<h2 id="section-55">📝 Notas do formador:</h2>
+<p class="text-paragraph">Organizar troca entre grupos (pode ser através do Scratch Studio).</p>
+<p class="text-paragraph">Incentivar feedback positivo e objetivo.</p>
+<div class="section-divider"></div>
+<h2 id="section-56">📝 Sugestão visual:
+Ícones de setas duplas entre grupos de jovens com laptops.</h2>
+<div class="section-divider"></div>
+<h2 id="section-57">📝 🔵 Slide 8 – Partilha e reflexão final</h2>
+<div class="section-divider"></div>
+<h2 id="section-58">📝 Conteúdo:
+💭 Perguntas para o grupo:</h2>
+<p class="text-paragraph">O que foi mais fácil ou difícil ao trabalhar em equipa?</p>
+<p class="text-paragraph">Como as IAs do vosso jogo “cooperam”?</p>
+<p class="text-paragraph">Se o jogo tivesse mais tempo, o que acrescentariam?</p>
+<p class="text-paragraph">O que aprenderam uns com os outros?</p>
+<p class="text-paragraph">💬 “A colaboração é a verdadeira inteligência — humana e digital.”</p>
+<div class="section-divider"></div>
+<h2 id="section-59">📝 Notas do formador:</h2>
+<p class="text-paragraph">Criar momento de fecho com partilha breve por grupo (1–2 minutos).</p>
+<p class="text-paragraph">Ligar o tema ao Módulo 4 (Robótica e IA).</p>
+<div class="section-divider"></div>
+<h2 id="section-60">📝 Sugestão visual:
+Imagem de jovens com portáteis e robôs, rodeados de ícones de IA e Scratch.</h2>
+<div class="section-divider"></div>
+<h2 id="section-61">📝 🟠 Slide 9 – Próximo passo</h2>
+<div class="section-divider"></div>
+<h2 id="section-62">📝 Conteúdo:
+🚀 O que vem a seguir?</h2>
+<div class="section-divider"></div>
+<h2 id="section-63">📝 No próximo módulo, vais aprender como estas IAs digitais podem controlar robôs reais!</h2>
+<p class="text-paragraph">🧠 Scratch + Robótica = Inteligência em Movimento.</p>
+<p class="text-paragraph">💬 “Hoje, a tua IA vive no ecrã. Amanhã, ela vai mover-se no mundo!”</p>
+<div class="section-divider"></div>
+<h2 id="section-64">📝 Notas do formador:</h2>
+<p class="text-paragraph">Mostrar teaser de um projeto Scratch ligado a robótica (ex.: Micro:bit ou LEGO).</p>
+<p class="text-paragraph">Despedida positiva: reconhecer o esforço e celebrar os resultados da turma.</p>
+<div class="section-divider"></div>
+<h2 id="section-65">📝 Sugestão visual:
+Robô real ao lado do gato Scratch, com o texto “Próxima Missão: Robótica e IA”.</h2>
+<div class="section-divider"></div>
+<h2 id="section-66">📝 💬 Slide 10 – Mensagem final</h2>
+<div class="section-divider"></div>
+<h2 id="section-67">📝 Conteúdo:</h2>
+<p class="text-paragraph">“Trabalhar em equipa é como programar várias IAs ao mesmo tempo:
+cada uma com ideias diferentes, mas todas a correr na mesma direção.”</p>
+<p class="text-paragraph">💛 Parabéns, programadores do futuro!</p>
+<div class="section-divider"></div>
+<h2 id="section-68">📝 Notas do formador:
+Encerrar com um elogio coletivo e incentivo à curiosidade.
+Opcional: exibir um pequeno vídeo com destaques dos jogos criados.</h2>
+<div class="section-divider"></div>
+<h2 id="section-69">📝 Sugestão visual:
+Personagens Scratch a celebrar sob o texto: “Geração Futuro IA – Missão Cumprida!”</h2>
+<h3>🚀 🧩 FICHA DE ATIVIDADE – Sessão 5</h3>
+<h3>🎯 Sessão 5: IA Colaborativa – Criar Jogos em Equipa com Scratch
+Duração: 60–90 minutos
+Objetivo: Criar, em grupo, um jogo com duas ou mais IAs simuladas que cooperam ou competem, aplicando lógica condicional, variáveis e comportamento adaptativo.</h3>
+<div class="section-divider"></div>
+<h2 id="section-70">📝 1. Organização da Equipa</h2>
+<div class="section-divider"></div>
+<h2 id="section-71">📝 Nome do grupo: ______________________________________</h2>
+<div class="section-divider"></div>
+<h2 id="section-72">📝 Membros e funções:</h2>
+<p class="text-paragraph">Programador/a principal: _______________________________</p>
+<p class="text-paragraph">Designer visual: _______________________________________</p>
+<p class="text-paragraph">Responsável por sons e efeitos: _________________________</p>
+<p class="text-paragraph">Testador/a e avaliador/a: _______________________________</p>
+<p class="text-paragraph">💬 Cada função é essencial — o sucesso vem da colaboração!</p>
+<div class="section-divider"></div>
+<h2 id="section-73">📝 2. Planeamento do Jogo</h2>
+<p class="highlight-text"><strong class="text-bold">💡 As IAs podem cooperar, competir ou reagir entre si.</strong></p>
+<div class="section-divider"></div>
+<h2 id="section-74">📝 3. Construção do Projeto no Scratch</h2>
+<div class="section-divider"></div>
+<h2 id="section-75">📝 Etapa 1 – Criar as personagens</h2>
+<p class="text-paragraph">Acede a https://scratch.mit.edu</p>
+<p class="text-paragraph">Clica em “Criar”</p>
+<div class="section-divider"></div>
+<h2 id="section-76">📝 Adiciona duas ou mais personagens (sprites)</h2>
+<div class="section-divider"></div>
+<h2 id="section-77">📝 Dá nomes diferentes e cria um cenário comum</h2>
+<div class="section-divider"></div>
+<h2 id="section-78">📝 Etapa 2 – Programar o comportamento da IA 1</h2>
+<p class="text-paragraph">Exemplo (IA “Caçadora”):</p>
+<p class="text-paragraph">quando bandeira verde clicada</p>
+<p class="text-paragraph">para sempre</p>
+<p class="text-paragraph">apontar para IA 2</p>
+<p class="text-paragraph">mover 5 passos</p>
+<p class="text-paragraph">se tocar em IA 2</p>
+<p class="text-paragraph">tocar som “pop”</p>
+<p class="text-paragraph">mudar cor por 25</p>
+<div class="section-divider"></div>
+<h2 id="section-79">📝 Etapa 3 – Programar o comportamento da IA 2</h2>
+<p class="text-paragraph">Exemplo (IA “Fugitiva”):</p>
+<p class="text-paragraph">quando bandeira verde clicada</p>
+<p class="text-paragraph">para sempre</p>
+<p class="text-paragraph">se tocar em IA 1</p>
+<p class="text-paragraph">virar 180 graus</p>
+<p class="text-paragraph">mover 10 passos</p>
+<div class="section-divider"></div>
+<h2 id="section-80">📝 💬 Agora tens duas IAs interativas! Elas “reagem” uma à outra sem o jogador interferir.</h2>
+<div class="section-divider"></div>
+<h2 id="section-81">📝 Etapa 4 – Adicionar pontuação e desafios</h2>
+<p class="text-paragraph">Cria uma variável: Pontuação.</p>
+<p class="text-paragraph">Adiciona lógica de vitória ou derrota:</p>
+<p class="text-paragraph">se Pontuação = 10</p>
+<p class="text-paragraph">dizer “Ganhaste!”</p>
+<p class="text-paragraph">parar tudo</p>
+<p class="highlight-text"><strong class="text-bold">💡 Podes também adicionar tempo, níveis ou sons adaptativos.</strong></p>
+<div class="section-divider"></div>
+<h2 id="section-82">📝 Etapa 5 – Testar e ajustar</h2>
+<p class="text-paragraph">Joga o vosso projeto várias vezes.</p>
+<p class="text-paragraph">Regista o que correu bem e o que precisa de correção:</p>
+<p class="text-paragraph">💬 Testar é uma forma de inteligência!</p>
+<div class="section-divider"></div>
+<h2 id="section-83">📝 4. Criar Comunicação entre Personagens</h2>
+<div class="section-divider"></div>
+<h2 id="section-84">📝 Usa mensagens para coordenar ações entre as tuas IAs:</h2>
+<p class="text-paragraph">enviar mensagem</p>
+<p class="text-paragraph">quando receber</p>
+<p class="text-paragraph">virar 180 graus</p>
+<p class="text-paragraph">mover 10 passos</p>
+<div class="section-divider"></div>
+<h2 id="section-85">📝 💬 Isto permite criar cooperação digital — as personagens “combinam” reações.</h2>
+<div class="section-divider"></div>
+<h2 id="section-86">📝 5. Elementos Criativos</h2>
+<p class="text-paragraph">🎨 Fundo escolhido: ________________________________
+🎵 Som / música: _________________________________
+💬 Frases usadas pelas personagens: ________________</p>
+<p class="highlight-text"><strong class="text-bold">💡 Sons, cor e fala tornam a IA mais expressiva!</strong></p>
+<div class="section-divider"></div>
+<h2 id="section-87">📝 6. Reflexão do Grupo</h2>
+<p class="text-paragraph">Responde em conjunto:</p>
+<p class="text-paragraph">O que faz o vosso jogo parecer “inteligente”?</p>
+<p class="text-paragraph">As IAs cooperam, competem ou fazem ambas as coisas?</p>
+<p class="text-paragraph">Que parte exigiu mais colaboração entre os membros do grupo?</p>
+<p class="text-paragraph">O que cada um aprendeu com esta experiência?</p>
+<div class="section-divider"></div>
+<h2 id="section-88">📊 7. Autoavaliação da Equipa</h2>
+<p class="text-paragraph">💬 Depois da avaliação, cada grupo pode partilhar o seu link no mural digital ou Scratch Studio da turma.</p>
+<div class="section-divider"></div>
+<h2 id="section-89">📝 8. Partilha</h2>
+<div class="section-divider"></div>
+<h2 id="section-90">📝 Clica em “Partilhar” no Scratch.</h2>
+<p class="text-paragraph">Copia o link.</p>
+<p class="text-paragraph">Publica no mural digital da turma (Padlet, Teams ou Jamboard).</p>
+<p class="text-paragraph">Escreve:</p>
+<p class="text-paragraph">“O nosso jogo chama-se __________. As nossas IAs __________ e __________.”</p>
+<div class="section-divider"></div>
+<h2 id="section-91">📝 9. Para Pensar</h2>
+<p class="text-paragraph">“Quando várias inteligências trabalham juntas — sejam humanas ou digitais — nascem ideias que nenhum cérebro sozinho conseguiria criar.”</p>
+<p class="text-paragraph">✏️ Que nome darias à IA do vosso grupo? _____________________________</p>
+<p class="text-paragraph">🎮 Teasing da Sessão 5 (30 min antes)</p>
+<h3>📝 Sessão 5: “Missão: IA em Equipa!”</h3>
+<div class="section-divider"></div>
+<h2 id="section-92"><span class="category-label">Objetivos</span>🎯 Duração: 30 minutos (atividade assíncrona prévia)
+Objetivo: Preparar os formandos para programar em equipa, explorando a ideia de IA colaborativa e cooperação digital.</h2>
+<div class="section-divider"></div>
+<h2 id="section-93">📝 👩‍🏫 Guia para o Formador</h2>
+<div class="section-divider"></div>
+<h2 id="section-94"><span class="category-label">Objetivos</span>🎯 Objetivos pedagógicos:</h2>
+<div class="section-divider"></div>
+<h2 id="section-95">📝 Promover a reflexão sobre colaboração humana e digital.</h2>
+<div class="section-divider"></div>
+<h2 id="section-96">📝 Introduzir o conceito de IA colaborativa — várias entidades com lógica própria que interagem.</h2>
+<p class="text-paragraph">Motivar os jovens para o desafio de programar em grupo na sessão seguinte.</p>
+<h3>🔧 Quando enviar:
+Um dia antes da Sessão 5 (via Teams, Moodle, Padlet ou e-mail).</h3>
+<div class="section-divider"></div>
+<h2 id="section-97">📝 Materiais necessários:</h2>
+<p class="text-paragraph">Acesso à Internet</p>
+<p class="text-paragraph">Scratch ou vídeos curtos sobre IA em jogos</p>
+<p class="text-paragraph">Mural digital (Padlet, Jamboard ou formulário Google)</p>
+<div class="section-divider"></div>
+<h2 id="section-98">📝 Resultado esperado:
+Os formandos chegam à sessão com uma ideia inicial de como IAs e humanos podem colaborar num mesmo sistema.</h2>
+<div class="section-divider"></div>
+<h2 id="section-99">📝 👩‍🎓 Instruções para o Formando</h2>
+<div class="section-divider"></div>
+<h2 id="section-100">📝 🎮 1. Observa o poder da colaboração</h2>
+<p class="text-paragraph">Assiste a este vídeo curto (3 min):
+🎥 Teamwork and AI – What Happens When Machines Cooperate?</p>
+<p class="text-paragraph">💬 Observa:</p>
+<p class="text-paragraph">O que as máquinas fazem juntas?</p>
+<p class="text-paragraph">Como elas “decidem” o que fazer?</p>
+<p class="text-paragraph">O que acontece quando cooperam melhor?</p>
+<p class="text-paragraph">✏️ Escreve em duas linhas o que percebeste:</p>
+<div class="section-divider"></div>
+<h2 id="section-101">📝 💡 2. Pensa na cooperação entre pessoas e IA</h2>
+<div class="section-divider"></div>
+<h2 id="section-102">📝 Imagina que estás a criar um jogo em que duas personagens inteligentes interagem.
+Preenche as ideias abaixo:</h2>
+<p class="text-paragraph">💬 Dica: nem todas as IAs precisam de lutar — algumas podem trabalhar juntas!</p>
+<div class="section-divider"></div>
+<h2 id="section-103">📝 🤖 3. Analisa exemplos de IA colaborativa no Scratch</h2>
+<p class="text-paragraph">Visita o link: https://scratch.mit.edu/explore/games
+Procura jogos com nomes como “team”, “bot”, “AI” ou “collab”.</p>
+<div class="section-divider"></div>
+<h2 id="section-104">📝 Escolhe um jogo que tenha mais de uma personagem inteligente.
+Depois responde:</h2>
+<p class="text-paragraph">Nome do jogo: ____________________________</p>
+<p class="text-paragraph">O que faz cada personagem? __________________________________</p>
+<p class="text-paragraph">Parecem cooperar ou competir? ________________________________</p>
+<p class="text-paragraph">💬 Partilha o link do jogo e a tua resposta no mural da turma!</p>
+<div class="section-divider"></div>
+<h2 id="section-105">📝 🎨 4. Prepara a tua equipa para amanhã</h2>
+<div class="section-divider"></div>
+<h2 id="section-106">📝 Na próxima sessão, vais trabalhar em grupo para criar um jogo com IA colaborativa.
+Pensa em quem pode fazer parte da tua equipa e em que papel gostarias de assumir:</h2>
+<p class="text-paragraph">💬 Ser parte de uma equipa é como programar um sistema com várias IAs — cada pessoa é uma peça essencial do código!</p>
+<div class="section-divider"></div>
+<h2 id="section-107">📝 🧠 5. Partilha no mural digital</h2>
+<p class="text-paragraph">Publica no mural da turma:</p>
+<p class="text-paragraph">O nome do jogo com IA colaborativa que encontraste.</p>
+<p class="text-paragraph">Uma frase que descreva o que aprendeste sobre cooperação entre IAs.</p>
+<p class="text-paragraph">O papel que gostarias de desempenhar na próxima sessão.</p>
+<p class="text-paragraph">💬 Exemplo:</p>
+<p class="text-paragraph">“Joguei o Smart Bots Arena. As duas IAs lutam mas também se desviam automaticamente — parecem pensar juntas! Na próxima sessão quero ser o programador principal.”</p>
+<div class="section-divider"></div>
+<h2 id="section-108">📝 🎓 Resultados Esperados</h2>
+<p class="text-paragraph">✅ Compreensão inicial da lógica colaborativa em IA.
+✅ Planeamento mental do papel de cada elemento da equipa.
+✅ Observação crítica de jogos Scratch com múltiplas IAs.
+✅ Motivação e alinhamento para o trabalho em grupo da Sessão 5.</p>
+<div class="section-divider"></div>
+<h2 id="section-109">📝 🧩 Versão Curta (para publicação na plataforma)</h2>
+<div class="section-divider"></div>
+<h2 id="section-110">📝 🎮 Missão: IA em Equipa!</h2>
+<p class="text-paragraph">Assiste ao vídeo Teamwork and AI – What Happens When Machines Cooperate?</p>
+<div class="section-divider"></div>
+<h2 id="section-111">📝 Depois, escolhe um jogo no Scratch com duas personagens inteligentes.</h2>
+<p class="text-paragraph">✏️ Escreve:</p>
+<p class="text-paragraph">O nome do jogo</p>
+<p class="text-paragraph">O que cada IA faz</p>
+<p class="text-paragraph">Se elas cooperam ou competem</p>
+<p class="highlight-text"><strong class="text-bold">💡 Partilha no mural + indica o papel que queres ter na equipa amanhã (programador, designer, som ou testador).</strong></p>
+<p class="text-paragraph">⏱️ Duração: 30 min | 🤖 Prepara-te para criar em conjunto!</p>
+<h3>🚀 🌍 Atividade Assíncrona – Sessão 1</h3>
+<div class="section-divider"></div>
+<h2 id="section-112"><span class="category-label">Objetivos</span>🎯 Tema: Mostra de Projetos Colaborativos com IA
+Duração: 90 minutos (atividade assíncrona)
+Objetivo: Apresentar, analisar e celebrar os jogos criados em grupo, promovendo o feedback entre equipas e a reflexão sobre a colaboração e a inteligência simulada.</h2>
+<div class="section-divider"></div>
+<h2 id="section-113"><span class="category-label">Objetivos</span>🎯 🎯 Objetivos Específicos</h2>
+<p class="text-paragraph">Partilhar publicamente os jogos criados em equipa.</p>
+<p class="text-paragraph">Experimentar e avaliar os projetos dos colegas com base em critérios de criatividade e inteligência.</p>
+<p class="text-paragraph">Refletir sobre o processo de cooperação humana e digital.</p>
+<p class="text-paragraph">Reforçar a autoconfiança e o sentido de comunidade criadora.</p>
+<div class="section-divider"></div>
+<h2 id="section-114">📝 👩‍🏫 Guia para o Formador</h2>
+<div class="section-divider"></div>
+<h2 id="section-115"><span class="category-label">Objetivos</span>🎯 Objetivo pedagógico: consolidar a aprendizagem prática do módulo através da partilha e observação crítica.</h2>
+<h3>📝 Quando propor: após a Sessão 5 (pode ser no final da semana).</h3>
+<div class="section-divider"></div>
+<h2 id="section-116">📝 Modo de trabalho: assíncrono, em equipas ou individualmente.</h2>
+<div class="section-divider"></div>
+<h2 id="section-117">📝 Formato sugerido:</h2>
+<p class="text-paragraph">Scratch Studio da turma</p>
+<p class="text-paragraph">Mural digital (Padlet, Jamboard ou Miro)</p>
+<p class="text-paragraph">Sessão online de mostra (opcional)</p>
+<div class="section-divider"></div>
+<h2 id="section-118">📝 Entrega esperada:</h2>
+<p class="text-paragraph">Link do projeto final partilhado no Scratch.</p>
+<p class="text-paragraph">Breve texto de apresentação (descrição + papel de cada elemento).</p>
+<p class="text-paragraph">Comentários a pelo menos dois jogos de outras equipas.</p>
+<div class="section-divider"></div>
+<h2 id="section-119">📝 👩‍🎓 Instruções para o Formando</h2>
+<div class="section-divider"></div>
+<h2 id="section-120">📝 1. Publica o vosso jogo</h2>
+<p class="text-paragraph">Abre o vosso projeto no Scratch.</p>
+<div class="section-divider"></div>
+<h2 id="section-121">📝 Clica em “Partilhar”.</h2>
+<p class="text-paragraph">Copia o link do projeto.</p>
+<p class="text-paragraph">Publica-o no mural digital da turma, indicando:</p>
+<p class="text-paragraph">Nome do jogo.</p>
+<p class="text-paragraph">Nome da equipa e papéis de cada membro.</p>
+<p class="text-paragraph">Breve descrição:</p>
+<p class="text-paragraph">“Neste jogo, as duas IAs competem para recolher energia. Uma acelera, a outra esconde-se!”</p>
+<p class="text-paragraph">💬 Dica: usa uma imagem ou captura de ecrã do jogo para tornar a partilha mais apelativa.</p>
+<div class="section-divider"></div>
+<h2 id="section-122">📝 2. Explora os jogos dos colegas</h2>
+<div class="section-divider"></div>
+<h2 id="section-123">📝 Visita o mural ou o Scratch Studio e joga pelo menos três projetos de outras equipas.
+Enquanto jogas, observa:</h2>
+<p class="text-paragraph">Como as IAs interagem entre si.</p>
+<p class="text-paragraph">O que torna o jogo divertido e desafiante.</p>
+<p class="text-paragraph">Que ideias podias aproveitar no teu próprio projeto.</p>
+<p class="text-paragraph">Regista as tuas observações:</p>
+<p class="text-paragraph">💬 O objetivo é aprender com os outros, não avaliar como num teste.</p>
+<div class="section-divider"></div>
+<h2 id="section-124">📝 3. Reflete sobre o trabalho em equipa</h2>
+<p class="text-paragraph">Responde individualmente às perguntas:</p>
+<p class="text-paragraph">O que a nossa equipa fez bem durante o projeto?</p>
+<p class="text-paragraph">Que dificuldade tivemos em programar juntos?</p>
+<p class="text-paragraph">O que cada membro trouxe de único ao jogo?</p>
+<p class="text-paragraph">Se criássemos outra IA, o que ela faria?</p>
+<p class="highlight-text"><strong class="text-bold">💡 Refletir é programar o cérebro para pensar melhor da próxima vez.</strong></p>
+<div class="section-divider"></div>
+<h2 id="section-125">📝 4. Avalia de forma positiva</h2>
+<p class="text-paragraph">Usa esta grelha simples para autoavaliação do grupo:</p>
+<p class="text-paragraph">💬 Após preencherem, escrevam uma frase de equipa:</p>
+<p class="text-paragraph">“O que mais nos orgulha no nosso jogo é…”</p>
+<div class="section-divider"></div>
+<h2 id="section-126">📝 5. Participa na votação simbólica</h2>
+<div class="section-divider"></div>
+<h2 id="section-127">📝 O formador publicará no mural três categorias:
+🏆 Jogo mais criativo
+⚙️ IA mais surpreendente
+🎨 Melhor trabalho em equipa</h2>
+<div class="section-divider"></div>
+<h2 id="section-128">📝 Cada formando vota num projeto (não pode votar no seu).
+Os jogos mais votados recebem menções de destaque na Mostra Digital “Geração Futuro IA”.</h2>
+<div class="section-divider"></div>
+<h2 id="section-129">📝 6. Reflexão final</h2>
+<p class="text-paragraph">Responde no teu caderno ou mural:</p>
+<div class="section-divider"></div>
+<h2 id="section-130">📝 Que semelhanças existem entre o trabalho em equipa humano e a colaboração entre IAs?</h2>
+<p class="text-paragraph">O que aprendi sobre como a IA “pensa” quando interage com outra IA?</p>
+<p class="text-paragraph">Se pudesse melhorar a próxima versão do jogo, o que faria diferente?</p>
+<p class="text-paragraph">💬 Hoje, programaste mais do que um jogo — programaste uma experiência colaborativa.</p>
+<div class="section-divider"></div>
+<h2 id="section-131">📝 🎓 Resultados Esperados</h2>
+<p class="text-paragraph">Capacidade de análise crítica e valorização do trabalho coletivo.</p>
+<p class="text-paragraph">Compreensão prática de IA colaborativa (reação, decisão e adaptação múltiplas).</p>
+<p class="text-paragraph">Consolidação de competências de comunicação e feedback.</p>
+<p class="text-paragraph">Envolvimento emocional e criativo com a aprendizagem.</p>
+<div class="section-divider"></div>
+<h2 id="section-132">📝 💡 Diferenciação Pedagógica</h2>
+<div class="section-divider"></div>
+<h2 id="section-133">📦 🧰 Recursos Sugeridos</h2>
+<p class="text-paragraph">Scratch Studio da turma (coleção dos jogos criados).</p>
+<p class="text-paragraph">Padlet “Mostra Digital Geração Futuro IA”.</p>
+<p class="text-paragraph">Ferramenta Mentimeter (para votação ou quiz final).</p>
+<p class="text-paragraph">Vídeo curto de encerramento: MIT Scratch Students Showcase.</p>
+<div class="section-divider"></div>
+<h2 id="section-134">📝 💬 Mensagem final</h2>
+<p class="text-paragraph">“Trabalhar com inteligência artificial é aprender sobre a nossa própria inteligência —
+e perceber que, em equipa, somos sempre mais inteligentes.”</p>
+<h3>📦 🌟 Recursos adicionais para a Sessão 1</h3>
+<h3>📦 Perfeito 👏
+Segue o conjunto completo de Recursos Adicionais – Sessão 5 do Módulo 3: “IA Colaborativa: Criar Jogos em Equipa com Scratch”.
+Estes materiais apoiam o formador na dinamização da sessão e ajudam os formandos a compreender e aplicar o conceito de IA colaborativa, explorando a cooperação entre personagens, equipas e ideias.</h3>
+<h3>📦 📚 RECURSOS ADICIONAIS – Sessão 5</h3>
+<div class="section-divider"></div>
+<h2 id="section-135">📝 Módulo 3 – Criar Jogos com Scratch e IA</h2>
+<h3>🎯 Sessão: IA Colaborativa – Criar Jogos em Equipa com Scratch
+Duração: 90 minutos (sessão síncrona + atividades assíncronas)
+Objetivo: Reforçar o trabalho em equipa e a criação de jogos com múltiplas inteligências simuladas que cooperam ou competem.</h3>
+<div class="section-divider"></div>
+<h2 id="section-136">📝 🎥 Vídeos de Apoio e Inspiração</h2>
+<div class="section-divider"></div>
+<h2 id="section-137">📝 💬 Sugestão para o formador:
+Mostrar o segundo vídeo durante a fase de criação, para reforçar o uso das mensagens entre sprites (enviar mensagem / quando receber mensagem).</h2>
+<div class="section-divider"></div>
+<h2 id="section-138">📝 🧰 Ferramentas de Apoio</h2>
+<div class="section-divider"></div>
+<h2 id="section-139">📝 🧠 Conceitos-Chave Reforçados</h2>
+<div class="section-divider"></div>
+<h2 id="section-140">📝 💡 Nota para o formador:
+Relacionar o conceito de cooperação digital com o de trabalho em equipa humano — ambos exigem escuta, adaptação e sintonia.</h2>
+<div class="section-divider"></div>
+<h2 id="section-141">📝 🎮 Exemplos de Jogos Scratch com IA Colaborativa</h2>
+<div class="section-divider"></div>
+<h2 id="section-142">📝 💬 Sugestão pedagógica:
+Selecionar um exemplo simples e outro mais avançado para comparação e debate: “Em qual deles as IAs parecem mais inteligentes? Porquê?”</h2>
+<div class="section-divider"></div>
+<h2 id="section-143">📝 📘 Leituras e Guias Complementares</h2>
+<div class="section-divider"></div>
+<h2 id="section-144">📝 💡 Aplicação: disponibilizar os guias no ambiente virtual da turma para consulta livre durante a sessão de grupo.</h2>
+<div class="section-divider"></div>
+<h2 id="section-145">📊 🎓 Avaliação Formativa Sugerida</h2>
+<div class="section-divider"></div>
+<h2 id="section-146">📊 💬 Esta grelha pode ser usada para autoavaliação do grupo ou feedback formativo do formador.</h2>
+<div class="section-divider"></div>
+<h2 id="section-147">📝 🧩 Ideias de Extensão Criativa</h2>
+<p class="highlight-text"><strong class="text-bold">💡 Dica: usar estas ideias como base para uma sessão extra ou mini-projeto de extensão (Sessão 6).</strong></p>
+<div class="section-divider"></div>
+<h2 id="section-148">📦 🌐 Recursos Online para Exploração</h2>
+<p class="text-paragraph">https://scratch.mit.edu/explore/games – jogos com IA e interações criadas por jovens.</p>
+<p class="text-paragraph">https://aiforkids.mit.edu – recursos educativos sobre IA para jovens.</p>
+<p class="text-paragraph">https://teachablemachine.withgoogle.com – ferramenta simples para treinar modelos de IA com imagens e sons.</p>
+<p class="text-paragraph">https://machinelearningforkids.co.uk – plataforma para combinar IA real com projetos Scratch.</p>
+<div class="section-divider"></div>
+<h2 id="section-149">📝 💬 Sugestões para Mostra Digital</h2>
+<div class="section-divider"></div>
+<h2 id="section-150">📝 Título do evento: “Jogos Inteligentes da Geração Futuro IA”</h2>
+<div class="section-divider"></div>
+<h2 id="section-151">📝 Formatos possíveis:</h2>
+<p class="text-paragraph">Estúdio Scratch público com votação e comentários.</p>
+<p class="text-paragraph">Exposição virtual via Padlet com imagens, vídeos curtos e feedback.</p>
+<p class="text-paragraph">Sessão síncrona de apresentação (30–45 min) com demonstrações ao vivo.</p>
+<div class="section-divider"></div>
+<h2 id="section-152"><span class="category-label">Prática</span>🚀 💡 Categorias para distinção simbólica:
+🏆 Criatividade e Design
+⚙️ Complexidade Técnica
+💬 Colaboração e Comunicação
+🎮 Melhor IA em Interação</h2>
+<div class="section-divider"></div>
+<h2 id="section-153">📝 🧠 Reflexão Final</h2>
+<div class="section-divider"></div>
+<h2 id="section-154">📝 Perguntas para discussão ou mural:</h2>
+<p class="text-paragraph">O que aprendeste sobre trabalhar com outras pessoas e com IAs?</p>
+<p class="text-paragraph">Que parte do vosso jogo mais te surpreendeu?</p>
+<p class="text-paragraph">O que distingue uma boa cooperação digital de uma boa IA?</p>
+<p class="text-paragraph">Se pudesses treinar a tua IA como um colega, o que lhe ensinarias?</p>
+<div class="section-divider"></div>
+<h2 id="section-155">📝 💡 Dica para o Formador</h2>
+<p class="text-paragraph">“A cooperação é a forma mais simples de inteligência —
+seja entre programadores, sprites ou ideias.
+Cada linha de código partilhada é uma ponte entre mentes.”</p>
+<h3>📝 Queres que avance agora com o Guia do Formador da Sessão 6 – “Melhorar, Equilibrar e Testar o Meu Jogo”, onde os formandos vão aprender técnicas de depuração, otimização e balanceamento dos jogos com IA?</h3> </div> <!-- Download --> <div class="mt-8 glass-premium rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 hover-lift"> <div> <h3 class="text-white font-bold mb-1">Documento Original</h3> <p class="text-slate-400 text-sm">Faça download do ficheiro Word completo</p> </div> <a href="./modulo3/Sessão 5.docx" download class="px-6 py-3 rounded-full bg-gradient-to-r from-white/10 to-white/5 hover:from-white/20 hover:to-white/10 border border-white/20 hover:border-white/30 transition-all flex items-center gap-2 text-white font-medium shadow-lg hover:scale-105"> <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/> </svg> Download Word </a> </div> </main> </div> <!-- Footer --> <footer class="mt-20 border-t border-white/10 py-8 bg-black/30"> <div class="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm"> <p class="text-paragraph">act.academy | Geração Futuro © 2026</p> </div> </footer> <!-- Scripts --> <script> // Scroll Progress // Scroll Progress const updateProgress = () => { const winScroll = document.documentElement.scrollTop; const height = document.documentElement.scrollHeight - document.documentElement.clientHeight; const scrolled = (winScroll / height) * 100; document.getElementById('scrollProgress').style.width = scrolled + '%'; const readProg = document.getElementById('readProgress'); const progText = document.getElementById('progressText'); if (readProg) { readProg.style.width = scrolled.toFixed(0) + '%'; } if (progText) { progText.textContent = scrolled.toFixed(0) + '% lido'; } }; window.addEventListener('scroll', updateProgress); // Active Section Highlight const sections = document.querySelectorAll('.content-section h2'); const navLinks = document.querySelectorAll('.sidebar-link'); window.addEventListener('scroll', () => { let current = ''; sections.forEach(section => { const sectionTop = section.offsetTop; if (window.pageYOffset >= sectionTop - 100) { current = section.getAttribute('id'); } }); navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + current) { link.classList.add('active'); } }); }); </script>
+</body>
+</html>

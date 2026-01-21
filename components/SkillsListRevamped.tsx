@@ -19,10 +19,10 @@ const SKILL_GROUPS: SkillGroup[] = [
         gradient: 'from-pink-500 to-purple-600',
         borderColor: 'border-pink-500/30',
         skills: [
-            { name: 'Photoshop & Illustrator', level: 95 },
-            { name: 'Adobe Premiere Pro', level: 85 },
-            { name: 'Wordpress & CMS', level: 90 },
-            { name: 'CSS & HTML', level: 80 }
+            { name: 'Photoshop & Illustrator', level: 98 },
+            { name: 'After Effects & Premiere', level: 92 },
+            { name: 'Figma & Adobe XD', level: 90 },
+            { name: 'InDesign & Typography', level: 95 }
         ]
     },
     {
@@ -32,10 +32,10 @@ const SKILL_GROUPS: SkillGroup[] = [
         gradient: 'from-cyan-500 to-blue-600',
         borderColor: 'border-cyan-500/30',
         skills: [
-            { name: 'Generative AI & Prompts', level: 92 },
-            { name: 'AI for E-learning', level: 88 },
-            { name: 'Articulate & Moodle', level: 85 },
-            { name: 'Automation Workflows', level: 75 }
+            { name: 'Generative AI & Diffusion', level: 95 },
+            { name: 'WordPress & Drupal CMS', level: 92 },
+            { name: 'HTML & CSS', level: 85 },
+            { name: 'Power BI & Analytics', level: 88 }
         ]
     },
     {
@@ -45,10 +45,10 @@ const SKILL_GROUPS: SkillGroup[] = [
         gradient: 'from-purple-500 to-indigo-600',
         borderColor: 'border-purple-500/30',
         skills: [
-            { name: 'Instructional Design', level: 95 },
-            { name: 'Data (PowerBI/Excel)', level: 85 },
-            { name: 'Project Leadership', level: 90 },
-            { name: 'Branding Strategy', level: 88 }
+            { name: 'Instructional Design', level: 98 },
+            { name: 'EdTech & E-learning', level: 95 },
+            { name: 'Branding Strategy', level: 92 },
+            { name: 'Gamification & Microlearning', level: 90 }
         ]
     }
 ];
@@ -63,7 +63,7 @@ const SkillsListRevamped: React.FC = () => {
             <div className="flex items-center gap-3 mb-8">
                 <Sparkles className="text-brand-accent" size={20} />
                 <h3 className="text-xs font-mono text-gray-400 uppercase tracking-widest">
-                    {t.skills.header || "Technical Proficiency"}
+                    Technical Proficiency
                 </h3>
             </div>
 
@@ -160,8 +160,8 @@ const SkillsListRevamped: React.FC = () => {
                 })}
             </div>
 
-            {/* Add shimmer animation to index.html or global CSS */}
-            <style jsx>{`
+            {/* Shimmer animation */}
+            <style>{`
         @keyframes shimmer {
           0% { transform: translateX(-100%); }
           100% { transform: translateX(100%); }

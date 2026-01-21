@@ -1,0 +1,44 @@
+═══════════════════════════════════════════════════════
+  URLS DAS APRESENTAÇÕES - Geração Futuro
+═══════════════════════════════════════════════════════
+
+Base URL: https://act.unicenter.io/apresentacoesGF/
+
+MÓDULO 1:
+  Sessão 1: https://act.unicenter.io/apresentacoesGF/modulo1/sessao1/index.html
+  Sessão 2: https://act.unicenter.io/apresentacoesGF/modulo1/sessao2/index.html
+  Sessão 3: https://act.unicenter.io/apresentacoesGF/modulo1/sessao3/index.html
+
+MÓDULO 2:
+  Sessão 1: https://act.unicenter.io/apresentacoesGF/modulo2/sessao1/index.html
+  Sessão 2: https://act.unicenter.io/apresentacoesGF/modulo2/sessao2/index.html
+  Sessão 3: https://act.unicenter.io/apresentacoesGF/modulo2/sessao3/index.html
+  Sessão 4: https://act.unicenter.io/apresentacoesGF/modulo2/sessao4/index.html
+  Sessão 5: https://act.unicenter.io/apresentacoesGF/modulo2/sessao5/index.html
+
+MÓDULO 3:
+  Sessão 1: https://act.unicenter.io/apresentacoesGF/modulo3/sessao1/index.html
+  Sessão 2: https://act.unicenter.io/apresentacoesGF/modulo3/sessao2/index.html
+  Sessão 3: https://act.unicenter.io/apresentacoesGF/modulo3/sessao3/index.html
+  Sessão 4: https://act.unicenter.io/apresentacoesGF/modulo3/sessao4/index.html
+  Sessão 5: https://act.unicenter.io/apresentacoesGF/modulo3/sessao5/index.html
+  Sessão 6: https://act.unicenter.io/apresentacoesGF/modulo3/sessao6/index.html
+  Sessão 7: https://act.unicenter.io/apresentacoesGF/modulo3/sessao7/index.html
+  Sessão 8: https://act.unicenter.io/apresentacoesGF/modulo3/sessao8/index.html
+
+MÓDULO 4:
+  Sessão 1: https://act.unicenter.io/apresentacoesGF/modulo4/sessao1/index.html
+  Sessão 2: https://act.unicenter.io/apresentacoesGF/modulo4/sessao2/index.html
+  Sessão 3: https://act.unicenter.io/apresentacoesGF/modulo4/sessao3/index.html
+  Sessão 4: https://act.unicenter.io/apresentacoesGF/modulo4/sessao4/index.html
+  Sessão 5: https://act.unicenter.io/apresentacoesGF/modulo4/sessao5/index.html
+  Sessão 6: https://act.unicenter.io/apresentacoesGF/modulo4/sessao6/index.html
+  Sessão 7: https://act.unicenter.io/apresentacoesGF/modulo4/sessao7/index.html
+
+MÓDULO 5:
+  Sessão 1: https://act.unicenter.io/apresentacoesGF/modulo5/sessao1/index.html
+  Sessão 2: https://act.unicenter.io/apresentacoesGF/modulo5/sessao2/index.html
+  Sessão 3: https://act.unicenter.io/apresentacoesGF/modulo5/sessao3/index.html
+  Sessão 4: https://act.unicenter.io/apresentacoesGF/modulo5/sessao4/index.html
+  Sessão 6: https://act.unicenter.io/apresentacoesGF/modulo5/sessao6/index.html
+

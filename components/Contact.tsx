@@ -1,13 +1,15 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Mail, Linkedin, Instagram, ArrowUpRight, Copy, Check } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useToast } from '../contexts/ToastContext';
 import ContactForm from './ContactForm';
 
 const Contact: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [copied, setCopied] = useState(false);
   const emailRef = useRef<HTMLAnchorElement>(null);
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const { showToast } = useToast();
 
   useEffect(() => {
     setTimeout(() => setIsVisible(true), 100);
@@ -19,6 +21,10 @@ const Contact: React.FC = () => {
     navigator.clipboard.writeText("victorhfduarte@gmail.com");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+
+    // Show success toast
+    const message = language === 'en' ? 'Email copied to clipboard!' : 'Email copiado para a área de transferência!';
+    showToast(message, 'success');
   };
 
   const socialLinks = [

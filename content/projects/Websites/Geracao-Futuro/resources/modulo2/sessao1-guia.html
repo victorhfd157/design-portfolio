@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>🧠 Sessão 1 — O que é Pensamento Computacional? | Geração Futuro</title> <script src="https://cdn.tailwindcss.com"></script> <style> * { scroll-behavior: smooth; } body { background-color: #020617; color: white; font-family: 'Outfit', sans-serif; overflow-x: hidden; } /* Glassmorphism Premium */ .glass-premium { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(24px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.125); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37), inset 0 1px 0 rgba(255, 255, 255, 0.1); } /* Header Premium */ .header-premium { background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid rgba(168, 85, 247, 0.2); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); } /* Sidebar Melhorada */ .sidebar { background: linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.85) 100%); backdrop-filter: blur(20px); border-right: 1px solid rgba(168, 85, 247, 0.3); box-shadow: 4px 0 24px rgba(0, 0, 0, 0.4); } .sidebar-header { background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(34, 211, 238, 0.2)); border-bottom: 2px solid rgba(168, 85, 247, 0.3); padding: 1.25rem; margin-bottom: 1rem; border-radius: 0.75rem; } .sidebar-link { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border-left: 3px solid transparent; position: relative; padding-left: 1rem; } .sidebar-link::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 6px; height: 0; background: linear-gradient(180deg, #a855f7, #22d3ee); border-radius: 0 3px 3px 0; transition: height 0.3s ease; } .sidebar-link:hover { background: linear-gradient(90deg, rgba(168, 85, 247, 0.15), transparent); border-left-color: transparent; transform: translateX(4px); color: white; } .sidebar-link:hover::before { height: 100%; } .sidebar-link.active { background: linear-gradient(90deg, rgba(168, 85, 247, 0.25), rgba(34, 211, 238, 0.1)); border-left-color: transparent; color: #22d3ee; font-weight: 600; } .sidebar-link.active::before { height: 100%; box-shadow: 0 0 12px rgba(168, 85, 247, 0.6); } .sidebar-link-icon { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: rgba(168, 85, 247, 0.15); border-radius: 6px; margin-right: 0.75rem; font-size: 0.875rem; transition: all 0.3s ease; } .sidebar-link:hover .sidebar-link-icon { background: rgba(168, 85, 247, 0.3); transform: scale(1.1); } .sidebar-link.active .sidebar-link-icon { background: linear-gradient(135deg, #a855f7, #22d3ee); box-shadow: 0 2px 8px rgba(168, 85, 247, 0.4); } .nav-section { margin-bottom: 1.5rem; } .nav-section-title { color: #a855f7; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.5rem 1rem; margin-bottom: 0.5rem; opacity: 0.7; } .sidebar-progress { margin-top: 1.5rem; padding: 1rem; background: rgba(168, 85, 247, 0.1); border-radius: 0.75rem; border: 1px solid rgba(168, 85, 247, 0.2); } .progress-bar { width: 100%; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 3px; overflow: hidden; margin-top: 0.5rem; } .progress-fill { height: 100%; background: linear-gradient(90deg, #a855f7, #22d3ee); border-radius: 3px; transition: width 0.3s ease; box-shadow: 0 0 8px rgba(168, 85, 247, 0.6); } /* Typography */ .gradient-text { background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #22d3ee 100%); background-size: 200% 200%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 8s ease infinite; } @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } } .content-section h2 { color: #a855f7; margin-top: 3.5rem; margin-bottom: 1.75rem; font-size: 2rem; font-weight: 900; border-bottom: 3px solid rgba(168, 85, 247, 0.3); padding-bottom: 0.75rem; position: relative; } .content-section h2::before { content: ''; position: absolute; bottom: -3px; left: 0; width: 80px; height: 3px; background: linear-gradient(90deg, #a855f7, #22d3ee); border-radius: 2px; } .content-section h3 { color: #22d3ee; margin-top: 2.5rem; margin-bottom: 1.25rem; font-size: 1.5rem; font-weight: 700; } .content-section p { margin-bottom: 1.5rem; line-height: 2; color: #cbd5e1; font-size: 1.0625rem; } .content-section ul, .content-section ol { margin-left: 2.5rem; margin-bottom: 2rem; color: #cbd5e1; } .content-section li { margin-bottom: 1rem; line-height: 1.8; } .content-section li::marker { color: #a855f7; font-weight: 700; } /* Ultra Premium Additions */ body { background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%); font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; } .animated-bg-overlay { position: fixed; inset: 0; z-index: -1; background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(139, 92, 246, 0.15), transparent), radial-gradient(ellipse 60% 50% at 50% 120%, rgba(6, 182, 212, 0.12), transparent); animation: bgPulse 15s ease-in-out infinite; } @keyframes bgPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } } .title-ultra { background: linear-gradient(135deg, #A78BFA 0%, #EC4899 50%, #22D3EE 100%); background-size: 200% 200%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 8s ease infinite; } @keyframes gradientShift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } } .content-card-ultra { background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.6)); backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(139, 92, 246, 0.2); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05) inset; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); } .content-card-ultra:hover { transform: translateY(-4px); box-shadow: 0 30px 80px rgba(139, 92, 246, 0.3), 0 0 0 1px rgba(139, 92, 246, 0.3) inset; } /* Dividers */ .section-divider { height: 2px; background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.5), transparent); margin: 4rem 0; } /* Time badge */ .time-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(34, 211, 238, 0.2); color: #22d3ee; padding: 0.4rem 1rem; border-radius: 2rem; font-size: 0.875rem; font-weight: 600; margin-left: 1rem; } /* Category label */ .category-label { background: rgba(168, 85, 247, 0.25); color: #ddd6fe; padding: 0.25rem 0.75rem; border-radius: 0.5rem; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 0.75rem; } /* Activity Box Premium */ .activity-box { background: linear-gradient(135deg, rgba(168, 85, 247, 0.18) 0%, rgba(34, 211, 238, 0.12) 100%); border-left: 5px solid #a855f7; padding: 2.5rem; margin: 2.5rem 0; border-radius: 1.25rem; box-shadow: 0 10px 40px rgba(168, 85, 247, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1); position: relative; overflow: hidden; } .activity-box::before { content: ''; position: absolute; top: 0; right: 0; width: 200px; height: 200px; background: radial-gradient(circle, rgba(168, 85, 247, 0.15) 0%, transparent 70%); border-radius: 50%; transform: translate(50%, -50%); } /* Info Box */ .info-box { background: rgba(34, 211, 238, 0.12); border-left: 4px solid #22d3ee; padding: 2rem; margin: 2rem 0; border-radius: 1rem; box-shadow: 0 4px 16px rgba(34, 211, 238, 0.15); } /* Animations */ @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } } .fade-in-up { animation: fadeInUp 0.6s ease-out forwards; } /* Scroll Progress */ .scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, #a855f7, #22d3ee); z-index: 9999; transition: width 0.1s ease; } /* Hover Effects */ .hover-lift { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); } .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 12px 48px rgba(168, 85, 247, 0.3); } /* Responsive */ @media (max-width: 1024px) { .sidebar { display: none; } } /* ========== MELHORIAS FINAIS UI/UX ========== */ /* Melhor legibilidade */ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; } /* Scrollbar customizada */ ::-webkit-scrollbar { width: 12px; } ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.5); } ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #8B5CF6, #06B6D4); border-radius: 6px; border: 2px solid rgba(15, 23, 42, 0.5); } ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #A78BFA, #22D3EE); } /* Focus states para acessibilidade */ a:focus, button:focus { outline: 2px solid #22D3EE; outline-offset: 4px; } /* Melhor contraste em textos */ p, li { color: #E2E8F0; font-weight: 400; } /* Links melhorados */ a { color: #22D3EE; text-decoration: none; transition: all 0.2s ease; } a:hover { color: #67E8F9; text-decoration: underline; } /* Cards com melhor hierarquia visual */ .content-card, .content-card-ultra { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); } .content-card:hover, .content-card-ultra:hover { border-color: rgba(139, 92, 246, 0.4); } /* Espaçamento consistente */ h2 + p, h3 + p { margin-top: 0; } p + h2, p + h3 { margin-top: 3rem; } /* Listas mais legíveis */ ul li, ol li { padding-left: 1rem; position: relative; } ul li::before { content: ''; position: absolute; left: -1rem; top: 0.75em; width: 6px; height: 6px; background: #8B5CF6; border-radius: 50%; } /* Botões melhorados */ button, .btn, a[class*="btn"] { cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent; } /* Loading states */ @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } } /* Responsividade aprimorada */ @media (max-width: 768px) { h1 { font-size: 3rem !important; } h2 { font-size: 1.75rem !important; } h3 { font-size: 1.35rem !important; } p { font-size: 1rem !important; } .content-card, .content-card-ultra { padding: 2rem !important; } } /* Melhor feedback visual */ .nav-item:active { transform: scale(0.98); } /* Transições suaves em todos os interativos */ * { transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform; transition-duration: 200ms; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); } /* Previne transições em animações de scroll */ html.smooth-scroll * { transition: none !important; } /* Print styles */ @media print { .premium-header, .ultra-sidebar, footer { display: none !important; } body { background: white !important; color: black !important; } } /* ========== TIPOGRAFIA PREMIUM ========== */ /* Melhores fontes web */ @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap'); body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 17px; line-height: 1.7; letter-spacing: -0.011em; font-weight: 400; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; } /* Títulos com fonte premium */ h1, h2, h3, h4, h5, h6 { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; font-weight: 800; line-height: 1.2; letter-spacing: -0.03em; } /* H1 - Título Principal */ h1 { font-size: clamp(2.5rem, 8vw, 5rem) !important; line-height: 1.1 !important; margin-bottom: 1.5rem !important; font-weight: 900 !important; } /* H2 - Seções Principais */ h2 { font-size: clamp(1.75rem, 4vw, 2.5rem) !important; line-height: 1.3 !important; margin-top: 4rem !important; margin-bottom: 1.5rem !important; font-weight: 800 !important; color: #C4B5FD !important; } /* H3 - Subseções */ h3 { font-size: clamp(1.35rem, 3vw, 1.875rem) !important; line-height: 1.4 !important; margin-top: 2.5rem !important; margin-bottom: 1.25rem !important; font-weight: 700 !important; color: #67E8F9 !important; } /* H4 - Subtítulos */ h4 { font-size: 1.25rem !important; line-height: 1.5 !important; margin-top: 2rem !important; margin-bottom: 1rem !important; font-weight: 600 !important; color: #CBD5E1 !important; } /* Parágrafos otimizados */ p { font-size: 1.0625rem !important; line-height: 1.8 !important; margin-bottom: 1.5rem !important; color: #E2E8F0 !important; max-width: 70ch; font-weight: 400 !important; } /* Strong e Bold */ strong, b { font-weight: 600; color: #F1F5F9; } /* Listas melhoradas */ ul, ol { font-size: 1.0625rem; line-height: 1.75; color: #E2E8F0; padding-left: 1.5rem; } li { margin-bottom: 0.75rem !important; line-height: 1.75 !important; color: #E2E8F0 !important; } li p { margin-bottom: 0.5rem !important; } /* Código e Mono */ code, pre { font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 0.9em; background: rgba(139, 92, 246, 0.1); padding: 0.2em 0.4em; border-radius: 0.25rem; } /* Links melhorados */ a { color: #67E8F9; font-weight: 500; text-decoration: none; transition: all 0.2s; } a:hover { color: #A5F3FC; text-decoration: underline; } /* Blockquotes */ blockquote { border-left: 4px solid #8B5CF6; padding-left: 1.5rem; margin: 2rem 0; font-style: italic; color: #CBD5E1; } /* Melhor contraste */ .content-section { color: #E2E8F0; } /* Espaçamento vertical otimizado */ * + h2 { margin-top: 4rem !important; } * + h3 { margin-top: 3rem !important; } h2 + h3, h3 + h4 { margin-top: 1.5rem !important; } /* Mobile responsivo */ @media (max-width: 768px) { body { font-size: 16px; } h1 { font-size: 2.25rem !important; } h2 { font-size: 1.75rem !important; } h3 { font-size: 1.35rem !important; } p, li { font-size: 1rem !important; } } 
+        /* ========== FORMATAÇÃO DE TEXTO MELHORADA ========== */
+        
+        /* Parágrafos */
+        .text-paragraph {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+        }
+        
+        .text-paragraph:first-of-type::first-letter {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #A78BFA;
+            float: left;
+            line-height: 1;
+            margin-right: 0.1em;
+        }
+        
+        /* Listas melhoradas */
+        .enhanced-list {
+            margin: 2rem 0;
+            padding: 2rem 2.5rem;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(6, 182, 212, 0.03));
+            border-left: 4px solid #8B5CF6;
+            border-radius: 0.75rem;
+        }
+        
+        .enhanced-list li {
+            margin: 1rem 0;
+            padding-left: 0.5rem;
+            position: relative;
+        }
+        
+        .numbered-item::marker {
+            font-weight: 700;
+            color: #22D3EE;
+        }
+        
+        /* Bold destacado */
+        .text-bold {
+            color: #F1F5F9;
+            font-weight: 600;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), transparent);
+            padding: 0.1em 0.3em;
+            border-radius: 0.25em;
+        }
+        
+        /* Espaçadores */
+        .spacer {
+            height: 2rem;
+        }
+        
+        /* Citações */
+        blockquote {
+            border-left: 4px solid #8B5CF6;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            background: rgba(139, 92, 246, 0.05);
+            border-radius: 0.5rem;
+            font-style: italic;
+            color: #CBD5E1;
+        }
+        
+        blockquote p {
+            margin-bottom: 0;
+        }
+        
+        /* Destaque de informação importante */
+        .highlight-info {
+            background: linear-gradient(90deg, rgba(6, 182, 212, 0.15), transparent);
+            border-left: 4px solid #06B6D4;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0.5rem;
+        }
+        
+        /* Notas e avisos */
+        .note-box {
+            background: linear-gradient(90deg, rgba(245, 158, 11, 0.15), transparent);
+            border-left: 4px solid #F59E0B;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0.5rem;
+        }
+        
+        .note-box::before {
+            content: '💡';
+            margin-right: 0.5rem;
+            font-size: 1.25em;
+        }
+        
+        /* Tabelas (se houver) */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 0.75rem;
+            overflow: hidden;
+        }
+        
+        th {
+            background: linear-gradient(135deg, #8B5CF6, #06B6D4);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+    </style>
+</head>
+<body class="antialiased"> <!-- Scroll Progress --> <div class="scroll-progress" id="scrollProgress"></div> <!-- Background --> <div class="fixed inset-0 -z-10"> <div class="absolute inset-0 bg-gradient-to-br from-purple-950/20 via-slate-950 to-cyan-950/20"></div> <div class="absolute inset-0" style="background-image: radial-gradient(1px 1px at 50px 50px, rgba(255,255,255,0.3) 50%, transparent 100%); background-size: 500px 500px; opacity: 0.3;"></div> </div> <!-- Header --> <nav class="sticky top-0 z-50 header-premium py-4 px-6"> <div class="max-w-7xl mx-auto flex items-center justify-between"> <a aria-label="Voltar para o hub principal"<a href="../../index.html" class="flex items-center gap-3 text-white hover:text-purple-300 transition-all hover:scale-105"> <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/> </svg> <span class="font-medium">Voltar ao Hub</span> </a> <div class="flex items-center gap-3"> <span class="text-xs uppercase tracking-widest text-cyan-400 font-bold">Módulo 2</span> <a href="../../modulo2/sessao1/" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white text-sm font-medium transition-all hover:scale-105 shadow-lg hover:shadow-xl"> Ver Apresentação </a> </div> </div> </nav> <!-- Main Layout --> <div class="flex max-w-7xl mx-auto px-6 py-12 gap-8"> <!-- Sidebar --> <aside class="hidden lg:block w-80 flex-shrink-0"> <div class="sidebar rounded-2xl p-6 sticky top-24 max-h- overflow-y-auto"> <h3 class="text-white font-bold text-lg mb-6 flex items-center gap-2"> <svg class="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/> </svg> Navegação </h3> <nav class="space-y-2">
+<a href="#section-5" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🎯</span><span class="flex-1">Objetivos e Competências</span></a>
+<a href="#section-107" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">📦</span><span class="flex-1">Materiais e Recursos</span></a>
+<a href="#section-3" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🔧</span><span class="flex-1">Preparação</span></a>
+<a href="#section-1" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🎮</span><span class="flex-1">Atividade Teasing</span></a>
+<a href="#section-2" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🚀</span><span class="flex-1">Atividades Práticas</span></a>
+<a href="#section-22" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">🎬</span><span class="flex-1">Slides</span></a>
+<a href="#section-89" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">📊</span><span class="flex-1">Avaliação</span></a>
+<a href="#section-17" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">💭</span><span class="flex-1">Reflexão</span></a>
+<a href="#section-0" class="sidebar-link flex items-center py-2.5 px-3 rounded-lg text-sm text-slate-300 hover:text-white transition-all"><span class="sidebar-link-icon">📝</span><span class="flex-1">Outros Conteúdos</span></a>
+</nav> </div> </aside> <!-- Content --> <main class="flex-1 min-w-0"> <!-- Title --> <div class="mb-12 fade-in-up"> <div class="flex items-center gap-3 mb-4"> <span class="px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/30 to-cyan-500/30 text-purple-200 text-xs font-bold uppercase tracking-wider border border-purple-500/30"> Guia do Formador </span> </div> <h1 class="text-6xl lg:text-7xl title-ultra" style="background: linear-gradient(135deg, #C4B5FD 0%, #EC4899 50%, #67E8F9 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;"> 🧠 Sessão 1 — O que é Pensamento Computacional? </h1> <p class="text-xl text-slate-300">Guia completo para conduzir esta sessão com sucesso</p> </div> <!-- Content --> <div class="content-card-ultra glass-premium rounded-2xl p-8 lg:p-12 content-section hover-lift"> <h2 id="section-0">📝 Módulo 2 – Pensamento Computacional Criativo</h2>
+<h3>📝 🧠 Sessão 1 — O que é Pensamento Computacional?</h3>
+<h3>📝 Sessão 1 – O que é o Pensamento Computacional?</h3>
+<div class="section-divider"></div>
+<h2 id="section-1">📝 Teasing (30 min):
+Desafio interativo “O Mistério da Máquina Pensadora” → os alunos observam como uma máquina misteriosa transforma palavras em objetos e tentam descobrir a sua lógica escondida (realizado em Genially ou Canva).
+Partilham hipóteses e padrões identificados num mural colaborativo (Padlet ou Jamboard).</h2>
+<div class="section-divider"></div>
+<h2 id="section-2">📝 Síncrona (90 min):
+• Quebra-gelo “Somos como computadores?” → brainstorming divertido sobre semelhanças entre humanos e máquinas.
+• Exploração guiada dos 4 pilares do pensamento computacional (decomposição, padrões, abstração e algoritmo) com exemplos do quotidiano e quiz rápido (Kahoot).
+• Jogo principal “Missão Computacional” → em grupos, os alunos criam um algoritmo para ensinar um extraterrestre a preparar o pequeno-almoço, aplicando os 4 pilares.
+• Diferenciação por níveis:
+🌱 seguir um modelo → 🌿 criar um algoritmo próprio → 🌳 incluir uma decisão “Se. então.”.
+• Reflexão final colaborativa no mural “Pensar como computador é…”, incentivando partilhas criativas e feedback entre pares.</h2>
+<div class="section-divider"></div>
+<h2 id="section-3">📝 Enriquecimento (90 min):
+Desafio individual “O Algoritmo do Meu Dia” → cada aluno escolhe uma rotina real (ex.: preparar-se para a escola, estudar, treinar) e transforma-a em linguagem estruturada (fluxograma, pseudocódigo ou projeto no Scratch).
+Partilham os resultados num mural digital e comentam o trabalho de um colega.</h2>
+<div class="section-divider"></div>
+<h2 id="section-4">📝 🧠Guião do Formador (90 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-5"><span class="category-label">Objetivos</span>🎯 🎯 Objetivos</h2>
+<p class="text-paragraph">Apresentar e explorar o conceito de pensamento computacional.</p>
+<p class="text-paragraph">Envolver os formandos em atividades práticas e colaborativas.</p>
+<p class="text-paragraph">Promover o uso dos 4 pilares através de um desafio em grupo.</p>
+<div class="section-divider"></div>
+<h2 id="section-6">📝 🕒 Estrutura Detalhada</h2>
+<div class="section-divider"></div>
+<h2 id="section-7"><span class="category-label">Prática</span>🚀 🧩 Detalhes das Atividades</h2>
+<div class="section-divider"></div>
+<h2 id="section-8">📝 1. Quebra-gelo (10 min)</h2>
+<p class="text-paragraph">Pergunta no chat: “Em que te pareces com um computador?”</p>
+<p class="text-paragraph">Mostra respostas em nuvem de palavras.</p>
+<p class="text-paragraph">Faz humor leve (“Também ficas lento sem café?” ☕).</p>
+<div class="section-divider"></div>
+<h2 id="section-9">📝 Introduz a ideia: pensar como um computador = resolver problemas passo a passo.</h2>
+<div class="section-divider"></div>
+<h2 id="section-10">📝 2. Descoberta Guiada (20 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-11">📝 Apresenta os 4 pilares com exemplos simples e visuais:</h2>
+<div class="section-divider"></div>
+<h2 id="section-12">📝 ➡️ Quiz rápido (Kahoot):
+5 perguntas “V/F” com humor para fixar os conceitos.</h2>
+<div class="section-divider"></div>
+<h2 id="section-13">📝 3. Jogo “Missão Computacional” (40 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-14">📝 Desafio:</h2>
+<p class="text-paragraph">“Um extraterrestre precisa de aprender a preparar um pequeno-almoço.
+Usem os 4 pilares para criar um algoritmo simples!”</p>
+<div class="section-divider"></div>
+<h2 id="section-15">📝 Etapas:</h2>
+<p class="text-paragraph">Grupos (3–5 elementos).</p>
+<p class="text-paragraph">Preencher grelha dos pilares.</p>
+<p class="text-paragraph">Criar e apresentar o algoritmo em 2 minutos.</p>
+<p class="text-paragraph">Formador dá feedback e reforça a lógica e clareza.</p>
+<div class="section-divider"></div>
+<h2 id="section-16">📝 🧩 Diferenciação de níveis:</h2>
+<p class="text-paragraph">🌱 Básico: seguir modelo dado.</p>
+<p class="text-paragraph">🌿 Intermédio: criar algoritmo próprio.</p>
+<p class="text-paragraph">🌳 Avançado: adicionar condição (“Se não houver leite → usar sumo”).</p>
+<div class="section-divider"></div>
+<h2 id="section-17">📝 4. Reflexão e Fecho (20 min)</h2>
+<div class="section-divider"></div>
+<h2 id="section-18"><span class="category-label">Prática</span>🚀 Atividade “Pensar como Computador é…”
+Cada aluno escreve uma frase ou desenha um ícone no mural colaborativo (Padlet, Miro ou Jamboard).</h2>
+<div class="section-divider"></div>
+<h2 id="section-19">📝 Perguntas orientadoras:</h2>
+<p class="text-paragraph">Quando já aplicaste pensamento computacional sem perceber?</p>
+<p class="text-paragraph">Em que te pode ajudar no futuro?</p>
+<p class="text-paragraph">💬 Fecho inspirador:</p>
+<p class="text-paragraph">“O pensamento computacional é o superpoder de resolver problemas com lógica e criatividade!”</p>
+<div class="section-divider"></div>
+<h2 id="section-20">📝 💡 Dicas do Formador</h2>
+<p class="text-paragraph">Usar linguagem simples e exemplos do quotidiano.</p>
+<p class="text-paragraph">Alternar explicação e ação a cada 10–15 minutos.</p>
+<p class="text-paragraph">Valorizar o processo, não a resposta “certa”.</p>
+<p class="text-paragraph">Garantir diversidade de exemplos e imagens.</p>
+<p class="text-paragraph">Reforçar feedback positivo e participação.</p>
+<h3>📝 🎬 CONTEÚDO DOS SLIDES – Sessão 1</h3>
+<div class="section-divider"></div>
+<h2 id="section-21">📝 Tema: O que é o Pensamento Computacional?</h2>
+<div class="section-divider"></div>
+<h2 id="section-22">📝 🎬 Slide 1 – Boas-vindas</h2>
+<h3>📝 Título:
+🧠 Sessão 1 – O que é o Pensamento Computacional?</h3>
+<div class="section-divider"></div>
+<h2 id="section-23">📝 Conteúdo:</h2>
+<p class="text-paragraph">“Bem-vindos ao Módulo 2 – Pensamento Computacional Criativo!”</p>
+<p class="text-paragraph">“Hoje vamos descobrir como pensar de forma lógica e divertida — como um computador, mas com imaginação!”</p>
+<div class="section-divider"></div>
+<h2 id="section-24">📝 Visual sugerido:</h2>
+<p class="text-paragraph">Fundo colorido (azul claro ou lilás).</p>
+<p class="text-paragraph">Ícone de cérebro e engrenagens.</p>
+<p class="text-paragraph">Ilustração divertida de um humano e um robô a pensar.</p>
+<div class="section-divider"></div>
+<h2 id="section-25">📝 💬 Slide 2 – Quebrar o Gelo</h2>
+<div class="section-divider"></div>
+<h2 id="section-26">📝 Título:
+🤔 Somos como computadores?</h2>
+<div class="section-divider"></div>
+<h2 id="section-27">📝 Conteúdo:</h2>
+<p class="text-paragraph">“O que temos em comum com um computador?”</p>
+<p class="text-paragraph">Instrução: “Escreve no chat ou no Mentimeter a tua resposta.”</p>
+<p class="text-paragraph">Dica divertida: “Será que também fazemos reboot depois do pequeno-almoço? 😄”</p>
+<div class="section-divider"></div>
+<h2 id="section-28">📝 Visual:</h2>
+<p class="text-paragraph">Ícones: 💻 + 🧍‍♀️ + ⚡</p>
+<p class="text-paragraph">Fundo animado com emojis de pensamento.</p>
+<div class="section-divider"></div>
+<h2 id="section-29">📝 🧠 Slide 3 – O que é Pensamento Computacional?</h2>
+<div class="section-divider"></div>
+<h2 id="section-30">📝 Título:
+🧩 Pensar como um computador. sem ser um!</h2>
+<div class="section-divider"></div>
+<h2 id="section-31">📝 Conteúdo:</h2>
+<p class="text-paragraph">“É uma forma de resolver problemas passo a passo.”</p>
+<p class="text-paragraph">“Ajuda-nos a organizar ideias e criar soluções.”</p>
+<p class="text-paragraph">“Não é só para programadores — usamos todos os dias!”</p>
+<div class="section-divider"></div>
+<h2 id="section-32">📝 Exemplo:</h2>
+<p class="text-paragraph">“Quando planeias o teu dia ou decides o que vestir, já estás a pensar como um computador!”</p>
+<div class="section-divider"></div>
+<h2 id="section-33">📝 Visual:</h2>
+<p class="text-paragraph">Ícone de engrenagem + lâmpada 💡</p>
+<p class="text-paragraph">Imagem de uma checklist ou fluxograma simples.</p>
+<div class="section-divider"></div>
+<h2 id="section-34">📝 ⚙️ Slide 4 – Os 4 Pilares do Pensamento Computacional</h2>
+<div class="section-divider"></div>
+<h2 id="section-35">📝 Título:
+🧩 Os 4 Pilares Fundamentais</h2>
+<div class="section-divider"></div>
+<h2 id="section-36">📝 Visual:</h2>
+<p class="text-paragraph">4 ícones coloridos (um por pilar).</p>
+<p class="text-paragraph">Fundo limpo e visual.</p>
+<div class="section-divider"></div>
+<h2 id="section-37">📝 💡 Slide 5 – Pensamento Computacional na Vida Real</h2>
+<div class="section-divider"></div>
+<h2 id="section-38">📝 Título:
+🌍 Usamos mais vezes do que imaginamos!</h2>
+<div class="section-divider"></div>
+<h2 id="section-39">📝 Conteúdo:</h2>
+<p class="text-paragraph">Quando organizas o teu dia.</p>
+<p class="text-paragraph">Quando montas um jogo ou puzzle.</p>
+<p class="text-paragraph">Quando aprendes uma coreografia.</p>
+<p class="text-paragraph">Quando decides o que vestir se estiver frio.</p>
+<div class="section-divider"></div>
+<h2 id="section-40">📝 Mensagem:</h2>
+<p class="text-paragraph">“Usamos lógica todos os dias — só precisamos de aprender a reconhecê-la!”</p>
+<div class="section-divider"></div>
+<h2 id="section-41">📝 Visual:</h2>
+<p class="text-paragraph">Fotos reais ou desenhos jovens (escola, desporto, música).</p>
+<div class="section-divider"></div>
+<h2 id="section-42">📝 🎮 Slide 6 – Mini-Quiz</h2>
+<div class="section-divider"></div>
+<h2 id="section-43">📝 Título:
+🎯 Verdadeiro ou Falso?</h2>
+<div class="section-divider"></div>
+<h2 id="section-44">📝 Conteúdo:
+1️⃣ Pensamento computacional é só para quem programa. ❌
+2️⃣ Um algoritmo pode ser uma receita. ✅
+3️⃣ Abstração é ignorar o essencial. ❌
+4️⃣ Padrões ajudam-nos a prever o que vem a seguir. ✅</h2>
+<div class="section-divider"></div>
+<h2 id="section-45">📝 Ferramenta sugerida: Kahoot ou Mentimeter.
+Visual:</h2>
+<p class="text-paragraph">Fundo tipo game show, com emojis de ✅❌.</p>
+<div class="section-divider"></div>
+<h2 id="section-46">📝 👽 Slide 7 – Missão Computacional</h2>
+<div class="section-divider"></div>
+<h2 id="section-47">📝 Título:
+🚀 Desafio: Ensina o Extraterrestre a Fazer Pequeno-Almoço!</h2>
+<div class="section-divider"></div>
+<h2 id="section-48">📝 Instruções:</h2>
+<p class="text-paragraph">Divide o problema em partes (decomposição).</p>
+<p class="text-paragraph">Vê o que se repete (padrões).</p>
+<p class="text-paragraph">Decide o que é essencial (abstração).</p>
+<p class="text-paragraph">Cria o algoritmo passo a passo.</p>
+<div class="section-divider"></div>
+<h2 id="section-49">📝 Visual:</h2>
+<p class="text-paragraph">Desenho engraçado de um alienígena confuso com pão e leite.</p>
+<p class="text-paragraph">Fundo espacial com ícones dos 4 pilares.</p>
+<div class="section-divider"></div>
+<h2 id="section-50">📝 👥 Slide 8 – Trabalhar em Grupo</h2>
+<div class="section-divider"></div>
+<h2 id="section-51">📝 Título:
+🧑‍🤝‍🧑 Missão em Equipas</h2>
+<div class="section-divider"></div>
+<h2 id="section-52">📝 Conteúdo:</h2>
+<p class="text-paragraph">Forma grupos de 3 a 5.</p>
+<p class="text-paragraph">Usa a grelha dos 4 pilares para planear o teu algoritmo.</p>
+<p class="text-paragraph">No final, cada grupo apresenta o resultado em 2 minutos.</p>
+<div class="section-divider"></div>
+<h2 id="section-53">📝 Diferenciação por níveis:
+🌱 Completa um exemplo dado.
+🌿 Cria o teu algoritmo do zero.
+🌳 Acrescenta uma decisão (“Se não houver leite → usar sumo”).</h2>
+<div class="section-divider"></div>
+<h2 id="section-54">📝 Visual:</h2>
+<p class="text-paragraph">Ícones: 💬🧩⚡</p>
+<p class="text-paragraph">Fundo com moldura colorida.</p>
+<div class="section-divider"></div>
+<h2 id="section-55">📝 🧩 Slide 9 – Reflexão Final</h2>
+<div class="section-divider"></div>
+<h2 id="section-56">📝 Título:
+💭 Pensar como computador é…</h2>
+<div class="section-divider"></div>
+<h2 id="section-57">📝 Conteúdo:</h2>
+<p class="text-paragraph">“Quando já aplicaste pensamento computacional sem perceber?”</p>
+<p class="text-paragraph">“Em que te pode ajudar no futuro?”</p>
+<p class="text-paragraph">Instrução: “Escreve no mural (Padlet/Miro) uma frase ou emoji.”</p>
+<div class="section-divider"></div>
+<h2 id="section-58">📝 Visual:</h2>
+<p class="text-paragraph">Fundo neutro com post-its coloridos ou balões de fala.</p>
+<p class="text-paragraph">Frase inspiradora:</p>
+<p class="text-paragraph">“Pensar como computador é usar lógica com imaginação.”</p>
+<div class="section-divider"></div>
+<h2 id="section-59">📝 🧩 Slide 10 – Enriquecimento</h2>
+<div class="section-divider"></div>
+<h2 id="section-60">📝 Título:
+📅 Desafio: O Algoritmo do Meu Dia</h2>
+<div class="section-divider"></div>
+<h2 id="section-61">📝 Conteúdo:</h2>
+<p class="text-paragraph">Escolhe uma rotina real (ex.: “Preparar-me para a escola”).</p>
+<p class="text-paragraph">Transforma-a num algoritmo com passos claros.</p>
+<p class="text-paragraph">Representa-a em:</p>
+<p class="text-paragraph">Texto (pseudocódigo)</p>
+<p class="text-paragraph">Desenho (fluxograma)</p>
+<p class="text-paragraph">Código visual (Scratch)</p>
+<p class="text-paragraph">Partilha no mural digital da turma.</p>
+<div class="section-divider"></div>
+<h2 id="section-62">📝 Mensagem final:</h2>
+<p class="text-paragraph">“Cada rotina pode ser um programa que tu crias.”</p>
+<div class="section-divider"></div>
+<h2 id="section-63">📝 Visual:</h2>
+<p class="text-paragraph">Ícones: ⏰🧱🧠💡</p>
+<p class="text-paragraph">Fundo colorido (laranja ou amarelo).</p>
+<div class="section-divider"></div>
+<h2 id="section-64">📝 🧠 Slide 11 – O que Aprendemos Hoje</h2>
+<h3>📝 Título:
+🏁 Resumo da Sessão</h3>
+<div class="section-divider"></div>
+<h2 id="section-65"><span class="category-label">Prática</span>🚀 Conteúdo:
+✅ Descobrimos o que é o pensamento computacional.
+✅ Conhecemos os 4 pilares fundamentais.
+✅ Aplicámos tudo na Missão Computacional.
+✅ Pensámos como computadores… mas com criatividade!</h2>
+<div class="section-divider"></div>
+<h2 id="section-66">📝 Frase final:</h2>
+<p class="text-paragraph">“O teu cérebro é o melhor computador que existe — só precisa de bons algoritmos!” 💫</p>
+<div class="section-divider"></div>
+<h2 id="section-67">📝 Visual:</h2>
+<p class="text-paragraph">Fundo escuro com brilho.</p>
+<p class="text-paragraph">Ícones de troféu, cérebro e estrelas.</p>
+<div class="section-divider"></div>
+<h2 id="section-68">📝 📚 Slide 12 – Feedback Rápido</h2>
+<div class="section-divider"></div>
+<h2 id="section-69">📝 Título:
+💬 Conta-nos o que achaste!</h2>
+<div class="section-divider"></div>
+<h2 id="section-70">📝 Conteúdo:</h2>
+<p class="text-paragraph">3 perguntas simples (em Forms, Mentimeter ou Jamboard):</p>
+<p class="text-paragraph">O que aprendi hoje?</p>
+<p class="text-paragraph">O que foi mais fácil ou difícil?</p>
+<p class="text-paragraph">O que mais gostei?</p>
+<div class="section-divider"></div>
+<h2 id="section-71">📝 Visual:</h2>
+<p class="text-paragraph">Fundo pastel com emojis 🧠✨💬.</p>
+<p class="text-paragraph">Título divertido: “O teu feedback ajuda-nos a melhorar o curso!”</p>
+<div class="section-divider"></div>
+<h2 id="section-72">📝 🎓 Slide 13 – Despedida</h2>
+<div class="section-divider"></div>
+<h2 id="section-73">📝 Título:
+🌈 Parabéns, Jovem Pensador!</h2>
+<div class="section-divider"></div>
+<h2 id="section-74">📝 Conteúdo:</h2>
+<p class="text-paragraph">“Hoje descobriste o poder de pensar como um computador e criar soluções.”</p>
+<p class="text-paragraph">“Na próxima sessão, vais aprender a construir algoritmos incríveis!”</p>
+<p class="text-paragraph">“Continua curioso — é assim que a IA nasce!” 🤖</p>
+<div class="section-divider"></div>
+<h2 id="section-75">📝 Visual:</h2>
+<p class="text-paragraph">Fundo colorido com fogos de artifício ou confetes.</p>
+<p class="text-paragraph">Ícones de computador, estrela e sorriso.</p>
+<h3>🚀 🧩 FICHA DE ATIVIDADE – Sessão 1</h3>
+<div class="section-divider"></div>
+<h2 id="section-76"><span class="category-label">Prática</span>🚀 Ficha de Atividade – “Missão Computacional”</h2>
+<div class="section-divider"></div>
+<h2 id="section-77"><span class="category-label">Objetivos</span>🎯 🎯 Objetivo da Atividade</h2>
+<div class="section-divider"></div>
+<h2 id="section-78">📝 Compreender os 4 pilares do pensamento computacional (decomposição, padrões, abstração e algoritmo) e aplicá-los na criação de uma solução lógica e criativa para um desafio do quotidiano.</h2>
+<div class="section-divider"></div>
+<h2 id="section-79">📝 🧩 PARTE 1 – OS 4 PILARES DO PENSAMENTO COMPUTACIONAL</h2>
+<div class="section-divider"></div>
+<h2 id="section-80">📝 ✏️ Tarefa:
+Preenche a tabela com exemplos reais (ex.: preparar o pequeno-almoço, estudar, jogar, treinar, organizar a mochila).</h2>
+<div class="section-divider"></div>
+<h2 id="section-81">📝 👽 PARTE 2 – MISSÃO COMPUTACIONAL</h2>
+<div class="section-divider"></div>
+<h2 id="section-82">📝 “Ensina o Extraterrestre a Fazer o Pequeno-Almoço!”</h2>
+<p class="text-paragraph">🛸 Um extraterrestre acabou de chegar à Terra e nunca preparou comida.
+Ele precisa da tua ajuda para aprender a fazer um pequeno-almoço!</p>
+<div class="section-divider"></div>
+<h2 id="section-83">📝 🧠 Instruções:</h2>
+<p class="text-paragraph">Em grupo, aplica os 4 pilares para resolver o problema.</p>
+<p class="text-paragraph">Usa a grelha abaixo para organizar as ideias.</p>
+<div class="section-divider"></div>
+<h2 id="section-84">📝 No final, transforma a tua solução num algoritmo claro e divertido!</h2>
+<p class="highlight-text"><strong class="text-bold">💡 Dica:
+Imagina que o extraterrestre segue tudo à letra — sê o mais claro possível!
+Exemplo: “Pôr o pão na mesa” → primeiro tirar o pão da embalagem 🍞.</strong></p>
+<div class="section-divider"></div>
+<h2 id="section-85">📝 🔀 PARTE 3 – DIFERENCIAÇÃO POR NÍVEL DE DESAFIO</h2>
+<p class="text-paragraph">Escolhe o nível que queres tentar 🚀</p>
+<div class="section-divider"></div>
+<h2 id="section-86">📝 💬 PARTE 4 – REFLEXÃO PESSOAL</h2>
+<p class="text-paragraph">Responde individualmente:</p>
+<p class="text-paragraph">Quando já usei pensamento computacional sem perceber?
+✍️ ____________________________________________________________</p>
+<p class="text-paragraph">Que parte achei mais fácil? E mais difícil?
+✍️ ____________________________________________________________</p>
+<p class="text-paragraph">3️⃣ Completa a frase:
+🧩 Pensar como computador é.
+✍️ ____________________________________________________________</p>
+<div class="section-divider"></div>
+<h2 id="section-87">📝 🌈 PARTE 5 – MINI DESAFIO CRIATIVO (Opcional)</h2>
+<div class="section-divider"></div>
+<h2 id="section-88">📝 “Faz o Alien Pensar!”
+Desenha o extraterrestre a seguir o teu algoritmo (em papel, Canva ou PowerPoint).
+Mostra graficamente o teu raciocínio — e diverte-te a imaginar o resultado!</h2>
+<div class="section-divider"></div>
+<h2 id="section-89">📊 🧠 PARTE 6 – AUTOAVALIAÇÃO</h2>
+<div class="section-divider"></div>
+<h2 id="section-90"><span class="category-label">Objetivos</span>🎯 💡 Competências Desenvolvidas</h2>
+<p class="text-paragraph">✅ Raciocínio lógico
+✅ Criatividade
+✅ Comunicação e colaboração
+✅ Pensamento crítico
+✅ Autonomia</p>
+<div class="section-divider"></div>
+<h2 id="section-91">📝 ✨ Mensagem final</h2>
+<p class="text-paragraph">“O pensamento computacional é o superpoder que transforma problemas em soluções criativas.” 💡</p>
+<p class="text-paragraph">Continua a pensar, testar e imaginar — é assim que nascem as boas ideias! 🚀</p>
+<p class="text-paragraph">🎮 Teasing da Sessão 1 (30 min antes)</p>
+<div class="section-divider"></div>
+<h2 id="section-92">📝 “O Mistério da Máquina Pensadora”</h2>
+<div class="section-divider"></div>
+<h2 id="section-93"><span class="category-label">Objetivos</span>🎯 Duração: 30 minutos
+Modalidade: Individual (atividade digital e leve)
+Objetivo: Despertar a curiosidade sobre o pensamento computacional através de um desafio interativo de padrões e lógica simples.</h2>
+<div class="section-divider"></div>
+<h2 id="section-94">📝 🎬 1. Introdução – A Mensagem Misteriosa</h2>
+<div class="section-divider"></div>
+<h2 id="section-95">📝 “Olá, jovem explorador(a)! 👋
+Recebemos um sinal estranho vindo do espaço: uma máquina chamada MEC – Máquina Extraordinária do Cérebro começou a enviar mensagens para a Terra!
+A MEC transforma palavras em objetos, mas ninguém sabe como ela decide o que criar…
+Consegues descobrir o segredo da máquina?” 👽</h2>
+<p class="text-paragraph">🎧 (Se possível, o formador pode criar um pequeno vídeo de 30 segundos no Canva ou Genially, com voz robótica e som de fundo de ficção científica.)</p>
+<div class="section-divider"></div>
+<h2 id="section-96">📝 🔍 2. O Desafio – Descobre a Lógica da Máquina</h2>
+<p class="text-paragraph">A máquina mostra estas combinações 👇</p>
+<div class="section-divider"></div>
+<h2 id="section-97">📝 Tua missão:</h2>
+<p class="text-paragraph">Observa bem as ligações entre as palavras.</p>
+<div class="section-divider"></div>
+<h2 id="section-98">📝 Descobre qual é o padrão ou regra usada pela máquina.</h2>
+<p class="text-paragraph">Escreve a tua hipótese:</p>
+<p class="text-paragraph">“A máquina escolhe a resposta porque…”</p>
+<p class="text-paragraph">🕵️‍♀️ Dica: Pensa como um computador — o que se repete? Que relação há entre causa e consequência?</p>
+<div class="section-divider"></div>
+<h2 id="section-99">📝 💡 3. Testa as tuas ideias</h2>
+<p class="text-paragraph">Agora a máquina quer a tua ajuda para prever as próximas respostas 👇</p>
+<p class="text-paragraph">O que achas que a MEC criaria se eu escrevesse:
+🧩 Escola → _______
+🧩 Cansaço → _______
+🧩 Música → _______</p>
+<div class="section-divider"></div>
+<h2 id="section-100">📝 ✏️ Escreve as tuas respostas num mural digital (Padlet, Jamboard ou formulário Forms).
+Partilha também como pensaste para chegar à conclusão.</h2>
+<div class="section-divider"></div>
+<h2 id="section-101">📝 🧠 4. Diferenciação – Escolhe o teu nível de desafio</h2>
+<p class="text-paragraph">💬 Podes escrever, desenhar ou gravar um pequeno áudio (usando Vocaroo, Canva, ou o telemóvel).</p>
+<div class="section-divider"></div>
+<h2 id="section-102">📝 🎯 5. Reflexão Rápida</h2>
+<p class="text-paragraph">No final, responde a 3 perguntas simples:
+1. O que te ajudou a descobrir o padrão?
+2. Foste mais criativo(a) ou mais lógico(a)?
+3. Como achas que isto se liga à forma como pensam os computadores?</p>
+<p class="text-paragraph">📤 Publica as respostas no mural da turma com o título:</p>
+<p class="text-paragraph">“O meu cérebro decifrou o Mistério da Máquina!”</p>
+<div class="section-divider"></div>
+<h2 id="section-103">📝 🎨 6. Missão Extra (opcional – 5 min)</h2>
+<p class="text-paragraph">Cria o teu próprio mini-desafio:</p>
+<div class="section-divider"></div>
+<h2 id="section-104">📝 Escolhe 3 novas palavras de entrada e 3 saídas misteriosas.</h2>
+<p class="text-paragraph">Dá um nome à tua máquina (ex.: “Pensabot 3000”, “LógicaX”, “IAmaluca”).</p>
+<p class="text-paragraph">Partilha no mural e vê se os colegas conseguem descobrir a tua lógica!</p>
+<div class="section-divider"></div>
+<h2 id="section-105">📝 🧩 7. Conclusão</h2>
+<div class="section-divider"></div>
+<h2 id="section-106">📝 “Parabéns, jovem decifrador(a)! 🎉
+Acabaste de usar o teu cérebro de forma computacional:
+observaste, procuraste padrões, testaste hipóteses e organizaste ideias.</h2>
+<p class="text-paragraph">Na próxima sessão, vais descobrir o nome disto tudo… e aprender a pensar como um programador!”</p>
+<div class="section-divider"></div>
+<h2 id="section-107">📦 🧰 Recursos Sugeridos</h2>
+<div class="section-divider"></div>
+<h2 id="section-108">📝 Genially / Canva: criar a simulação da máquina.</h2>
+<div class="section-divider"></div>
+<h2 id="section-109">📝 Padlet / Jamboard: recolher hipóteses e respostas.</h2>
+<div class="section-divider"></div>
+<h2 id="section-110">📝 Google Forms / Microsoft Forms: para a reflexão final.</h2>
+<div class="section-divider"></div>
+<h2 id="section-111">📝 Tempo total estimado:</h2>
+<div class="section-divider"></div>
+<h2 id="section-112"><span class="category-label">Objetivos</span>🎯 🎓 Competências desenvolvidas</h2>
+<p class="text-paragraph">✅ Observação e raciocínio lógico
+✅ Criatividade e curiosidade científica
+✅ Comunicação escrita ou visual
+✅ Pensamento crítico e inferência de padrões</p>
+<h3>🚀 🌍 Atividade Assíncrona – Sessão 1</h3>
+<div class="section-divider"></div>
+<h2 id="section-113">📝 “O Algoritmo do Meu Dia”</h2>
+<div class="section-divider"></div>
+<h2 id="section-114"><span class="category-label">Objetivos</span>🎯 🎯 Objetivo da atividade</h2>
+<div class="section-divider"></div>
+<h2 id="section-115">📝 Aplicar os 4 pilares do pensamento computacional (decomposição, padrões, abstração e algoritmo) a uma situação real do quotidiano, transformando-a num processo lógico e estruturado.</h2>
+<div class="section-divider"></div>
+<h2 id="section-116">📝 🧩 1. Introdução – A tua missão</h2>
+<div class="section-divider"></div>
+<h2 id="section-117">📝 “Hoje vais transformar o teu dia num algoritmo!
+Isso mesmo — vais pensar como um computador, mas continuar a ser 100% humano(a). 😄
+Vais descobrir como a tua rotina pode ser descrita em passos lógicos, tal como um programa!”</h2>
+<div class="section-divider"></div>
+<h2 id="section-118">📝 ⏰ 2️⃣ Duração total: 90 minutos</h2>
+<div class="section-divider"></div>
+<h2 id="section-119">📝 🧱 3. Passo 1 – Escolhe uma rotina real</h2>
+<div class="section-divider"></div>
+<h2 id="section-120">📝 Escolhe uma parte do teu dia — algo que faças quase sempre da mesma forma.
+Exemplos:</h2>
+<p class="text-paragraph">“Preparar-me para a escola.”</p>
+<p class="text-paragraph">“Estudar para um teste.”</p>
+<p class="text-paragraph">“Treinar futebol / dança / música.”</p>
+<p class="text-paragraph">“Preparar o meu lanche.”</p>
+<p class="text-paragraph">“Organizar o quarto.”</p>
+<p class="highlight-text"><strong class="text-bold">💡 Dica: Quanto mais simples a rotina, mais fácil será perceber o teu raciocínio.</strong></p>
+<div class="section-divider"></div>
+<h2 id="section-121">📝 💡 4️⃣ Passo 2 – Aplica os 4 pilares</h2>
+<div class="section-divider"></div>
+<h2 id="section-122">📝 📜 5. Passo 3 – Cria o teu algoritmo</h2>
+<div class="section-divider"></div>
+<h2 id="section-123">📝 Apresenta o teu “Algoritmo do Meu Dia” de uma das três formas 👇</h2>
+<div class="section-divider"></div>
+<h2 id="section-124">📝 📍 Exemplo (pseudocódigo simples):</h2>
+<p class="text-paragraph">Início</p>
+<p class="text-paragraph">Acordar</p>
+<p class="text-paragraph">Se estiver com sono → lavar a cara</p>
+<p class="text-paragraph">Vestir</p>
+<p class="text-paragraph">Tomar pequeno-almoço</p>
+<p class="text-paragraph">Ir para a escola</p>
+<p class="text-paragraph">Fim</p>
+<div class="section-divider"></div>
+<h2 id="section-125">📝 🔀 6. Diferenciação por nível</h2>
+<p class="text-paragraph">Escolhe o teu nível de desafio:</p>
+<div class="section-divider"></div>
+<h2 id="section-126">📝 💬 7. Passo 4 – Partilha e feedback</h2>
+<div class="section-divider"></div>
+<h2 id="section-127">📝 Publica o teu trabalho no mural digital da turma (Padlet, Jamboard, Teams ou Moodle).
+Lê o trabalho de dois colegas e comenta:</h2>
+<p class="highlight-text"><strong class="text-bold">💡 “O que mais gostei foi…”</strong></p>
+<div class="section-divider"></div>
+<h2 id="section-128">📊 🔍 “Poderias melhorar isto se…”
+Responde ao formulário de autoavaliação.</h2>
+<div class="section-divider"></div>
+<h2 id="section-129">📊 🧠 8️⃣ Autoavaliação</h2>
+<div class="section-divider"></div>
+<h2 id="section-130">📝 💭 9.Reflexão Final</h2>
+<p class="text-paragraph">Que parte do meu algoritmo foi mais fácil de criar?
+✍️ ____________________________________________________________</p>
+<p class="text-paragraph">2️⃣ O que aprendi sobre a forma como penso?
+✍️ ____________________________________________________________</p>
+<p class="text-paragraph">Como posso usar este tipo de raciocínio noutras áreas (escola, desporto, jogos…)?
+✍️ ____________________________________________________________</p>
+<div class="section-divider"></div>
+<h2 id="section-131">📊 🧩 🔟 Critérios de Avaliação (10 pontos)</h2>
+<div class="section-divider"></div>
+<h2 id="section-132">📝 🌈 Mensagem final</h2>
+<div class="section-divider"></div>
+<h2 id="section-133">📝 “Programar é ensinar a máquina a pensar.
+O pensamento computacional é ensinar o teu cérebro a resolver melhor os problemas! 💡</h2>
+<p class="text-paragraph">Cada rotina que dominas é um algoritmo que já criaste — agora sabes explicá-lo.”</p>
+<div class="section-divider"></div>
+<h2 id="section-134">📝 🧰 Sugestões técnicas para o formador</h2>
+<p class="text-paragraph">Padlet ou Jamboard → mural de partilhas.</p>
+<p class="text-paragraph">Canva / PowerPoint → fluxogramas.</p>
+<p class="text-paragraph">Scratch → representação animada.</p>
+<p class="text-paragraph">Feedback com emojis e frases curtas para manter o ambiente leve.</p>
+<h3>📦 🌟 Recursos adicionais para a Sessão 1</h3>
+<div class="section-divider"></div>
+<h2 id="section-135">📝 Módulo 2 – Pensamento Computacional Criativo</h2>
+<div class="section-divider"></div>
+<h2 id="section-136">📝 Tema: “O que é o Pensamento Computacional?”</h2>
+<div class="section-divider"></div>
+<h2 id="section-137">📝 🎮 1. Jogo Digital de Abertura – “Sou como um Computador?”</h2>
+<div class="section-divider"></div>
+<h2 id="section-138"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Quebrar o gelo e introduzir o tema de forma divertida e inclusiva.</h2>
+<div class="section-divider"></div>
+<h2 id="section-139">📝 Plataforma sugerida: Mentimeter, Kahoot! ou Quizizz</h2>
+<div class="section-divider"></div>
+<h2 id="section-140">📝 Duração: 5–10 minutos</h2>
+<div class="section-divider"></div>
+<h2 id="section-141">📝 Exemplo de perguntas:
+1. O que temos em comum com um computador?</h2>
+<p class="text-paragraph">A. Gostamos de lógica</p>
+<p class="text-paragraph">B. Precisamos de energia</p>
+<p class="text-paragraph">C. Fazemos reboot depois de dormir</p>
+<p class="text-paragraph">D. Todas as anteriores ✅</p>
+<p class="text-paragraph">2️⃣ Qual destas tarefas usa pensamento computacional?</p>
+<p class="text-paragraph">Organizar o horário da escola ✅</p>
+<p class="text-paragraph">Dançar ao acaso</p>
+<p class="text-paragraph">Tirar uma selfie</p>
+<p class="text-paragraph">Jogar pedra-papel-tesoura</p>
+<ol class='list-disc' class="space-y-3">
+<li>. Que nome darias ao teu “computador interior”? 💻
+(resposta aberta, para gerar humor e ligação emocional)</li>
+</ol>
+<p class="highlight-text"><strong class="text-bold">💡 Dica:
+Mostra o placar de forma descontraída — valoriza a participação, não a pontuação.</strong></p>
+<div class="section-divider"></div>
+<h2 id="section-142">📝 🧱 2. Cartões dos 4 Pilares</h2>
+<div class="section-divider"></div>
+<h2 id="section-143"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Ajudar os alunos a memorizar e aplicar os pilares durante o jogo “Missão Computacional”.</h2>
+<div class="section-divider"></div>
+<h2 id="section-144">📝 Formato:
+Cria 4 cartões coloridos (podem ser slides, imagens no Jamboard ou impressões).</h2>
+<div class="section-divider"></div>
+<h2 id="section-145">📝 💡 Versão avançada (para diferenciação):
+Cria cartões com desafios adicionais:</h2>
+<p class="text-paragraph">“Dá outro exemplo do teu dia-a-dia.”</p>
+<p class="text-paragraph">“Cria um mini-algoritmo com este pilar.”</p>
+<div class="section-divider"></div>
+<h2 id="section-146"><span class="category-label">Prática</span>🚀 🧩 3. Grelha de Apoio para a Atividade em Grupo – “Missão Computacional”</h2>
+<div class="section-divider"></div>
+<h2 id="section-147"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Ajudar os grupos a estruturar o raciocínio com base nos 4 pilares.
+Formato: editável (Word, PowerPoint colaborativo, Jamboard, Canva).</h2>
+<div class="section-divider"></div>
+<h2 id="section-148"><span class="category-label">Prática</span>🚀 💬 Dica para o formador:
+Entrega o ficheiro digital no início da atividade e circula virtualmente entre os grupos (breakout rooms), fazendo perguntas de apoio.</h2>
+<div class="section-divider"></div>
+<h2 id="section-149">📝 🧠 4. Slide Interativo – “Pensar como Computador é.”</h2>
+<div class="section-divider"></div>
+<h2 id="section-150"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Promover a reflexão final coletiva.
+Plataforma: Padlet, Miro, Jamboard.</h2>
+<div class="section-divider"></div>
+<h2 id="section-151">📝 Instruções:
+1. Título do mural: “Pensar como Computador é…”
+2. Pede aos alunos para escreverem uma frase curta, emoji ou desenho que represente o que aprenderam.
+3. Exemplo de respostas:</h2>
+<p class="text-paragraph">“Pensar passo a passo.”</p>
+<p class="text-paragraph">“Transformar problemas em soluções.”</p>
+<p class="text-paragraph">“Fazer o cérebro dançar com lógica!”
+4. Lê em voz alta algumas respostas no final e agradece as contribuições.</p>
+<div class="section-divider"></div>
+<h2 id="section-152">📝 🎯 Dica de diferenciação:</h2>
+<p class="text-paragraph">Jovens mais novos → usar emojis e desenhos.</p>
+<p class="text-paragraph">Jovens mais velhos → escrever frases completas ou analogias.</p>
+<div class="section-divider"></div>
+<h2 id="section-153">📝 🧩 5. Mini-Guia Visual – “Os 4 Pilares em Ação”</h2>
+<div class="section-divider"></div>
+<h2 id="section-154"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Servir como referência rápida para os formandos.</h2>
+<div class="section-divider"></div>
+<h2 id="section-155">📝 Conteúdo:
+Decomposição → “Divido para entender melhor.”
+Padrões → “Procuro o que é igual.”
+Abstração → “Foco-me no essencial.”
+Algoritmo → “Crio o caminho passo a passo.”</h2>
+<div class="section-divider"></div>
+<h2 id="section-156">📝 🧩 Aplicação:</h2>
+<p class="text-paragraph">Entrega no início da sessão ou partilha digitalmente.</p>
+<p class="text-paragraph">Usa-o também na sessão seguinte para ligação entre temas.</p>
+<div class="section-divider"></div>
+<h2 id="section-157">📝 📺 6. Vídeo de Apoio – “O que é Pensamento Computacional?”</h2>
+<div class="section-divider"></div>
+<h2 id="section-158"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Reforçar visualmente o conceito de pensamento computacional.
+Sugestão:
+🎬 TED-Ed: “O que é o pensamento computacional?” – por Janelle Shane
+🕒 Duração: ~4 min
+📎 Link: https://ed.ted.com/lessons/what-is-computational-thinking-janelle-shane</h2>
+<div class="section-divider"></div>
+<h2 id="section-159">📝 🧭 Dica pedagógica:
+Pausar o vídeo em três momentos e questionar:</h2>
+<p class="text-paragraph">“Onde viste decomposição?”</p>
+<p class="text-paragraph">“Que padrões aparecem?”</p>
+<p class="text-paragraph">“Qual seria o algoritmo do vídeo?”</p>
+<div class="section-divider"></div>
+<h2 id="section-160">📝 🎯 7. Quadro de Feedback Rápido</h2>
+<div class="section-divider"></div>
+<h2 id="section-161"><span class="category-label">Objetivos</span>🎯 Objetivo:
+Promover avaliação formativa e autorreflexão.</h2>
+<div class="section-divider"></div>
+<h2 id="section-162">📝 Plataforma: Google Forms / Microsoft Forms / Mentimeter</h2>
+<div class="section-divider"></div>
+<h2 id="section-163"><span class="category-label">Prática</span>🚀 Perguntas:
+1. O que aprendi hoje sobre o meu modo de pensar?
+2. Onde usei mais lógica ou criatividade?
+3. O que foi mais divertido nesta sessão?
+4. Que pilar quero praticar mais?</h2>
+<div class="section-divider"></div>
+<h2 id="section-164">📝 💬 Duração: 5 minutos finais.
+💡 O formador pode partilhar um resumo das respostas no início da sessão seguinte.</h2>
+<div class="section-divider"></div>
+<h2 id="section-165">📦 🧩 8. Recursos para Diferenciação (para o formador)</h2>
+<div class="section-divider"></div>
+<h2 id="section-166">📝 🎨 9. Cartaz Inspiracional para Encerramento</h2>
+<div class="section-divider"></div>
+<h2 id="section-167">📝 Título:
+💬 “Pensar como Computador é Usar Lógica com Imaginação.”</h2>
+<div class="section-divider"></div>
+<h2 id="section-168">📝 Conteúdo:</h2>
+<p class="text-paragraph">“O pensamento computacional não é só código — é criatividade organizada.”</p>
+<p class="text-paragraph">“Programar é desenhar soluções!”</p>
+<div class="section-divider"></div>
+<h2 id="section-169">📝 Visual sugerido:</h2>
+<p class="text-paragraph">Fundo escuro com circuitos e neurónios luminosos.</p>
+<p class="text-paragraph">Ícones coloridos dos 4 pilares.</p>
+<p class="text-paragraph">Frase central grande e inspiradora.</p>
+<div class="section-divider"></div>
+<h2 id="section-170">📝 💡 Este cartaz pode ser o slide final ou um cartaz digital para o mural da turma.</h2>
+<h3>📝 🧰 10 Checklist do Formador – Sessão 1</h3>
+<div class="section-divider"></div>
+<h2 id="section-171"><span class="category-label">Objetivos</span>🎯 🧠 11. Competências desenvolvidas com os recursos</h2>
+<p class="text-paragraph">✅ Raciocínio lógico e resolução de problemas
+✅ Comunicação e colaboração digital
+✅ Criatividade e visualização de processos
+✅ Pensamento crítico e reflexão sobre a própria aprendizagem</p>
+<div class="section-divider"></div>
+<h2 id="section-172">📝 🌈 12. Sugestão de integração transversal</h2>
+<div class="section-divider"></div>
+<h2 id="section-173">📦 ➡️ Estes recursos podem ser reutilizados no início de outros módulos (ex.: Programação com Scratch, IA Criativa, ou Projetos Finais).
+➡️ Podem também servir para reforçar a literacia digital e o raciocínio lógico em contextos escolares ou clubes de inovação.</h2> </div> <!-- Download --> <div class="mt-8 glass-premium rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 hover-lift"> <div> <h3 class="text-white font-bold mb-1">Documento Original</h3> <p class="text-slate-400 text-sm">Faça download do ficheiro Word completo</p> </div> <a href="./modulo2/Sessão 1.docx" download class="px-6 py-3 rounded-full bg-gradient-to-r from-white/10 to-white/5 hover:from-white/20 hover:to-white/10 border border-white/20 hover:border-white/30 transition-all flex items-center gap-2 text-white font-medium shadow-lg hover:scale-105"> <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/> </svg> Download Word </a> </div> </main> </div> <!-- Footer --> <footer class="mt-20 border-t border-white/10 py-8 bg-black/30"> <div class="max-w-7xl mx-auto px-6 text-center text-slate-400 text-sm"> <p class="text-paragraph">act.academy | Geração Futuro © 2026</p> </div> </footer> <!-- Scripts --> <script> // Scroll Progress // Scroll Progress const updateProgress = () => { const winScroll = document.documentElement.scrollTop; const height = document.documentElement.scrollHeight - document.documentElement.clientHeight; const scrolled = (winScroll / height) * 100; document.getElementById('scrollProgress').style.width = scrolled + '%'; const readProg = document.getElementById('readProgress'); const progText = document.getElementById('progressText'); if (readProg) { readProg.style.width = scrolled.toFixed(0) + '%'; } if (progText) { progText.textContent = scrolled.toFixed(0) + '% lido'; } }; window.addEventListener('scroll', updateProgress); // Active Section Highlight const sections = document.querySelectorAll('.content-section h2'); const navLinks = document.querySelectorAll('.sidebar-link'); window.addEventListener('scroll', () => { let current = ''; sections.forEach(section => { const sectionTop = section.offsetTop; if (window.pageYOffset >= sectionTop - 100) { current = section.getAttribute('id'); } }); navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === '#' + current) { link.classList.add('active'); } }); }); </script>
+</body>
+</html>

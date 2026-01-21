@@ -1,0 +1,81 @@
+{
+    "id": 104,
+    "title": "Geração Futuro | Hub de Aprendizagem IA",
+    "category": "Websites",
+    "contentType": "website",
+    "embedUrl": "https://act.unicenter.io/apresentacoesGF/",
+    "description": {
+        "en": "Interactive learning hub for AI education. A comprehensive platform featuring 5 modules with 30+ sessions covering AI fundamentals, computational thinking, Scratch programming, robotics, and creative AI. Built with glassmorphism design, progress tracking, and cinematic UX for an immersive educational experience.",
+        "pt": "Hub de aprendizagem interativo para educação em IA. Plataforma abrangente com 5 módulos e 30+ sessões cobrindo fundamentos de IA, pensamento computacional, programação Scratch, robótica e IA criativa. Construído com design glassmorphism, rastreamento de progresso e UX cinemática para uma experiência educacional imersiva."
+    },
+    "imageUrl": "capa.png",
+    "year": "2024",
+    "tags": [
+        "E-Learning",
+        "Web Design",
+        "UI/UX",
+        "Educational Platform",
+        "Interactive",
+        "AI Education"
+    ],
+    "caseStudy": {
+        "challenge": {
+            "en": "Traditional AI education platforms are often dry, text-heavy, and fail to engage young learners. The challenge was to create an immersive, visually stunning learning hub that makes complex AI concepts accessible and exciting for students while providing comprehensive resources for educators.",
+            "pt": "Plataformas tradicionais de educação em IA são frequentemente áridas, cheias de texto e falham em engajar jovens aprendizes. O desafio era criar um hub de aprendizagem imersivo e visualmente impressionante que torna conceitos complexos de IA acessíveis e empolgantes para estudantes, enquanto fornece recursos abrangentes para educadores."
+        },
+        "solution": {
+            "en": "Designed and developed a premium learning hub with glassmorphism aesthetics, cinematic animations, and intuitive navigation. Implemented a modular structure with 5 comprehensive modules, progress tracking, downloadable educator guides, and seamless presentation integration. The platform uses modern web technologies to create an engaging, game-like learning experience.",
+            "pt": "Desenhei e desenvolvi um hub de aprendizagem premium com estética glassmorphism, animações cinemáticas e navegação intuitiva. Implementei uma estrutura modular com 5 módulos abrangentes, rastreamento de progresso, guias para educadores para download e integração perfeita de apresentações. A plataforma usa tecnologias web modernas para criar uma experiência de aprendizado envolvente, semelhante a um jogo."
+        },
+        "process": [
+            {
+                "phase": "Research & Information Architecture",
+                "description": {
+                    "en": "Analyzed 30+ educational sessions across 5 modules, mapped content hierarchy, and designed information architecture. Created user flows for both students and educators, ensuring easy access to presentations and downloadable resources.",
+                    "pt": "Analisei 30+ sessões educacionais em 5 módulos, mapeei hierarquia de conteúdo e desenhei arquitetura de informação. Criei fluxos de usuário para estudantes e educadores, garantindo fácil acesso a apresentações e recursos para download."
+                }
+            },
+            {
+                "phase": "Visual Design & Branding",
+                "description": {
+                    "en": "Developed a futuristic, tech-forward visual identity using glassmorphism, gradient accents, and cinematic backgrounds. Created a color-coded module system (purple, cyan, pink, amber, emerald) for easy navigation. Designed custom card components with hover effects and progress indicators.",
+                    "pt": "Desenvolvi uma identidade visual futurista e tecnológica usando glassmorphism, acentos gradientes e fundos cinemáticos. Criei um sistema de módulos codificado por cores (roxo, ciano, rosa, âmbar, esmeralda) para navegação fácil. Desenhei componentes de card personalizados com efeitos hover e indicadores de progresso."
+                }
+            },
+            {
+                "phase": "Development & Interaction Design",
+                "description": {
+                    "en": "Built with vanilla JavaScript for performance, implemented LocalStorage-based progress tracking, created smooth page transitions and modal viewers. Developed horizontal scrolling carousels with fade masks, keyboard navigation, and fullscreen presentation mode.",
+                    "pt": "Construí com JavaScript vanilla para performance, implementei rastreamento de progresso baseado em LocalStorage, criei transições de página suaves e visualizadores modais. Desenvolvi carrosséis de rolagem horizontal com máscaras de fade, navegação por teclado e modo de apresentação em tela cheia."
+                }
+            },
+            {
+                "phase": "Content Integration & Testing",
+                "description": {
+                    "en": "Integrated all 30+ presentations, created downloadable Word guides for educators, implemented search functionality, and tested across devices. Added help modal with onboarding instructions and optimized loading performance.",
+                    "pt": "Integrei todas as 30+ apresentações, criei guias Word para download para educadores, implementei funcionalidade de busca e testei em dispositivos. Adicionei modal de ajuda com instruções de onboarding e otimizei performance de carregamento."
+                }
+            }
+        ],
+        "tools": [
+            "HTML5 + CSS3",
+            "Vanilla JavaScript",
+            "Tailwind CSS",
+            "Figma (UI Design)",
+            "Python (Content Processing)",
+            "Microsoft Word (Educator Guides)"
+        ],
+        "results": {
+            "en": "Created a visually stunning, highly functional learning platform that transforms AI education into an engaging experience. The hub features 5 modules, 30+ interactive sessions, progress tracking, and comprehensive educator resources. The modern design and smooth UX significantly improved student engagement and made complex AI concepts accessible.",
+            "pt": "Criei uma plataforma de aprendizagem visualmente impressionante e altamente funcional que transforma educação em IA em uma experiência envolvente. O hub apresenta 5 módulos, 30+ sessões interativas, rastreamento de progresso e recursos abrangentes para educadores. O design moderno e UX suave melhoraram significativamente o engajamento dos estudantes e tornaram conceitos complexos de IA acessíveis."
+        },
+        "impact": [
+            "5 comprehensive AI modules",
+            "30+ interactive learning sessions",
+            "Progress tracking system",
+            "Glassmorphism premium design",
+            "Educator resource downloads",
+            "Fullscreen presentation mode"
+        ]
+    }
+}

@@ -6,10 +6,12 @@ import AlchemistProfileCard from './AlchemistProfileCard';
 import Grimoire from './Grimoire';
 import { Download, Cpu, GraduationCap, Award, Users, Briefcase, Code } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useToast } from '../contexts/ToastContext';
 import { useScrollReveal, revealVariants, staggerContainer, staggerItem } from '../utils/useScrollReveal';
 
 const AboutPage: React.FC = () => {
    const { t, language } = useLanguage();
+   const { showToast } = useToast();
    const photoRef = useRef<HTMLDivElement>(null);
    const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
    const [isPhotoHovering, setIsPhotoHovering] = useState(false);
@@ -78,17 +80,21 @@ const AboutPage: React.FC = () => {
 
    const handleDownloadCV = (e: React.MouseEvent) => {
       e.preventDefault();
-      // In a real implementation, we would duplicate the logic from About.tsx
-      // For brevity, let's assume it generates a simple file
-      const blob = new Blob(["Full CV Download Placeholder"], { type: 'text/plain;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
+      // Download language-specific resume
+      const resumeFile = language === 'en' ? '/Victor_Duarte_CV_EN.pdf' : '/Victor_Duarte_CV_PT.pdf';
+      const fileName = language === 'en' ? 'Victor_Duarte_CV_EN.pdf' : 'Victor_Duarte_CV_PT.pdf';
+
       const link = document.createElement('a');
-      link.href = url;
-      link.download = t.about.cv_filename;
+      link.href = resumeFile;
+      link.download = fileName;
+      link.target = '_blank';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      URL.revokeObjectURL(url);
+
+      // Show success toast
+      const message = language === 'en' ? 'CV downloaded successfully!' : 'CV baixado com sucesso!';
+      showToast(message, 'success');
    };
 
    return (
@@ -137,14 +143,38 @@ const AboutPage: React.FC = () => {
                   transition={{ duration: 0.8, delay: 0.2 }}
                >
                   <h3 className="text-3xl font-serif text-white italic mb-6">{t.about_page.quote}</h3>
-                  <p className="text-gray-300 font-light leading-relaxed">
-                     {t.about_page.bio_p1}
+                  <p className="text-gray-300 font-light leading-relaxed mb-6">
+                     {language === 'en' ? (
+                        <>
+                           I am <span className="text-white font-medium">Victor Duarte</span>, an EdTech Branding Manager and Senior Designer with an insatiable passion for innovation. With over <span className="text-brand-accent font-medium">10 years of experience</span>, I have navigated through large corporations like Atento and Kainos, creating solutions for global brands such as <span className="text-brand-accent font-medium">Facebook, Vivo, and Carrefour</span>.
+                        </>
+                     ) : (
+                        <>
+                           Sou <span className="text-white font-medium">Victor Duarte</span>, EdTech Branding Manager e Designer Sênior com uma paixão insaciável por inovação. Com mais de <span className="text-brand-accent font-medium">10 anos de experiência</span>, naveguei por grandes corporações como Atento e Kainos, criando soluções para marcas globais como <span className="text-brand-accent font-medium">Facebook, Vivo e Carrefour</span>.
+                        </>
+                     )}
+                  </p>
+                  <p className="text-gray-300 font-light leading-relaxed mb-6">
+                     {language === 'en' ? (
+                        <>
+                           My specialty lies in the convergence of <span className="text-white font-medium">Visual Design, Corporate Education, and Technology</span>. I don't just create beautiful interfaces—I build learning ecosystems and brand identities that tell compelling stories.
+                        </>
+                     ) : (
+                        <>
+                           Minha especialidade reside na convergência entre <span className="text-white font-medium">Design Visual, Educação Corporativa e Tecnologia</span>. Não apenas crio interfaces bonitas—construo ecossistemas de aprendizado e identidades de marca que contam histórias envolventes.
+                        </>
+                     )}
                   </p>
                   <p className="text-gray-300 font-light leading-relaxed">
-                     {t.about_page.bio_p2}
-                  </p>
-                  <p className="text-gray-300 font-light leading-relaxed">
-                     {t.about_page.bio_p3}
+                     {language === 'en' ? (
+                        <>
+                           Recently, I have immersed myself in the world of <span className="text-brand-accent font-medium">Generative Artificial Intelligence</span>. I believe AI is the modern philosopher's stone, enabling us to scale creativity and personalize experiences in ways previously unimaginable.
+                        </>
+                     ) : (
+                        <>
+                           Recentemente, mergulhei profundamente no mundo da <span className="text-brand-accent font-medium">Inteligência Artificial Generativa</span>. Acredito que a IA é a pedra filosofal moderna, permitindo-nos escalar a criatividade e personalizar experiências de maneiras antes inimagináveis.
+                        </>
+                     )}
                   </p>
 
                   <div className="pt-8 mt-8 border-t border-white/10 flex flex-wrap gap-4">

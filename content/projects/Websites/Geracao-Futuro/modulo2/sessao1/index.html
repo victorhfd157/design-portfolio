@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sessão 1: Pensamento Computacional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --mouse-x: 0;
+        --mouse-y: 0;
+      }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #05020a; /* Ultra dark purple/black */
+        color: #ffffff;
+        overflow: hidden; /* Disable scrolling for presentation mode */
+        cursor: none; /* Hide default cursor */
+      }
+      
+      /* --- KEYBOARD ACCESSIBILITY STYLES --- */
+      :focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5), 0 0 15px rgba(34, 211, 238, 0.8), 0 0 30px rgba(168, 85, 247, 0.6);
+        border-radius: 4px;
+        transition: box-shadow 0.2s ease;
+      }
+
+      :focus:not(:focus-visible) {
+        outline: none;
+        box-shadow: none;
+      }
+      
+      /* Typography Utilities */
+      .font-display {
+        font-family: 'Space Grotesk', sans-serif;
+      }
+      .font-tech {
+        font-family: 'Rajdhani', sans-serif;
+      }
+      
+      /* Film Grain / Noise Texture */
+      .bg-noise {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 50;
+        opacity: 0.04;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      }
+
+      /* Moving Starfield with Parallax */
+      .bg-stars {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 110%;
+        height: 110%;
+        pointer-events: none;
+        z-index: -1;
+        background-image: 
+          radial-gradient(1.5px 1.5px at 50px 100px, rgba(255,255,255,0.5) 50%, transparent 100%),
+          radial-gradient(1px 1px at 150px 250px, rgba(255,255,255,0.4) 50%, transparent 100%),
+          radial-gradient(2px 2px at 300px 50px, rgba(255,255,255,0.6) 50%, transparent 100%),
+          radial-gradient(1.5px 1.5px at 450px 300px, rgba(255,255,255,0.5) 50%, transparent 100%),
+          radial-gradient(1px 1px at 600px 150px, rgba(255,255,255,0.4) 50%, transparent 100%),
+          radial-gradient(2px 2px at 800px 400px, rgba(255,255,255,0.3) 50%, transparent 100%);
+        background-size: 800px 800px;
+        opacity: 0.6;
+        animation: starsMove 120s linear infinite;
+        transform: translate(calc(var(--mouse-x) * -20px), calc(var(--mouse-y) * -20px));
+        transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      
+      @keyframes starsMove {
+        from { background-position: 0 0; }
+        to { background-position: 0 800px; }
+      }
+
+      /* Cinematic Vignette */
+      .vignette {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at center, transparent 40%, rgba(5, 2, 10, 0.8) 100%);
+        pointer-events: none;
+        z-index: 40;
+      }
+
+      /* --- CINEMATIC TRANSITIONS --- */
+      .cinematic-enter {
+        animation: cinematicIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        opacity: 0; /* Ensures elements don't flash before animating */
+      }
+      
+      @keyframes cinematicIn {
+        0% { 
+          opacity: 0; 
+          transform: scale(0.96) translateY(20px); 
+          filter: blur(8px); 
+        }
+        100% { 
+          opacity: 1; 
+          transform: scale(1) translateY(0); 
+          filter: blur(0); 
+        }
+      }
+
+      /* Stagger Delays */
+      .delay-100 { animation-delay: 100ms; }
+      .delay-200 { animation-delay: 200ms; }
+      .delay-300 { animation-delay: 300ms; }
+      .delay-500 { animation-delay: 500ms; }
+      .delay-700 { animation-delay: 700ms; }
+
+      /* Neon Text & Glows */
+      .neon-text {
+        text-shadow: 
+          0 0 10px rgba(255, 255, 255, 0.1),
+          0 0 30px rgba(192, 132, 252, 0.3),
+          0 0 60px rgba(147, 51, 234, 0.3);
+      }
+      
+      .neon-text-glow {
+        text-shadow: 
+          0 0 5px rgba(255,255,255,0.8),
+          0 0 15px rgba(34, 211, 238, 0.6),
+          0 0 30px rgba(168, 85, 247, 0.6);
+      }
+      
+      /* Outline Text Effect */
+      .text-outline {
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+        color: transparent;
+      }
+
+      /* Animated Text Gradient */
+      .animate-text-shimmer {
+        background-size: 200% auto;
+        animation: textShimmer 4s linear infinite;
+      }
+      
+      @keyframes textShimmer {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+
+      /* Floating Animation */
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+      .animate-float-delayed {
+        animation: float 7s ease-in-out infinite;
+        animation-delay: 2s;
+      }
+
+      @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+        100% { transform: translateY(0px); }
+      }
+
+      /* Pulse Slow */
+      .animate-pulse-slow {
+        animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+
+      /* Blob Animation */
+      .animate-blob {
+        animation: blob 20s infinite;
+        transition: transform 0.5s ease-out;
+      }
+      .animate-blob-slow {
+        animation: blob 25s infinite;
+        animation-direction: reverse;
+        transition: transform 0.5s ease-out;
+      }
+
+      @keyframes blob {
+        0% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+        33% { transform: translate(30px, -50px) scale(1.1) rotate(120deg); }
+        66% { transform: translate(-20px, 20px) scale(0.9) rotate(240deg); }
+        100% { transform: translate(0px, 0px) scale(1) rotate(360deg); }
+      }
+      
+      /* Enhanced Glass Panel */
+      .glass-panel {
+        background: rgba(15, 23, 42, 0.4);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 
+          0 8px 32px 0 rgba(0, 0, 0, 0.37),
+          inset 0 0 30px rgba(255, 255, 255, 0.03);
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+      
+      /* 3D Flip Card Styles */
+      .perspective-1000 {
+        perspective: 1000px;
+      }
+      .preserve-3d {
+        transform-style: preserve-3d;
+      }
+      .backface-hidden {
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+      }
+      .rotate-y-180 {
+        transform: rotateY(180deg);
+      }
+
+      /* Cyber Grid Animation */
+      .cyber-grid-container {
+        position: absolute;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        perspective: 500px;
+        z-index: -1;
+      }
+      .cyber-grid {
+        position: absolute;
+        top: 0;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background-image: 
+          linear-gradient(rgba(139, 92, 246, 0.15) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(139, 92, 246, 0.15) 1px, transparent 1px);
+        background-size: 60px 60px;
+        transform: rotateX(80deg) translateX(calc(var(--mouse-x) * 40px));
+        animation: grid-move 20s linear infinite;
+        mask-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
+        transition: transform 0.1s linear;
+      }
+
+      @keyframes grid-move {
+        0% { background-position: 0px 0px; }
+        100% { background-position: 0px 60px; }
+      }
+
+      /* New Background Patterns */
+      .bg-grid-pattern {
+        background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 30px 30px;
+      }
+      
+      /* Matrix Rain Animation */
+      @keyframes matrix-fall {
+        0% { transform: translateY(-100%); opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { transform: translateY(100vh); opacity: 0; }
+      }
+      
+      .matrix-column {
+        position: absolute;
+        top: 0;
+        width: 1px;
+        background: linear-gradient(to bottom, transparent, rgba(34, 211, 238, 0.5), transparent);
+        animation: matrix-fall 4s linear infinite;
+      }
+
+      /* Neon Pulse Animation for Mesh Background */
+      @keyframes neon-pulse {
+        0% { opacity: 0.6; filter: drop-shadow(0 0 2px rgba(34, 211, 238, 0.5)); }
+        50% { opacity: 1; filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.9)); }
+        100% { opacity: 0.6; filter: drop-shadow(0 0 2px rgba(34, 211, 238, 0.5)); }
+      }
+      
+      .neon-pulse {
+        animation: neon-pulse 3s ease-in-out infinite;
+      }
+
+      /* SVG Drawing Animation */
+      .draw-path {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+        transition: stroke-dashoffset 1.5s ease-in-out;
+      }
+      
+      .group:hover .draw-path, .group:focus-visible .draw-path {
+        stroke-dashoffset: 0;
+      }
+      
+      /* Holographic Card Border Animation */
+      @keyframes holo-pulse {
+        0% {
+          filter: drop-shadow(0 0 5px rgba(34, 211, 238, 0.6));
+          opacity: 0.8;
+        }
+        50% {
+          filter: drop-shadow(0 0 15px rgba(236, 72, 153, 0.8));
+          opacity: 1;
+        }
+        100% {
+           filter: drop-shadow(0 0 5px rgba(34, 211, 238, 0.6));
+           opacity: 0.8;
+        }
+      }
+
+      /* Card Scanline Animation (CRT Effect) */
+      @keyframes card-scan {
+        0% { top: -100%; opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { top: 200%; opacity: 0; }
+      }
+
+      .card-scan-beam {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 40%;
+        background: linear-gradient(to bottom, transparent, rgba(34, 211, 238, 0.3) 50%, transparent);
+        z-index: 20;
+        pointer-events: none;
+        opacity: 0;
+        top: -100%;
+      }
+
+      .group:hover .card-scan-beam, .group:focus-visible .card-scan-beam {
+        animation: card-scan 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      }
+
+      /* Page Scanline effect */
+      .scanline {
+        width: 100%;
+        height: 200px;
+        z-index: 10;
+        background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(34, 211, 238, 0.05) 50%, rgba(0,0,0,0) 100%);
+        opacity: 0.05;
+        position: absolute;
+        bottom: 100%;
+        animation: scanline 8s linear infinite;
+        pointer-events: none;
+      }
+      @keyframes scanline {
+        0% { bottom: 100%; }
+        100% { bottom: -200px; }
+      }
+
+      /* GLITCH EFFECT */
+      .glitch {
+        position: relative;
+      }
+      .glitch::before,
+      .glitch::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+      .glitch::before {
+        left: 2px;
+        text-shadow: -1px 0 red;
+        clip: rect(44px, 450px, 56px, 0);
+        animation: glitch-anim-1 2s infinite linear alternate-reverse;
+      }
+      .glitch::after {
+        left: -2px;
+        text-shadow: -1px 0 blue;
+        clip: rect(44px, 450px, 56px, 0);
+        animation: glitch-anim-2 2s infinite linear alternate-reverse;
+      }
+
+      @keyframes glitch-anim-1 {
+        0% { clip: rect(20px, 9999px, 10px, 0); }
+        20% { clip: rect(60px, 9999px, 80px, 0); }
+        40% { clip: rect(10px, 9999px, 50px, 0); }
+        60% { clip: rect(90px, 9999px, 20px, 0); }
+        80% { clip: rect(30px, 9999px, 70px, 0); }
+        100% { clip: rect(50px, 9999px, 40px, 0); }
+      }
+
+      @keyframes glitch-anim-2 {
+        0% { clip: rect(90px, 9999px, 20px, 0); }
+        20% { clip: rect(10px, 9999px, 50px, 0); }
+        40% { clip: rect(50px, 9999px, 10px, 0); }
+        60% { clip: rect(20px, 9999px, 80px, 0); }
+        80% { clip: rect(70px, 9999px, 30px, 0); }
+        100% { clip: rect(40px, 9999px, 60px, 0); }
+      }
+    </style>
+
+
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0"
+  }
+}
+</script>
+  <script type="module" crossorigin src="./assets/index-C2TXlxbu.js"></script>
+</head>
+  <body>
+    <div class="bg-noise"></div>
+    <div class="bg-stars"></div>
+    <div class="vignette"></div>
+    <div id="root"></div>
+</body>
+</html>
